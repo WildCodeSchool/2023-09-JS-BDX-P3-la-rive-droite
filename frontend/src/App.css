@@ -1,0 +1,114 @@
+:root {
+  /* Couleurs du thème */
+  --main-color: #c91f61;
+  --second-color: #851442;
+  --background-input: #fcf5f7;
+  /* Couleurs des titres. */
+  --first-title-color: #fff;
+  --second-title-color: #000000;
+  --third-title-color: var(--second-title-color);
+  /* Couleurs des textes */
+  --texte-default: black;
+  --text-btn: #fff;
+  --entreprise-name: var(--second-color);
+  --input-text: var(--second-color);
+  --text-exemple: #9a9999;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-decoration: none;
+  font-family: "Jost", sans-serif;
+  box-sizing: border-box;
+}
+
+body {
+  position: relative;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1em;
+}
+
+.img-fluid {
+  width: 100%;
+  height: auto;
+}
+/* Input style */
+.background-input {
+  background-color: var(--background-input);
+  padding: 15px 20px;
+  border-radius: 7px;
+  border: none;
+  color: var(--second-color);
+  font-size: 16px;
+  font-weight: 500;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.label-champs {
+  font-weight: 500;
+  color: var(--third-title-color);
+  text-transform: uppercase;
+  font-size: 16px;
+}
+/* Style des boutons */
+.submit-btn {
+  background-color: var(--second-color);
+  color: var(--text-btn);
+  padding: 20px 30px;
+  border: 0;
+  border-radius: 7px;
+  text-transform: uppercase;
+  font-weight: 500;
+  font-size: 20px;
+  width: 90%;
+}
+
+/* Style des paragraphes*/
+.p-description {
+  line-height: 1.6;
+}
+
+.p-checkbox {
+  color: var(--text-exemple);
+  font-weight: 300;
+}
+
+/* Style interface Login */
+.login-title {
+  font-size: 36px;
+  color: var(--second-title-color);
+}
+
+/* Style des titres */
+.first-title-white {
+  font-size: 36px;
+  color: var(--first-title-color);
+}
+.first-title-black {
+  font-size: 30px;
+  color: var(--second-title-color);
+  font-weight: 600;
+}
+
+/* Style du profil user */
+
+.name-user {
+  font-size: 30px;
+  color: black;
+  font-weight: 600;
+}
+
+.title-add-something {
+  font-size: 24px;
+  color: var(--second-title-color);
+  font-weight: 500;
+}
