@@ -1,29 +1,3 @@
-:root {
-  /* Couleurs du thème */
-  --main-color: #c91f61;
-  --second-color: #851442;
-  --background-input: #fcf5f7;
-  /* Couleurs des titres. */
-  --first-title-color: #fff;
-  --second-title-color: #000000;
-  --third-title-color: var(--second-title-color);
-  /* Couleurs des textes */
-  --texte-default: black;
-  --text-btn: #fff;
-  --entreprise-name: var(--second-color);
-  --input-text: var(--second-color);
-  --text-exemple: #9a9999;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  text-decoration: none;
-  font-family: "Jost", sans-serif;
-  box-sizing: border-box;
-}
-
 body {
   position: relative;
   overflow-x: hidden;

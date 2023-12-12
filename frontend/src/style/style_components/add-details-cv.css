@@ -1,0 +1,16 @@
+.add-details-button {
+  display: flex;
+  justify-content: space-between;
+}
+
+.add-details-button > p {
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--text-default);
+}
+
+.add-details-button > i {
+  font-size: 25px;
+  color: var(--second-color);
+  cursor: pointer;
+}

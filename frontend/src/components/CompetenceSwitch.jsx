@@ -1,6 +1,6 @@
 import React from "react";
-// Styles.
 import "../style/style_components/competence-switch.css";
+import "../style/style_components/default-settings.css";
 
 function CompetenceSwitch() {
   return (
