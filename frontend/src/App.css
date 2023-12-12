@@ -40,25 +40,7 @@ body {
   width: 100%;
   height: auto;
 }
-/* Input style */
-.background-input {
-  background-color: var(--background-input);
-  padding: 15px 20px;
-  border-radius: 7px;
-  border: none;
-  color: var(--second-color);
-  font-size: 16px;
-  font-weight: 500;
-  width: 100%;
-  margin-top: 10px;
-}
 
-.label-champs {
-  font-weight: 500;
-  color: var(--third-title-color);
-  text-transform: uppercase;
-  font-size: 16px;
-}
 /* Style des boutons */
 .submit-btn {
   background-color: var(--second-color);
