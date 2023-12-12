@@ -1,7 +1,4 @@
-.container-input {
-  margin: 10px 0px;
-}
-.background-input {
+.date-background {
   background-color: var(--background-input);
   padding: 15px 20px;
   border-radius: 7px;
@@ -13,7 +10,7 @@
   margin-top: 5px;
 }
 
-.label-champs {
+.label-champs-date {
   font-weight: 500;
   color: var(--third-title-color);
   text-transform: uppercase;
@@ -21,12 +18,7 @@
   margin-bottom: 20px;
 }
 
-.champs-form label {
-  margin-bottom: 5px;
-  display: inline-block;
-}
-
-::placeholder {
-  color: var(--text-exemple);
-  font-style: italic;
+.container-date {
+  width: 95%;
+  margin: 30px 5px 10px 5px;
 }

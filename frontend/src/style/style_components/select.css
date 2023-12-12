@@ -1,7 +1,4 @@
-.container-input {
-  margin: 10px 0px;
-}
-.background-input {
+.select-background {
   background-color: var(--background-input);
   padding: 15px 20px;
   border-radius: 7px;
@@ -13,20 +10,18 @@
   margin-top: 5px;
 }
 
-.label-champs {
+.label-select {
   font-weight: 500;
   color: var(--third-title-color);
   text-transform: uppercase;
   font-size: 16px;
-  margin-bottom: 20px;
-}
-
-.champs-form label {
+  margin-bottom: 200px;
+  margin-top: 15px;
   margin-bottom: 5px;
   display: inline-block;
 }
 
-::placeholder {
-  color: var(--text-exemple);
-  font-style: italic;
+.container-select {
+  width: 95%;
+  margin: 30px 5px 10px 5px;
 }

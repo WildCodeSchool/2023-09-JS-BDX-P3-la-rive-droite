@@ -1,3 +1,5 @@
+import "../style/style_components/checkbox-conditions.css";
+
 function CheckboxCondition() {
   return (
     <div>

@@ -4,7 +4,6 @@ import CompetenceSwitch from "./components/CompetenceSwitch";
 import Login from "./pages/LogIn";
 import SignIn from "./pages/SignIn";
 import "./App.css";
-
 import "./style/style_components/default-settings.css";
 
 function App() {
