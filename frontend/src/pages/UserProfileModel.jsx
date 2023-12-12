@@ -1,4 +1,3 @@
-import "../style/style_components/button-maxi.css";
 import Title from "../components/Title";
 import HeaderLongUser from "../components/HeaderLongUser";
 import Input from "../components/Input";
@@ -9,12 +8,17 @@ function UserProfileUser() {
     <div className="user-profile-page">
       <HeaderLongUser />
       <div>
-        <Title />
-        <Input />
-        <Input />
-        <Input />
-        <Input />
-        <Input />
+        <Title titleText="Vos coordonnées" holderText="coucou" />
+        <Input titleInput="Nom *" />
+        <Input titleInput="Prénom *" />
+        <Input titleInput="Email *" />
+        <Input titleInput="Mot de passe *" />
+        <Input titleInput="Téléphone *" />
+        <Input titleInput="Addresse *" />
+        <h3> Votre CV </h3>
+        <div className="add-cv">
+          <i className="fa-solid fa-plus" />
+        </div>
         <ButtonMaxi />
       </div>
     </div>
