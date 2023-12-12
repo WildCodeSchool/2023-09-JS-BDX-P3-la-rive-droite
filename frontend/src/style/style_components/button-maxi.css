@@ -15,3 +15,7 @@
 .submit-btn-maxi:hover {
   transform: scale(0.9);
 }
+
+.submit-btn-maxi.pink {
+  background-color: var(--main-color);
+}
