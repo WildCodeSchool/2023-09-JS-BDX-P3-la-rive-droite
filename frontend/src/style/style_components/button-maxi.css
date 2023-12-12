@@ -1,0 +1,11 @@
+.submit-btn-maxi {
+  background-color: var(--second-color);
+  color: var(--text-btn);
+  padding: 20px 30px;
+  border: 0;
+  border-radius: 7px;
+  text-transform: uppercase;
+  font-weight: 500;
+  font-size: 20px;
+  width: 100%;
+}
