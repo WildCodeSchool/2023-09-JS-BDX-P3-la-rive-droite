@@ -1,13 +1,5 @@
-import "./App.css";
-import CompetenceSwitch from "./components/CompetenceSwitch";
-
 function App() {
-  return (
-    <div>
-      <p>Hello</p>
-      <CompetenceSwitch />
-    </div>
-  );
+  return <div>Hello</div>;
 }
 
 export default App;
