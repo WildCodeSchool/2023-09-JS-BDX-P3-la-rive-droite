@@ -1,9 +1,8 @@
 import "./App.css";
-
 import "./style/style_components/default-settings.css";
 
 function App() {
-  return <div>HEllo</div>;
+  return <div>Hello</div>;
 }
 
 export default App;
