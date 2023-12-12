@@ -1,7 +1,7 @@
-import "../style/style_pages/login-signin.css";
-import "../style/style_components/button-maxi.css";
 import Input from "../components/Input";
 import ButtonMaxi from "../components/ButtonMaxi";
+import "../style/style_pages/login-signin.css";
+import "../style/style_components/button-maxi.css";
 
 function Login() {
   return (
