@@ -1,0 +1,29 @@
+.container-login {
+  padding-top: 60px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-top-left-radius: 60px 60px;
+  border-top-right-radius: 60px 60px;
+  background-color: white;
+  width: 100%;
+}
+
+.container-login h1 {
+  font-size: 43px;
+}
+
+span {
+  color: var(--second-color);
+  font-weight: 500;
+}
+
+.header-login {
+  background-color: var(--main-color);
+  height: 250px;
+  position: relative;
+}
+.small-paragraphe-info {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+}
