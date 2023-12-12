@@ -1,10 +1,10 @@
-import "../style/style_pages/login-signin.css";
-import "../style/style_components/button-maxi.css";
-import "../style/style_components/checkbox-conditions.css";
 import Input from "../components/Input";
 import ButtonMaxi from "../components/ButtonMaxi";
 import CheckboxCondition from "../components/CheckboxCondition";
 import ButtonMini from "../components/ButtonMini";
+import "../style/style_pages/login-signin.css";
+import "../style/style_components/button-maxi.css";
+import "../style/style_components/checkbox-conditions.css";
 
 function SignIn() {
   return (
