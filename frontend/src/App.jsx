@@ -1,7 +1,7 @@
-import "./App.css";
+import HeaderLongUser from "./components/HeaderLongUser";
 
 function App() {
-  return <div> Hello</div>;
+  return <HeaderLongUser />;
 }
 
 export default App;
