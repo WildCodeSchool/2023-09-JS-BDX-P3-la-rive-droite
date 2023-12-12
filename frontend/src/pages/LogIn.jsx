@@ -11,10 +11,10 @@ function Login() {
         <form>
           <div className="champs-form">
             <div>
-              <Input />
-              <Input />
-              <Input />
-              <ButtonMaxi />
+              <Input titleInput="Nom d'utilisateur" holderText="David" />
+              <Input titleInput="E-mail" holderText="john.doe@externatic.fr" />
+              <Input titleInput="Mot de passe" holderText="************" />
+              <ButtonMaxi textBtn="Se connecter" />
             </div>
           </div>
         </form>
