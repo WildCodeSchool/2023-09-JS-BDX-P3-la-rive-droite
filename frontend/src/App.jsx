@@ -1,4 +1,5 @@
 import "./App.css";
+
 import "./style/style_components/default-settings.css";
 import UserProfileModel from "./pages/UserProfileModel";
 
