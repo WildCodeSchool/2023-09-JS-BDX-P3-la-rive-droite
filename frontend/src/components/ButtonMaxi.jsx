@@ -4,8 +4,7 @@ function ButtonMaxi() {
   return (
     <div>
       <button className="submit-btn-maxi" type="submit">
-        {" "}
-        Test button maxi{" "}
+        Test button maxi
       </button>
     </div>
   );
