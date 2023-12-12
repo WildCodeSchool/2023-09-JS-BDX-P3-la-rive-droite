@@ -1,7 +1,7 @@
-import HeaderLongUser from "./components/HeaderLongUser";
+import HeaderLong from "./components/HeaderLong";
 
 function App() {
-  return <HeaderLongUser />;
+  return <HeaderLong />;
 }
 
 export default App;
