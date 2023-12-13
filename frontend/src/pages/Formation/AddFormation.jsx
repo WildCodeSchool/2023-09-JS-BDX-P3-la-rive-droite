@@ -2,6 +2,7 @@ import ButtonMaxi from "../../components/Boutons/ButtonMaxi";
 import Date from "../../components/Inputs/Date";
 import Input from "../../components/Inputs/Input";
 import Select from "../../components/Inputs/Select";
+import TextArea from "../../components/Inputs/TextArea";
 
 function AddFormation() {
   return (
@@ -16,7 +17,10 @@ function AddFormation() {
       />
       <Date titleCalendar="Date de début *" />
       <Date titleCalendar="Date de fin *" />
-      <Input inputType="textarea" />
+      <TextArea
+        titleInput="Description de la formation *"
+        holderText="Lorem ipsum dolor si amet"
+      />
       <ButtonMaxi textBtn="Ajouter une formation" />
     </div>
   );

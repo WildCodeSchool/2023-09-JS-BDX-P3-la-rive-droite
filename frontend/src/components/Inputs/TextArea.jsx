@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
-import "./input.css";
+import "./text-area.css";
 
-function Input({ titleInput, holderText }) {
+function TextArea({ titleInput, holderText }) {
   return (
     <div className="container-input">
       <form>
@@ -12,9 +12,8 @@ function Input({ titleInput, holderText }) {
             </label>
           </div>
           <div>
-            <input
+            <textarea
               className="background-input"
-              type="text"
               id="name"
               placeholder={holderText ?? "Texte du placeholder"}
             />
@@ -25,9 +24,9 @@ function Input({ titleInput, holderText }) {
   );
 }
 
-Input.propTypes = {
+TextArea.propTypes = {
   titleInput: PropTypes.string.isRequired,
   holderText: PropTypes.string.isRequired,
 };
 
-export default Input;
+export default TextArea;
