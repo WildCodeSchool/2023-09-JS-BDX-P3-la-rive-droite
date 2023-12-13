@@ -1,4 +1,4 @@
-import "../style/style_components/header-long.css";
+import "./header-long.css";
 
 function HeaderLong() {
   return (

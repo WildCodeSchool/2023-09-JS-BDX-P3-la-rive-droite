@@ -1,4 +1,4 @@
-import "../style/style_components/button-mini.css";
+import "./button-mini.css";
 
 function ButtonMini() {
   return (

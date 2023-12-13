@@ -1,4 +1,4 @@
-import "../style/style_components/header-long-title.css";
+import "./header-long-title.css";
 
 function HeaderLongTitle() {
   return (

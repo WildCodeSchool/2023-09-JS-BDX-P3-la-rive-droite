@@ -1,7 +1,7 @@
-import Input from "../components/Input";
-import ButtonMaxi from "../components/ButtonMaxi";
-import "../style/style_pages/login-signin.css";
-import "../style/style_components/button-maxi.css";
+import Input from "../../components/Inputs/Input";
+import ButtonMaxi from "../../components/Boutons/ButtonMaxi";
+import "../../components/Inputs/input.css";
+import "../../components/Boutons/button-maxi.css";
 
 function Login() {
   return (
@@ -11,7 +11,6 @@ function Login() {
         <form>
           <div className="champs-form">
             <div>
-              <Input titleInput="Nom d'utilisateur" holderText="David" />
               <Input titleInput="E-mail" holderText="john.doe@externatic.fr" />
               <Input titleInput="Mot de passe" holderText="************" />
               <ButtonMaxi textBtn="Se connecter" />

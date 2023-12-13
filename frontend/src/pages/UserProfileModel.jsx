@@ -1,7 +1,7 @@
-import Title from "../components/Title";
-import HeaderLongUser from "../components/HeaderLongUser";
-import Input from "../components/Input";
-import ButtonMaxi from "../components/ButtonMaxi";
+import Title from "../components/Titles/Title";
+import HeaderLongUser from "../components/Headers/HeaderLong";
+import Input from "../components/Inputs/Input";
+import ButtonMaxi from "../components/Boutons/ButtonMaxi";
 
 function UserProfileUser() {
   return (

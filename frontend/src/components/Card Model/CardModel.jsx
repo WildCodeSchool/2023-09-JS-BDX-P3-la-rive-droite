@@ -1,4 +1,4 @@
-import "../style/style_components/card-model.css";
+import "./card-model.css";
 
 function CardModel() {
   return (

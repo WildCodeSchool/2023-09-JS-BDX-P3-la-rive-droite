@@ -1,6 +1,6 @@
 import React from "react";
-import "../style/style_components/add-details-cv.css";
-import "../style/style_components/default-settings.css";
+import "./add-something.css";
+import "../../default-settings.css";
 
 function AddDetailsCV() {
   return (
