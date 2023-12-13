@@ -1,5 +1,4 @@
-import React from "react";
-
-export default function AddFormation() {
-  return <div>AddFormation</div>;
+function AddFormation() {
+  return <div>Page Add formation</div>;
 }
+export default AddFormation;
