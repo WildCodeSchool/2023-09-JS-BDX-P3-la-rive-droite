@@ -4,6 +4,7 @@ import HeaderLongUser from "../../components/Headers/HeaderLongUser";
 import Input from "../../components/Inputs/Input";
 import ButtonMaxi from "../../components/Boutons/ButtonMaxi";
 import CompetenceSwitch from "../../components/Competence Switch/CompetenceSwitch";
+import AddSomething from "../../components/Add Something/AddSomething";
 
 function UserProfileUser() {
   return window.location.pathname === "/edit-profil" ? (
@@ -27,6 +28,7 @@ function UserProfileUser() {
         <CompetenceSwitch textCompetence="GIT" />
         <CompetenceSwitch textCompetence="GITHUB" />
         <CompetenceSwitch textCompetence="TRELLO" />
+        <AddSomething addDetail="Votre CV" />
         <ButtonMaxi />
       </div>
     </>
