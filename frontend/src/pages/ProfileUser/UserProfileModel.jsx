@@ -1,3 +1,4 @@
+import { Outlet } from "react-router-dom";
 import Title from "../../components/Titles/Title";
 import HeaderLongUser from "../../components/Headers/HeaderLongUser";
 import Input from "../../components/Inputs/Input";
@@ -5,10 +6,10 @@ import ButtonMaxi from "../../components/Boutons/ButtonMaxi";
 import CompetenceSwitch from "../../components/Competence Switch/CompetenceSwitch";
 
 function UserProfileUser() {
-  return (
-    <div className="user-profile-page">
+  return window.location.pathname === "/edit-profil" ? (
+    <>
       <HeaderLongUser />
-      <div>
+      <div className="container-page">
         <Title titleText="Vos coordonnées" />
         <Input titleInput="Nom *" holderText="Votre nom" />
         <Input titleInput="Prénom *" holderText="Votre prénom" />
@@ -28,6 +29,10 @@ function UserProfileUser() {
         <CompetenceSwitch textCompetence="TRELLO" />
         <ButtonMaxi />
       </div>
+    </>
+  ) : (
+    <div>
+      <Outlet />
     </div>
   );
 }
