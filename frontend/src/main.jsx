@@ -9,6 +9,7 @@ import UserProfileModel from "./pages/ProfileUser/UserProfileModel";
 import CreateCV from "./pages/CV/CreateCV";
 import AddExperience from "./pages/Experience/AddExperience";
 import AddFormation from "./pages/Formation/AddFormation";
+import History from "./pages/Historique/History";
 
 const router = createBrowserRouter([
   {
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
             element: <AddFormation />,
           },
         ],
+      },
+      {
+        path: "/historique",
+        element: <History />,
       },
     ],
   },

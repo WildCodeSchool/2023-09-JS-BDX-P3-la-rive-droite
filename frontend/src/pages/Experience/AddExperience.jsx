@@ -9,7 +9,6 @@ import TextArea from "../../components/Inputs/TextArea";
 function AddExperience() {
   return (
     <div className="container-page-experience">
-      <h1>Ajouter une expérience</h1>
       <div>
         <div className="offre-container">
           <h1>Ajouter une expérience</h1>

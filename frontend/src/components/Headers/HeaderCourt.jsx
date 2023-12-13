@@ -1,17 +1,15 @@
 import "./header.css";
 
-function HeaderLongTitle() {
+function HeaderCourt() {
   return (
     <header className="header">
       <nav>
         <i className="fa-solid fa-arrow-left" />
         <i className="fa-solid fa-bars" />
       </nav>
-      <div className="header-content">
-        <h1>Création de votre compte</h1>
-      </div>
+      <div className="header-content" />
     </header>
   );
 }
 
-export default HeaderLongTitle;
+export default HeaderCourt;

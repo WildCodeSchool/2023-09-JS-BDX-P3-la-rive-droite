@@ -1,25 +1,20 @@
-import "./header-long-user.css";
+import "./header.css";
 
 function HeaderLongUser() {
   return (
-    <div className="header">
-      <div className="container-header">
-        <div className="back">
-          <i className="fa-solid fa-arrow-left" />
+    <header className="header with-round-bottom">
+      <nav>
+        <i className="fa-solid fa-arrow-left" />
+        <i className="fa-solid fa-bars" />
+      </nav>
+      <div className="header-content user">
+        <div className="profile-img-container">
+          <img src="/src/assets/no-profile.jpg" alt="" />
         </div>
-        <div className="user">
-          <i className="fa-solid fa-circle-user" />
-        </div>
-        <div>
-          <button className="modify" type="button">
-            Modifier
-          </button>
-        </div>
-        <div>
-          <h1 className="titre">Votre prénom et Nom</h1>
-        </div>
+        <button type="button">Modifier</button>
+        <h1>Marie Delaire</h1>
       </div>
-    </div>
+    </header>
   );
 }
 
