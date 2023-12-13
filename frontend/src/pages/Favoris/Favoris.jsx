@@ -1,17 +1,17 @@
 import HeaderLongTitreSsTitre from "../../components/Headers/HeaderLongTitreSsTitre";
-import CardModel from "../../components/CardModel/CardHistory";
+import CardFavoris from "../../components/CardModel/CardFavoris";
 
 function History() {
   return (
     <>
       <HeaderLongTitreSsTitre />
       <div className="container-page">
-        <CardModel />
-        <CardModel />
-        <CardModel />
-        <CardModel />
-        <CardModel />
-        <CardModel />
+        <CardFavoris />
+        <CardFavoris />
+        <CardFavoris />
+        <CardFavoris />
+        <CardFavoris />
+        <CardFavoris />
       </div>
     </>
   );

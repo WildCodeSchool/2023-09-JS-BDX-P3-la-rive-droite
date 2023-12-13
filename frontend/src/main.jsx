@@ -11,6 +11,8 @@ import AddExperience from "./pages/Experience/AddExperience";
 import AddFormation from "./pages/Formation/AddFormation";
 import History from "./pages/Historique/History";
 import JobPosteDelail from "./pages/JobPosteDetail/JobPosteDetail";
+import Home from "./pages/Home/Home";
+import Favoris from "./pages/Favoris/Favoris";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +22,14 @@ const router = createBrowserRouter([
       {
         path: "/inscription",
         element: <SignIn />,
+      },
+      {
+        path: "/home",
+        element: <Home />,
+      },
+      {
+        path: "/favoris",
+        element: <Favoris />,
       },
       {
         path: "/connexion",
