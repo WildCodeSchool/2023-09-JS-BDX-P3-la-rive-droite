@@ -2,7 +2,6 @@ import Title from "../components/Title";
 import HeaderLongUser from "../components/HeaderLongUser";
 import Input from "../components/Input";
 import ButtonMaxi from "../components/ButtonMaxi";
-import AddDetailsCV from "../components/AddDetailsCV";
 
 function UserProfileUser() {
   return (
@@ -16,7 +15,6 @@ function UserProfileUser() {
         <Input titleInput="Mot de passe *" />
         <Input titleInput="Téléphone *" />
         <Input titleInput="Addresse *" />
-        <AddDetailsCV />
         <ButtonMaxi />
       </div>
     </div>
