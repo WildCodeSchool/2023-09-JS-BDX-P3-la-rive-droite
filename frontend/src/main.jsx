@@ -10,6 +10,7 @@ import CreateCV from "./pages/CV/CreateCV";
 import AddExperience from "./pages/Experience/AddExperience";
 import AddFormation from "./pages/Formation/AddFormation";
 import History from "./pages/Historique/History";
+import JobPosteDelail from "./pages/JobPosteDetail/JobPosteDetail";
 
 const router = createBrowserRouter([
   {
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
       {
         path: "/connexion",
         element: <LogIn />,
+      },
+      {
+        path: "/job",
+        element: <JobPosteDelail />,
       },
       {
         path: "/edit-profil",
