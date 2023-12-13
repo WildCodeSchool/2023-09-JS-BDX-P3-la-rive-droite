@@ -2,6 +2,7 @@ import Title from "../../components/Titles/Title";
 import HeaderLongUser from "../../components/Headers/HeaderLongUser";
 import Input from "../../components/Inputs/Input";
 import ButtonMaxi from "../../components/Boutons/ButtonMaxi";
+import CompetenceSwitch from "../../components/Competence Switch/CompetenceSwitch";
 
 function UserProfileUser() {
   return (
@@ -15,6 +16,7 @@ function UserProfileUser() {
         <Input titleInput="Mot de passe *" holderText="Mot de passe" />
         <Input titleInput="Téléphone *" holderText="Numéro de téléphone" />
         <Input titleInput="Addresse *" holderText="Adresse" />
+        <CompetenceSwitch />
         <ButtonMaxi />
       </div>
     </div>
