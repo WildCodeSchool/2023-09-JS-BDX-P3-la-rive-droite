@@ -1,4 +1,4 @@
-import "../style/style_components/header-long-user.css";
+import "./header-long-user.css";
 
 function HeaderLongUser() {
   return (

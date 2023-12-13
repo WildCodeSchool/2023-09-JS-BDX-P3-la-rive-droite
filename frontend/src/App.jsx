@@ -1,11 +1,10 @@
 import "./App.css";
-import "./style/style_components/default-settings.css";
-import UserProfileModel from "./pages/UserProfileModel";
+import AddExperience from "./pages/Experience/AddExperience";
 
 function App() {
   return (
     <div>
-      <UserProfileModel />
+      <AddExperience />
     </div>
   );
 }

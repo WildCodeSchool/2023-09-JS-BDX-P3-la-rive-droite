@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import "../style/style_components/button-maxi.css";
+import "./button-maxi.css";
 
 function ButtonMaxi({ textBtn }) {
   return (

@@ -1,4 +1,4 @@
-import "../style/style_components/date.css";
+import "./date.css";
 
 function Date() {
   return (
