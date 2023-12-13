@@ -3,6 +3,10 @@
   padding: 0;
 }
 
+.header {
+  position: fixed;
+}
+
 .container-header {
   display: flex;
   justify-content: space-between;

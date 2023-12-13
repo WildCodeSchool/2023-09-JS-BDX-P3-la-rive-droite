@@ -15,12 +15,16 @@ function SignIn() {
         <form>
           <div className="champs-form">
             <div>
-              <Input />
-              <Input />
-              <CheckboxCondition />
-              <CheckboxCondition />
-              <CheckboxCondition />
-              <ButtonMaxi />
+              <Input titleInput="Nom d'utilisateur" holderText="John Doe" />
+              <Input titleInput="E-mail" holderText="john.doe@externatic.fr" />
+              <Input titleInput="Mot de passe" holderText="************" />
+              <Input
+                titleInput="Confirmer le mot de passe"
+                holderText="************"
+              />
+              <CheckboxCondition textCondition="J'accepte les conditions d'" />
+              <CheckboxCondition textCondition="Je veux créer ou télécharger mon cv maintenant !" />
+              <ButtonMaxi textBtn="S'inscrire" />
               <ButtonMini />
             </div>
           </div>
