@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import "./input.css";
 
-function Input({ titleInput, holderText }) {
+function Input({ titleInput, holderText, inputType }) {
   return (
     <div className="container-input">
       <form>
@@ -14,7 +14,7 @@ function Input({ titleInput, holderText }) {
           <div>
             <input
               className="background-input"
-              type="text"
+              type={inputType}
               id="name"
               placeholder={holderText ?? "Texte du placeholder"}
             />
@@ -28,6 +28,7 @@ function Input({ titleInput, holderText }) {
 Input.propTypes = {
   titleInput: PropTypes.string.isRequired,
   holderText: PropTypes.string.isRequired,
+  inputType: PropTypes.string.isRequired,
 };
 
 export default Input;
