@@ -1,13 +1,13 @@
 import "./job-poste-detail.css";
 import ButtonMaxi from "../../components/Boutons/ButtonMaxi";
 import ButtonMaxiPink from "../../components/Boutons/ButtonMaxiPink";
-import HeaderLong from "../../components/Headers/HeaderLong";
+import HeaderCourt from "../../components/Headers/HeaderCourt";
 
 function JobPosteDetail() {
   return (
     <>
       <div>
-        <HeaderLong />
+        <HeaderCourt />
       </div>
       <div className="container-page-offre">
         <div>

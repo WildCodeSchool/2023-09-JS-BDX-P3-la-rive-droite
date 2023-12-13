@@ -1,15 +1,15 @@
 import { Outlet } from "react-router-dom";
 import Title from "../../components/Titles/Title";
-import HeaderLongUser from "../../components/Headers/HeaderLongUser";
 import Input from "../../components/Inputs/Input";
 import ButtonMaxi from "../../components/Boutons/ButtonMaxi";
 import CompetenceSwitch from "../../components/Competence Switch/CompetenceSwitch";
 import AddSomething from "../../components/Add Something/AddSomething";
+import HeaderLongResearch from "../../components/Headers/HeaderLongResearch";
 
 function UserProfileUser() {
   return window.location.pathname === "/edit-profil" ? (
     <>
-      <HeaderLongUser />
+      <HeaderLongResearch />
       <div className="container-page">
         <Title titleText="Vos coordonnées" />
         <Input titleInput="Nom *" holderText="Votre nom" showInput />

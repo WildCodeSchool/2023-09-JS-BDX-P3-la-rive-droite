@@ -4,7 +4,7 @@ border-radius 24%
 */
 
 .header {
-  color: white;
+  color: var(--first-title-color);
   background-color: var(--main-color);
   padding-bottom: 50px;
 }
