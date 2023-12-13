@@ -16,14 +16,16 @@ function UserProfileUser() {
         <Input titleInput="Mot de passe *" holderText="Mot de passe" />
         <Input titleInput="Téléphone *" holderText="Numéro de téléphone" />
         <Input titleInput="Addresse *" holderText="Adresse" />
-        <CompetenceSwitch />
-        <CompetenceSwitch />
-        <CompetenceSwitch />
-        <CompetenceSwitch />
-        <CompetenceSwitch />
-        <CompetenceSwitch />
-        <CompetenceSwitch />
-        <CompetenceSwitch />
+        <CompetenceSwitch textCompetence="HTML" />
+        <CompetenceSwitch textCompetence="CSS" />
+        <CompetenceSwitch textCompetence="JAVASCRIPT" />
+        <CompetenceSwitch textCompetence="ANGULAR" />
+        <CompetenceSwitch textCompetence="REACT.JS" />
+        <CompetenceSwitch textCompetence="PHP" />
+        <CompetenceSwitch textCompetence="SYMPHONY" />
+        <CompetenceSwitch textCompetence="GIT" />
+        <CompetenceSwitch textCompetence="GITHUB" />
+        <CompetenceSwitch textCompetence="TRELLO" />
         <ButtonMaxi />
       </div>
     </div>
