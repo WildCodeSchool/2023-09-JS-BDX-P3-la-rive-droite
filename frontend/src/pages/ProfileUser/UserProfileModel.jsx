@@ -12,12 +12,21 @@ function UserProfileUser() {
       <HeaderLongUser />
       <div className="container-page">
         <Title titleText="Vos coordonnées" />
-        <Input titleInput="Nom *" holderText="Votre nom" />
-        <Input titleInput="Prénom *" holderText="Votre prénom" />
-        <Input titleInput="Email *" holderText="Email" />
-        <Input titleInput="Mot de passe *" holderText="Mot de passe" />
-        <Input titleInput="Téléphone *" holderText="Numéro de téléphone" />
-        <Input titleInput="Addresse *" holderText="Adresse" />
+        <Input titleInput="Nom *" holderText="Votre nom" showInput />
+        <Input titleInput="Prénom *" holderText="Votre prénom" showInput />
+        <Input titleInput="Email *" holderText="Email" showInput />
+        <Input
+          titleInput="Mot de passe *"
+          holderText="Mot de passe"
+          showInput
+        />
+        <Input
+          titleInput="Téléphone *"
+          holderText="Numéro de téléphone"
+          showInput
+        />
+        <Input titleInput="Addresse *" holderText="Adresse" showInput />
+        <Input titleInput="COMPÉTENCES *" showInput={false} />
         <CompetenceSwitch textCompetence="HTML" />
         <CompetenceSwitch textCompetence="CSS" />
         <CompetenceSwitch textCompetence="JAVASCRIPT" />

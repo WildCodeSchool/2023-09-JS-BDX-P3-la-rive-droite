@@ -17,11 +17,11 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       {
-        path: "/inscription",
+        path: "/signin",
         element: <SignIn />,
       },
       {
-        path: "/connexion",
+        path: "/login",
         element: <LogIn />,
       },
       {
@@ -43,7 +43,7 @@ const router = createBrowserRouter([
         ],
       },
       {
-        path: "/historique",
+        path: "/history",
         element: <History />,
       },
     ],
