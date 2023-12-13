@@ -1,3 +1,4 @@
+import { Outlet } from "react-router-dom";
 import Title from "../../components/Titles/Title";
 import HeaderLongUser from "../../components/Headers/HeaderLongUser";
 import Input from "../../components/Inputs/Input";
@@ -5,7 +6,7 @@ import ButtonMaxi from "../../components/Boutons/ButtonMaxi";
 import CompetenceSwitch from "../../components/Competence Switch/CompetenceSwitch";
 
 function UserProfileUser() {
-  return (
+  return window.location.pathname === "/edit-profil" ? (
     <div className="user-profile-page">
       <HeaderLongUser />
       <div>
@@ -19,6 +20,10 @@ function UserProfileUser() {
         <CompetenceSwitch />
         <ButtonMaxi />
       </div>
+    </div>
+  ) : (
+    <div>
+      <Outlet />
     </div>
   );
 }

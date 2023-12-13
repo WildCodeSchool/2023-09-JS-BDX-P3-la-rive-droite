@@ -1,11 +1,14 @@
 import React from "react";
+import PropTypes from "prop-types";
 import "./competence-switch.css";
 import "../../default-settings.css";
 
-function CompetenceSwitch() {
+function CompetenceSwitch({ textCompetence }) {
   return (
     <div className="competence-line">
-      <p className="label-champs">JavaScript.</p>
+      <p className="label-champs">
+        {textCompetence ?? "La valeur n'est pas définit."}
+      </p>
       <label className="switch">
         _
         <input type="checkbox" />
@@ -14,5 +17,9 @@ function CompetenceSwitch() {
     </div>
   );
 }
+
+CompetenceSwitch.propTypes = {
+  textCompetence: PropTypes.string.isRequired,
+};
 
 export default CompetenceSwitch;
