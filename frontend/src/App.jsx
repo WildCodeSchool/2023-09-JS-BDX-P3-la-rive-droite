@@ -6,6 +6,7 @@ import SignIn from "./pages/SignIn";
 import "./App.css";
 
 import "./style/style_components/default-settings.css";
+import Favorite from "./pages/Favorite";
 
 function App() {
   return (
@@ -16,6 +17,8 @@ function App() {
       <CompetenceSwitch />
       <Login />
       <SignIn />
+      <h2>Test :</h2>
+      <Favorite />
     </div>
   );
 }
