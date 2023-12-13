@@ -1,16 +1,17 @@
 import Input from "../../components/Inputs/Input";
 import ButtonMaxi from "../../components/Boutons/ButtonMaxi";
 import CheckboxCondition from "../../components/Inputs/CheckboxCondition";
-import ButtonMini from "../../components/Boutons/ButtonMini";
 import "./login-signin.css";
 import "../../components/Inputs/input.css";
 import "../../components/Boutons/button-maxi.css";
 import "../../components/Inputs/checkbox-conditions.css";
+import HeaderLongTitle from "../../components/Headers/HeaderLongTitle";
 
 function SignIn() {
   return (
-    <div className="container-general-login">
-      <div className="container-login">
+    <>
+      <HeaderLongTitle />
+      <div className="container-page container-general-login">
         <h1>S'inscrire</h1>
         <form>
           <div className="champs-form">
@@ -25,7 +26,6 @@ function SignIn() {
               <CheckboxCondition textCondition="J'accepte les conditions d'" />
               <CheckboxCondition textCondition="Je veux créer ou télécharger mon cv maintenant !" />
               <ButtonMaxi textBtn="S'inscrire" />
-              <ButtonMini />
             </div>
           </div>
         </form>
@@ -36,7 +36,7 @@ function SignIn() {
           </p>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 
