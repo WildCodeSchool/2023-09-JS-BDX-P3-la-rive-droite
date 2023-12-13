@@ -1,5 +1,6 @@
-function Title() {
-  return <h1 className="title-page"> Titre </h1>;
+// eslint-disable-next-line react/prop-types
+function Title({ titleText }) {
+  return <h1 className="title-page"> {titleText ?? "undefined"} </h1>;
 }
 
 export default Title;
