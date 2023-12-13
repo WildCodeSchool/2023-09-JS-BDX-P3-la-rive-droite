@@ -16,7 +16,7 @@ function CardModel() {
       </div>
 
       <h2 className="date-poste"> 25/08/2023 au 01/12/2023 </h2>
-      <h3 className="label-champs"> Chef de projet</h3>
+      <h3 className="label-offre"> Chef de projet</h3>
       <h4 className="entreprise-champs"> Inoxia</h4>
       <h5 className="poste-champs">CDI - Bordeaux </h5>
       <p className="p-description ">
