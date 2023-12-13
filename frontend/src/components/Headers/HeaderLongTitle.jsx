@@ -1,7 +1,7 @@
 import "./header-long-title.css";
 import PropTypes from "prop-types";
 
-function HeaderLongTitle({ textTitle }) {
+function HeaderLongTitle({ textTitle, textTitle2 }) {
   return (
     <div className="header">
       <div className="container-header">
@@ -15,7 +15,9 @@ function HeaderLongTitle({ textTitle }) {
           <h1 className="first-title">
             {textTitle ?? "La valeur n'est pas définie"}
           </h1>
-          <h2 className="second-title">Historique</h2>
+          <h2 className="second-title">
+            {textTitle2 ?? "La valeur n'est pas définie"}
+          </h2>
         </div>
       </div>
     </div>
@@ -24,5 +26,6 @@ function HeaderLongTitle({ textTitle }) {
 
 HeaderLongTitle.propTypes = {
   textTitle: PropTypes.string.isRequired,
+  textTitle2: PropTypes.string.isRequired,
 };
 export default HeaderLongTitle;
