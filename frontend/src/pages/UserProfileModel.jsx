@@ -1,5 +1,5 @@
 import Title from "../components/Titles/Title";
-import HeaderLongUser from "../components/Headers/HeaderLong";
+import HeaderLongUser from "../components/Headers/HeaderLongUser";
 import Input from "../components/Inputs/Input";
 import ButtonMaxi from "../components/Boutons/ButtonMaxi";
 
