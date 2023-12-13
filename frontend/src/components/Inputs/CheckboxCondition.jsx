@@ -1,4 +1,4 @@
-import "../style/style_components/checkbox-conditions.css";
+import "./checkbox-conditions.css";
 
 function CheckboxCondition() {
   return (

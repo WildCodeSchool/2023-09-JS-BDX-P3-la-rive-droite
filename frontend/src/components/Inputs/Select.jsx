@@ -1,4 +1,4 @@
-import "../style/style_components/select.css";
+import "./select.css";
 
 function Select() {
   return (

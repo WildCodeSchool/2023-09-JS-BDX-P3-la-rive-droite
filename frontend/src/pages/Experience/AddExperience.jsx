@@ -1,10 +1,10 @@
-import "../style/style_components/add-experience.css";
-import ButtonMaxi from "../components/ButtonMaxi";
-import HeaderLong from "../components/HeaderLong";
-import Input from "../components/Input";
-import Select from "../components/Select";
-import CheckboxCondition from "../components/CheckboxCondition";
-import Date from "../components/Date";
+import "./add-experience.css";
+import ButtonMaxi from "../../components/Boutons/ButtonMaxi";
+import HeaderLong from "../../components/Headers/HeaderLong";
+import Input from "../../components/Inputs/Input";
+import Select from "../../components/Inputs/Select";
+import CheckboxCondition from "../../components/Inputs/CheckboxCondition";
+import Date from "../../components/Inputs/Date";
 
 function AddExperience() {
   return (
@@ -28,7 +28,6 @@ function AddExperience() {
             <Date />
             <Date />
           </div>
-
           <ButtonMaxi />
         </div>
       </div>

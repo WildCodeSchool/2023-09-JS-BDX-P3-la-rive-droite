@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import "../style/style_components/input.css";
+import "./input.css";
 
 function Input({ titleInput, holderText }) {
   return (

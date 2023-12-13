@@ -1,7 +1,7 @@
-import "../style/style_pages/job-poste-detail.css";
-import ButtonMaxi from "../components/ButtonMaxi";
-import ButtonMaxiPink from "../components/ButtonMaxiPink";
-import HeaderLong from "../components/HeaderLong";
+import "./job-poste-detail.css";
+import ButtonMaxi from "../../components/Boutons/ButtonMaxi";
+import ButtonMaxiPink from "../../components/Boutons/ButtonMaxiPink";
+import HeaderLong from "../../components/Headers/HeaderLong";
 
 function JobPosteDetail() {
   return (

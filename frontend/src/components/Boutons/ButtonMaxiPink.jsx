@@ -1,4 +1,4 @@
-import "../style/style_components/button-maxi.css";
+import "./button-maxi.css";
 
 function ButtonMaxiPink() {
   return (
