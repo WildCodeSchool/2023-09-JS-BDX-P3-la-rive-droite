@@ -10,6 +10,7 @@ import ResultatsAnnonce from "./pages/ResultatAnnonce/ResultatsAnnonce";
 import UserProfileModel from "./pages/ProfileUser/UserProfileModel";
 import AddExperience from "./pages/Experience/AddExperience";
 import AddFormation from "./pages/Formation/AddFormation";
+import History from "./pages/Historique/History";
 
 const router = createBrowserRouter([
   {
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
       {
         path: "/result-annonce",
         element: <ResultatsAnnonce />,
+      },
+      {
+        path: "/historique",
+        element: <History />,
       },
     ],
   },

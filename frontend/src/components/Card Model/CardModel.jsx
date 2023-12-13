@@ -2,7 +2,7 @@ import "./card-model.css";
 
 function CardModel() {
   return (
-    <div className="card-container ">
+    <div className="card-container">
       <div className="card-icons">
         <div className="icon-view">
           <i className="fa-solid fa-eye" />

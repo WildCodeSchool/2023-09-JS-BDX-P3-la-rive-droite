@@ -1,12 +1,15 @@
 import Input from "../../components/Inputs/Input";
 import ButtonMaxi from "../../components/Boutons/ButtonMaxi";
+import "./login-signin.css";
 import "../../components/Inputs/input.css";
 import "../../components/Boutons/button-maxi.css";
+import HeaderLongTitle from "../../components/Headers/HeaderLongTitle";
 
 function Login() {
   return (
-    <div className="container-general-login">
-      <div className="container-login">
+    <>
+      <HeaderLongTitle />
+      <div className="container-page container-general-login">
         <h1> Se connecter</h1>
         <form>
           <div className="champs-form">
@@ -24,7 +27,7 @@ function Login() {
           </p>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 

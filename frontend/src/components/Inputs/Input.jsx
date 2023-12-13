@@ -4,23 +4,15 @@ import "./input.css";
 function Input({ titleInput, holderText }) {
   return (
     <div className="container-input">
-      <form>
-        <div className="champs-form">
-          <div>
-            <label className="label-champs" htmlFor="name">
-              {titleInput ?? "Nom de l'input"}
-            </label>
-          </div>
-          <div>
-            <input
-              className="background-input"
-              type="text"
-              id="name"
-              placeholder={holderText ?? "Texte du placeholder"}
-            />
-          </div>
-        </div>
-      </form>
+      <label className="label-champs" htmlFor="name">
+        {titleInput ?? "Nom de l'input"}
+      </label>
+      <input
+        className="background-input"
+        type="text"
+        id="name"
+        placeholder={holderText ?? "Texte du placeholder"}
+      />
     </div>
   );
 }

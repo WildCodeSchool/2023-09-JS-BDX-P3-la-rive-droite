@@ -6,9 +6,9 @@ import CompetenceSwitch from "../../components/Competence Switch/CompetenceSwitc
 
 function UserProfileUser() {
   return (
-    <div className="user-profile-page">
+    <>
       <HeaderLongUser />
-      <div>
+      <div className="container-page">
         <Title titleText="Vos coordonnées" />
         <Input titleInput="Nom *" holderText="Votre nom" />
         <Input titleInput="Prénom *" holderText="Votre prénom" />
@@ -19,7 +19,7 @@ function UserProfileUser() {
         <CompetenceSwitch />
         <ButtonMaxi />
       </div>
-    </div>
+    </>
   );
 }
 
