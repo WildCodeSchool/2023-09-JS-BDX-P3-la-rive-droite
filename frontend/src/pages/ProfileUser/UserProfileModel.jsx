@@ -17,6 +17,13 @@ function UserProfileUser() {
         <Input titleInput="Téléphone *" holderText="Numéro de téléphone" />
         <Input titleInput="Addresse *" holderText="Adresse" />
         <CompetenceSwitch />
+        <CompetenceSwitch />
+        <CompetenceSwitch />
+        <CompetenceSwitch />
+        <CompetenceSwitch />
+        <CompetenceSwitch />
+        <CompetenceSwitch />
+        <CompetenceSwitch />
         <ButtonMaxi />
       </div>
     </div>
