@@ -9,8 +9,8 @@ function HeaderLongTitle({ textTitle, textTitle2 }) {
         <i className="fa-solid fa-bars" />
       </nav>
       <div className="header-content">
-        <h1>{textTitle ?? "Undefined"}</h1>
-        <h2>{textTitle2 ?? "Undefined"}</h2>
+        <h1>{textTitle}</h1>
+        <h2>{textTitle2}</h2>
       </div>
     </header>
   );

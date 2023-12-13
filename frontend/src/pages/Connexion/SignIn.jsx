@@ -10,7 +10,7 @@ import HeaderLongTitle from "../../components/Headers/HeaderLongTitle";
 function SignIn() {
   return (
     <>
-      <HeaderLongTitle />
+      <HeaderLongTitle textTitle="Création de votre compte" />
       <div className="container-page container-general-login">
         <h1>S'inscrire</h1>
         <form>
