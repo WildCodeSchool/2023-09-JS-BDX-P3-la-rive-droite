@@ -10,6 +10,7 @@ import CreateCV from "./pages/CV/CreateCV";
 import AddExperience from "./pages/Experience/AddExperience";
 import AddFormation from "./pages/Formation/AddFormation";
 import History from "./pages/Historique/History";
+import ResultatsAnnonce from "./pages/ResultatAnnonce/ResultatsAnnonce";
 
 const router = createBrowserRouter([
   {
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
       {
         path: "/login",
         element: <LogIn />,
+      },
+      {
+        path: "/results-offers",
+        element: <ResultatsAnnonce />,
       },
       {
         path: "/edit-profil",
