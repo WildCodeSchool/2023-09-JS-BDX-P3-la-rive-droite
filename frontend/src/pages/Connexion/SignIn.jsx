@@ -6,10 +6,11 @@ import "./login-signin.css";
 import "../../components/Inputs/input.css";
 import "../../components/Boutons/button-maxi.css";
 import "../../components/Inputs/checkbox-conditions.css";
-import { useLogContext } from "../../contexts/LogContext";
+// import { useLogContext } from "../../contexts/LogContext";
 
 function SignIn() {
-  const createUser = useLogContext();
+  // const { userName, setUserName } = useLogContext();
+  // const [ userName, setUserName, handleSubmit ] = useLogContext();
 
   return (
     <>
@@ -22,14 +23,20 @@ function SignIn() {
               <Input
                 titleInput="Nom d'utilisateur"
                 holderText="John Doe"
-                value={(event) => createUser.setUserName(event.target.value)}
                 showInput
+                fieldName="userName"
               />
-              <Input titleInput="E-mail" holderText="john.doe@externatic.fr" />
+              <Input
+                titleInput="E-mail"
+                holderText="john.doe@externatic.fr"
+                showInput
+                fieldName="email"
+              />
               <Input
                 titleInput="Mot de passe"
                 holderText="************"
                 showInput
+                fieldName="password"
               />
               <Input
                 titleInput="Confirmer le mot de passe"
