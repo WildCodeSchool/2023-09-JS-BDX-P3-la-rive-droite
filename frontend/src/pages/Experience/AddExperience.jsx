@@ -5,14 +5,16 @@ import Select from "../../components/Inputs/Select";
 import CheckboxCondition from "../../components/Inputs/CheckboxCondition";
 import Date from "../../components/Inputs/Date";
 import TextArea from "../../components/Inputs/TextArea";
+import HeaderCourt from "../../components/Headers/HeaderCourt";
 
 function AddExperience() {
   return (
-    <div className="container-page-experience">
-      <div>
-        <div className="offre-container">
-          <h1>Ajouter une expérience</h1>
-        </div>
+    <>
+      <HeaderCourt />
+
+      <div className="container-page with-rounded-border">
+        <h1>Ajouter une expérience</h1>
+
         <div className="container-input">
           <Input titleInput="Intitulé du poste *" holderText="Chef de projet" />
           <Input titleInput="Entreprise *" holderText="Inoxia" />
@@ -30,7 +32,7 @@ function AddExperience() {
         </div>
         <ButtonMaxi textBtn="Ajouter l'expérience" />
       </div>
-    </div>
+    </>
   );
 }
 
