@@ -5,11 +5,14 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App";
 import SignIn from "./pages/Connexion/SignIn";
 import LogIn from "./pages/Connexion/LogIn";
+import Home from "./pages/HomeOffer/Home";
 import UserProfileModel from "./pages/ProfileUser/UserProfileModel";
 import CreateCV from "./pages/CV/CreateCV";
 import AddExperience from "./pages/Experience/AddExperience";
 import AddFormation from "./pages/Formation/AddFormation";
+import Offer from "./pages/Offer/Offer";
 import History from "./pages/Historique/History";
+import Favoris from "./pages/Favoris/Favoris";
 
 const router = createBrowserRouter([
   {
@@ -17,12 +20,28 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       {
+        path: "/",
+        element: <Home />,
+      },
+      {
         path: "/signin",
         element: <SignIn />,
       },
       {
         path: "/login",
         element: <LogIn />,
+      },
+      {
+        path: "/profil/history",
+        element: <History />,
+      },
+      {
+        path: "/profil/favorite",
+        element: <Favoris />,
+      },
+      {
+        path: "/offer",
+        element: <Offer />,
       },
       {
         path: "/edit-profil",
@@ -41,10 +60,6 @@ const router = createBrowserRouter([
             element: <AddFormation />,
           },
         ],
-      },
-      {
-        path: "/history",
-        element: <History />,
       },
     ],
   },
