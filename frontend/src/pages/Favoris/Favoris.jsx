@@ -1,7 +1,7 @@
 import HeaderLongTitreSsTitre from "../../components/Headers/HeaderLongTitreSsTitre";
 import CardFavoris from "../../components/CardModel/CardFavoris";
 
-function History() {
+function Favoris() {
   return (
     <>
       <HeaderLongTitreSsTitre />
@@ -17,4 +17,4 @@ function History() {
   );
 }
 
-export default History;
+export default Favoris;
