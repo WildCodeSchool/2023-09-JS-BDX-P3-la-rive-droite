@@ -12,7 +12,7 @@ function HeaderLongUser() {
           <img src="/src/assets/no-profile.jpg" alt="" />
         </div>
         <button type="button">Modifier</button>
-        <h1>Marie Delaire</h1>
+        <h1>Nom Prénom</h1>
       </div>
     </header>
   );
