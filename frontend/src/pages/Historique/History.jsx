@@ -1,5 +1,5 @@
 import HeaderLongTitreSsTitre from "../../components/Headers/HeaderLongTitreSsTitre";
-import CardModel from "../../components/Card Model/CardModel";
+import CardModel from "../../components/CardModel/CardHistory";
 
 function History() {
   return (

@@ -6,10 +6,8 @@ import HeaderCourt from "../../components/Headers/HeaderCourt";
 function JobPosteDetail() {
   return (
     <>
-      <div>
-        <HeaderCourt />
-      </div>
-      <div className="container-page-offre">
+      <HeaderCourt />
+      <div className="container-page with-rounded-border">
         <div>
           <div className="offre-date-container">
             <div className="icon-share">

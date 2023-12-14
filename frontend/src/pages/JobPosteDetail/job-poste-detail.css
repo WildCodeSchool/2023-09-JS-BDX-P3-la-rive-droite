@@ -1,21 +1,6 @@
-.container-page-offre {
-  margin: 0 auto;
-  padding: 0 auto;
-  max-width: 1280px;
-  background-color: white;
-  border-top-left-radius: 50px;
-  border-top-right-radius: 50px;
-  margin-top: -170px;
-}
-
 .icon-share i {
   color: black;
   font-size: 20px;
-}
-
-.container-page-offre > div {
-  width: 90%;
-  margin: 0 auto;
 }
 
 .container-offre {
@@ -89,10 +74,8 @@
 .offre-date-container {
   padding-left: 15px;
   padding-right: 40px;
-  padding-top: 50px;
 
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin-top: 50px;
 }
