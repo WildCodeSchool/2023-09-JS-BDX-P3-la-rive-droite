@@ -16,8 +16,8 @@ function CreateCV() {
         <Input titleInput="E-mail *" holderText="john.doe@externatic.fr" />
         <Input titleInput="Numéro *" holderText="06 00 00 00 00 00" />
         <Input titleInput="Adresse *" holderText="75 Rue Boétoile" />
-        <AddDetailsCV objectToAdd="Expériences professionnelles" />
-        <AddDetailsCV objectToAdd="Formations" />
+        <AddDetailsCV addDetail="Expériences professionnelles" />
+        <AddDetailsCV addDetail="Formations" />
         <ButtonMaxi textBtn="Enregistrer" />
       </div>
     </>

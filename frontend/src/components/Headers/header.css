@@ -4,7 +4,7 @@ border-radius 24%
 */
 
 .header {
-  color: white;
+  color: var(--first-title-color);
   background-color: var(--main-color);
   padding-bottom: 50px;
 }
@@ -71,4 +71,20 @@ border-radius 24%
   padding: 4px 20px;
   border: none;
   border-radius: 50px;
+}
+.input-research-container {
+  width: 100%;
+  justify-content: center;
+  background-color: var(--background-input);
+  padding: 15px 20px;
+  border-radius: 7px;
+  border: none;
+  color: var(--second-color);
+  font-size: 16px;
+  font-weight: 500;
+  margin-top: 5px;
+}
+
+.input-research {
+  width: 80%;
 }

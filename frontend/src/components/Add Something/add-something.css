@@ -1,6 +1,7 @@
 .add-details-button {
   display: flex;
   justify-content: space-between;
+  margin: 50px 0;
 }
 
 .add-details-button > p {

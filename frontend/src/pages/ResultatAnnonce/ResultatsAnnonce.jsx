@@ -1,16 +1,19 @@
+import HeaderLongResearch from "../../components/Headers/HeaderLongResearch";
 import CardOffre from "../../components/CardModel/CardOffre";
-import HeaderLongTitreSsTitre from "../../components/Headers/HeaderLongTitreSsTitre";
 
-function ResultatAnnonces() {
+function ResultatsAnnonces() {
   return (
-    <>
-      <HeaderLongTitreSsTitre />
+    <div>
+      <HeaderLongResearch
+        textTitle="Résultats de"
+        textTitle2="vos recherches"
+      />
       <div className="container-page">
         <CardOffre />
         <CardOffre />
         <CardOffre />
       </div>
-    </>
+    </div>
   );
 }
-export default ResultatAnnonces;
+export default ResultatsAnnonces;

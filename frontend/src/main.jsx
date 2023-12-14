@@ -10,11 +10,6 @@ import CreateCV from "./pages/CV/CreateCV";
 import AddExperience from "./pages/Experience/AddExperience";
 import AddFormation from "./pages/Formation/AddFormation";
 import History from "./pages/Historique/History";
-import JobPosteDelail from "./pages/JobPosteDetail/JobPosteDetail";
-import Home from "./pages/Home/Home";
-import Favoris from "./pages/Favoris/Favoris";
-import ResultatAnnonces from "./pages/ResultatAnnonce/ResultatsAnnonce";
-import Search from "./pages/Search/Search";
 
 const router = createBrowserRouter([
   {
@@ -22,32 +17,12 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       {
-        path: "/inscription",
+        path: "/signin",
         element: <SignIn />,
       },
       {
-        path: "/home",
-        element: <Home />,
-      },
-      {
-        path: "/favoris",
-        element: <Favoris />,
-      },
-      {
-        path: "/connexion",
+        path: "/login",
         element: <LogIn />,
-      },
-      {
-        path: "/job",
-        element: <JobPosteDelail />,
-      },
-      {
-        path: "/results",
-        element: <ResultatAnnonces />,
-      },
-      {
-        path: "/search",
-        element: <Search />,
       },
       {
         path: "/edit-profil",
@@ -68,7 +43,7 @@ const router = createBrowserRouter([
         ],
       },
       {
-        path: "/historique",
+        path: "/history",
         element: <History />,
       },
     ],

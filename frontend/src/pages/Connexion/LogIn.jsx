@@ -8,7 +8,7 @@ import HeaderLongTitle from "../../components/Headers/HeaderLongTitle";
 function Login() {
   return (
     <>
-      <HeaderLongTitle />
+      <HeaderLongTitle textTitle="Connexion" />
       <div className="container-page container-general-login">
         <h1> Se connecter</h1>
         <form>
