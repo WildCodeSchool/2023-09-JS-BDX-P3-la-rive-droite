@@ -1,13 +1,16 @@
 import Input from "../../components/Inputs/Input";
-import ButtonMaxi from "../../components/Boutons/ButtonMaxi";
 import CheckboxCondition from "../../components/Inputs/CheckboxCondition";
+import HeaderLongTitle from "../../components/Headers/HeaderLongTitle";
+import ButtonMaxi from "../../components/Boutons/ButtonMaxi";
 import "./login-signin.css";
 import "../../components/Inputs/input.css";
 import "../../components/Boutons/button-maxi.css";
 import "../../components/Inputs/checkbox-conditions.css";
-import HeaderLongTitle from "../../components/Headers/HeaderLongTitle";
+import { useLogContext } from "../../contexts/LogContext";
 
 function SignIn() {
+  const createUser = useLogContext();
+
   return (
     <>
       <HeaderLongTitle textTitle="Création de votre compte" />
@@ -16,9 +19,18 @@ function SignIn() {
         <form>
           <div className="champs-form">
             <div>
-              <Input titleInput="Nom d'utilisateur" holderText="John Doe" />
+              <Input
+                titleInput="Nom d'utilisateur"
+                holderText="John Doe"
+                value={(event) => createUser.setUserName(event.target.value)}
+                showInput
+              />
               <Input titleInput="E-mail" holderText="john.doe@externatic.fr" />
-              <Input titleInput="Mot de passe" holderText="************" />
+              <Input
+                titleInput="Mot de passe"
+                holderText="************"
+                showInput
+              />
               <Input
                 titleInput="Confirmer le mot de passe"
                 holderText="************"
