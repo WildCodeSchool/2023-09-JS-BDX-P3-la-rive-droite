@@ -74,10 +74,8 @@
 .offre-date-container {
   padding-left: 15px;
   padding-right: 40px;
-  padding-top: 50px;
 
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin-top: 50px;
 }

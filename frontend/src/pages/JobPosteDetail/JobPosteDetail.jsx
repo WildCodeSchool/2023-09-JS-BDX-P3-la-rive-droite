@@ -7,7 +7,6 @@ function JobPosteDetail() {
   return (
     <>
       <HeaderCourt />
-
       <div className="container-page with-rounded-border">
         <div>
           <div className="offre-date-container">

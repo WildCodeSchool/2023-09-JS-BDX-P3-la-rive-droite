@@ -13,6 +13,8 @@ import History from "./pages/Historique/History";
 import JobPosteDelail from "./pages/JobPosteDetail/JobPosteDetail";
 import Home from "./pages/Home/Home";
 import Favoris from "./pages/Favoris/Favoris";
+import ResultatAnnonces from "./pages/ResultatAnnonce/ResultatsAnnonce";
+import Search from "./pages/Search/Search";
 
 const router = createBrowserRouter([
   {
@@ -38,6 +40,14 @@ const router = createBrowserRouter([
       {
         path: "/job",
         element: <JobPosteDelail />,
+      },
+      {
+        path: "/results",
+        element: <ResultatAnnonces />,
+      },
+      {
+        path: "/search",
+        element: <Search />,
       },
       {
         path: "/edit-profil",
