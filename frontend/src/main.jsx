@@ -31,12 +31,13 @@ const router = createBrowserRouter([
         path: "/login",
         element: <LogIn />,
       },
+
       {
-        path: "/profil/history",
+        path: "/profile/history",
         element: <History />,
       },
       {
-        path: "/profil/favorite",
+        path: "/profile/favorite",
         element: <Favoris />,
       },
       {
@@ -44,19 +45,19 @@ const router = createBrowserRouter([
         element: <Offer />,
       },
       {
-        path: "/edit-profil",
+        path: "/edit-profile",
         element: <UserProfileModel />,
         children: [
           {
-            path: "/edit-profil/cv",
+            path: "/edit-profile/cv",
             element: <CreateCV />,
           },
           {
-            path: "/edit-profil/experience",
+            path: "/edit-profile/experience",
             element: <AddExperience />,
           },
           {
-            path: "/edit-profil/formation",
+            path: "/edit-profile/formation",
             element: <AddFormation />,
           },
         ],

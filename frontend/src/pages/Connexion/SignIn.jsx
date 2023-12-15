@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Input from "../../components/Inputs/Input";
 import ButtonMaxi from "../../components/Boutons/ButtonMaxi";
 import CheckboxCondition from "../../components/Inputs/CheckboxCondition";
@@ -23,16 +24,21 @@ function SignIn() {
                 titleInput="Confirmer le mot de passe"
                 holderText="************"
               />
-              <CheckboxCondition textCondition="J'accepte les conditions d'" />
+              <CheckboxCondition textCondition="J'accepte les conditions d'Externatic" />
               <CheckboxCondition textCondition="Je veux créer ou télécharger mon cv maintenant !" />
-              <ButtonMaxi textBtn="S'inscrire" />
+              <Link to="/edit-profile">
+                <ButtonMaxi textBtn="S'inscrire" />
+              </Link>
             </div>
           </div>
         </form>
 
         <div className="small-paragraphe-info">
           <p>
-            Vous avez déjà un compte ? <span>Connectez-vous</span>
+            Vous avez déjà un compte ?
+            <Link to="/login">
+              <span>Connectez-vous</span>
+            </Link>
           </p>
         </div>
       </div>
