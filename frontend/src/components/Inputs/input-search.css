@@ -1,0 +1,24 @@
+.container-search {
+  margin: 40px 0 10px 0;
+}
+
+.background-search {
+  background-color: white;
+  padding: 10px 20px;
+  border-radius: 100px;
+  border: none;
+  color: var(--second-color);
+  font-size: 16px;
+  font-weight: 500;
+  width: 80%;
+  margin-top: 10px;
+  margin-left: 20px;
+}
+.background-search input {
+  width: 100%;
+  border-style: none;
+}
+::placeholder {
+  color: var(--text-exemple);
+  font-style: italic;
+}

@@ -4,14 +4,13 @@ import Input from "../../components/Inputs/Input";
 import ButtonMaxi from "../../components/Boutons/ButtonMaxi";
 import CompetenceSwitch from "../../components/Competence Switch/CompetenceSwitch";
 import AddSomething from "../../components/Add Something/AddSomething";
-import HeaderLongResearch from "../../components/Headers/HeaderLongResearch";
-import "./user-profile-model.css";
+import HeaderLongUser from "../../components/Headers/HeaderLongUser";
 
 function UserProfileUser() {
   return window.location.pathname === "/edit-profile" ||
     window.location.pathname === "/edit-profile/" ? (
     <>
-      <HeaderLongResearch />
+      <HeaderLongUser />
       <div className="container-page">
         <Title titleText="Vos coordonnées" />
         <Input titleInput="Nom *" holderText="Votre nom" />

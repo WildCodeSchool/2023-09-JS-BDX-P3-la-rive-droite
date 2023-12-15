@@ -1,11 +1,12 @@
 import CardOffre from "../../components/CardModel/CardOffre";
-import HeaderLongTitreSsTitre from "../../components/Headers/HeaderLongTitreSsTitre";
+import HeaderLongResearch from "../../components/Headers/HeaderLongResearch";
 
 function Home() {
   return (
     <>
-      <HeaderLongTitreSsTitre title="Bienvenue" subTitle="Nos offres" />
+      <HeaderLongResearch textTitle="Bienvenue sur" textTitle2="nos offres" />
       <div className="container-page">
+        <h2>Les offres qui matchent !</h2>
         <CardOffre />
         <CardOffre />
         <CardOffre />
