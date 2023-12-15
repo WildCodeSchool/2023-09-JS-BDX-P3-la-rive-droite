@@ -5,10 +5,6 @@ import Input from "../Inputs/Input";
 function HeaderLongResearch({ textTitle, textTitle2 }) {
   return (
     <header className="header">
-      <nav>
-        <i className="fa-solid fa-arrow-left" />
-        <i className="fa-solid fa-bars" />
-      </nav>
       <div className="header-content">
         <h1>{textTitle}</h1>
         <h2>{textTitle2}</h2>
