@@ -1,13 +1,13 @@
 import PropTypes from "prop-types";
 import "./input.css";
 
-function Input({ titleInput, holderText, showInput }) {
+function Input({ titleInput, holderText, hideInput }) {
   return (
     <div className="container-input">
       <label className="label-champs" htmlFor="name">
         {titleInput ?? "Nom de l'input"}
       </label>
-      {showInput && (
+      {!hideInput && (
         <input
           className="background-input"
           type="text"
@@ -22,7 +22,7 @@ function Input({ titleInput, holderText, showInput }) {
 Input.propTypes = {
   titleInput: PropTypes.string.isRequired,
   holderText: PropTypes.string.isRequired,
-  showInput: PropTypes.bool.isRequired,
+  hideInput: PropTypes.bool.isRequired,
 };
 
 export default Input;
