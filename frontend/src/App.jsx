@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
-import "./App.css";
 import LogContextProvider from "./contexts/LogContext";
+import "./App.css";
 
 function App() {
   return (

@@ -4,8 +4,11 @@ import "./login-signin.css";
 import "../../components/Inputs/input.css";
 import "../../components/Boutons/button-maxi.css";
 import HeaderLongTitle from "../../components/Headers/HeaderLongTitle";
+// import { useLogContext } from "../../contexts/LogContext";
 
 function Login() {
+  // const { handleSubmit, signIn } = useLogContext();
+
   return (
     <>
       <HeaderLongTitle textTitle="Connexion" />

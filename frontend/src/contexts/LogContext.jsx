@@ -5,7 +5,6 @@ const LogContext = createContext();
 
 function LogContextProvider({ children }) {
   const [isAdmin, setIsAdmin] = useState(false);
-
   const [signIn, setSignIn] = useState({
     userName: "",
     email: "",
@@ -20,10 +19,17 @@ function LogContextProvider({ children }) {
     }));
   };
 
+  // const handleSignIn = (event) => {
+  //   let value = event.target.value;
+  //   setSignIn(...value, signIn);
+  //   console.log(signIn);
+  // };
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    setUserSaved((response) => [...response, signIn]);
-    // console.log("Click !")
+    setUserSaved((prevData) => [...prevData, signIn]);
+    // console.log("Formulaire enregistré.");
+    // console.log(userSaved);
     // Réinitialise les valeurs d'input à vide.
     setSignIn({
       userName: "",
@@ -33,7 +39,7 @@ function LogContextProvider({ children }) {
   };
 
   const contextValues = useMemo(
-    () => [
+    () => ({
       isAdmin,
       setIsAdmin,
       signIn,
@@ -41,7 +47,8 @@ function LogContextProvider({ children }) {
       handleSignIn,
       handleSubmit,
       userSaved,
-    ],
+      setUserSaved,
+    }),
     [
       isAdmin,
       setIsAdmin,
@@ -50,6 +57,7 @@ function LogContextProvider({ children }) {
       handleSignIn,
       handleSubmit,
       userSaved,
+      setUserSaved,
     ]
   );
 

@@ -3,7 +3,7 @@ import { useLogContext } from "../../contexts/LogContext";
 import "./input.css";
 
 function Input({ titleInput, holderText, showInput, fieldName }) {
-  const [signIn, handleSignIn] = useLogContext();
+  const { signIn, handleSignIn } = useLogContext();
 
   return (
     <div className="container-input">
@@ -18,7 +18,7 @@ function Input({ titleInput, holderText, showInput, fieldName }) {
           name={fieldName}
           placeholder={holderText ?? "Texte du placeholder"}
           value={signIn[fieldName]}
-          onChange={handleSignIn}
+          onChange={(event) => handleSignIn(event, fieldName)}
         />
       )}
     </div>

@@ -7,11 +7,9 @@ function ButtonMaxi({ textBtn }) {
   const { handleSubmit } = useLogContext();
 
   return (
-    <div>
-      <button className="submit-btn-maxi" type="button" onClick={handleSubmit}>
-        {textBtn ?? "Test button maxi"}
-      </button>
-    </div>
+    <button className="submit-btn-maxi" type="button" onClick={handleSubmit}>
+      {textBtn ?? "Test button maxi"}
+    </button>
   );
 }
 
