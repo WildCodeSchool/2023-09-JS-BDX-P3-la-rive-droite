@@ -4,7 +4,7 @@ import HeaderLongTitreSsTitre from "../../components/Headers/HeaderLongTitreSsTi
 function Home() {
   return (
     <>
-      <HeaderLongTitreSsTitre />
+      <HeaderLongTitreSsTitre title="Bienvenue" subTitle="Nos offres" />
       <div className="container-page">
         <CardOffre />
         <CardOffre />

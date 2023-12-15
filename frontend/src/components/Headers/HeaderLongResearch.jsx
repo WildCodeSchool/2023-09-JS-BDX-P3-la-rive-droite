@@ -14,7 +14,7 @@ function HeaderLongResearch({ textTitle, textTitle2 }) {
         <h2>{textTitle2}</h2>
       </div>
       <div className="input-research-container">
-        <Input className="input-research" showInput />
+        <Input className="input-research" />
       </div>
     </header>
   );

@@ -4,7 +4,7 @@ import CardModel from "../../components/CardModel/CardHistory";
 function History() {
   return (
     <>
-      <HeaderLongTitreSsTitre />
+      <HeaderLongTitreSsTitre title="Candidatures" subTitle="Historique" />
       <div className="container-page">
         <CardModel />
         <CardModel />
