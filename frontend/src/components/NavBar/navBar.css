@@ -5,25 +5,26 @@
 }
 .navbar-logo-img {
   margin: 8px 15px;
+  border-radius: 5px;
 }
 .navbar-logo-title {
-  color: black;
+  color: var(--third-title-color);
   font-size: 20px;
   margin: 0 10px 0 5px;
   display: none;
 }
 .fa-bars:before,
 .fa-navicon:before {
-  color: black;
+  color: white;
 }
 .navbar-burger-icon {
   transform: scale(1.5);
 }
 .navbar-bg-color {
-  background-color: #fcf5f7;
+  background-color: var(--main-color);
 }
 .navbar-link {
-  color: black;
+  color: var(--third-title-color);
   text-transform: uppercase;
   text-decoration: none;
   letter-spacing: 0.15em;
@@ -41,9 +42,6 @@
   left: 50%;
   position: absolute;
   text-align: center;
-  background-color: #c91f61;
-  border: 0;
-  border-radius: 7px;
   text-transform: uppercase;
   font-weight: 500;
   width: 100%;
@@ -59,12 +57,7 @@
 .navbar-link:hover {
   color: white;
   text-align: center;
-  background-color: #c91f61;
-  border: 0;
-  border-radius: 7px;
   text-transform: uppercase;
-  font-weight: 500;
-  width: 100%;
 }
 .active {
   color: white;
