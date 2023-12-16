@@ -3,13 +3,13 @@ import Input from "../../components/Inputs/Input";
 import CheckboxCondition from "../../components/Inputs/CheckboxCondition";
 import HeaderLongTitle from "../../components/Headers/HeaderLongTitle";
 import ButtonMaxi from "../../components/Boutons/ButtonMaxi";
+import ErrorMsg from "../../components/Alertes Messages/ErrorMsg";
+import SuccesMsg from "../../components/Alertes Messages/SuccesMsg";
+import { useLogContext } from "../../contexts/LogContext";
 import "./login-signin.css";
 import "../../components/Inputs/input.css";
 import "../../components/Boutons/button-maxi.css";
 import "../../components/Inputs/checkbox-conditions.css";
-import ErrorMsg from "../../components/Alertes Messages/ErrorMsg";
-import SuccesMsg from "../../components/Alertes Messages/SuccesMsg";
-import { useLogContext } from "../../contexts/LogContext";
 
 function SignIn() {
   const { errorMsg, succesMsg, msgContent } = useLogContext();
@@ -22,31 +22,37 @@ function SignIn() {
         <div className="champs-form">
           <div>
             <Input
-              titleInput="Nom d'utilisateur"
+              titleInput="Nom d'utilisateur *"
               holderText="John Doe"
               fieldName="userName"
             />
             <Input
-              titleInput="E-mail"
+              titleInput="E-mail *"
               holderText="john.doe@externatic.fr"
               fieldName="email"
               typeInput="email"
             />
             <Input
-              titleInput="Mot de passe"
+              titleInput="Mot de passe *"
               holderText="************"
               fieldName="password"
               typeInput="password"
             />
             <Input
-              titleInput="Confirmer le mot de passe"
+              titleInput="Confirmer le mot de passe *"
               holderText="************"
               fieldName="password2"
               typeInput="password"
             />
-            <CheckboxCondition textCondition="J'accepte les conditions d'" />
+            <CheckboxCondition
+              textCondition="J'accepte les conditions d' *"
+              fieldName="cguAgree"
+            />
             {/* <a href="#">Externatic</a> */}
-            <CheckboxCondition textCondition="Je veux créer ou télécharger mon cv maintenant !" />
+            <CheckboxCondition
+              textCondition="Je veux créer ou télécharger mon cv maintenant !"
+              fieldName="addCvNow"
+            />
             <ButtonMaxi textBtn="S'inscrire" />
           </div>
         </div>

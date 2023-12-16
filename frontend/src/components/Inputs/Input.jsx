@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import { useLogContext } from "../../contexts/LogContext";
 import "./input.css";
 
-function Input({ titleInput, holderText, typeInput, hideInput, fieldName }) {
+function Input({ titleInput, holderText, typeInput, fieldName, hideInput }) {
   const { signIn, handleSignIn } = useLogContext();
 
   return (

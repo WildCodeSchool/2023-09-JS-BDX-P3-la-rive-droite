@@ -1,25 +1,23 @@
-// import React, { useState } from "react";
 import PropTypes from "prop-types";
-import "./checkbox-conditions.css";
 import { useLogContext } from "../../contexts/LogContext";
+import "./checkbox-conditions.css";
 
-function CheckboxCondition({ textCondition }) {
-  // const [isChecked, setIsChecked] = useState(false);
-  const { isChecked, handleCheckboxChange } = useLogContext();
+function CheckboxCondition({ textCondition, fieldName }) {
+  const { handleCheckboxChange } = useLogContext();
 
-  // const handleCheckboxChange = () => {
-  //   setIsChecked(!isChecked);
-  // };
+  const handleChange = () => {
+    handleCheckboxChange(fieldName);
+  };
 
   return (
     <div>
       <div className="container-checkbox">
         <input
           type="checkbox"
-          id="scales"
-          name="scales"
-          value={isChecked}
-          onChange={handleCheckboxChange}
+          id={fieldName}
+          name={fieldName}
+          value={fieldName}
+          onChange={handleChange}
         />
         <label htmlFor="scales">
           {textCondition ?? "Aucune valeur définit"}
@@ -31,6 +29,7 @@ function CheckboxCondition({ textCondition }) {
 
 CheckboxCondition.propTypes = {
   textCondition: PropTypes.string.isRequired,
+  fieldName: PropTypes.string.isRequired,
 };
 
 export default CheckboxCondition;

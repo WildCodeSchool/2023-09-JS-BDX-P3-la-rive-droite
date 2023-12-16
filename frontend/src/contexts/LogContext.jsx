@@ -9,25 +9,38 @@ function LogContextProvider({ children }) {
   const [succesMsg, setSuccesMsg] = useState(false);
   const [msgContent, setMsgContent] = useState("");
 
-  const [isAdmin, setIsAdmin] = useState(false);
-  const [isChecked, setIsChecked] = useState(false);
   const [signIn, setSignIn] = useState({
     userName: "",
     email: "",
     password: "",
     password2: "",
+    cguAgree: false,
+    addCvNow: false,
   });
   const [userSaved, setUserSaved] = useState([]);
-
-  const handleCheckboxChange = () => {
-    setIsChecked(!isChecked);
-  };
+  const [storageData, setStorageData] = useState([]);
 
   const handleSignIn = (fieldName, event) => {
     setSignIn((prevData) => ({
       ...prevData,
       [fieldName]: event.target.value,
     }));
+  };
+  // Enregistrement dans le "Local Storage".
+  const saveUser = () => {
+    // Condition qui vérifie et remplace les informations existantes.
+    const existingData = JSON.parse(localStorage.getItem("User")) || [];
+    // Ajout de la methode "isArray" car sinon conflit car il faut les infos
+    // dans un tableau pour pouvoir push dans le Local Storage.
+    const dataArray = Array.isArray(existingData) ? existingData : [];
+    const newData = dataArray.concat(signIn);
+    // Sauvegarder le nouveau tableau dans le local storage
+    localStorage.setItem("User", JSON.stringify(newData));
+    // Fonction qui met à jour l'Etat du local storage.
+    const getLocalStorageData = () => {
+      setStorageData(newData);
+    };
+    getLocalStorageData();
   };
 
   const handleSubmitSignIn = (event) => {
@@ -44,7 +57,7 @@ function LogContextProvider({ children }) {
       }, 4000);
     } else if (signIn.password !== signIn.password2) {
       setErrorMsg(true);
-      setMsgContent("Les mots de passes ne sont pas identiques !");
+      setMsgContent("Les mots de passes ne sont pas identiques");
       setTimeout(() => {
         setErrorMsg(false);
       }, 4000);
@@ -64,42 +77,48 @@ function LogContextProvider({ children }) {
         password: "",
         password2: "",
       });
+
+      saveUser();
     }
+  };
+
+  const handleCheckboxChange = (fieldName) => {
+    setSignIn((prevData) => ({
+      ...prevData,
+      [fieldName]: !prevData[fieldName],
+    }));
   };
 
   // useEffect(() => {
   //   console.log("Le formulaire à bien été mis à jours.", userSaved);
-  //   console.log("L'état est à", isChecked);
-  // }, [userSaved, isChecked]);
+  // }, [userSaved]);
 
   const contextValues = useMemo(
     () => ({
-      isAdmin,
-      setIsAdmin,
       signIn,
       setSignIn,
       handleSignIn,
       handleSubmitSignIn,
       userSaved,
       setUserSaved,
-      handleCheckboxChange,
       errorMsg,
       succesMsg,
       msgContent,
+      handleCheckboxChange,
+      storageData,
     }),
     [
-      isAdmin,
-      setIsAdmin,
       signIn,
       setSignIn,
       handleSignIn,
       handleSubmitSignIn,
       userSaved,
       setUserSaved,
-      handleCheckboxChange,
       errorMsg,
       succesMsg,
       msgContent,
+      handleCheckboxChange,
+      storageData,
     ]
   );
 
@@ -109,7 +128,7 @@ function LogContextProvider({ children }) {
 }
 
 LogContextProvider.propTypes = {
-  children: PropTypes.func.isRequired,
+  children: PropTypes.element.isRequired,
 };
 
 export default LogContextProvider;
