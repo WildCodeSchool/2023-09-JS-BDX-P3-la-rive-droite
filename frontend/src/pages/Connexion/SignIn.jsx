@@ -26,16 +26,20 @@ function SignIn() {
               holderText="john.doe@externatic.fr"
               showInput
               fieldName="email"
+              typeInput="email"
             />
             <Input
               titleInput="Mot de passe"
               holderText="************"
               showInput
               fieldName="password"
+              typeInput="password"
             />
             <Input
               titleInput="Confirmer le mot de passe"
               holderText="************"
+              showInput
+              typeInput="password"
             />
             <CheckboxCondition textCondition="J'accepte les conditions d'" />
             <CheckboxCondition textCondition="Je veux créer ou télécharger mon cv maintenant !" />

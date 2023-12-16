@@ -5,12 +5,19 @@ const LogContext = createContext();
 
 function LogContextProvider({ children }) {
   const [isAdmin, setIsAdmin] = useState(false);
+  const [isChecked, setIsChecked] = useState(false);
   const [signIn, setSignIn] = useState({
     userName: "",
     email: "",
     password: "",
+    CguAgree: false,
+    addCvNow: false,
   });
   const [userSaved, setUserSaved] = useState([]);
+
+  const handleCheckboxChange = () => {
+    setIsChecked(!isChecked);
+  };
 
   const handleSignIn = (fieldName, event) => {
     setSignIn((prevData) => ({
@@ -19,24 +26,29 @@ function LogContextProvider({ children }) {
     }));
   };
 
-  // const handleSignIn = (event) => {
-  //   let value = event.target.value;
-  //   setSignIn(...value, signIn);
-  //   console.log(signIn);
-  // };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    setUserSaved((prevData) => [...prevData, signIn]);
-    // console.log("Formulaire enregistré.");
-    // console.log(userSaved);
-    // Réinitialise les valeurs d'input à vide.
-    setSignIn({
-      userName: "",
-      email: "",
-      password: "",
-    });
+  const handleSubmitSignIn = (event) => {
+    if (
+      signIn.userName !== "" &&
+      signIn.email !== "" &&
+      signIn.password !== ""
+    ) {
+      event.preventDefault();
+      setUserSaved((prevData) => [...prevData, signIn]);
+      // Réinitialise les valeurs d'input à vide.
+      setSignIn({
+        userName: "",
+        email: "",
+        password: "",
+        CguAgree: false,
+        addCvNow: false,
+      });
+    }
   };
+
+  // useEffect(() => {
+  //   console.log("Le formulaire à bien été mis à jours.", userSaved);
+  //   console.log("L'état est à", isChecked);
+  // }, [userSaved, isChecked]);
 
   const contextValues = useMemo(
     () => ({
@@ -45,9 +57,10 @@ function LogContextProvider({ children }) {
       signIn,
       setSignIn,
       handleSignIn,
-      handleSubmit,
+      handleSubmitSignIn,
       userSaved,
       setUserSaved,
+      handleCheckboxChange,
     }),
     [
       isAdmin,
@@ -55,9 +68,10 @@ function LogContextProvider({ children }) {
       signIn,
       setSignIn,
       handleSignIn,
-      handleSubmit,
+      handleSubmitSignIn,
       userSaved,
       setUserSaved,
+      handleCheckboxChange,
     ]
   );
 

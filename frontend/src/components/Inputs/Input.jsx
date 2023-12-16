@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import { useLogContext } from "../../contexts/LogContext";
 import "./input.css";
 
-function Input({ titleInput, holderText, showInput, fieldName }) {
+function Input({ titleInput, holderText, typeInput, showInput, fieldName }) {
   const { signIn, handleSignIn } = useLogContext();
 
   return (
@@ -13,12 +13,12 @@ function Input({ titleInput, holderText, showInput, fieldName }) {
       {showInput && (
         <input
           className="background-input"
-          type="text"
+          type={typeInput ?? "text"}
           id={fieldName}
           name={fieldName}
           placeholder={holderText ?? "Texte du placeholder"}
           value={signIn[fieldName]}
-          onChange={(event) => handleSignIn(event, fieldName)}
+          onChange={(event) => handleSignIn(fieldName, event)}
         />
       )}
     </div>
@@ -28,6 +28,7 @@ function Input({ titleInput, holderText, showInput, fieldName }) {
 Input.propTypes = {
   titleInput: PropTypes.string.isRequired,
   holderText: PropTypes.string.isRequired,
+  typeInput: PropTypes.string.isRequired,
   showInput: PropTypes.bool.isRequired,
   fieldName: PropTypes.string.isRequired,
 };

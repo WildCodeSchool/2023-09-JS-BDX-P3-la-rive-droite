@@ -4,10 +4,14 @@ import "./button-maxi.css";
 import { useLogContext } from "../../contexts/LogContext";
 
 function ButtonMaxi({ textBtn }) {
-  const { handleSubmit } = useLogContext();
+  const { handleSubmitSignIn } = useLogContext();
 
   return (
-    <button className="submit-btn-maxi" type="button" onClick={handleSubmit}>
+    <button
+      className="submit-btn-maxi"
+      type="button"
+      onClick={handleSubmitSignIn}
+    >
       {textBtn ?? "Test button maxi"}
     </button>
   );
