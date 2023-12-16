@@ -6,8 +6,13 @@ import "./login-signin.css";
 import "../../components/Inputs/input.css";
 import "../../components/Boutons/button-maxi.css";
 import "../../components/Inputs/checkbox-conditions.css";
+import ErrorMsg from "../../components/Alertes Messages/ErrorMsg";
+import SuccesMsg from "../../components/Alertes Messages/SuccesMsg";
+import { useLogContext } from "../../contexts/LogContext";
 
 function SignIn() {
+  const { errorMsg, succesMsg, msgContent } = useLogContext();
+
   return (
     <>
       <HeaderLongTitle textTitle="Création de votre compte" />
@@ -39,12 +44,19 @@ function SignIn() {
               titleInput="Confirmer le mot de passe"
               holderText="************"
               showInput
+              fieldName="password2"
               typeInput="password"
             />
             <CheckboxCondition textCondition="J'accepte les conditions d'" />
+            {/* <a href="#">Externatic</a> */}
             <CheckboxCondition textCondition="Je veux créer ou télécharger mon cv maintenant !" />
             <ButtonMaxi textBtn="S'inscrire" />
           </div>
+        </div>
+
+        <div>
+          {errorMsg && <ErrorMsg message={msgContent} />}
+          {succesMsg && <SuccesMsg message={msgContent} />}
         </div>
 
         <div className="small-paragraphe-info">

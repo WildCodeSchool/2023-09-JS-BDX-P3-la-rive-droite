@@ -4,14 +4,18 @@ import { useState, createContext, useContext, useMemo } from "react";
 const LogContext = createContext();
 
 function LogContextProvider({ children }) {
+  // Messages d'alertes.
+  const [errorMsg, setErrorMsg] = useState(false);
+  const [succesMsg, setSuccesMsg] = useState(false);
+  const [msgContent, setMsgContent] = useState("");
+
   const [isAdmin, setIsAdmin] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
   const [signIn, setSignIn] = useState({
     userName: "",
     email: "",
     password: "",
-    CguAgree: false,
-    addCvNow: false,
+    password2: "",
   });
   const [userSaved, setUserSaved] = useState([]);
 
@@ -28,10 +32,29 @@ function LogContextProvider({ children }) {
 
   const handleSubmitSignIn = (event) => {
     if (
-      signIn.userName !== "" &&
-      signIn.email !== "" &&
-      signIn.password !== ""
+      signIn.userName === "" ||
+      signIn.email === "" ||
+      signIn.password === "" ||
+      signIn.password2 === ""
     ) {
+      setErrorMsg(true);
+      setMsgContent("Champs non remplis");
+      setTimeout(() => {
+        setErrorMsg(false);
+      }, 4000);
+    } else if (signIn.password !== signIn.password2) {
+      setErrorMsg(true);
+      setMsgContent("Les mots de passes ne sont pas identiques !");
+      setTimeout(() => {
+        setErrorMsg(false);
+      }, 4000);
+    } else {
+      setSuccesMsg(true);
+      setMsgContent("Compte créer avec");
+      setTimeout(() => {
+        setSuccesMsg(false);
+      }, 4000);
+
       event.preventDefault();
       setUserSaved((prevData) => [...prevData, signIn]);
       // Réinitialise les valeurs d'input à vide.
@@ -39,8 +62,7 @@ function LogContextProvider({ children }) {
         userName: "",
         email: "",
         password: "",
-        CguAgree: false,
-        addCvNow: false,
+        password2: "",
       });
     }
   };
@@ -61,6 +83,9 @@ function LogContextProvider({ children }) {
       userSaved,
       setUserSaved,
       handleCheckboxChange,
+      errorMsg,
+      succesMsg,
+      msgContent,
     }),
     [
       isAdmin,
@@ -72,6 +97,9 @@ function LogContextProvider({ children }) {
       userSaved,
       setUserSaved,
       handleCheckboxChange,
+      errorMsg,
+      succesMsg,
+      msgContent,
     ]
   );
 
