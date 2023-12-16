@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Input from "../../components/Inputs/Input";
 import ButtonMaxi from "../../components/Boutons/ButtonMaxi";
 import "./login-signin.css";
@@ -19,14 +20,19 @@ function Login() {
             <div>
               <Input titleInput="E-mail" holderText="john.doe@externatic.fr" />
               <Input titleInput="Mot de passe" holderText="************" />
-              <ButtonMaxi textBtn="Se connecter" />
+              <Link to="/">
+                <ButtonMaxi textBtn="Se connecter" />
+              </Link>
             </div>
           </div>
         </form>
 
         <div className="small-paragraphe-info">
           <p>
-            Vous n'avez pas de compte ? <span> Inscrivez-vous ! </span>
+            Vous n'avez pas de compte ?
+            <Link to="/signin">
+              <span>Inscrivez-vous !</span>
+            </Link>
           </p>
         </div>
       </div>

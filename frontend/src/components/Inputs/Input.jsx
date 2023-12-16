@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import { useLogContext } from "../../contexts/LogContext";
 import "./input.css";
 
-function Input({ titleInput, holderText, typeInput, showInput, fieldName }) {
+function Input({ titleInput, holderText, typeInput, hideInput, fieldName }) {
   const { signIn, handleSignIn } = useLogContext();
 
   return (
@@ -10,7 +10,7 @@ function Input({ titleInput, holderText, typeInput, showInput, fieldName }) {
       <label className="label-champs" htmlFor="name">
         {titleInput ?? "Nom de l'input"}
       </label>
-      {showInput && (
+      {!hideInput && (
         <input
           className="background-input"
           type={typeInput ?? "text"}
@@ -29,8 +29,8 @@ Input.propTypes = {
   titleInput: PropTypes.string.isRequired,
   holderText: PropTypes.string.isRequired,
   typeInput: PropTypes.string.isRequired,
-  showInput: PropTypes.bool.isRequired,
   fieldName: PropTypes.string.isRequired,
+  hideInput: PropTypes.bool.isRequired,
 };
 
 export default Input;

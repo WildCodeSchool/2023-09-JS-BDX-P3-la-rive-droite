@@ -1,5 +1,4 @@
 import ButtonMaxi from "../../components/Boutons/ButtonMaxi";
-import Date from "../../components/Inputs/Date";
 import Input from "../../components/Inputs/Input";
 import Select from "../../components/Inputs/Select";
 import TextArea from "../../components/Inputs/TextArea";
@@ -11,20 +10,40 @@ function Offer() {
       <HeaderCourt />
       <div className="container-page with-rounded-border">
         <h1>Ajouter une offre</h1>
-        <Select titleSelect="Niveau d'étude *" valueSelect="Master 2" />
-        <Select titleSelect="Domaine *" />
         <Input
-          titleInput="Nom de l'établissement *"
+          titleInput="Titre de l'offre"
+          holderText="Développeur Web"
+          inputType="text"
+        />
+        <Input titleInput="Société" holderText="BackMarket" inputType="text" />
+        <Select titleSelect="Type de contrat" valueSelect="CDI" />
+        <Input titleInput="Ville" holderText="Bordeaux" inputType="text" />
+        <TextArea
+          titleInput="Missions"
+          holderText="1 rue Victor Hugo, 33300 Bordeaux"
+        />
+        <Input
+          titleInput="Profil recherché"
           holderText="Sup de pub"
           inputType="text"
         />
-        <Date titleCalendar="Date de début *" />
-        <Date titleCalendar="Date de fin *" />
-        <TextArea
-          titleInput="Description de la formation *"
-          holderText="Lorem ipsum dolor si amet"
+        <Input
+          titleInput="Lieux de travail"
+          holderText="Présentiel"
+          inputType="text"
         />
-        <ButtonMaxi textBtn="Ajouter une formation" />
+        <Input titleInput="Salaire" holderText="100k" inputType="text" />
+        <TextArea
+          titleInput="Infos complémentaires"
+          holderText=" Le travail est cool"
+        />
+
+        <Input
+          titleInput="Email du client lié à l'offre"
+          holderText="Votre email"
+          inputType="email"
+        />
+        <ButtonMaxi textBtn="Ajouter l'offre" />
       </div>
     </div>
   );

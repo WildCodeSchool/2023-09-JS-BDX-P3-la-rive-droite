@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Input from "../../components/Inputs/Input";
 import CheckboxCondition from "../../components/Inputs/CheckboxCondition";
 import HeaderLongTitle from "../../components/Headers/HeaderLongTitle";
@@ -23,27 +24,23 @@ function SignIn() {
             <Input
               titleInput="Nom d'utilisateur"
               holderText="John Doe"
-              showInput
               fieldName="userName"
             />
             <Input
               titleInput="E-mail"
               holderText="john.doe@externatic.fr"
-              showInput
               fieldName="email"
               typeInput="email"
             />
             <Input
               titleInput="Mot de passe"
               holderText="************"
-              showInput
               fieldName="password"
               typeInput="password"
             />
             <Input
               titleInput="Confirmer le mot de passe"
               holderText="************"
-              showInput
               fieldName="password2"
               typeInput="password"
             />
@@ -61,7 +58,10 @@ function SignIn() {
 
         <div className="small-paragraphe-info">
           <p>
-            Vous avez déjà un compte ? <span>Connectez-vous</span>
+            Vous avez déjà un compte ?
+            <Link to="/login">
+              <span>Connectez-vous</span>
+            </Link>
           </p>
         </div>
       </div>
