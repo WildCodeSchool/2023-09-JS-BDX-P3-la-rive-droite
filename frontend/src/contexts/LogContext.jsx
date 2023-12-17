@@ -1,5 +1,7 @@
 import PropTypes from "prop-types";
 import { useState, createContext, useContext, useMemo } from "react";
+import { useNavigate } from "react-router-dom";
+import { v4 as uuid } from "uuid";
 
 const LogContext = createContext();
 
@@ -10,6 +12,7 @@ function LogContextProvider({ children }) {
   const [msgContent, setMsgContent] = useState("");
 
   const [signIn, setSignIn] = useState({
+    id: uuid(),
     userName: "",
     email: "",
     password: "",
@@ -17,6 +20,7 @@ function LogContextProvider({ children }) {
     cguAgree: false,
     addCvNow: false,
   });
+  const [userConnected, setUserConnected] = useState(false);
   const [userSaved, setUserSaved] = useState([]);
   const [storageData, setStorageData] = useState([]);
 
@@ -43,6 +47,9 @@ function LogContextProvider({ children }) {
     getLocalStorageData();
   };
 
+  const navigate = useNavigate();
+  const emailRegex = /[a-z0-9._]+@[a-z0-9-]+\.[a-z]{2,3}/;
+
   const handleSubmitSignIn = (event) => {
     if (
       signIn.userName === "" ||
@@ -52,6 +59,12 @@ function LogContextProvider({ children }) {
     ) {
       setErrorMsg(true);
       setMsgContent("Champs non remplis");
+      setTimeout(() => {
+        setErrorMsg(false);
+      }, 4000);
+    } else if (!emailRegex.test(signIn.email)) {
+      setErrorMsg(true);
+      setMsgContent("L'adresse mail n'est pas correcte");
       setTimeout(() => {
         setErrorMsg(false);
       }, 4000);
@@ -66,7 +79,7 @@ function LogContextProvider({ children }) {
       setMsgContent("Compte créer avec");
       setTimeout(() => {
         setSuccesMsg(false);
-      }, 4000);
+      }, 2000);
 
       event.preventDefault();
       setUserSaved((prevData) => [...prevData, signIn]);
@@ -77,6 +90,12 @@ function LogContextProvider({ children }) {
         password: "",
         password2: "",
       });
+
+      setTimeout(() => {
+        navigate("/");
+      }, 2000);
+
+      setUserConnected(true);
 
       saveUser();
     }
@@ -106,6 +125,7 @@ function LogContextProvider({ children }) {
       msgContent,
       handleCheckboxChange,
       storageData,
+      userConnected,
     }),
     [
       signIn,
@@ -119,6 +139,7 @@ function LogContextProvider({ children }) {
       msgContent,
       handleCheckboxChange,
       storageData,
+      userConnected,
     ]
   );
 
