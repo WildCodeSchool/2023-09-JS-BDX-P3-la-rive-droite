@@ -74,6 +74,12 @@ function LogContextProvider({ children }) {
       setTimeout(() => {
         setErrorMsg(false);
       }, 4000);
+    } else if (signIn.cguAgree === false) {
+      setErrorMsg(true);
+      setMsgContent("Vous n'avez pas validé les conditions générales.");
+      setTimeout(() => {
+        setErrorMsg(false);
+      }, 4000);
     } else {
       setSuccesMsg(true);
       setMsgContent("Compte créer avec");
@@ -91,13 +97,18 @@ function LogContextProvider({ children }) {
         password2: "",
       });
 
-      setTimeout(() => {
-        navigate("/");
-      }, 2000);
-
       setUserConnected(true);
-
       saveUser();
+
+      if (signIn.addCvNow === false) {
+        setTimeout(() => {
+          navigate("/");
+        }, 2000);
+      } else {
+        setTimeout(() => {
+          navigate("/edit-profile/cv");
+        }, 2000);
+      }
     }
   };
 
