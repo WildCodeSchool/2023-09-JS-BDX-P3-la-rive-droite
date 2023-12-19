@@ -1,0 +1,17 @@
+.succes-pop {
+  margin: 20px 0px;
+  width: 100%;
+  background-color: var(--succes-background);
+  border-radius: 10px;
+}
+
+.succes-description {
+  color: var(--succes-msg);
+  font-weight: 300;
+  padding: 10px 0px;
+  text-align: center;
+}
+
+.succes-text {
+  font-weight: 500;
+}

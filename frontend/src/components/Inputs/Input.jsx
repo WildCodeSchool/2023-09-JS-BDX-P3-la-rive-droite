@@ -1,7 +1,10 @@
 import PropTypes from "prop-types";
+import { useSignContext } from "../../contexts/SignContext";
 import "./input.css";
 
-function Input({ titleInput, holderText, hideInput }) {
+function Input({ titleInput, holderText, typeInput, fieldName, hideInput }) {
+  const { signIn, handleSignIn } = useSignContext();
+
   return (
     <div className="container-input">
       <label className="label-champs" htmlFor="name">
@@ -10,9 +13,12 @@ function Input({ titleInput, holderText, hideInput }) {
       {!hideInput && (
         <input
           className="background-input"
-          type="text"
-          id="name"
+          type={typeInput ?? "text"}
+          id={fieldName}
+          name={fieldName}
           placeholder={holderText ?? "Texte du placeholder"}
+          value={signIn[fieldName]}
+          onChange={(event) => handleSignIn(fieldName, event)}
         />
       )}
     </div>
@@ -22,6 +28,8 @@ function Input({ titleInput, holderText, hideInput }) {
 Input.propTypes = {
   titleInput: PropTypes.string.isRequired,
   holderText: PropTypes.string.isRequired,
+  typeInput: PropTypes.string.isRequired,
+  fieldName: PropTypes.string.isRequired,
   hideInput: PropTypes.bool.isRequired,
 };
 

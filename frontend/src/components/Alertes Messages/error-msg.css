@@ -1,0 +1,17 @@
+.error-pop {
+  margin: 20px 0px;
+  width: 100%;
+  background-color: var(--error-background);
+  border-radius: 10px;
+}
+
+.error-description {
+  color: var(--error-msg);
+  font-weight: 300;
+  padding: 10px 0px;
+  text-align: center;
+}
+
+.error-text {
+  font-weight: 500;
+}
