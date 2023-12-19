@@ -123,7 +123,7 @@ function SignContextProvider({ children }) {
       setUserConnected(true);
       saveUser();
 
-      if (signIn.addCvNow === false) {
+      if (signIn.addCvNow === true) {
         setTimeout(() => {
           navigate("/edit-profile/cv");
         }, 2000);

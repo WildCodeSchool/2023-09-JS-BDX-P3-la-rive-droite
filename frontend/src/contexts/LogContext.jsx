@@ -35,12 +35,15 @@ function LogContextProvider({ children }) {
 
     // Compare l'email.
     for (let i = 0; i < showStorage.length; i + 1) {
+      // i++
       if (
         showStorage[i].email === logIn.email &&
         showStorage[i].password === logIn.password
       ) {
         // const idUser = showStorage[i].id;
         const nameUser = showStorage[i].userName;
+        // console.log(nameUser);
+        // console.log(idUser);
 
         setSuccesMsg(true);
         setMsgContent(`Bienvenue, connexion avec ${nameUser}`);
