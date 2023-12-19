@@ -12,7 +12,14 @@ import "../../components/Boutons/button-maxi.css";
 import "../../components/Inputs/checkbox-conditions.css";
 
 function SignIn() {
-  const { errorMsg, succesMsg, msgContent } = useSignContext();
+  const {
+    errorMsg,
+    succesMsg,
+    msgContent,
+    signIn,
+    handleSignIn,
+    handleSubmitSignIn,
+  } = useSignContext();
 
   return (
     <>
@@ -25,24 +32,32 @@ function SignIn() {
               titleInput="Nom d'utilisateur *"
               holderText="John Doe"
               fieldName="userName"
+              valueInput={signIn}
+              handleChange={handleSignIn}
             />
             <Input
               titleInput="E-mail *"
               holderText="john.doe@externatic.fr"
               fieldName="email"
               typeInput="email"
+              valueInput={signIn}
+              handleChange={handleSignIn}
             />
             <Input
               titleInput="Mot de passe *"
               holderText="************"
               fieldName="password"
               typeInput="password"
+              valueInput={signIn}
+              handleChange={handleSignIn}
             />
             <Input
               titleInput="Confirmer le mot de passe *"
               holderText="************"
               fieldName="password2"
               typeInput="password"
+              valueInput={signIn}
+              handleChange={handleSignIn}
             />
             <CheckboxCondition
               textCondition="J'accepte les conditions d' *"
@@ -57,7 +72,7 @@ function SignIn() {
               {errorMsg && <ErrorMsg message={msgContent} />}
               {succesMsg && <SuccesMsg message={msgContent} />}
             </div>
-            <ButtonMaxi textBtn="S'inscrire" />
+            <ButtonMaxi textBtn="S'inscrire" clickFunc={handleSubmitSignIn} />
           </div>
         </div>
 

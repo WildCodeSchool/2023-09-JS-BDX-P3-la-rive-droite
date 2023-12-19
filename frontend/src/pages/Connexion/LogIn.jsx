@@ -2,13 +2,22 @@ import { Link } from "react-router-dom";
 import Input from "../../components/Inputs/Input";
 import ButtonMaxi from "../../components/Boutons/ButtonMaxi";
 import HeaderLongTitle from "../../components/Headers/HeaderLongTitle";
+import { useLogContext } from "../../contexts/LogContext";
+import ErrorMsg from "../../components/Alertes Messages/ErrorMsg";
+import SuccesMsg from "../../components/Alertes Messages/SuccesMsg";
 import "./login-signin.css";
 import "../../components/Inputs/input.css";
 import "../../components/Boutons/button-maxi.css";
-// import { useSignContext } from "../../contexts/SignContext";
 
 function Login() {
-  // const { handleSubmit, signIn } = useSignContext();
+  const {
+    errorMsg,
+    succesMsg,
+    msgContent,
+    logIn,
+    handleLogIn,
+    handleSubmitLogIn,
+  } = useLogContext();
 
   return (
     <>
@@ -21,11 +30,26 @@ function Login() {
               <Input
                 titleInput="E-mail *"
                 holderText="john.doe@externatic.fr"
+                fieldName="email"
+                valueInput={logIn}
+                handleChange={handleLogIn}
               />
-              <Input titleInput="Mot de passe *" holderText="************" />
-              <Link to="/">
-                <ButtonMaxi textBtn="Se connecter" />
-              </Link>
+              <Input
+                titleInput="Mot de passe *"
+                holderText="************"
+                fieldName="password"
+                typeInput="password"
+                valueInput={logIn}
+                handleChange={handleLogIn}
+              />
+              <div>
+                {errorMsg && <ErrorMsg message={msgContent} />}
+                {succesMsg && <SuccesMsg message={msgContent} />}
+              </div>
+              <ButtonMaxi
+                textBtn="Se connecter"
+                clickFunc={handleSubmitLogIn}
+              />
             </div>
           </div>
         </form>
