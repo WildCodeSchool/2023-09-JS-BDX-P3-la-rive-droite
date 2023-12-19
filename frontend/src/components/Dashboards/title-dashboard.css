@@ -1,0 +1,12 @@
+.title-container {
+  width: 70%;
+  margin-left: 25px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.title-dash {
+  font-size: 20px;
+  color: var(--texte-default);
+  font-weight: 400;
+}
