@@ -1,4 +1,5 @@
 import ButtonMini from "../Boutons/ButtonMini";
+import "./RowDash.css";
 
 const UserDash = [
   {

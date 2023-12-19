@@ -1,15 +1,19 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import RowDash from "../../components/Dashboards/RowDash";
 import TitleDashboard from "../../components/Dashboards/TitleDashboard";
 import ButtonMini from "../../components/Boutons/ButtonMini";
 
 function Dashboard1() {
+  const navigate = useNavigate();
+  const handleAddOffer = () => {
+    navigate("/offer");
+  };
   return window.location.pathname === "/dashboard" ||
     window.location.pathname === "/dashboard/" ? (
     <div>
       <div className="title-btn">
-        <h3 className="tab">Tableau de bord</h3>
-        <ButtonMini textBtn="Ajouter une offre" />
+        <h4 className="tab">Tableau de bord</h4>
+        <ButtonMini textBtn="Ajouter une offre" onClick={handleAddOffer} />
       </div>
       <TitleDashboard
         labelDash="ID Offres"
