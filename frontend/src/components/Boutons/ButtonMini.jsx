@@ -10,7 +10,6 @@ function ButtonMini({ textBtn }) {
     </div>
   );
 }
-
 ButtonMini.propTypes = {
   textBtn: PropTypes.string.isRequired,
 };
