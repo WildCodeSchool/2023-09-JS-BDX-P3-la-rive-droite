@@ -1,9 +1,15 @@
 import { useState, createContext, useContext, useMemo } from "react";
 import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
 
 const LogContext = createContext();
 
 function LogContextProvider({ children }) {
+  // Messages d'alertes.
+  const [errorMsg, setErrorMsg] = useState(false);
+  const [succesMsg, setSuccesMsg] = useState(false);
+  const [msgContent, setMsgContent] = useState("");
+
   const [userConnected, setUserConnected] = useState(false);
   const [logIn, setLogIn] = useState({
     email: "",
@@ -12,7 +18,7 @@ function LogContextProvider({ children }) {
   const [showStorage, setShowStorage] = useState([]);
 
   const getUserFromStorage = () => {
-    setShowStorage(localStorage.getItem("User"));
+    setShowStorage(JSON.parse(localStorage.getItem("User")));
   };
 
   const handleLogIn = (fieldName, event) => {
@@ -22,7 +28,36 @@ function LogContextProvider({ children }) {
     }));
   };
 
-  const handleSubmitLogIn = () => {};
+  const navigate = useNavigate();
+
+  const handleSubmitLogIn = () => {
+    getUserFromStorage();
+
+    // Compare l'email.
+    for (let i = 0; i < showStorage.length; i + 1) {
+      if (
+        showStorage[i].email === logIn.email &&
+        showStorage[i].password === logIn.password
+      ) {
+        // const idUser = showStorage[i].id;
+        const nameUser = showStorage[i].userName;
+
+        setSuccesMsg(true);
+        setMsgContent(`Bienvenue, connexion avec ${nameUser}`);
+        setTimeout(() => {
+          setSuccesMsg(false);
+          navigate("/");
+        }, 3000);
+        break;
+      } else {
+        setErrorMsg(true);
+        setMsgContent("Identifiants non valides.");
+        setTimeout(() => {
+          setErrorMsg(false);
+        }, 4000);
+      }
+    }
+  };
 
   const contextValues = useMemo(
     () => ({
@@ -33,6 +68,9 @@ function LogContextProvider({ children }) {
       showStorage,
       setUserConnected,
       getUserFromStorage,
+      errorMsg,
+      succesMsg,
+      msgContent,
     }),
     [
       userConnected,
@@ -42,6 +80,9 @@ function LogContextProvider({ children }) {
       showStorage,
       setUserConnected,
       getUserFromStorage,
+      errorMsg,
+      succesMsg,
+      msgContent,
     ]
   );
 
