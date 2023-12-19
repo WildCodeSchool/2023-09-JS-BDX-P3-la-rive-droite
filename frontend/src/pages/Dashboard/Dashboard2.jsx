@@ -12,7 +12,6 @@ function Dashboard2({ refAnnonce }) {
       <h3 className="ref"> REF OFFRE : {refAnnonce} </h3>
       <h3>CANDIDATS</h3>
       <div>
-        <ButtonMini textBtn="Envoyer" />
         <TitleDashboard
           labelDash="ID"
           labelDash2="Noms"
@@ -23,6 +22,7 @@ function Dashboard2({ refAnnonce }) {
         />
       </div>
       <RowDash />
+      <ButtonMini textBtn="Envoyer" />
     </div>
   );
 }
