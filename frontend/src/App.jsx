@@ -1,13 +1,16 @@
 import { Outlet } from "react-router-dom";
 import SignContextProvider from "./contexts/SignContext";
-import "./App.css";
+import LogContextProvider from "./contexts/LogContext";
 import Navbar from "./components/NavBar/NavBar";
+import "./App.css";
 
 function App() {
   return (
     <SignContextProvider>
-      <Navbar />
-      <Outlet />
+      <LogContextProvider>
+        <Navbar />
+        <Outlet />
+      </LogContextProvider>
     </SignContextProvider>
   );
 }

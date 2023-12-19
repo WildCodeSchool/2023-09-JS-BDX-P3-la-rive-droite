@@ -5,10 +5,10 @@ import HeaderLongTitle from "../../components/Headers/HeaderLongTitle";
 import "./login-signin.css";
 import "../../components/Inputs/input.css";
 import "../../components/Boutons/button-maxi.css";
-// import { useSignContext } from "../../contexts/SignContext";
+import { useLogContext } from "../../contexts/LogContext";
 
 function Login() {
-  // const { handleSubmit, signIn } = useSignContext();
+  const { logIn, handleLogIn, handleSubmitLogIn } = useLogContext();
 
   return (
     <>
@@ -21,11 +21,21 @@ function Login() {
               <Input
                 titleInput="E-mail *"
                 holderText="john.doe@externatic.fr"
+                fieldName="email"
+                valueInput={logIn}
+                handleChange={handleLogIn}
               />
-              <Input titleInput="Mot de passe *" holderText="************" />
-              <Link to="/">
-                <ButtonMaxi textBtn="Se connecter" />
-              </Link>
+              <Input
+                titleInput="Mot de passe *"
+                holderText="************"
+                fieldName="password"
+                valueInput={logIn}
+                handleChange={handleLogIn}
+              />
+              <ButtonMaxi
+                textBtn="Se connecter"
+                clickFunc={handleSubmitLogIn}
+              />
             </div>
           </div>
         </form>

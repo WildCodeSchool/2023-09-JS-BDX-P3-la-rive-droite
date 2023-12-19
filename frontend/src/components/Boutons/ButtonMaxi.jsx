@@ -1,17 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { useSignContext } from "../../contexts/SignContext";
 import "./button-maxi.css";
 
-function ButtonMaxi({ textBtn }) {
-  const { handleSubmitSignIn } = useSignContext();
-
+function ButtonMaxi({ textBtn, clickFunc }) {
   return (
-    <button
-      className="submit-btn-maxi"
-      type="button"
-      onClick={handleSubmitSignIn}
-    >
+    <button className="submit-btn-maxi" type="button" onClick={clickFunc}>
       {textBtn ?? "Test button maxi"}
     </button>
   );
@@ -19,6 +12,7 @@ function ButtonMaxi({ textBtn }) {
 
 ButtonMaxi.propTypes = {
   textBtn: PropTypes.string.isRequired,
+  clickFunc: PropTypes.func.isRequired,
 };
 
 export default ButtonMaxi;
