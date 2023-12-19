@@ -1,12 +1,15 @@
 import { Link } from "react-router-dom";
 import Input from "../../components/Inputs/Input";
 import ButtonMaxi from "../../components/Boutons/ButtonMaxi";
+import HeaderLongTitle from "../../components/Headers/HeaderLongTitle";
 import "./login-signin.css";
 import "../../components/Inputs/input.css";
 import "../../components/Boutons/button-maxi.css";
-import HeaderLongTitle from "../../components/Headers/HeaderLongTitle";
+// import { useSignContext } from "../../contexts/SignContext";
 
 function Login() {
+  // const { handleSubmit, signIn } = useSignContext();
+
   return (
     <>
       <HeaderLongTitle textTitle="Connexion" />
@@ -15,8 +18,11 @@ function Login() {
         <form>
           <div className="champs-form">
             <div>
-              <Input titleInput="E-mail" holderText="john.doe@externatic.fr" />
-              <Input titleInput="Mot de passe" holderText="************" />
+              <Input
+                titleInput="E-mail *"
+                holderText="john.doe@externatic.fr"
+              />
+              <Input titleInput="Mot de passe *" holderText="************" />
               <Link to="/">
                 <ButtonMaxi textBtn="Se connecter" />
               </Link>
