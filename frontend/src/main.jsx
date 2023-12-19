@@ -43,10 +43,6 @@ const router = createBrowserRouter([
         element: <Favoris />,
       },
       {
-        path: "/offer",
-        element: <Offer />,
-      },
-      {
         path: "/edit-profile",
         element: <UserProfileModel />,
         children: [
@@ -69,8 +65,12 @@ const router = createBrowserRouter([
         element: <Dashboard1 />,
         children: [
           {
-            path: "/dashboard/candidats",
+            path: "/dashboard/candidates",
             element: <Dashboard2 />,
+          },
+          {
+            path: "/dashboard/offer",
+            element: <Offer />,
           },
         ],
       },

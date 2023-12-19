@@ -20,6 +20,7 @@ function Dashboard2({ refAnnonce }) {
           labelDash6="CV"
         />
       </div>
+      <ButtonMini textBtn="Envoyer" />
       <RowDash2 />
     </div>
   );
