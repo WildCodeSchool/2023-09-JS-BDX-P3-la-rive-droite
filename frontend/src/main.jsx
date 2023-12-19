@@ -1,10 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-// eslint-disable-next-line import/no-unresolved, import/no-extraneous-dependencies
-import "mdb-react-ui-kit/dist/css/mdb.min.css";
-// eslint-disable-next-line import/no-extraneous-dependencies
 import "@fortawesome/fontawesome-free/css/all.min.css";
+import "mdb-react-ui-kit/dist/css/mdb.min.css";
+
 // Import des composants pour les routes.
 import App from "./App";
 import SignIn from "./pages/Connexion/SignIn";
