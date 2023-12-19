@@ -4,9 +4,29 @@
   display: flex;
   justify-content: space-between;
 }
-
+.tab {
+  color: var(--texte-default);
+  font-size: 20px;
+}
 .title-dash {
   font-size: 20px;
   color: var(--texte-default);
   font-weight: 400;
+}
+
+.title-btn {
+  display: flex;
+}
+
+.submit-btn-mini {
+  background-color: var(--second-color);
+  color: var(--text-btn);
+  padding: 18px 30px;
+  border: 0;
+  border-radius: 7px;
+  text-transform: uppercase;
+  font-weight: 500;
+  font-size: 10px;
+  width: 100%;
+  transition: transform 0.3s ease-in-out;
 }
