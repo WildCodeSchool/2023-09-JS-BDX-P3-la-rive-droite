@@ -1,9 +1,9 @@
 import PropTypes from "prop-types";
-import { useLogContext } from "../../contexts/LogContext";
+import { useSignContext } from "../../contexts/SignContext";
 import "./input.css";
 
 function Input({ titleInput, holderText, typeInput, fieldName, hideInput }) {
-  const { signIn, handleSignIn } = useLogContext();
+  const { signIn, handleSignIn } = useSignContext();
 
   return (
     <div className="container-input">

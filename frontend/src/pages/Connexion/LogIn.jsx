@@ -5,10 +5,10 @@ import HeaderLongTitle from "../../components/Headers/HeaderLongTitle";
 import "./login-signin.css";
 import "../../components/Inputs/input.css";
 import "../../components/Boutons/button-maxi.css";
-// import { useLogContext } from "../../contexts/LogContext";
+// import { useSignContext } from "../../contexts/SignContext";
 
 function Login() {
-  // const { handleSubmit, signIn } = useLogContext();
+  // const { handleSubmit, signIn } = useSignContext();
 
   return (
     <>

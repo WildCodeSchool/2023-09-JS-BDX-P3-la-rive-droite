@@ -5,14 +5,14 @@ import HeaderLongTitle from "../../components/Headers/HeaderLongTitle";
 import ButtonMaxi from "../../components/Boutons/ButtonMaxi";
 import ErrorMsg from "../../components/Alertes Messages/ErrorMsg";
 import SuccesMsg from "../../components/Alertes Messages/SuccesMsg";
-import { useLogContext } from "../../contexts/LogContext";
+import { useSignContext } from "../../contexts/SignContext";
 import "./login-signin.css";
 import "../../components/Inputs/input.css";
 import "../../components/Boutons/button-maxi.css";
 import "../../components/Inputs/checkbox-conditions.css";
 
 function SignIn() {
-  const { errorMsg, succesMsg, msgContent } = useLogContext();
+  const { errorMsg, succesMsg, msgContent } = useSignContext();
 
   return (
     <>
@@ -53,13 +53,12 @@ function SignIn() {
               textCondition="Je veux créer ou télécharger mon cv maintenant !"
               fieldName="addCvNow"
             />
+            <div>
+              {errorMsg && <ErrorMsg message={msgContent} />}
+              {succesMsg && <SuccesMsg message={msgContent} />}
+            </div>
             <ButtonMaxi textBtn="S'inscrire" />
           </div>
-        </div>
-
-        <div>
-          {errorMsg && <ErrorMsg message={msgContent} />}
-          {succesMsg && <SuccesMsg message={msgContent} />}
         </div>
 
         <div className="small-paragraphe-info">

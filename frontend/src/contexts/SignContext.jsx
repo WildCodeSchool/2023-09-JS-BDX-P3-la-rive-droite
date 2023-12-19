@@ -3,9 +3,9 @@ import { useState, createContext, useContext, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { v4 as uuid } from "uuid";
 
-const LogContext = createContext();
+const SignContext = createContext();
 
-function LogContextProvider({ children }) {
+function SignContextProvider({ children }) {
   // Messages d'alertes.
   const [errorMsg, setErrorMsg] = useState(false);
   const [succesMsg, setSuccesMsg] = useState(false);
@@ -49,6 +49,15 @@ function LogContextProvider({ children }) {
 
   const navigate = useNavigate();
   const emailRegex = /[a-z0-9._]+@[a-z0-9-]+\.[a-z]{2,3}/;
+  const passwordRegex =
+    /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+  const handleCheckboxChange = (fieldName) => {
+    setSignIn((prevData) => ({
+      ...prevData,
+      [fieldName]: !prevData[fieldName],
+    }));
+  };
 
   const handleSubmitSignIn = (event) => {
     if (
@@ -68,6 +77,20 @@ function LogContextProvider({ children }) {
       setTimeout(() => {
         setErrorMsg(false);
       }, 4000);
+    } else if (signIn.password.length < 8) {
+      setErrorMsg(true);
+      setMsgContent("Le mot de passe n'est pas assez long");
+      setTimeout(() => {
+        setErrorMsg(false);
+      }, 4000);
+    } else if (!passwordRegex.test(signIn.password)) {
+      setErrorMsg(true);
+      setMsgContent(
+        "Le mot de passe doit contenir au moins : 1 majuscule, 1 minuscule, 1 chiffre, 1 caractère spéciale(@$!%*?&)"
+      );
+      setTimeout(() => {
+        setErrorMsg(false);
+      }, 6000);
     } else if (signIn.password !== signIn.password2) {
       setErrorMsg(true);
       setMsgContent("Les mots de passes ne sont pas identiques");
@@ -76,13 +99,13 @@ function LogContextProvider({ children }) {
       }, 4000);
     } else if (signIn.cguAgree === false) {
       setErrorMsg(true);
-      setMsgContent("Vous n'avez pas validé les conditions générales.");
+      setMsgContent("Vous n'avez pas validé les conditions générales");
       setTimeout(() => {
         setErrorMsg(false);
       }, 4000);
     } else {
       setSuccesMsg(true);
-      setMsgContent("Compte créer avec");
+      setMsgContent("Compte créé avec");
       setTimeout(() => {
         setSuccesMsg(false);
       }, 2000);
@@ -102,21 +125,14 @@ function LogContextProvider({ children }) {
 
       if (signIn.addCvNow === false) {
         setTimeout(() => {
-          navigate("/");
+          navigate("/edit-profile/cv");
         }, 2000);
       } else {
         setTimeout(() => {
-          navigate("/edit-profile/cv");
+          navigate("/");
         }, 2000);
       }
     }
-  };
-
-  const handleCheckboxChange = (fieldName) => {
-    setSignIn((prevData) => ({
-      ...prevData,
-      [fieldName]: !prevData[fieldName],
-    }));
   };
 
   // useEffect(() => {
@@ -155,13 +171,15 @@ function LogContextProvider({ children }) {
   );
 
   return (
-    <LogContext.Provider value={contextValues}>{children}</LogContext.Provider>
+    <SignContext.Provider value={contextValues}>
+      {children}
+    </SignContext.Provider>
   );
 }
 
-LogContextProvider.propTypes = {
+SignContextProvider.propTypes = {
   children: PropTypes.element.isRequired,
 };
 
-export default LogContextProvider;
-export const useLogContext = () => useContext(LogContext);
+export default SignContextProvider;
+export const useSignContext = () => useContext(SignContext);

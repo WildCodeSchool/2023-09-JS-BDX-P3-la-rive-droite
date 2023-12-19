@@ -1,9 +1,9 @@
 import PropTypes from "prop-types";
-import { useLogContext } from "../../contexts/LogContext";
+import { useSignContext } from "../../contexts/SignContext";
 import "./checkbox-conditions.css";
 
 function CheckboxCondition({ textCondition, fieldName }) {
-  const { handleCheckboxChange } = useLogContext();
+  const { handleCheckboxChange } = useSignContext();
 
   const handleChange = () => {
     handleCheckboxChange(fieldName);

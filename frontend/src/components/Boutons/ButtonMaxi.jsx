@@ -1,10 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { useLogContext } from "../../contexts/LogContext";
+import { useSignContext } from "../../contexts/SignContext";
 import "./button-maxi.css";
 
 function ButtonMaxi({ textBtn }) {
-  const { handleSubmitSignIn } = useLogContext();
+  const { handleSubmitSignIn } = useSignContext();
 
   return (
     <button

@@ -1,12 +1,12 @@
 import { Outlet } from "react-router-dom";
-import LogContextProvider from "./contexts/LogContext";
+import SignContextProvider from "./contexts/SignContext";
 import "./App.css";
 
 function App() {
   return (
-    <LogContextProvider>
+    <SignContextProvider>
       <Outlet />
-    </LogContextProvider>
+    </SignContextProvider>
   );
 }
 export default App;
