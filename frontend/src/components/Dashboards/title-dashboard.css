@@ -4,10 +4,12 @@
   display: flex;
   justify-content: space-between;
 }
+
 .tab {
   color: var(--texte-default);
   font-size: 20px;
 }
+
 .title-dash {
   font-size: 20px;
   color: var(--texte-default);
@@ -16,6 +18,7 @@
 
 .title-btn {
   display: flex;
+  margin-bottom: 30px;
 }
 
 .submit-btn-mini {
@@ -28,5 +31,15 @@
   font-weight: 500;
   font-size: 10px;
   width: 100%;
-  transition: transform 0.3s ease-in-out;
+  margin-top: -20px;
+  margin-left: 20px;
+  height: 40px;
+  align-items: center;
+}
+.ref {
+  margin-top: -50px;
+  margin-right: 70px;
+  font-size: 16px;
+  display: flex;
+  justify-content: flex-end;
 }
