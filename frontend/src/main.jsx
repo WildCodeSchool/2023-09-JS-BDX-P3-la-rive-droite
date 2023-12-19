@@ -1,8 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import "mdb-react-ui-kit/dist/css/mdb.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
+import "mdb-react-ui-kit/dist/css/mdb.min.css";
+
 // Import des composants pour les routes.
 import App from "./App";
 import SignIn from "./pages/Connexion/SignIn";
@@ -15,6 +16,7 @@ import AddFormation from "./pages/Formation/AddFormation";
 import Offer from "./pages/Offer/Offer";
 import History from "./pages/Historique/History";
 import Favoris from "./pages/Favoris/Favoris";
+import TitleDashboard1 from "./pages/Dashboard/Dashboard1";
 
 const router = createBrowserRouter([
   {
@@ -63,6 +65,10 @@ const router = createBrowserRouter([
             element: <AddFormation />,
           },
         ],
+      },
+      {
+        path: "/dashboard",
+        element: <TitleDashboard1 />,
       },
     ],
   },

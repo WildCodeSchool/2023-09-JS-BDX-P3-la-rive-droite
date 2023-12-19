@@ -15,6 +15,11 @@
   --text-exemple: #9a9999;
   --border-radius: 70px;
   --border-radius-negatif: -70px;
+  /* Couleurs de messages d'alerte */
+  --succes-msg: #355233;
+  --succes-background: #d4eed9;
+  --error-msg: #3f1519;
+  --error-background: #f7d7da;
 }
 * {
   margin: 0;

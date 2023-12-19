@@ -1,13 +1,19 @@
+import React from "react";
 import PropTypes from "prop-types";
+import { useSignContext } from "../../contexts/SignContext";
 import "./button-maxi.css";
 
 function ButtonMaxi({ textBtn }) {
+  const { handleSubmitSignIn } = useSignContext();
+
   return (
-    <div>
-      <button className="submit-btn-maxi" type="submit">
-        {textBtn ?? "Test button maxi"}
-      </button>
-    </div>
+    <button
+      className="submit-btn-maxi"
+      type="button"
+      onClick={handleSubmitSignIn}
+    >
+      {textBtn ?? "Test button maxi"}
+    </button>
   );
 }
 

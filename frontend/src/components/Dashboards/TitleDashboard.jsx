@@ -1,12 +1,14 @@
+import "./title-dashboard.css";
+
 function TitleDashboard() {
   return (
-    <div>
-      <h4>ID Offres</h4>
-      <h4>Entreprises</h4>
-      <h4>Candidats</h4>
-      <h4>Statut offre</h4>
-      <h4>Référent</h4>
-      <h4>Actions</h4>
+    <div className="title-container">
+      <h4 className="title-dash">ID Offres</h4>
+      <h4 className="title-dash">Entreprises</h4>
+      <h4 className="title-dash">Candidats</h4>
+      <h4 className="title-dash">Statut offre</h4>
+      <h4 className="title-dash">Référent</h4>
+      <h4 className="title-dash">Actions</h4>
     </div>
   );
 }
