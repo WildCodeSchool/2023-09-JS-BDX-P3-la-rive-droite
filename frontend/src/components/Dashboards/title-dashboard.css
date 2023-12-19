@@ -5,8 +5,49 @@
   justify-content: space-between;
 }
 
+.tab {
+  color: var(--texte-default);
+  font-size: 20px;
+  margin-left: 30px;
+}
+
 .title-dash {
   font-size: 20px;
   color: var(--texte-default);
   font-weight: 400;
+}
+.title-dash-action {
+  font-size: 20px;
+  color: var(--texte-default);
+  font-weight: 400;
+  margin-left: 140px;
+}
+
+.title-btn {
+  display: flex;
+  margin-bottom: 30px;
+}
+
+.submit-btn-mini {
+  background-color: var(--second-color);
+  color: var(--text-btn);
+  padding: 18px 30px;
+  border: 0;
+  border-radius: 7px;
+  text-transform: uppercase;
+  font-weight: 500;
+  font-size: 10px;
+  width: 100%;
+  margin-top: -20px;
+  margin-left: 20px;
+  height: 40px;
+  align-items: center;
+  padding: 8px 8px;
+}
+.ref {
+  margin-top: -50px;
+  margin-right: 70px;
+  font-size: 16px;
+  display: flex;
+  justify-content: flex-end;
 }
