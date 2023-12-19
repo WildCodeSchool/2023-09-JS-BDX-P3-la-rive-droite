@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import RowDash from "../../components/Dashboards/RowDash";
 import TitleDashboard from "../../components/Dashboards/TitleDashboard";
 import ButtonMini from "../../components/Boutons/ButtonMini";
 
@@ -11,6 +12,7 @@ function TitleDashboard1({ refAnnonce }) {
       </div>
       <h3 className="ref"> REF OFFRE : {refAnnonce} </h3>
       <TitleDashboard />
+      <RowDash />
     </div>
   );
 }
