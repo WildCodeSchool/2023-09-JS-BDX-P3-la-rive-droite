@@ -8,12 +8,19 @@
 .tab {
   color: var(--texte-default);
   font-size: 20px;
+  margin-left: 30px;
 }
 
 .title-dash {
   font-size: 20px;
   color: var(--texte-default);
   font-weight: 400;
+}
+.title-dash-action {
+  font-size: 20px;
+  color: var(--texte-default);
+  font-weight: 400;
+  margin-left: 140px;
 }
 
 .title-btn {
@@ -35,6 +42,7 @@
   margin-left: 20px;
   height: 40px;
   align-items: center;
+  padding: 8px 8px;
 }
 .ref {
   margin-top: -50px;
