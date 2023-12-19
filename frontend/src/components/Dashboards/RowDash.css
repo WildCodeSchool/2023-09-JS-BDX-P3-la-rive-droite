@@ -1,0 +1,16 @@
+.offerDash-item {
+  display: flex;
+  justify-content: center;
+  background-color: var(--background-input);
+  width: 80%;
+}
+.array-box,
+.bigArray-box {
+  border: 2px solid var(--second-color);
+}
+.array-box {
+  width: 10%;
+}
+.bigArray-box {
+  width: 31%;
+}

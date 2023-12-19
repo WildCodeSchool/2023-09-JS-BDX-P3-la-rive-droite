@@ -52,7 +52,7 @@ export default function Navbar() {
                 <span className="active navbar-link">Accueil</span>
               </Link>
 
-              <Link to="/signin">
+              <Link to="/login">
                 <span className="navbar-link">Connexion</span>
               </Link>
               <Link to="/profile/favorite">
