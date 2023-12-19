@@ -13,6 +13,7 @@ import AddFormation from "./pages/Formation/AddFormation";
 import Offer from "./pages/Offer/Offer";
 import History from "./pages/Historique/History";
 import Favoris from "./pages/Favoris/Favoris";
+import TitleDashboard1 from "./pages/Dashboard/Dashboard1";
 
 const router = createBrowserRouter([
   {
@@ -61,6 +62,10 @@ const router = createBrowserRouter([
             element: <AddFormation />,
           },
         ],
+      },
+      {
+        path: "/dashboard",
+        element: <TitleDashboard1 />,
       },
     ],
   },

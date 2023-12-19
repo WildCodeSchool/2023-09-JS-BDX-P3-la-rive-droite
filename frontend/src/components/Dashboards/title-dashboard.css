@@ -1,0 +1,11 @@
+.title-container {
+  width: 80%;
+  display: flex;
+  justify-items: center;
+  justify-content: space-between;
+}
+
+.title-dash {
+  color: var(--texte-default);
+  font-weight: 500;
+}
