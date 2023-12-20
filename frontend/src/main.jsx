@@ -23,13 +23,7 @@ import LogContextProvider from "./contexts/LogContext";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: (
-      <SignContextProvider>
-        <LogContextProvider>
-          <App />
-        </LogContextProvider>
-      </SignContextProvider>
-    ),
+    element: <App />,
     children: [
       {
         path: "/",
@@ -37,11 +31,19 @@ const router = createBrowserRouter([
       },
       {
         path: "/signin",
-        element: <SignIn />,
+        element: (
+          <SignContextProvider>
+            <SignIn />
+          </SignContextProvider>
+        ),
       },
       {
         path: "/login",
-        element: <LogIn />,
+        element: (
+          <LogContextProvider>
+            <LogIn />
+          </LogContextProvider>
+        ),
       },
       {
         path: "/profile/history",

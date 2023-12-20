@@ -13,12 +13,54 @@ function UserProfileUser() {
       <HeaderLongUser />
       <div className="container-page">
         <Title titleText="Vos coordonnées" />
-        <Input titleInput="Nom *" holderText="Votre nom" />
-        <Input titleInput="Prénom *" holderText="Votre prénom" />
-        <Input titleInput="Email *" holderText="Email" />
-        <Input titleInput="Mot de passe *" holderText="Mot de passe" />
-        <Input titleInput="Téléphone *" holderText="Numéro de téléphone" />
-        <Input titleInput="Addresse *" holderText="Adresse" />
+        <Input
+          titleInput="Nom *"
+          holderText="Votre nom"
+          fieldName="lastname"
+          inputType="text"
+          // valueInput={addInfo}
+          // handleChange={handleChange}
+        />
+        <Input
+          titleInput="Prénom *"
+          holderText="Votre prénom"
+          fieldName="firstname"
+          inputType="text"
+          // valueInput={addInfo}
+          // handleChange={handleChange}
+        />
+        <Input
+          titleInput="Email *"
+          holderText="Email"
+          fieldName="email"
+          inputType="text"
+          // valueInput={addInfo}
+          // handleChange={handleChange}
+        />
+        <Input
+          titleInput="Mot de passe *"
+          holderText="Mot de passe"
+          fieldName="password"
+          inputType="text"
+          // valueInput={addInfo}
+          // handleChange={handleChange}
+        />
+        <Input
+          titleInput="Téléphone *"
+          holderText="Numéro de téléphone"
+          fieldName="phone"
+          inputType="text"
+          // valueInput={addInfo}
+          // handleChange={handleChange}
+        />
+        <Input
+          titleInput="Addresse *"
+          holderText="Adresse"
+          fieldName="address"
+          inputType="text"
+          // valueInput={addInfo}
+          // handleChange={handleChange}
+        />
         <div className="container-switch">
           <h2 className="label-champs"> Cochez vos compétences *</h2>
           <CompetenceSwitch textCompetence="HTML" />

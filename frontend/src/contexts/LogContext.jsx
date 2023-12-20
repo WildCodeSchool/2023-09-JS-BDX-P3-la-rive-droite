@@ -34,7 +34,7 @@ function LogContextProvider({ children }) {
     getUserFromStorage();
 
     // Compare l'email.
-    for (let i = 0; i < showStorage.length; i + 1) {
+    for (let i = 0; i < showStorage.length; i += 1) {
       // i++
       if (
         showStorage[i].email === logIn.email &&

@@ -22,7 +22,7 @@ function Input({
           id={fieldName}
           name={fieldName}
           placeholder={holderText ?? "Texte du placeholder"}
-          value={valueInput[fieldName]}
+          value={valueInput[fieldName] ?? "Nope"}
           onChange={(event) => handleChange(fieldName, event)}
         />
       )}

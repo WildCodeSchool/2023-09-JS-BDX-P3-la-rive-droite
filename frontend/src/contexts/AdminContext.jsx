@@ -10,7 +10,7 @@ function AdminContextProvider({ children }) {
     title: "",
     company: "",
     city: "",
-    location: "",
+    mission: "",
     searchProfile: "",
     workPlace: "",
     salary: "",
@@ -29,11 +29,8 @@ function AdminContextProvider({ children }) {
   const handleTest = (event) => {
     event.preventDefault();
     setOfferSaved((prevData) => [...prevData, addOffer]);
+    // console.log(offerSaved);
   };
-
-  //   useEffect(() => {
-  //     console.log(offerSaved);
-  //   });
 
   const contextValues = useMemo(
     () => ({

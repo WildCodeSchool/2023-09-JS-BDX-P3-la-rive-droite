@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import ButtonMaxi from "../../components/Boutons/ButtonMaxi";
 import Input from "../../components/Inputs/Input";
 import Select from "../../components/Inputs/Select";
@@ -7,8 +8,11 @@ import "./offer.css";
 import { useAdminContext } from "../../contexts/AdminContext";
 
 function Offer() {
+  const navigate = useNavigate();
   const { handleTest, handleChange, addOffer } = useAdminContext();
-
+  const handleDash = () => {
+    navigate("/dashboard");
+  };
   return (
     <div>
       <div className="page-offer">
@@ -42,8 +46,8 @@ function Offer() {
           />
           <TextArea
             titleInput="Missions"
-            holderText="1 rue Victor Hugo, 33300 Bordeaux"
-            fieldName="location"
+            holderText="Front"
+            fieldName="mission"
             valueInput={addOffer}
             handleChange={handleTest}
           />
@@ -87,7 +91,11 @@ function Offer() {
             valueInput={addOffer}
             handleChange={handleChange}
           />
-          <ButtonMaxi textBtn="Ajouter l'offre" clickFunc={handleTest} />
+          <ButtonMaxi
+            onClick={handleDash}
+            textBtn="Ajouter l'offre"
+            clickFunc={handleTest}
+          />
         </div>
       </div>
     </div>
