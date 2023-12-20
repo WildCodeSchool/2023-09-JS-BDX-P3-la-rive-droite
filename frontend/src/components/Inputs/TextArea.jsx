@@ -1,7 +1,13 @@
 import PropTypes from "prop-types";
 import "./text-area.css";
 
-function TextArea({ titleInput, holderText }) {
+function TextArea({
+  titleInput,
+  holderText,
+  fieldName,
+  valueInput,
+  handleChange,
+}) {
   return (
     <div className="container-input">
       <form>
@@ -14,8 +20,12 @@ function TextArea({ titleInput, holderText }) {
           <div>
             <textarea
               className="background-input"
-              id="name"
+              type="text"
+              id={fieldName}
+              name={fieldName}
               placeholder={holderText ?? "Texte du placeholder"}
+              value={valueInput[fieldName]}
+              onChange={(event) => handleChange(fieldName, event)}
             />
           </div>
         </div>
@@ -27,6 +37,9 @@ function TextArea({ titleInput, holderText }) {
 TextArea.propTypes = {
   titleInput: PropTypes.string.isRequired,
   holderText: PropTypes.string.isRequired,
+  fieldName: PropTypes.string.isRequired,
+  valueInput: PropTypes.element.isRequired,
+  handleChange: PropTypes.func.isRequired,
 };
 
 export default TextArea;

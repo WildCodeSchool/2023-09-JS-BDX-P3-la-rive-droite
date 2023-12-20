@@ -8,8 +8,10 @@ import SuccesMsg from "../../components/Alertes Messages/SuccesMsg";
 import "./login-signin.css";
 import "../../components/Inputs/input.css";
 import "../../components/Boutons/button-maxi.css";
+import { useAdminContext } from "../../contexts/AdminContext";
 
 function Login() {
+  const { handleTest } = useAdminContext;
   const {
     errorMsg,
     succesMsg,
@@ -49,6 +51,7 @@ function Login() {
               <ButtonMaxi
                 textBtn="Se connecter"
                 clickFunc={handleSubmitLogIn}
+                onClick={handleTest}
               />
             </div>
           </div>

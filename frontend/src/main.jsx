@@ -16,11 +16,20 @@ import Dashboard2 from "./pages/Dashboard/Dashboard2";
 import Offer from "./pages/Offer/Offer";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "mdb-react-ui-kit/dist/css/mdb.min.css";
+import AdminContextProvider from "./contexts/AdminContext";
+import SignContextProvider from "./contexts/SignContext";
+import LogContextProvider from "./contexts/LogContext";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: (
+      <SignContextProvider>
+        <LogContextProvider>
+          <App />
+        </LogContextProvider>
+      </SignContextProvider>
+    ),
     children: [
       {
         path: "/",
@@ -62,7 +71,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/dashboard",
-        element: <Dashboard1 />,
+        element: (
+          <AdminContextProvider>
+            <Dashboard1 />
+          </AdminContextProvider>
+        ),
         children: [
           {
             path: "/dashboard/candidates",
