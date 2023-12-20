@@ -1,9 +1,8 @@
 import React from "react";
-import ReactDOM from "react-dom/client";
+import ReactDOM from "react-dom";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import "mdb-react-ui-kit/dist/css/mdb.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
-// Import des composants pour les routes.
+import "mdb-react-ui-kit/dist/css/mdb.min.css";
 import App from "./App";
 import SignIn from "./pages/Connexion/SignIn";
 import LogIn from "./pages/Connexion/LogIn";
@@ -15,6 +14,8 @@ import AddFormation from "./pages/Formation/AddFormation";
 import Offer from "./pages/Offer/Offer";
 import History from "./pages/Historique/History";
 import Favoris from "./pages/Favoris/Favoris";
+import Dashboard1 from "./pages/Dashboard/Dashboard1";
+import Dashboard2 from "./pages/Dashboard/Dashboard2";
 
 const router = createBrowserRouter([
   {
@@ -33,7 +34,6 @@ const router = createBrowserRouter([
         path: "/login",
         element: <LogIn />,
       },
-
       {
         path: "/profile/history",
         element: <History />,
@@ -41,10 +41,6 @@ const router = createBrowserRouter([
       {
         path: "/profile/favorite",
         element: <Favoris />,
-      },
-      {
-        path: "/offer",
-        element: <Offer />,
       },
       {
         path: "/edit-profile",
@@ -61,6 +57,20 @@ const router = createBrowserRouter([
           {
             path: "/edit-profile/formation",
             element: <AddFormation />,
+          },
+        ],
+      },
+      {
+        path: "/dashboard",
+        element: <Dashboard1 />,
+        children: [
+          {
+            path: "/dashboard/candidates",
+            element: <Dashboard2 />,
+          },
+          {
+            path: "/dashboard/offer",
+            element: <Offer />,
           },
         ],
       },
