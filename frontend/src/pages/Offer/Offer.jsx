@@ -1,17 +1,18 @@
-import { useNavigate } from "react-router-dom";
 import ButtonMaxi from "../../components/Boutons/ButtonMaxi";
 import Input from "../../components/Inputs/Input";
 import Select from "../../components/Inputs/Select";
 import TextArea from "../../components/Inputs/TextArea";
 import HeaderCourt from "../../components/Headers/HeaderCourt";
-import "./offer.css";
 import { useAdminContext } from "../../contexts/AdminContext";
+import { useLocalStorageContext } from "../../contexts/LocalStorageContext";
+
+// Import messages d'erreurs.
 import ErrorMsg from "../../components/Alertes Messages/ErrorMsg";
 import SuccesMsg from "../../components/Alertes Messages/SuccesMsg";
-import handleChange from "../../services/formService";
+// Import styles.
+import "./offer.css";
 
 function Offer() {
-  const navigate = useNavigate();
   const {
     handleAddOffer,
     addOffer,
@@ -20,9 +21,7 @@ function Offer() {
     succesMsg,
     msgContent,
   } = useAdminContext();
-  const handleDash = () => {
-    navigate("/dashboard");
-  };
+  const { handleChange } = useLocalStorageContext();
   return (
     <div>
       <div className="page-offer">
@@ -43,7 +42,9 @@ function Offer() {
             fieldName="company"
             inputType="text"
             valueInput={addOffer}
-            handleChange={handleChange}
+            handleChange={(event) =>
+              handleChange(setAddOffer, "company", event)
+            }
           />
           <Select titleSelect="Type de contrat" valueSelect="CDI" />
           <Input
@@ -56,10 +57,10 @@ function Offer() {
           />
           <TextArea
             titleInput="Missions"
-            holderText="Front"
+            holderText="Pour cette mission, vous allez devoir réaliser ..."
             fieldName="mission"
             valueInput={addOffer}
-            handleChange={handleAddOffer}
+            handleChange={handleChange}
           />
           <Input
             titleInput="Profil recherché"
@@ -87,12 +88,11 @@ function Offer() {
           />
           <TextArea
             titleInput="Infos complémentaires"
-            holderText=" Le travail est cool"
+            holderText="Le travail est cool"
             fieldName="info"
             valueInput={addOffer}
             handleChange={handleChange}
           />
-
           <Input
             titleInput="Email du client lié à l'offre"
             holderText="Votre email"
@@ -105,11 +105,7 @@ function Offer() {
             {errorMsg && <ErrorMsg message={msgContent} />}
             {succesMsg && <SuccesMsg message={msgContent} />}
           </div>
-          <ButtonMaxi
-            onClick={handleDash}
-            textBtn="Ajouter l'offre"
-            clickFunc={handleAddOffer}
-          />
+          <ButtonMaxi textBtn="Ajouter l'offre" clickFunc={handleAddOffer} />
         </div>
       </div>
     </div>
