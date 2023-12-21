@@ -19,7 +19,7 @@ function LocalStorageContextProvider({ children }) {
     }));
   };
 
-  const values = useMemo(
+  const contextValues = useMemo(
     () => ({
       getItemInLS,
       saveItemInLS,
@@ -29,7 +29,7 @@ function LocalStorageContextProvider({ children }) {
   );
 
   return (
-    <LocalStorageContext.Provider value={values}>
+    <LocalStorageContext.Provider value={contextValues}>
       {children}
     </LocalStorageContext.Provider>
   );

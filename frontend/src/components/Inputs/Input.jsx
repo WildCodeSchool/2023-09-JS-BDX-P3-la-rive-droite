@@ -23,7 +23,7 @@ function Input({
           name={fieldName}
           placeholder={holderText ?? "Texte du placeholder"}
           value={valueInput[fieldName]}
-          onChange={(event) => handleChange(fieldName, event)}
+          onChange={handleChange}
         />
       )}
     </div>

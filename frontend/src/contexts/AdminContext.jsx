@@ -1,4 +1,4 @@
-import { useState, createContext, useContext, useMemo, useEffect } from "react";
+import { useState, createContext, useContext, useMemo } from "react";
 import PropTypes from "prop-types";
 import { v4 as uuid } from "uuid";
 import { useLocalStorageContext } from "./LocalStorageContext";
@@ -6,7 +6,7 @@ import { useLocalStorageContext } from "./LocalStorageContext";
 const AdminContext = createContext();
 
 function AdminContextProvider({ children }) {
-  const { saveItemInLS, handleChange } = useLocalStorageContext();
+  const { saveItemInLS } = useLocalStorageContext();
 
   const [isAdmin, setIsAdmin] = useState(true);
   // Messages d'alertes.
@@ -27,8 +27,6 @@ function AdminContextProvider({ children }) {
     email: "",
   });
   const [offerSaved, setOfferSaved] = useState([]);
-
-  handleChange(setAddOffer);
 
   const handleAddOffer = (event) => {
     if (
@@ -59,17 +57,16 @@ function AdminContextProvider({ children }) {
     }
   };
 
-  useEffect(() => {}, [offerSaved]);
-
   const contextValues = useMemo(
     () => ({
       isAdmin,
       errorMsg,
       setIsAdmin,
       addOffer,
+      setAddOffer,
       offerSaved,
       handleAddOffer,
-      handleChange,
+      // handleChange,
       succesMsg,
       msgContent,
     }),
@@ -77,9 +74,10 @@ function AdminContextProvider({ children }) {
       isAdmin,
       setIsAdmin,
       addOffer,
+      setAddOffer,
       offerSaved,
       handleAddOffer,
-      handleChange,
+      // handleChange,
       errorMsg,
       succesMsg,
       msgContent,
