@@ -6,10 +6,19 @@ import TextArea from "../../components/Inputs/TextArea";
 import HeaderCourt from "../../components/Headers/HeaderCourt";
 import "./offer.css";
 import { useAdminContext } from "../../contexts/AdminContext";
+import ErrorMsg from "../../components/Alertes Messages/ErrorMsg";
+import SuccesMsg from "../../components/Alertes Messages/SuccesMsg";
 
 function Offer() {
   const navigate = useNavigate();
-  const { handleTest, handleChange, addOffer } = useAdminContext();
+  const {
+    handleAddOffer,
+    handleChange,
+    addOffer,
+    errorMsg,
+    succesMsg,
+    msgContent,
+  } = useAdminContext();
   const handleDash = () => {
     navigate("/dashboard");
   };
@@ -49,7 +58,7 @@ function Offer() {
             holderText="Front"
             fieldName="mission"
             valueInput={addOffer}
-            handleChange={handleTest}
+            handleChange={handleAddOffer}
           />
           <Input
             titleInput="Profil recherché"
@@ -91,10 +100,14 @@ function Offer() {
             valueInput={addOffer}
             handleChange={handleChange}
           />
+          <div>
+            {errorMsg && <ErrorMsg message={msgContent} />}
+            {succesMsg && <SuccesMsg message={msgContent} />}
+          </div>
           <ButtonMaxi
             onClick={handleDash}
             textBtn="Ajouter l'offre"
-            clickFunc={handleTest}
+            clickFunc={handleAddOffer}
           />
         </div>
       </div>
