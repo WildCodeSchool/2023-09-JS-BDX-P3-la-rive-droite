@@ -8,13 +8,14 @@ import "./offer.css";
 import { useAdminContext } from "../../contexts/AdminContext";
 import ErrorMsg from "../../components/Alertes Messages/ErrorMsg";
 import SuccesMsg from "../../components/Alertes Messages/SuccesMsg";
+import handleChange from "../../services/formService";
 
 function Offer() {
   const navigate = useNavigate();
   const {
     handleAddOffer,
-    handleChange,
     addOffer,
+    setAddOffer,
     errorMsg,
     succesMsg,
     msgContent,
@@ -34,7 +35,7 @@ function Offer() {
             fieldName="title"
             inputType="text"
             valueInput={addOffer}
-            handleChange={handleChange}
+            handleChange={(e) => handleChange(setAddOffer, "title", e)}
           />
           <Input
             titleInput="Société"
@@ -95,7 +96,7 @@ function Offer() {
           <Input
             titleInput="Email du client lié à l'offre"
             holderText="Votre email"
-            fieldName="mail"
+            fieldName="email"
             inputType="email"
             valueInput={addOffer}
             handleChange={handleChange}

@@ -25,13 +25,6 @@ function AdminContextProvider({ children }) {
   });
   const [offerSaved, setOfferSaved] = useState([]);
 
-  const handleChange = (fieldName, event) => {
-    setAddOffer((prevData) => ({
-      ...prevData,
-      [fieldName]: event.target.value,
-    }));
-  };
-
   const handleAddOffer = (event) => {
     if (
       addOffer.title === "" ||
@@ -72,7 +65,7 @@ function AdminContextProvider({ children }) {
       addOffer,
       offerSaved,
       handleAddOffer,
-      handleChange,
+      setAddOffer,
       succesMsg,
       msgContent,
     }),
@@ -82,7 +75,7 @@ function AdminContextProvider({ children }) {
       addOffer,
       offerSaved,
       handleAddOffer,
-      handleChange,
+      setAddOffer,
       errorMsg,
       succesMsg,
       msgContent,
