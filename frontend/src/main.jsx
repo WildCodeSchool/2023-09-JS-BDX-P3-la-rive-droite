@@ -19,17 +19,18 @@ import "mdb-react-ui-kit/dist/css/mdb.min.css";
 import AdminContextProvider from "./contexts/AdminContext";
 import SignContextProvider from "./contexts/SignContext";
 import LogContextProvider from "./contexts/LogContext";
-import LocalStorageContextProvider from "./contexts/LocalStorageContext";
+import GlobalContextProvider from "./contexts/GlobalContext";
+import UserContextProvider from "./contexts/UserContext";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: (
-      <LocalStorageContextProvider>
-        {/* <UserContext> */}
-        <App />
-        {/* </UserContext> */}
-      </LocalStorageContextProvider>
+      <GlobalContextProvider>
+        <UserContextProvider>
+          <App />
+        </UserContextProvider>
+      </GlobalContextProvider>
     ),
     children: [
       {

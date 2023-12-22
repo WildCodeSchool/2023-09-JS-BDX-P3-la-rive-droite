@@ -1,14 +1,13 @@
 import { useState, createContext, useContext, useMemo } from "react";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
+import { useGlobalContext } from "./GlobalContext";
 
 const LogContext = createContext();
 
 function LogContextProvider({ children }) {
   // Messages d'alertes.
-  const [errorMsg, setErrorMsg] = useState(false);
-  const [succesMsg, setSuccesMsg] = useState(false);
-  const [msgContent, setMsgContent] = useState("");
+  const { setErrorMsg, setSuccesMsg, setMsgContent } = useGlobalContext();
 
   const [userConnected, setUserConnected] = useState(false);
   const [logIn, setLogIn] = useState({
@@ -71,9 +70,6 @@ function LogContextProvider({ children }) {
       showStorage,
       setUserConnected,
       getUserFromStorage,
-      errorMsg,
-      succesMsg,
-      msgContent,
     }),
     [
       userConnected,
@@ -83,9 +79,6 @@ function LogContextProvider({ children }) {
       showStorage,
       setUserConnected,
       getUserFromStorage,
-      errorMsg,
-      succesMsg,
-      msgContent,
     ]
   );
 

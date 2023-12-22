@@ -4,25 +4,17 @@ import Select from "../../components/Inputs/Select";
 import TextArea from "../../components/Inputs/TextArea";
 import HeaderCourt from "../../components/Headers/HeaderCourt";
 import { useAdminContext } from "../../contexts/AdminContext";
+import { useGlobalContext } from "../../contexts/GlobalContext";
+
 // Import messages d'erreurs.
 import ErrorMsg from "../../components/Alertes Messages/ErrorMsg";
 import SuccesMsg from "../../components/Alertes Messages/SuccesMsg";
 // Import styles.
 import "./offer.css";
-import { useLocalStorageContext } from "../../contexts/LocalStorageContext";
 
 function Offer() {
-  const {
-    handleAddOffer,
-    addOffer,
-    setAddOffer,
-    errorMsg,
-    succesMsg,
-    msgContent,
-  } = useAdminContext();
-
-  const { handleChange } = useLocalStorageContext();
-
+  const { handleAddOffer, addOffer, setAddOffer } = useAdminContext();
+  const { errorMsg, succesMsg, msgContent, handleChange } = useGlobalContext();
   return (
     <div>
       <div className="page-offer">
@@ -43,9 +35,7 @@ function Offer() {
             fieldName="company"
             inputType="text"
             valueInput={addOffer}
-            handleChange={(event) =>
-              handleChange(setAddOffer, "company", event)
-            }
+            handleChange={(e) => handleChange(setAddOffer, "company", e)}
           />
           <Select titleSelect="Type de contrat" valueSelect="CDI" />
           <Input

@@ -2,14 +2,13 @@ import PropTypes from "prop-types";
 import { useState, createContext, useContext, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { v4 as uuid } from "uuid";
+import { useGlobalContext } from "./GlobalContext";
 
 const SignContext = createContext();
 
 function SignContextProvider({ children }) {
-  // Messages d'alertes.
-  const [errorMsg, setErrorMsg] = useState(false);
-  const [succesMsg, setSuccesMsg] = useState(false);
-  const [msgContent, setMsgContent] = useState("");
+  const { setErrorMsg, setSuccesMsg, setMsgContent, handleCheckboxChange } =
+    useGlobalContext();
 
   const [signIn, setSignIn] = useState({
     id: uuid(),
@@ -51,13 +50,6 @@ function SignContextProvider({ children }) {
   const emailRegex = /[a-z0-9._]+@[a-z0-9-]+\.[a-z]{2,3}/;
   const passwordRegex =
     /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-
-  const handleCheckboxChange = (fieldName) => {
-    setSignIn((prevData) => ({
-      ...prevData,
-      [fieldName]: !prevData[fieldName],
-    }));
-  };
 
   const handleSubmitSignIn = (event) => {
     if (
@@ -147,9 +139,6 @@ function SignContextProvider({ children }) {
       handleSubmitSignIn,
       userSaved,
       setUserSaved,
-      errorMsg,
-      succesMsg,
-      msgContent,
       handleCheckboxChange,
       storageData,
       userConnected,
@@ -161,9 +150,6 @@ function SignContextProvider({ children }) {
       handleSubmitSignIn,
       userSaved,
       setUserSaved,
-      errorMsg,
-      succesMsg,
-      msgContent,
       handleCheckboxChange,
       storageData,
       userConnected,

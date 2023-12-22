@@ -1,13 +1,10 @@
 import PropTypes from "prop-types";
-import { useSignContext } from "../../contexts/SignContext";
 import "./checkbox-conditions.css";
 
-function CheckboxCondition({ textCondition, fieldName }) {
-  const { handleCheckboxChange } = useSignContext();
-
-  const handleChange = () => {
-    handleCheckboxChange(fieldName);
-  };
+function CheckboxCondition({ textCondition, fieldName, handleChange }) {
+  // const handleChange = () => {
+  //   handleCheckboxChange(fieldName);
+  // };
 
   return (
     <div>
@@ -30,6 +27,7 @@ function CheckboxCondition({ textCondition, fieldName }) {
 CheckboxCondition.propTypes = {
   textCondition: PropTypes.string.isRequired,
   fieldName: PropTypes.string.isRequired,
+  handleChange: PropTypes.func.isRequired,
 };
 
 export default CheckboxCondition;
