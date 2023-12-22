@@ -1,18 +1,15 @@
 import { useState, createContext, useContext, useMemo, useEffect } from "react";
 import PropTypes from "prop-types";
 import { v4 as uuid } from "uuid";
-import { useLocalStorageContext } from "./LocalStorageContext";
+import { useGlobalContext } from "./GlobalContext";
 
 const AdminContext = createContext();
 
 function AdminContextProvider({ children }) {
-  const { saveItemInLS, handleChange } = useLocalStorageContext();
+  const { saveItemInLS, setErrorMsg, setSuccesMsg, setMsgContent } =
+    useGlobalContext();
 
   const [isAdmin, setIsAdmin] = useState(true);
-  // Messages d'alertes.
-  const [errorMsg, setErrorMsg] = useState(false);
-  const [succesMsg, setSuccesMsg] = useState(false);
-  const [msgContent, setMsgContent] = useState("");
 
   const [addOffer, setAddOffer] = useState({
     id: uuid(),
@@ -28,7 +25,7 @@ function AdminContextProvider({ children }) {
   });
   const [offerSaved, setOfferSaved] = useState([]);
 
-  handleChange(setAddOffer);
+  // handleChange(setAddOffer);
 
   const handleAddOffer = (event) => {
     if (
@@ -61,33 +58,20 @@ function AdminContextProvider({ children }) {
 
   useEffect(() => {}, [offerSaved]);
 
-  const contextValues = useMemo(
+  const adminContextValues = useMemo(
     () => ({
       isAdmin,
-      errorMsg,
       setIsAdmin,
       addOffer,
       offerSaved,
       handleAddOffer,
       setAddOffer,
-      succesMsg,
-      msgContent,
     }),
-    [
-      isAdmin,
-      setIsAdmin,
-      addOffer,
-      offerSaved,
-      handleAddOffer,
-      setAddOffer,
-      errorMsg,
-      succesMsg,
-      msgContent,
-    ]
+    [isAdmin, setIsAdmin, addOffer, offerSaved, handleAddOffer, setAddOffer]
   );
 
   return (
-    <AdminContext.Provider value={contextValues}>
+    <AdminContext.Provider value={adminContextValues}>
       {children}
     </AdminContext.Provider>
   );

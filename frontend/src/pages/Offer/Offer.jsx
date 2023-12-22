@@ -4,7 +4,7 @@ import Select from "../../components/Inputs/Select";
 import TextArea from "../../components/Inputs/TextArea";
 import HeaderCourt from "../../components/Headers/HeaderCourt";
 import { useAdminContext } from "../../contexts/AdminContext";
-import { useLocalStorageContext } from "../../contexts/LocalStorageContext";
+import { useGlobalContext } from "../../contexts/GlobalContext";
 
 // Import messages d'erreurs.
 import ErrorMsg from "../../components/Alertes Messages/ErrorMsg";
@@ -13,15 +13,8 @@ import SuccesMsg from "../../components/Alertes Messages/SuccesMsg";
 import "./offer.css";
 
 function Offer() {
-  const {
-    handleAddOffer,
-    addOffer,
-    setAddOffer,
-    errorMsg,
-    succesMsg,
-    msgContent,
-  } = useAdminContext();
-  const { handleChange } = useLocalStorageContext();
+  const { handleAddOffer, addOffer, setAddOffer } = useAdminContext();
+  const { errorMsg, succesMsg, msgContent, handleChange } = useGlobalContext();
   return (
     <div>
       <div className="page-offer">
@@ -42,9 +35,7 @@ function Offer() {
             fieldName="company"
             inputType="text"
             valueInput={addOffer}
-            handleChange={(event) =>
-              handleChange(setAddOffer, "company", event)
-            }
+            handleChange={(e) => handleChange(setAddOffer, "company", e)}
           />
           <Select titleSelect="Type de contrat" valueSelect="CDI" />
           <Input
@@ -53,14 +44,14 @@ function Offer() {
             inputType="text"
             fieldName="city"
             valueInput={addOffer}
-            handleChange={handleChange}
+            handleChange={(e) => handleChange(setAddOffer, "city", e)}
           />
           <TextArea
             titleInput="Missions"
             holderText="Pour cette mission, vous allez devoir réaliser ..."
             fieldName="mission"
             valueInput={addOffer}
-            handleChange={handleChange}
+            handleChange={(e) => handleChange(setAddOffer, "mission", e)}
           />
           <Input
             titleInput="Profil recherché"
@@ -68,7 +59,7 @@ function Offer() {
             fieldName="searchProfile"
             inputType="text"
             valueInput={addOffer}
-            handleChange={handleChange}
+            handleChange={(e) => handleChange(setAddOffer, "searchProfile", e)}
           />
           <Input
             titleInput="Lieux de travail"
@@ -76,7 +67,7 @@ function Offer() {
             fieldName="workPlace"
             inputType="text"
             valueInput={addOffer}
-            handleChange={handleChange}
+            handleChange={(e) => handleChange(setAddOffer, "workPlace", e)}
           />
           <Input
             titleInput="Salaire"
@@ -84,14 +75,14 @@ function Offer() {
             fieldName="salary"
             inputType="text"
             valueInput={addOffer}
-            handleChange={handleChange}
+            handleChange={(e) => handleChange(setAddOffer, "salary", e)}
           />
           <TextArea
             titleInput="Infos complémentaires"
             holderText="Le travail est cool"
             fieldName="info"
             valueInput={addOffer}
-            handleChange={handleChange}
+            handleChange={(e) => handleChange(setAddOffer, "info", e)}
           />
           <Input
             titleInput="Email du client lié à l'offre"
@@ -99,7 +90,7 @@ function Offer() {
             fieldName="email"
             inputType="email"
             valueInput={addOffer}
-            handleChange={handleChange}
+            handleChange={(e) => handleChange(setAddOffer, "email", e)}
           />
           <div>
             {errorMsg && <ErrorMsg message={msgContent} />}

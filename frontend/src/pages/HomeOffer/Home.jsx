@@ -1,9 +1,9 @@
 import CardOffre from "../../components/CardModel/CardOffre";
 import HeaderLongResearch from "../../components/Headers/HeaderLongResearch";
-import { useLocalStorageContext } from "../../contexts/LocalStorageContext";
+import { useGlobalContext } from "../../contexts/GlobalContext";
 
 function Home() {
-  const { getItemInLS } = useLocalStorageContext();
+  const { getItemInLS } = useGlobalContext();
   const offers = getItemInLS("Offer");
   return (
     <>
