@@ -6,8 +6,23 @@ import CheckboxCondition from "../../components/Inputs/CheckboxCondition";
 import Date from "../../components/Inputs/Date";
 import TextArea from "../../components/Inputs/TextArea";
 import HeaderCourt from "../../components/Headers/HeaderCourt";
+import { useUserContext } from "../../contexts/UserContext";
+import { useGlobalContext } from "../../contexts/GlobalContext";
+
+// Import messages d'erreurs.
+import ErrorMsg from "../../components/Alertes Messages/ErrorMsg";
+import SuccesMsg from "../../components/Alertes Messages/SuccesMsg";
 
 function AddExperience() {
+  const { handleAddXp, addXp, setAddXp } = useUserContext();
+  const {
+    errorMsg,
+    succesMsg,
+    msgContent,
+    handleChange,
+    handleCheckboxChange,
+  } = useGlobalContext();
+
   return (
     <>
       <HeaderCourt />
@@ -15,21 +30,58 @@ function AddExperience() {
         <h1>Ajouter une expérience</h1>
 
         <div className="container-input">
-          <Input titleInput="Intitulé du poste *" holderText="Chef de projet" />
-          <Input titleInput="Entreprise *" holderText="Inoxia" />
-          <Input titleInput="Ville *" holderText="Bordeaux" />
+          <Input
+            titleInput="Intitulé du poste *"
+            holderText="Chef de projet"
+            fieldName="title"
+            inputType="text"
+            valueInput={addXp}
+            handleChange={(event) => handleChange(setAddXp, "title", event)}
+          />
+          <Input
+            titleInput="Entreprise *"
+            holderText="Inoxia"
+            fieldName="company"
+            inputType="text"
+            valueInput={addXp}
+            handleChange={(event) => handleChange(setAddXp, "company", event)}
+          />
+          <Input
+            titleInput="Ville *"
+            holderText="Bordeaux"
+            fieldName="city"
+            inputType="text"
+            valueInput={addXp}
+            handleChange={(event) => handleChange(setAddXp, "city", event)}
+          />
           <Select titleSelect="Type de contrat *" valueSelect="CDI" />
           <div className="container-checkbox-experience">
-            <CheckboxCondition textCondition="J'occupe ce poste actuellement" />
+            <CheckboxCondition
+              textCondition="J'occupe ce poste actuellement"
+              fieldName="condition-poste"
+              handleChange={(event) =>
+                handleCheckboxChange(setAddXp, "isWorking", event)
+              }
+            />
           </div>
           <Date titleCalendar="De :" />
           <Date titleCalendar="Jusqu'au :" />
           <TextArea
             titleInput="Description du poste *"
             holderText="Lorem ipsum dolor si amet"
+            fieldName="description"
+            inputType="text"
+            valueInput={addXp}
+            handleChange={(event) =>
+              handleChange(setAddXp, "description", event)
+            }
           />
+          <div>
+            {errorMsg && <ErrorMsg message={msgContent} />}
+            {succesMsg && <SuccesMsg message={msgContent} />}
+          </div>
         </div>
-        <ButtonMaxi textBtn="Ajouter l'expérience" />
+        <ButtonMaxi textBtn="Ajouter l'expérience" clickFunc={handleAddXp} />
       </div>
     </>
   );

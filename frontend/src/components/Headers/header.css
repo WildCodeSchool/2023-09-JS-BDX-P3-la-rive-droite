@@ -7,6 +7,8 @@ border-radius 24%
   color: var(--first-title-color);
   background-color: var(--main-color);
   padding-bottom: 50px;
+  margin-top: -50px;
+  padding-top: 70px;
 }
 
 .header.with-round-bottom {
