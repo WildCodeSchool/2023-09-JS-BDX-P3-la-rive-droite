@@ -1,19 +1,16 @@
 import PropTypes from "prop-types";
 import "./select.css";
 
-function Select({ titleSelect, valueSelect }) {
+function Select({ titleSelect, children }) {
   return (
     <div className="container-select">
       <label className="label-select" htmlFor="contrat-select">
-        {titleSelect ?? "La valeur n'est pas renseigné."}
+        {titleSelect ?? "La valeur n'est pas renseignée."}
       </label>
 
       <select className="select-background" name="pets" id="pet-select">
         <option value="">---</option>
-        <option value={valueSelect}>
-          {valueSelect ?? "Aucune valeur n'est renseigner."}
-        </option>
-        <option value="CDD">CDD</option>
+        {children}
       </select>
     </div>
   );
@@ -21,7 +18,7 @@ function Select({ titleSelect, valueSelect }) {
 
 Select.propTypes = {
   titleSelect: PropTypes.string.isRequired,
-  valueSelect: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
 };
 
 export default Select;
