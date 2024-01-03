@@ -20,7 +20,11 @@ function AddFormation() {
       <HeaderCourt />
       <div className="container-page with-rounded-border">
         <h1>Ajouter une formation</h1>
-        <Select titleSelect="Niveau d'étude *">
+        <Select
+          handleChange={(event) => handleChange(setAddCourse, "level", event)}
+          fieldName="level"
+          titleSelect="Niveau d'étude *"
+        >
           <option value="Licence">Baccalauréat</option>
           <option value="Licence">Licence</option>
           <option value="Master 1">Master 1</option>
@@ -42,8 +46,18 @@ function AddFormation() {
           valueInput={addCourse}
           handleChange={(event) => handleChange(setAddCourse, "name", event)}
         />
-        <Date titleCalendar="Date de début *" />
-        <Date titleCalendar="Date de fin *" />
+        <Date
+          fieldName="dateBegin"
+          handleChange={(event) =>
+            handleChange(setAddCourse, "dateBegin", event)
+          }
+          titleCalendar="Date de début *"
+        />
+        <Date
+          fieldName="dateEnd"
+          handleChange={(event) => handleChange(setAddCourse, "dateEnd", event)}
+          titleCalendar="Date de fin *"
+        />
         <TextArea
           titleInput="Description de la formation *"
           holderText="Lorem ipsum dolor si amet"
