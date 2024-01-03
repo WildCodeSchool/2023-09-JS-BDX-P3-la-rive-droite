@@ -54,7 +54,17 @@ function AddExperience() {
             valueInput={addXp}
             handleChange={(event) => handleChange(setAddXp, "city", event)}
           />
-          <Select titleSelect="Type de contrat *" valueSelect="CDI" />
+          <Select
+            titleSelect="Type de contrat *"
+            valueSelect="CDI"
+            fieldName="type"
+            handleChange={(event) => handleChange(setAddXp, "type", event)}
+          >
+            <option value="stage">Stage</option>
+            <option value="alternance">Alternance</option>
+            <option value="CDD">CDD</option>
+            <option value="CDI">CDI</option>
+          </Select>
           <div className="container-checkbox-experience">
             <CheckboxCondition
               textCondition="J'occupe ce poste actuellement"
@@ -64,8 +74,16 @@ function AddExperience() {
               }
             />
           </div>
-          <Date titleCalendar="De :" />
-          <Date titleCalendar="Jusqu'au :" />
+          <Date
+            titleCalendar="De :"
+            fieldName="dateBegin"
+            handleChange={(event) => handleChange(setAddXp, "dateBegin", event)}
+          />
+          <Date
+            titleCalendar="Jusqu'au :"
+            fieldName="dateEnd"
+            handleChange={(event) => handleChange(setAddXp, "dateEnd", event)}
+          />
           <TextArea
             titleInput="Description du poste *"
             holderText="Lorem ipsum dolor si amet"

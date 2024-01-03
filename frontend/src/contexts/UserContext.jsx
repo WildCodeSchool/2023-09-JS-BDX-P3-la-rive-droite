@@ -14,7 +14,7 @@ function UserContextProvider({ children }) {
     title: "",
     company: "",
     city: "",
-    contract: "",
+    type: "",
     isWorking: false,
     dateBegin: "",
     dateEnd: "",
@@ -22,23 +22,12 @@ function UserContextProvider({ children }) {
   });
   const [xpSaved, setXpSaved] = useState([]);
 
-  const [addCv, setAddCv] = useState({
-    id: uuid(),
-    title: "",
-    lastName: "",
-    firstName: "",
-    email: "",
-    number: "",
-    adress: "",
-  });
-  const [cvSaved, setCvSaved] = useState([]);
-
   const handleAddXp = (event) => {
     if (
       addXp.title === "" ||
       addXp.company === "" ||
+      addXp.type === "" ||
       addXp.city === "" ||
-      addXp.contract === "" ||
       addXp.description === ""
     ) {
       setErrorMsg(true);
@@ -49,7 +38,7 @@ function UserContextProvider({ children }) {
     }
     if (
       addXp.isWorking === false &&
-      (addXp.dateEnd === "" || addXp.dateBeggin === "")
+      (addXp.dateEnd === "" || addXp.dateBegin === "")
     ) {
       setErrorMsg(true);
       setMsgContent("Veuillez renseigner les dates");
@@ -57,7 +46,7 @@ function UserContextProvider({ children }) {
         setErrorMsg(false);
       }, 4000);
     }
-    if (addXp.isWorking === true && addXp.dateBeggin === "") {
+    if (addXp.isWorking === true && addXp.dateBegin === "") {
       setErrorMsg(true);
       setMsgContent("Veuillez renseigner les dates");
       setTimeout(() => {
@@ -69,20 +58,33 @@ function UserContextProvider({ children }) {
       setMsgContent("L'expérience a été ajoutée avec");
       setSuccesMsg(true);
       setTimeout(() => {
-        setSuccesMsg(true);
+        setSuccesMsg(false);
       }, 4000);
       saveItemInLS("Experience", xpSaved);
     }
   };
+  useEffect(() => {}, [xpSaved]);
+
+  const [addCv, setAddCv] = useState({
+    id: uuid(),
+    title: "",
+    lastName: "",
+    firstName: "",
+    email: "",
+    number: "",
+    adress: "",
+  });
+
+  const [cvSaved, setCvSaved] = useState([]);
 
   const handleAddCv = (event) => {
     if (
-      addXp.title === "" ||
-      addXp.lastName === "" ||
-      addXp.firstName === "" ||
-      addXp.email === "" ||
-      addXp.number === "" ||
-      addXp.adress === ""
+      addCv.title === "" ||
+      addCv.lastName === "" ||
+      addCv.firstName === "" ||
+      addCv.email === "" ||
+      addCv.number === "" ||
+      addCv.adress === ""
     ) {
       setErrorMsg(true);
       setMsgContent("Veuillez remplir tous les champs");
@@ -92,7 +94,7 @@ function UserContextProvider({ children }) {
     } else {
       event.preventDefault();
       setCvSaved((prevData) => [...prevData, addCv]);
-      setMsgContent("L'expérience a été ajoutée avec");
+      setMsgContent("Votre CV a été ajouté avec");
       setSuccesMsg(true);
       setTimeout(() => {
         setSuccesMsg(false);
@@ -100,8 +102,7 @@ function UserContextProvider({ children }) {
       saveItemInLS("CV", cvSaved);
     }
   };
-
-  useEffect(() => {}, [xpSaved]);
+  useEffect(() => {}, [cvSaved]);
 
   const [addCourse, setAddCourse] = useState({
     id: uuid(),
@@ -118,20 +119,23 @@ function UserContextProvider({ children }) {
     if (
       addCourse.domaine === "" ||
       addCourse.name === "" ||
-      addCourse.description === "" ||
-      addCourse.level === "" ||
-      addCourse.dateBegin === "" ||
-      addCourse.dateEnd === ""
+      addCourse.description === ""
+      // addCourse.level === ""
     ) {
       setErrorMsg(true);
       setMsgContent("Veuillez remplir tous les champs");
       setTimeout(() => {
         setErrorMsg(false);
       }, 4000);
-    } else if (
-      addCourse.level === "Sélectionnez un niveau" ||
-      addCourse.level === null
-    ) {
+    }
+    if (addCourse.dateBegin === "" || addCourse.dateEnd === "") {
+      setErrorMsg(true);
+      setMsgContent("Veuillez renseigner les dates");
+      setTimeout(() => {
+        setErrorMsg(false);
+      }, 4000);
+    }
+    if (addCourse.level !== "- - -") {
       setErrorMsg(true);
       setMsgContent("Veuillez sélectionner un niveau valide");
       setTimeout(() => {
