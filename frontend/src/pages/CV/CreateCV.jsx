@@ -6,10 +6,13 @@ import HeaderCourt from "../../components/Headers/HeaderCourt";
 // Import de context.
 import { useUserContext } from "../../contexts/UserContext";
 import { useGlobalContext } from "../../contexts/GlobalContext";
+// Import messages d'erreurs.
+import ErrorMsg from "../../components/Alertes Messages/ErrorMsg";
+import SuccesMsg from "../../components/Alertes Messages/SuccesMsg";
 
 function CreateCV() {
   const { addCv, setAddCv, handleAddCv } = useUserContext();
-  const { handleChange } = useGlobalContext();
+  const { errorMsg, succesMsg, msgContent, handleChange } = useGlobalContext();
 
   return (
     <>
@@ -60,6 +63,10 @@ function CreateCV() {
         />
         <AddDetailsCV addDetail="Expériences professionnelles" />
         <AddDetailsCV addDetail="Formations" />
+        <div>
+          {errorMsg && <ErrorMsg message={msgContent} />}
+          {succesMsg && <SuccesMsg message={msgContent} />}
+        </div>
         <ButtonMaxi textBtn="Enregistrer" clickFunc={handleAddCv} />
       </div>
     </>
