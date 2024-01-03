@@ -1,4 +1,4 @@
-import { useState, createContext, useContext, useMemo, useEffect } from "react";
+import { useState, createContext, useContext, useMemo } from "react";
 import PropTypes from "prop-types";
 import { v4 as uuid } from "uuid";
 import { useGlobalContext } from "./GlobalContext";
@@ -24,8 +24,6 @@ function AdminContextProvider({ children }) {
     email: "",
   });
   const [offerSaved, setOfferSaved] = useState([]);
-
-  // handleChange(setAddOffer);
 
   const handleAddOffer = (event) => {
     if (
@@ -56,22 +54,20 @@ function AdminContextProvider({ children }) {
     }
   };
 
-  useEffect(() => {}, [offerSaved]);
-
-  const adminContextValues = useMemo(
+  const contextValues = useMemo(
     () => ({
       isAdmin,
       setIsAdmin,
       addOffer,
+      setAddOffer,
       offerSaved,
       handleAddOffer,
-      setAddOffer,
     }),
     [isAdmin, setIsAdmin, addOffer, offerSaved, handleAddOffer, setAddOffer]
   );
 
   return (
-    <AdminContext.Provider value={adminContextValues}>
+    <AdminContext.Provider value={contextValues}>
       {children}
     </AdminContext.Provider>
   );
