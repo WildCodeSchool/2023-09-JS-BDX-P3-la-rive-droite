@@ -9,6 +9,31 @@ function UserContextProvider({ children }) {
   const { saveItemInLS, setErrorMsg, setSuccesMsg, setMsgContent } =
     useGlobalContext();
 
+  const [editProfile, setEditProfile] = useState({
+    id: uuid(),
+    lastName: "",
+    firstName: "",
+    email: "",
+    password: "",
+    phone: "",
+    address: "",
+  });
+
+  const [profileSaved, setProfileSaved] = useState([]);
+
+  const [addSkills, setAddSkills] = useState({
+    html: false,
+    css: false,
+    javascript: false,
+    angular: false,
+    react: false,
+    php: false,
+    symphony: false,
+    git: false,
+    github: false,
+    trello: false,
+  });
+
   const [addXp, setAddXp] = useState({
     id: uuid(),
     title: "",
@@ -32,6 +57,21 @@ function UserContextProvider({ children }) {
     adress: "",
   });
   const [cvSaved, setCvSaved] = useState([]);
+
+  const handleSubmitProfile = () => {
+    const updatedProfile = {
+      ...editProfile,
+      skills: addSkills,
+    };
+
+    setProfileSaved((prevData) => [...prevData, updatedProfile]);
+    setMsgContent("Le profil a été modifié avec");
+    setSuccesMsg(true);
+    setTimeout(() => {
+      setSuccesMsg(false);
+    }, 4000);
+    saveItemInLS("Profile", profileSaved);
+  };
 
   const handleAddXp = (event) => {
     if (
@@ -69,7 +109,7 @@ function UserContextProvider({ children }) {
       setMsgContent("L'expérience a été ajoutée avec");
       setSuccesMsg(true);
       setTimeout(() => {
-        setSuccesMsg(true);
+        setSuccesMsg(false);
       }, 4000);
       saveItemInLS("Experience", xpSaved);
     }
@@ -95,7 +135,7 @@ function UserContextProvider({ children }) {
       setMsgContent("L'expérience a été ajoutée avec");
       setSuccesMsg(true);
       setTimeout(() => {
-        setSuccesMsg(true);
+        setSuccesMsg(false);
       }, 4000);
       saveItemInLS("CV", cvSaved);
     }
@@ -140,6 +180,11 @@ function UserContextProvider({ children }) {
 
   const userContextValues = useMemo(
     () => ({
+      editProfile,
+      setEditProfile,
+      addSkills,
+      setAddSkills,
+      handleSubmitProfile,
       addXp,
       setAddXp,
       xpSaved,
@@ -155,6 +200,11 @@ function UserContextProvider({ children }) {
       handleAddCv,
     }),
     [
+      editProfile,
+      setEditProfile,
+      addSkills,
+      setAddSkills,
+      handleSubmitProfile,
       addXp,
       setAddXp,
       xpSaved,
