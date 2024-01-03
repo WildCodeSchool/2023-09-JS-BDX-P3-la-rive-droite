@@ -38,10 +38,28 @@ function UserContextProvider({ children }) {
       addXp.title === "" ||
       addXp.company === "" ||
       addXp.city === "" ||
+      addXp.contract === "" ||
       addXp.description === ""
     ) {
       setErrorMsg(true);
       setMsgContent("Veuillez remplir tous les champs");
+      setTimeout(() => {
+        setErrorMsg(false);
+      }, 4000);
+    }
+    if (
+      addXp.isWorking === false &&
+      (addXp.dateEnd === "" || addXp.dateBeggin === "")
+    ) {
+      setErrorMsg(true);
+      setMsgContent("Veuillez renseigner les dates");
+      setTimeout(() => {
+        setErrorMsg(false);
+      }, 4000);
+    }
+    if (addXp.isWorking === true && addXp.dateBeggin === "") {
+      setErrorMsg(true);
+      setMsgContent("Veuillez renseigner les dates");
       setTimeout(() => {
         setErrorMsg(false);
       }, 4000);
@@ -85,6 +103,41 @@ function UserContextProvider({ children }) {
 
   useEffect(() => {}, [xpSaved]);
 
+  const [addCourse, setAddCourse] = useState({
+    id: uuid(),
+    level: "",
+    domaine: "",
+    name: "",
+    dateBeggin: "",
+    dateEnd: "",
+    description: "",
+  });
+  const [courseSaved, setCourseSaved] = useState([]);
+
+  const handleAddCourse = (event) => {
+    if (
+      addCourse.domaine === "" ||
+      addCourse.name === "" ||
+      addCourse.description === ""
+    ) {
+      setErrorMsg(true);
+      setMsgContent("Veuillez remplir tous les champs");
+      setTimeout(() => {
+        setErrorMsg(false);
+      }, 4000);
+    } else {
+      event.preventDefault();
+      setXpSaved((prevData) => [...prevData, addCourse]);
+      setMsgContent("La formation a été ajoutée avec");
+      setSuccesMsg(true);
+      setTimeout(() => {
+        setSuccesMsg(false);
+      }, 4000);
+      saveItemInLS("Formation", courseSaved);
+    }
+  };
+  useEffect(() => {}, [courseSaved]);
+
   const userContextValues = useMemo(
     () => ({
       addXp,
@@ -92,6 +145,11 @@ function UserContextProvider({ children }) {
       xpSaved,
       setXpSaved,
       handleAddXp,
+      addCourse,
+      setAddCourse,
+      courseSaved,
+      setCourseSaved,
+      handleAddCourse,
       addCv,
       setAddCv,
       handleAddCv,
@@ -101,6 +159,12 @@ function UserContextProvider({ children }) {
       setAddXp,
       xpSaved,
       setXpSaved,
+      handleAddXp,
+      addCourse,
+      setAddCourse,
+      courseSaved,
+      setCourseSaved,
+      handleAddCourse,
       addCv,
       handleAddXp,
       setAddCv,
@@ -114,8 +178,10 @@ function UserContextProvider({ children }) {
     </UserContext.Provider>
   );
 }
+
 UserContextProvider.propTypes = {
   children: PropTypes.element.isRequired,
 };
+
 export default UserContextProvider;
 export const useUserContext = () => useContext(UserContext);

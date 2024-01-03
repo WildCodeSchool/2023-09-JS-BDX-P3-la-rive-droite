@@ -37,7 +37,11 @@ function Offer() {
             valueInput={addOffer}
             handleChange={(e) => handleChange(setAddOffer, "company", e)}
           />
-          <Select titleSelect="Type de contrat" valueSelect="CDI" />
+          <Select titleSelect="Type de contrat">
+            <option value="CDD">CDD</option>
+            <option value="CDI">CDI</option>
+            <option value="autre">Autre</option>
+          </Select>
           <Input
             titleInput="Ville"
             holderText="Bordeaux"
