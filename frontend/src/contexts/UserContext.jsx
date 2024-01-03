@@ -94,7 +94,7 @@ function UserContextProvider({ children }) {
       setMsgContent("La formation a été ajoutée avec");
       setSuccesMsg(true);
       setTimeout(() => {
-        setSuccesMsg(true);
+        setSuccesMsg(false);
       }, 4000);
       saveItemInLS("Formation", courseSaved);
     }

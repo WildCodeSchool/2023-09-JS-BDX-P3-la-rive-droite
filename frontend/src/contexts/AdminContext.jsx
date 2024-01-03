@@ -50,7 +50,7 @@ function AdminContextProvider({ children }) {
       setMsgContent("L'offre à été ajouté avec");
       setSuccesMsg(true);
       setTimeout(() => {
-        setSuccesMsg(true);
+        setSuccesMsg(false);
       }, 4000);
       saveItemInLS("Offer", offerSaved);
     }
