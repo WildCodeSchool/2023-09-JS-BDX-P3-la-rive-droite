@@ -8,24 +8,21 @@ function Input({
   fieldName,
   valueInput,
   handleChange,
-  hideInput,
 }) {
   return (
     <div className="container-input">
       <label className="label-champs" htmlFor="name">
         {titleInput ?? "Nom de l'input"}
       </label>
-      {!hideInput && (
-        <input
-          className="background-input"
-          type={typeInput ?? "text"}
-          id={fieldName}
-          name={fieldName}
-          placeholder={holderText ?? "Texte du placeholder"}
-          value={valueInput[fieldName]}
-          onChange={handleChange}
-        />
-      )}
+      <input
+        className="background-input"
+        type={typeInput ?? "text"}
+        id={fieldName}
+        name={fieldName}
+        placeholder={holderText ?? "Texte du placeholder"}
+        value={valueInput[fieldName]}
+        onChange={handleChange}
+      />
     </div>
   );
 }
@@ -37,7 +34,6 @@ Input.propTypes = {
   fieldName: PropTypes.string.isRequired,
   valueInput: PropTypes.element.isRequired,
   handleChange: PropTypes.func.isRequired,
-  hideInput: PropTypes.bool.isRequired,
 };
 
 export default Input;
