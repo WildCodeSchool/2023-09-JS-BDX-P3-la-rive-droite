@@ -16,7 +16,7 @@ function UserContextProvider({ children }) {
     city: "",
     contract: "",
     isWorking: false,
-    dateBeggin: "",
+    dateBegin: "",
     dateEnd: "",
     description: "",
   });
@@ -95,7 +95,7 @@ function UserContextProvider({ children }) {
       setMsgContent("L'expérience a été ajoutée avec");
       setSuccesMsg(true);
       setTimeout(() => {
-        setSuccesMsg(true);
+        setSuccesMsg(false);
       }, 4000);
       saveItemInLS("CV", cvSaved);
     }
@@ -108,7 +108,7 @@ function UserContextProvider({ children }) {
     level: "",
     domaine: "",
     name: "",
-    dateBeggin: "",
+    dateBegin: "",
     dateEnd: "",
     description: "",
   });
@@ -118,17 +118,29 @@ function UserContextProvider({ children }) {
     if (
       addCourse.domaine === "" ||
       addCourse.name === "" ||
-      addCourse.description === ""
+      addCourse.description === "" ||
+      addCourse.level === "" ||
+      addCourse.dateBegin === "" ||
+      addCourse.dateEnd === ""
     ) {
       setErrorMsg(true);
       setMsgContent("Veuillez remplir tous les champs");
       setTimeout(() => {
         setErrorMsg(false);
       }, 4000);
+    } else if (
+      addCourse.level === "Sélectionnez un niveau" ||
+      addCourse.level === null
+    ) {
+      setErrorMsg(true);
+      setMsgContent("Veuillez sélectionner un niveau valide");
+      setTimeout(() => {
+        setErrorMsg(false);
+      }, 4000);
     } else {
       event.preventDefault();
-      setXpSaved((prevData) => [...prevData, addCourse]);
-      setMsgContent("La formation a été ajoutée avec");
+      setCourseSaved((prevData) => [...prevData, addCourse]);
+      setMsgContent("La formation a été ajoutée avec succès");
       setSuccesMsg(true);
       setTimeout(() => {
         setSuccesMsg(false);
@@ -136,6 +148,7 @@ function UserContextProvider({ children }) {
       saveItemInLS("Formation", courseSaved);
     }
   };
+
   useEffect(() => {}, [courseSaved]);
 
   const userContextValues = useMemo(

@@ -1,15 +1,20 @@
 import PropTypes from "prop-types";
 import "./select.css";
 
-function Select({ titleSelect, children }) {
+function Select({ titleSelect, fieldName, children, handleChange }) {
   return (
     <div className="container-select">
       <label className="label-select" htmlFor="contrat-select">
         {titleSelect ?? "La valeur n'est pas renseignée."}
       </label>
 
-      <select className="select-background" name="pets" id="pet-select">
-        <option value="">---</option>
+      <select
+        onChange={handleChange}
+        className="select-background"
+        name={fieldName}
+        id="select-value"
+      >
+        <option value="">- - -</option>
         {children}
       </select>
     </div>
@@ -18,7 +23,9 @@ function Select({ titleSelect, children }) {
 
 Select.propTypes = {
   titleSelect: PropTypes.string.isRequired,
+  fieldName: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired,
+  handleChange: PropTypes.func.isRequired,
 };
 
 export default Select;
