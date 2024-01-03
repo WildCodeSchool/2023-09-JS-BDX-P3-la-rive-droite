@@ -74,7 +74,8 @@ function UserContextProvider({ children }) {
       saveItemInLS("Experience", xpSaved);
     }
   };
-const handleAddCv = (event) => {
+
+  const handleAddCv = (event) => {
     if (
       addXp.title === "" ||
       addXp.lastName === "" ||
