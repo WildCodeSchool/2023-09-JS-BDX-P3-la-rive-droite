@@ -175,7 +175,7 @@ function UserContextProvider({ children }) {
         setErrorMsg(false);
       }, 4000);
     }
-    if (addCourse.level !== "- - -") {
+    if (addCourse.level === "- - -") {
       setErrorMsg(true);
       setMsgContent("Veuillez sélectionner un niveau valide");
       setTimeout(() => {
