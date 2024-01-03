@@ -18,7 +18,7 @@ function UserProfileUser() {
           holderText="Votre nom"
           fieldName="lastname"
           inputType="text"
-          // valueInput={addInfo}
+          valueInput="addInfo"
           // handleChange={handleChange}
         />
         <Input
@@ -26,7 +26,7 @@ function UserProfileUser() {
           holderText="Votre prénom"
           fieldName="firstname"
           inputType="text"
-          // valueInput={addInfo}
+          valueInput="addInfo"
           // handleChange={handleChange}
         />
         <Input
@@ -34,7 +34,7 @@ function UserProfileUser() {
           holderText="Email"
           fieldName="email"
           inputType="text"
-          // valueInput={addInfo}
+          valueInput="addInfo"
           // handleChange={handleChange}
         />
         <Input
@@ -42,7 +42,7 @@ function UserProfileUser() {
           holderText="Mot de passe"
           fieldName="password"
           inputType="text"
-          // valueInput={addInfo}
+          valueInput="addInfo"
           // handleChange={handleChange}
         />
         <Input
@@ -50,7 +50,7 @@ function UserProfileUser() {
           holderText="Numéro de téléphone"
           fieldName="phone"
           inputType="text"
-          // valueInput={addInfo}
+          valueInput="addInfo"
           // handleChange={handleChange}
         />
         <Input
@@ -58,7 +58,7 @@ function UserProfileUser() {
           holderText="Adresse"
           fieldName="address"
           inputType="text"
-          // valueInput={addInfo}
+          valueInput="addInfo"
           // handleChange={handleChange}
         />
         <div className="container-switch">
