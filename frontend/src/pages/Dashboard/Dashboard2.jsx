@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import TitleDashboard from "../../components/Dashboards/TitleDashboard";
 import RowDash2 from "../../components/Dashboards/RowDash2";
+import ButtonMini from "../../components/Boutons/ButtonMini";
 
 function Dashboard2({ refAnnonce }) {
   return (
