@@ -22,6 +22,17 @@ function UserContextProvider({ children }) {
   });
   const [xpSaved, setXpSaved] = useState([]);
 
+  const [addCv, setAddCv] = useState({
+    id: uuid(),
+    title: "",
+    lastName: "",
+    firstName: "",
+    email: "",
+    number: "",
+    adress: "",
+  });
+  const [cvSaved, setCvSaved] = useState([]);
+
   const handleAddXp = (event) => {
     if (
       addXp.title === "" ||
@@ -46,6 +57,32 @@ function UserContextProvider({ children }) {
     }
   };
 
+  const handleAddCv = (event) => {
+    if (
+      addXp.title === "" ||
+      addXp.lastName === "" ||
+      addXp.firstName === "" ||
+      addXp.email === "" ||
+      addXp.number === "" ||
+      addXp.adress === ""
+    ) {
+      setErrorMsg(true);
+      setMsgContent("Veuillez remplir tous les champs");
+      setTimeout(() => {
+        setErrorMsg(false);
+      }, 4000);
+    } else {
+      event.preventDefault();
+      setCvSaved((prevData) => [...prevData, addCv]);
+      setMsgContent("L'expérience a été ajoutée avec");
+      setSuccesMsg(true);
+      setTimeout(() => {
+        setSuccesMsg(true);
+      }, 4000);
+      saveItemInLS("CV", cvSaved);
+    }
+  };
+
   useEffect(() => {}, [xpSaved]);
 
   const userContextValues = useMemo(
@@ -55,8 +92,20 @@ function UserContextProvider({ children }) {
       xpSaved,
       setXpSaved,
       handleAddXp,
+      addCv,
+      setAddCv,
+      handleAddCv,
     }),
-    [addXp, setAddXp, xpSaved, setXpSaved, handleAddXp]
+    [
+      addXp,
+      setAddXp,
+      xpSaved,
+      setXpSaved,
+      addCv,
+      handleAddXp,
+      setAddCv,
+      handleAddCv,
+    ]
   );
 
   return (
