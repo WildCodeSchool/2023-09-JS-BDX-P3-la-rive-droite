@@ -78,7 +78,6 @@ function UserContextProvider({ children }) {
 
   const handleAddCourse = (event) => {
     if (
-      // addCourse.level === "" ||
       addCourse.domaine === "" ||
       addCourse.name === "" ||
       addCourse.description === ""
