@@ -5,6 +5,7 @@ import HeaderLongTitle from "../../components/Headers/HeaderLongTitle";
 import ButtonMaxi from "../../components/Boutons/ButtonMaxi";
 import ErrorMsg from "../../components/Alertes Messages/ErrorMsg";
 import SuccesMsg from "../../components/Alertes Messages/SuccesMsg";
+import { useGlobalContext } from "../../contexts/GlobalContext";
 import { useSignContext } from "../../contexts/SignContext";
 import "./login-signin.css";
 import "../../components/Inputs/input.css";
@@ -12,6 +13,8 @@ import "../../components/Boutons/button-maxi.css";
 import "../../components/Inputs/checkbox-conditions.css";
 
 function SignIn() {
+  const { handleChange } = useGlobalContext();
+
   const {
     errorMsg,
     succesMsg,
@@ -33,7 +36,9 @@ function SignIn() {
               holderText="John Doe"
               fieldName="userName"
               valueInput={signIn}
-              handleChange={handleSignIn}
+              handleChange={(event) =>
+                handleChange(handleSignIn, "userName", event)
+              }
             />
             <Input
               titleInput="E-mail *"
@@ -41,7 +46,9 @@ function SignIn() {
               fieldName="email"
               typeInput="email"
               valueInput={signIn}
-              handleChange={handleSignIn}
+              handleChange={(event) =>
+                handleChange(handleSignIn, "email", event)
+              }
             />
             <Input
               titleInput="Mot de passe *"
@@ -49,7 +56,9 @@ function SignIn() {
               fieldName="password"
               typeInput="password"
               valueInput={signIn}
-              handleChange={handleSignIn}
+              handleChange={(event) =>
+                handleChange(handleSignIn, "password", event)
+              }
             />
             <Input
               titleInput="Confirmer le mot de passe *"
@@ -57,7 +66,9 @@ function SignIn() {
               fieldName="password2"
               typeInput="password"
               valueInput={signIn}
-              handleChange={handleSignIn}
+              handleChange={(event) =>
+                handleChange(handleSignIn, "password2", event)
+              }
             />
             <CheckboxCondition
               textCondition="J'accepte les conditions d' *"
