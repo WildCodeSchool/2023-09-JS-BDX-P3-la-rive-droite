@@ -20,7 +20,7 @@ function SignIn() {
     succesMsg,
     msgContent,
     signIn,
-    handleSignIn,
+    setSignIn,
     handleSubmitSignIn,
   } = useSignContext();
 
@@ -37,7 +37,7 @@ function SignIn() {
               fieldName="userName"
               valueInput={signIn}
               handleChange={(event) =>
-                handleChange(handleSignIn, "userName", event)
+                handleChange(setSignIn, "userName", event)
               }
             />
             <Input
@@ -46,9 +46,7 @@ function SignIn() {
               fieldName="email"
               typeInput="email"
               valueInput={signIn}
-              handleChange={(event) =>
-                handleChange(handleSignIn, "email", event)
-              }
+              handleChange={(event) => handleChange(setSignIn, "email", event)}
             />
             <Input
               titleInput="Mot de passe *"
@@ -57,7 +55,7 @@ function SignIn() {
               typeInput="password"
               valueInput={signIn}
               handleChange={(event) =>
-                handleChange(handleSignIn, "password", event)
+                handleChange(setSignIn, "password", event)
               }
             />
             <Input
@@ -67,7 +65,7 @@ function SignIn() {
               typeInput="password"
               valueInput={signIn}
               handleChange={(event) =>
-                handleChange(handleSignIn, "password2", event)
+                handleChange(setSignIn, "password2", event)
               }
             />
             <CheckboxCondition
