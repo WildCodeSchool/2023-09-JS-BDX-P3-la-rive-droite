@@ -24,7 +24,7 @@ CREATE TABLE
         is_working BOOL NOT NULL,
         date_begin DATE,
         date_end DATE,
-        description TEXT,
+        description TEXT
     );
 
 CREATE TABLE
@@ -35,7 +35,7 @@ CREATE TABLE
         name VARCHAR(100),
         date_begin DATE,
         date_end DATE,
-        description TEXT,
+        description TEXT
     );
 
 CREATE TABLE
@@ -50,7 +50,7 @@ CREATE TABLE
         work_place VARCHAR(100),
         salary VARCHAR(100),
         info TEXT,
-        email VARCHAR(100),
+        email VARCHAR(100)
     );
 
 -- Insérer des données dans la table "user"
