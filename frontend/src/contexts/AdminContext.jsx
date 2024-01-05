@@ -15,6 +15,7 @@ function AdminContextProvider({ children }) {
     id: uuid(),
     title: "",
     company: "",
+    type: "",
     city: "",
     mission: "",
     searchProfile: "",
@@ -29,6 +30,7 @@ function AdminContextProvider({ children }) {
     if (
       addOffer.title === "" ||
       addOffer.company === "" ||
+      addOffer.type === "" ||
       addOffer.city === "" ||
       addOffer.mission === "" ||
       addOffer.searchProfile === "" ||
