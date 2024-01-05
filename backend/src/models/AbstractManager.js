@@ -10,11 +10,15 @@ class AbstractManager {
   }
 
   findAll() {
-    return this.database.query(`select * from  ${this.table}`);
+    return this.database.query(`SELECT * FROM ${this.table}`);
   }
 
   setDatabase(database) {
     this.database = database;
+  }
+
+  deleteAll() {
+    return this.database.query(`DELETE FROM ${this.table}`);
   }
 }
 
