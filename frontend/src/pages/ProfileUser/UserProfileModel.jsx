@@ -23,7 +23,6 @@ function UserProfileUser() {
           titleInput="Nom *"
           holderText="Votre nom"
           fieldName="lastname"
-          inputType="text"
           valueInput={editProfile}
           handleChange={(event) =>
             handleChange(setEditProfile, "lastName", event)
@@ -33,7 +32,6 @@ function UserProfileUser() {
           titleInput="Prénom *"
           holderText="Votre prénom"
           fieldName="firstname"
-          inputType="text"
           valueInput={editProfile}
           handleChange={(event) =>
             handleChange(setEditProfile, "firstName", event)
@@ -43,15 +41,14 @@ function UserProfileUser() {
           titleInput="Email *"
           holderText="Email"
           fieldName="email"
-          inputType="text"
           valueInput={editProfile}
           handleChange={(event) => handleChange(setEditProfile, "email", event)}
         />
         <Input
-          titleInput="Mot de passe *"
+          titleInput="Mot de passess *"
           holderText="Mot de passe"
           fieldName="password"
-          inputType="text"
+          typeInput="password"
           valueInput={editProfile}
           handleChange={(event) =>
             handleChange(setEditProfile, "password", event)
@@ -61,7 +58,7 @@ function UserProfileUser() {
           titleInput="Téléphone *"
           holderText="Numéro de téléphone"
           fieldName="phone"
-          inputType="text"
+          typeInput="tel"
           valueInput={editProfile}
           handleChange={(event) => handleChange(setEditProfile, "phone", event)}
         />

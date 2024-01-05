@@ -64,13 +64,16 @@ function UserContextProvider({ children }) {
       skills: addSkills,
     };
 
-    setProfileSaved((prevData) => [...prevData, updatedProfile]);
-    setMsgContent("Le profil a été modifié avec");
-    setSuccesMsg(true);
-    setTimeout(() => {
-      setSuccesMsg(false);
-    }, 4000);
-    saveItemInLS("Profile", profileSaved);
+    setProfileSaved((prevData) => {
+      const newData = [...prevData, updatedProfile];
+      setMsgContent("Le profil a été modifié avec");
+      setSuccesMsg(true);
+      setTimeout(() => {
+        setSuccesMsg(false);
+      }, 4000);
+      saveItemInLS("Profile", newData);
+      return newData;
+    });
   };
 
   const handleAddXp = (event) => {
@@ -195,6 +198,7 @@ function UserContextProvider({ children }) {
     () => ({
       editProfile,
       setEditProfile,
+      profileSaved,
       addSkills,
       setAddSkills,
       handleSubmitProfile,
@@ -215,6 +219,7 @@ function UserContextProvider({ children }) {
     [
       editProfile,
       setEditProfile,
+      profileSaved,
       addSkills,
       setAddSkills,
       handleSubmitProfile,
