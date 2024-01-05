@@ -24,12 +24,13 @@ function LogContextProvider({ children }) {
 
   const navigate = useNavigate();
 
-  const handleSubmitLogIn = async (credentials) => {
+  const handleSubmitLogIn = async () => {
     try {
       const { data } = await axios.post(
         `http://localhost:3310/api/login`,
-        credentials
+        logIn
       );
+      // console.log("lol", res);
       localStorage.setItem("token", data.token);
       const tokenData = jwtDecode(data.token);
       setSuccesMsg(true);
