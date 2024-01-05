@@ -16,6 +16,7 @@ const getUsers = (_, res) => {
       res.sendStatus(500);
     });
 };
+
 const postUser = (req, res) => {
   models.user
     .create(req.body)
@@ -32,6 +33,7 @@ const postUser = (req, res) => {
     });
   // res.status(418).send(req.body)
 };
+
 const postLogin = (req, res) => {
   models.user.login(req.body).then((user) => {
     if (user) {

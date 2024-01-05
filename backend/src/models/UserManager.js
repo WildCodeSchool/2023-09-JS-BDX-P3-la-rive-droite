@@ -1,5 +1,4 @@
 const bcrypt = require("bcrypt");
-
 const AbstractManager = require("./AbstractManager");
 
 class UserManager extends AbstractManager {
@@ -10,7 +9,7 @@ class UserManager extends AbstractManager {
   create(user) {
     return UserManager.hashPassword(user.password).then((hash) => {
       return this.database.query(
-        `insert into ${this.table} (firstname, lastname, phone, address, email, password, is_admin) values (?, ?, ?, ?, ?, ?, ?)`,
+        `INSERT INTO ${this.table} (firstname, lastname, phone, address, email, password, is_admin) values (?, ?, ?, ?, ?, ?, ?)`,
         [
           user.firstname,
           user.lastname,
@@ -26,19 +25,16 @@ class UserManager extends AbstractManager {
 
   async login({ email, password }) {
     const [rows] = await this.database.query(
-      `select * from user where email like ?`,
+      `SELECT * FROM user WHERE email LIKE ?`,
       [email]
     );
-    // console.log(rows);
     if (!rows.length) {
       return undefined;
     }
 
     const user = rows[0];
-    // console.log(user);
 
     const result = await bcrypt.compare(password, user.password);
-    // console.log(result);
 
     return result ? user : undefined;
   }
