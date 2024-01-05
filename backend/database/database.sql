@@ -14,6 +14,45 @@ CREATE TABLE
         is_admin BOOL NOT NULL
     );
 
+CREATE TABLE
+    experience (
+        id INT NOT NULL PRIMARY KEY,
+        title VARCHAR(100),
+        company VARCHAR(100),
+        city VARCHAR(100),
+        type VARCHAR(100),
+        is_working BOOL NOT NULL,
+        date_begin DATE,
+        date_end DATE,
+        description TEXT,
+    );
+
+CREATE TABLE
+    course (
+        id INT NOT NULL PRIMARY KEY,
+        level VARCHAR(100),
+        domaine VARCHAR(100),
+        name VARCHAR(100),
+        date_begin DATE,
+        date_end DATE,
+        description TEXT,
+    );
+
+CREATE TABLE
+    offer (
+        id INT NOT NULL PRIMARY KEY,
+        title VARCHAR(100),
+        company VARCHAR(100),
+        type VARCHAR(100),
+        city VARCHAR(100),
+        mission VARCHAR(100),
+        search_profile VARCHAR(100),
+        work_place VARCHAR(100),
+        salary VARCHAR(100),
+        info TEXT,
+        email VARCHAR(100),
+    );
+
 -- Insérer des données dans la table "user"
 INSERT INTO
     user (
@@ -54,4 +93,4 @@ VALUES (
         1
     );
 
--- DROP TABLE user;
+DROP TABLE user;
