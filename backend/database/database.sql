@@ -54,4 +54,4 @@ VALUES (
         1
     );
 
-DROP TABLE user;
+-- DROP TABLE user;
