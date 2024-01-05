@@ -22,13 +22,6 @@ function LogContextProvider({ children }) {
     setShowStorage(JSON.parse(localStorage.getItem("User")));
   };
 
-  const handleLogIn = (fieldName, event) => {
-    setLogIn((prevData) => ({
-      ...prevData,
-      [fieldName]: event.target.value,
-    }));
-  };
-
   const navigate = useNavigate();
 
   const handleSubmitLogIn = async (credentials) => {
@@ -86,18 +79,18 @@ function LogContextProvider({ children }) {
   const contextValues = useMemo(
     () => ({
       userConnected,
-      handleLogIn,
       handleSubmitLogIn,
       logIn,
+      setLogIn,
       showStorage,
       setUserConnected,
       getUserFromStorage,
     }),
     [
       userConnected,
-      handleLogIn,
       handleSubmitLogIn,
       logIn,
+      setLogIn,
       showStorage,
       setUserConnected,
       getUserFromStorage,

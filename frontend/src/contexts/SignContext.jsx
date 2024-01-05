@@ -23,12 +23,6 @@ function SignContextProvider({ children }) {
   const [userSaved, setUserSaved] = useState([]);
   const [storageData, setStorageData] = useState([]);
 
-  const handleSignIn = (fieldName, event) => {
-    setSignIn((prevData) => ({
-      ...prevData,
-      [fieldName]: event.target.value,
-    }));
-  };
   // Enregistrement dans le "Local Storage".
   const saveUser = () => {
     // Condition qui vérifie et remplace les informations existantes.
@@ -127,15 +121,10 @@ function SignContextProvider({ children }) {
     }
   };
 
-  // useEffect(() => {
-  //   console.log("Le formulaire à bien été mis à jours.", userSaved);
-  // }, [userSaved]);
-
   const contextValues = useMemo(
     () => ({
       signIn,
       setSignIn,
-      handleSignIn,
       handleSubmitSignIn,
       userSaved,
       setUserSaved,
@@ -146,7 +135,6 @@ function SignContextProvider({ children }) {
     [
       signIn,
       setSignIn,
-      handleSignIn,
       handleSubmitSignIn,
       userSaved,
       setUserSaved,

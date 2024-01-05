@@ -2,22 +2,23 @@ import { Link } from "react-router-dom";
 import Input from "../../components/Inputs/Input";
 import ButtonMaxi from "../../components/Boutons/ButtonMaxi";
 import HeaderLongTitle from "../../components/Headers/HeaderLongTitle";
+import { useGlobalContext } from "../../contexts/GlobalContext";
 import { useLogContext } from "../../contexts/LogContext";
 import ErrorMsg from "../../components/Alertes Messages/ErrorMsg";
 import SuccesMsg from "../../components/Alertes Messages/SuccesMsg";
 import "./login-signin.css";
 import "../../components/Inputs/input.css";
 import "../../components/Boutons/button-maxi.css";
-import { useAdminContext } from "../../contexts/AdminContext";
 
 function Login() {
-  const { handleTest } = useAdminContext;
+  const { handleChange } = useGlobalContext();
+
   const {
     errorMsg,
     succesMsg,
     msgContent,
     logIn,
-    handleLogIn,
+    setLogIn,
     handleSubmitLogIn,
   } = useLogContext();
 
@@ -34,7 +35,7 @@ function Login() {
                 holderText="john.doe@externatic.fr"
                 fieldName="email"
                 valueInput={logIn}
-                handleChange={handleLogIn}
+                handleChange={(event) => handleChange(setLogIn, "email", event)}
               />
               <Input
                 titleInput="Mot de passe *"
@@ -42,7 +43,9 @@ function Login() {
                 fieldName="password"
                 typeInput="password"
                 valueInput={logIn}
-                handleChange={handleLogIn}
+                handleChange={(event) =>
+                  handleChange(setLogIn, "password", event)
+                }
               />
               <div>
                 {errorMsg && <ErrorMsg message={msgContent} />}
@@ -51,7 +54,6 @@ function Login() {
               <ButtonMaxi
                 textBtn="Se connecter"
                 clickFunc={handleSubmitLogIn}
-                onClick={handleTest}
               />
             </div>
           </div>
