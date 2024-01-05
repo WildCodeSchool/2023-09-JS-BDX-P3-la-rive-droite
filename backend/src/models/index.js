@@ -37,6 +37,7 @@ models.user = new UserManager();
 models.offer = new OfferManager();
 
 models.user.setDatabase(pool);
+models.offer.setDatabase(pool);
 // bonus: use a proxy to personalize error message,
 // when asking for a non existing model
 const handler = {
