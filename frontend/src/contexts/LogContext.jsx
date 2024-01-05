@@ -1,6 +1,8 @@
 import { useState, createContext, useContext, useMemo } from "react";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { jwtDecode } from "jwt-decode";
 import { useGlobalContext } from "./GlobalContext";
 
 const LogContext = createContext();
@@ -20,62 +22,76 @@ function LogContextProvider({ children }) {
     setShowStorage(JSON.parse(localStorage.getItem("User")));
   };
 
-  const handleLogIn = (fieldName, event) => {
-    setLogIn((prevData) => ({
-      ...prevData,
-      [fieldName]: event.target.value,
-    }));
-  };
-
   const navigate = useNavigate();
 
-  const handleSubmitLogIn = () => {
-    getUserFromStorage();
-
-    // Compare l'email.
-    for (let i = 0; i < showStorage.length; i += 1) {
-      // i++
-      if (
-        showStorage[i].email === logIn.email &&
-        showStorage[i].password === logIn.password
-      ) {
-        // const idUser = showStorage[i].id;
-        const nameUser = showStorage[i].userName;
-        // console.log(nameUser);
-        // console.log(idUser);
-
-        setSuccesMsg(true);
-        setMsgContent(`Bienvenue, connexion avec ${nameUser}`);
-        setTimeout(() => {
-          setSuccesMsg(false);
-          navigate("/");
-        }, 3000);
-        break;
-      } else {
-        setErrorMsg(true);
-        setMsgContent("Identifiants non valides.");
-        setTimeout(() => {
-          setErrorMsg(false);
-        }, 4000);
+  const handleSubmitLogIn = async () => {
+    try {
+      const { data } = await axios.post(
+        `http://localhost:3310/api/login`,
+        logIn
+      );
+      // console.log("lol", res);
+      localStorage.setItem("token", data.token);
+      const tokenData = jwtDecode(data.token);
+      setSuccesMsg(true);
+      setMsgContent(`Bienvenue, connexion avec ${tokenData.firstname}`);
+      setTimeout(() => {
+        setSuccesMsg(false);
+        navigate("/");
+      }, 3000);
+      setLogIn(tokenData);
+      if (tokenData.is_admin === 1) {
+        return navigate("/dashboard");
       }
+      return navigate("/");
+    } catch (err) {
+      console.error(err);
+      setErrorMsg(true);
+      setMsgContent("Identifiants non valides.");
+      setTimeout(() => {
+        setErrorMsg(false);
+      }, 4000);
     }
+
+    return null;
   };
+
+  // getUserFromStorage();
+
+  // // Compare l'email.
+  // for (let i = 0; i < showStorage.length; i += 1) {
+  //   // i++
+  //   if (
+  //     showStorage[i].email === logIn.email &&
+  //     showStorage[i].password === logIn.password
+  //   ) {
+  //     // const idUser = showStorage[i].id;
+  //     const nameUser = showStorage[i].userName;
+  //     // console.log(nameUser);
+  //     // console.log(idUser);
+
+  // break;
+  //   } else {
+  //
+  //   }
+  // }
+  // };
 
   const contextValues = useMemo(
     () => ({
       userConnected,
-      handleLogIn,
       handleSubmitLogIn,
       logIn,
+      setLogIn,
       showStorage,
       setUserConnected,
       getUserFromStorage,
     }),
     [
       userConnected,
-      handleLogIn,
       handleSubmitLogIn,
       logIn,
+      setLogIn,
       showStorage,
       setUserConnected,
       getUserFromStorage,

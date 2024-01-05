@@ -2,6 +2,8 @@ import PropTypes from "prop-types";
 import { useState, createContext, useContext, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { v4 as uuid } from "uuid";
+import axios from "axios";
+import { jwtDecode } from "jwt-decode";
 import { useGlobalContext } from "./GlobalContext";
 
 const SignContext = createContext();
@@ -21,32 +23,36 @@ function SignContextProvider({ children }) {
   });
   const [userConnected, setUserConnected] = useState(false);
   const [userSaved, setUserSaved] = useState([]);
-  const [storageData, setStorageData] = useState([]);
-
-  const handleSignIn = (fieldName, event) => {
-    setSignIn((prevData) => ({
-      ...prevData,
-      [fieldName]: event.target.value,
-    }));
-  };
-  // Enregistrement dans le "Local Storage".
-  const saveUser = () => {
-    // Condition qui vérifie et remplace les informations existantes.
-    const existingData = JSON.parse(localStorage.getItem("User")) || [];
-    // Ajout de la methode "isArray" car sinon conflit car il faut les infos
-    // dans un tableau pour pouvoir push dans le Local Storage.
-    const dataArray = Array.isArray(existingData) ? existingData : [];
-    const newData = dataArray.concat(signIn);
-    // Sauvegarder le nouveau tableau dans le local storage
-    localStorage.setItem("User", JSON.stringify(newData));
-    // Fonction qui met à jour l'Etat du local storage.
-    const getLocalStorageData = () => {
-      setStorageData(newData);
-    };
-    getLocalStorageData();
-  };
-
   const navigate = useNavigate();
+  // const [storageData, setStorageData] = useState([]);
+
+  // Enregistrement dans le "Local Storage".
+  const saveUser = async (newUser) => {
+    try {
+      const { data } = await axios.post(
+        `http://localhost:3310/api/signin`,
+        newUser
+      );
+      localStorage.setItem("token", data.token);
+      const tokenData = jwtDecode(data.token);
+      setUserSaved(
+        await axios.post("http://localhost:3310/api/users", newUser)
+      );
+      setSuccesMsg(true);
+      setMsgContent(`Bienvenue, connexion avec ${tokenData.firstname}`);
+      setTimeout(() => {
+        setSuccesMsg(false);
+        navigate("/");
+      }, 3000);
+    } catch (err) {
+      setErrorMsg(true);
+      setMsgContent("Identifiants non valides.");
+      setTimeout(() => {
+        setErrorMsg(false);
+      }, 4000);
+    }
+  };
+
   const emailRegex = /[a-z0-9._]+@[a-z0-9-]+\.[a-z]{2,3}/;
   const passwordRegex =
     /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
@@ -127,31 +133,23 @@ function SignContextProvider({ children }) {
     }
   };
 
-  // useEffect(() => {
-  //   console.log("Le formulaire à bien été mis à jours.", userSaved);
-  // }, [userSaved]);
-
   const contextValues = useMemo(
     () => ({
       signIn,
       setSignIn,
-      handleSignIn,
       handleSubmitSignIn,
       userSaved,
       setUserSaved,
       handleCheckboxChange,
-      storageData,
       userConnected,
     }),
     [
       signIn,
       setSignIn,
-      handleSignIn,
       handleSubmitSignIn,
       userSaved,
       setUserSaved,
       handleCheckboxChange,
-      storageData,
       userConnected,
     ]
   );
