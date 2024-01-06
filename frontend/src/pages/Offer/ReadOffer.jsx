@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 import HeaderCourt from "../../components/Headers/HeaderCourt";
 import ButtonMaxi from "../../components/Boutons/ButtonMaxi";
@@ -7,6 +8,8 @@ import "./read-offer.css";
 
 function ReadOffer() {
   const [offer, setOffer] = useState([]);
+
+  const { id } = useParams();
 
   useEffect(() => {
     // const getOffer = async () => {
@@ -29,7 +32,9 @@ function ReadOffer() {
 
     const getOffer = async () => {
       try {
-        const response = await axios.get("http://localhost:3310/api/offer/15");
+        const response = await axios.get(
+          `http://localhost:3310/api/offer/${id}`
+        );
         setOffer(response.data);
       } catch (err) {
         console.error(err);

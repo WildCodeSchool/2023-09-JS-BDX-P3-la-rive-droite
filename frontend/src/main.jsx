@@ -39,7 +39,7 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "/offer",
+        path: "/offer/:id",
         element: <ReadOffer />,
       },
       {
