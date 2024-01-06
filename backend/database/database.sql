@@ -16,12 +16,12 @@ CREATE TABLE
 
 CREATE TABLE
     experience (
-        id INT NOT NULL PRIMARY KEY,
+        id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
         title VARCHAR(100) NOT NULL,
         company VARCHAR(100) NOT NULL,
         city VARCHAR(100) NOT NULL,
         type VARCHAR(100) NOT NULL,
-        is_working BOOL NOT NULL,
+        is_working BOOL,
         date_begin DATE,
         date_end DATE,
         description TEXT
@@ -38,7 +38,7 @@ CREATE TABLE
         description TEXT
     );
 
-    DROP TABLE offer;
+DROP TABLE offer;
 
 CREATE TABLE
     offer (
