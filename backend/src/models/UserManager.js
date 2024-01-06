@@ -39,6 +39,10 @@ class UserManager extends AbstractManager {
     return result ? user : undefined;
   }
 
+  addOffer() {
+    return this.database.query(`INSERT INTO ${this.table} (title, )`);
+  }
+
   static hashPassword(password, workFactor = 5) {
     return bcrypt.hash(password, workFactor);
   }

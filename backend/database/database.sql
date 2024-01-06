@@ -7,11 +7,52 @@ USE externatic_db;
 CREATE TABLE
     user (
         id INT NOT NULL PRIMARY KEY,
-        firstname VARCHAR(100),
-        lastname VARCHAR(100),
-        email VARCHAR(100),
-        password VARCHAR(100),
+        firstname VARCHAR(100) NOT NULL,
+        lastname VARCHAR(100) NOT NULL,
+        email VARCHAR(100) NOT NULL,
+        password VARCHAR(100) NOT NULL,
         is_admin BOOL NOT NULL
+    );
+
+CREATE TABLE
+    experience (
+        id INT NOT NULL PRIMARY KEY,
+        title VARCHAR(100) NOT NULL,
+        company VARCHAR(100) NOT NULL,
+        city VARCHAR(100) NOT NULL,
+        type VARCHAR(100) NOT NULL,
+        is_working BOOL NOT NULL,
+        date_begin DATE,
+        date_end DATE,
+        description TEXT
+    );
+
+CREATE TABLE
+    course (
+        id INT NOT NULL PRIMARY KEY,
+        level VARCHAR(100) NOT NULL,
+        domaine VARCHAR(100) NOT NULL,
+        name VARCHAR(100) NOT NULL,
+        date_begin DATE NOT NULL,
+        date_end DATE NOT NULL,
+        description TEXT
+    );
+
+    DROP TABLE offer;
+
+CREATE TABLE
+    offer (
+        id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+        title VARCHAR(100) NOT NULL,
+        company VARCHAR(100) NOT NULL,
+        type VARCHAR(100) NOT NULL,
+        city VARCHAR(100) NOT NULL,
+        mission VARCHAR(100) NOT NULL,
+        search_profile VARCHAR(100) NOT NULL,
+        work_place VARCHAR(100) NOT NULL,
+        salary VARCHAR(100) NOT NULL,
+        info TEXT NOT NULL,
+        email VARCHAR(100) NOT NULL
     );
 
 -- Insérer des données dans la table "user"
@@ -54,4 +95,4 @@ VALUES (
         1
     );
 
--- DROP TABLE user;
+DROP TABLE user;
