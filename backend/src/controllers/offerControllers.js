@@ -12,6 +12,45 @@ const getOffers = (req, res) => {
     });
 };
 
+const getOfferById = (req, res) => {
+  const id = parseInt(req.params.id, 10);
+
+  models.offer
+    .findId(id)
+    .then(([item]) => {
+      if (item[0] != null) {
+        res.json(item[0]);
+      } else {
+        res.sendStatus(404);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(422);
+    });
+};
+
+// const getOfferById = (req, res) => {
+//   const id = parseInt(req.params.id);
+//   console.log("Étape 01.");
+
+//   models.offer
+//   .query(`SELECT * FROM offer WHERE id = ?`,[id])
+//   .then(([item]) => {
+//     console.log("Étape 02.");
+//     console.log(item);
+//     if (item[0] != null) {
+//         res.json(item[0]);
+//       } else {
+//         res.sendStatus(404);
+//       }
+//     })
+//     .catch((err) => {
+//       console.error(err);
+//       res.sendStatus(422);
+//     });
+// };
+
 const postOffer = (req, res) => {
   models.offer
     .create(req.body)
@@ -27,9 +66,25 @@ const postOffer = (req, res) => {
     });
 };
 
+const deleteOfferById = (req, res) => {
+  const id = parseInt(req.params.id, 10);
+
+  models.offer
+    .deleteId(id)
+    .then(([result]) => {
+      res.sendStatus(201).send({ message: result });
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(422).send({ message: "Offer not found." });
+    });
+};
+
 module.exports = {
   getOffers,
+  getOfferById,
   postOffer,
+  deleteOfferById,
 };
 
 // const postOffer = (req, res) => {

@@ -11,6 +11,8 @@ router.post("/users", userControllers.postUser);
 router.post("/login", userControllers.postLogin);
 
 router.get("/offer", offerControllers.getOffers);
+router.get("/offer/:id", offerControllers.getOfferById);
 router.post("/offer", offerControllers.postOffer);
+router.delete("/offer/:id", offerControllers.deleteOfferById);
 
 module.exports = router;

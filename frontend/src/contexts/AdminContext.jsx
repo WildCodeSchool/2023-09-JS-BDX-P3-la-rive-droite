@@ -1,13 +1,13 @@
 import { useState, createContext, useContext, useMemo } from "react";
 import PropTypes from "prop-types";
 import { v4 as uuid } from "uuid";
+import axios from "axios";
 import { useGlobalContext } from "./GlobalContext";
 
 const AdminContext = createContext();
 
 function AdminContextProvider({ children }) {
-  const { saveItemInLS, setErrorMsg, setSuccesMsg, setMsgContent } =
-    useGlobalContext();
+  const { setErrorMsg, setSuccesMsg, setMsgContent } = useGlobalContext();
 
   const [isAdmin, setIsAdmin] = useState(true);
 
@@ -18,23 +18,22 @@ function AdminContextProvider({ children }) {
     type: "",
     city: "",
     mission: "",
-    searchProfile: "",
-    workPlace: "",
+    search_profile: "",
+    work_place: "",
     salary: "",
     info: "",
     email: "",
   });
-  const [offerSaved, setOfferSaved] = useState([]);
 
-  const handleAddOffer = (event) => {
+  const handleAddOffer = async () => {
     if (
       addOffer.title === "" ||
       addOffer.company === "" ||
       addOffer.type === "" ||
       addOffer.city === "" ||
       addOffer.mission === "" ||
-      addOffer.searchProfile === "" ||
-      addOffer.workPlace === "" ||
+      addOffer.search_profile === "" ||
+      addOffer.work_place === "" ||
       addOffer.salary === "" ||
       addOffer.info === "" ||
       addOffer.email === ""
@@ -45,14 +44,36 @@ function AdminContextProvider({ children }) {
         setErrorMsg(false);
       }, 4000);
     } else {
-      event.preventDefault();
-      setOfferSaved((prevData) => [...prevData, addOffer]);
+      // try {
+      axios.post(`http://localhost:3310/api/offer`, addOffer);
+      // } catch (err) {
+      //   console.error(err);
+      //   setErrorMsg(true);
+      //   setMsgContent("Veuillez remplir tous les champs");
+      //   setTimeout(() => {
+      //     setErrorMsg(false);
+      //   }, 4000);
+      // }
+
       setMsgContent("L'offre à été ajouté avec");
       setSuccesMsg(true);
       setTimeout(() => {
         setSuccesMsg(false);
       }, 4000);
-      saveItemInLS("Offer", offerSaved);
+
+      setAddOffer({
+        title: "",
+        company: "",
+        type: "",
+        city: "",
+        mission: "",
+        search_profile: "",
+        work_place: "",
+        salary: "",
+        info: "",
+        email: "",
+      });
+      // saveItemInLS("Offer", offerSaved);
     }
   };
 
@@ -62,10 +83,9 @@ function AdminContextProvider({ children }) {
       setIsAdmin,
       addOffer,
       setAddOffer,
-      offerSaved,
       handleAddOffer,
     }),
-    [isAdmin, setIsAdmin, addOffer, offerSaved, handleAddOffer, setAddOffer]
+    [isAdmin, setIsAdmin, addOffer, handleAddOffer, setAddOffer]
   );
 
   return (

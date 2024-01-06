@@ -35,7 +35,9 @@ function Offer() {
             fieldName="company"
             inputType="text"
             valueInput={addOffer}
-            handleChange={(e) => handleChange(setAddOffer, "company", e)}
+            handleChange={(event) =>
+              handleChange(setAddOffer, "company", event)
+            }
           />
           <Select
             titleSelect="Type de contrat"
@@ -66,21 +68,21 @@ function Offer() {
           <Input
             titleInput="Profil recherché"
             holderText="Junior avec 10 ans d'experience"
-            fieldName="searchProfile"
+            fieldName="search_profile"
             inputType="text"
             valueInput={addOffer}
             handleChange={(event) =>
-              handleChange(setAddOffer, "searchProfile", event)
+              handleChange(setAddOffer, "search_profile", event)
             }
           />
           <Input
             titleInput="Lieux de travail"
             holderText="Présentiel"
-            fieldName="workPlace"
+            fieldName="work_place"
             inputType="text"
             valueInput={addOffer}
             handleChange={(event) =>
-              handleChange(setAddOffer, "workPlace", event)
+              handleChange(setAddOffer, "work_place", event)
             }
           />
           <Input
