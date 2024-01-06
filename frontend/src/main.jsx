@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App";
 import Home from "./pages/HomeOffer/Home";
+import ReadOffer from "./pages/Offer/ReadOffer";
 import SignIn from "./pages/Connexion/SignIn";
 import LogIn from "./pages/Connexion/LogIn";
 import History from "./pages/Historique/History";
@@ -13,7 +14,7 @@ import AddExperience from "./pages/Experience/AddExperience";
 import AddFormation from "./pages/Formation/AddFormation";
 import Dashboard1 from "./pages/Dashboard/Dashboard1";
 import Dashboard2 from "./pages/Dashboard/Dashboard2";
-import Offer from "./pages/Offer/Offer";
+import AddOffer from "./pages/Offer/AddOffer";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "mdb-react-ui-kit/dist/css/mdb.min.css";
 import AdminContextProvider from "./contexts/AdminContext";
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+      },
+      {
+        path: "/offer",
+        element: <ReadOffer />,
       },
       {
         path: "/signin",
@@ -93,7 +98,7 @@ const router = createBrowserRouter([
           },
           {
             path: "/dashboard/offer",
-            element: <Offer />,
+            element: <AddOffer />,
           },
         ],
       },

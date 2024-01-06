@@ -10,9 +10,9 @@ import { useGlobalContext } from "../../contexts/GlobalContext";
 import ErrorMsg from "../../components/Alertes Messages/ErrorMsg";
 import SuccesMsg from "../../components/Alertes Messages/SuccesMsg";
 // Import styles.
-import "./offer.css";
+import "./add-offer.css";
 
-function Offer() {
+function AddOffer() {
   const { handleAddOffer, addOffer, setAddOffer } = useAdminContext();
   const { errorMsg, succesMsg, msgContent, handleChange } = useGlobalContext();
   return (
@@ -119,4 +119,4 @@ function Offer() {
   );
 }
 
-export default Offer;
+export default AddOffer;
