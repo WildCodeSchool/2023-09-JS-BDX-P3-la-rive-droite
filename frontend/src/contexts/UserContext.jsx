@@ -1,6 +1,7 @@
 import { useState, createContext, useContext, useMemo, useEffect } from "react";
 import PropTypes from "prop-types";
 import { v4 as uuid } from "uuid";
+import axios from "axios";
 import { useGlobalContext } from "./GlobalContext";
 
 const UserContext = createContext();
@@ -65,7 +66,8 @@ function UserContextProvider({ children }) {
     });
   };
 
-  const handleAddXp = (event) => {
+  const handleAddXp = async (event) => {
+    event.preventDefault();
     if (
       addXp.title === "" ||
       addXp.company === "" ||
@@ -96,14 +98,25 @@ function UserContextProvider({ children }) {
         setErrorMsg(false);
       }, 4000);
     } else {
-      event.preventDefault();
-      setXpSaved((prevData) => [...prevData, addXp]);
-      setMsgContent("L'expérience a été ajoutée avec");
-      setSuccesMsg(true);
-      setTimeout(() => {
-        setSuccesMsg(false);
-      }, 4000);
-      saveItemInLS("Experience", xpSaved);
+      try {
+        // const data =
+        await axios.post(`http://localhost:3310/api/experience/`, addXp);
+
+        setXpSaved((prevData) => [...prevData, addXp]);
+        setMsgContent("L'expérience a été ajoutée avec");
+        setSuccesMsg(true);
+        setTimeout(() => {
+          setSuccesMsg(false);
+        }, 4000);
+        saveItemInLS("Experience", xpSaved);
+      } catch (err) {
+        console.error(err);
+        setErrorMsg(true);
+        setMsgContent("Formulaire incorrect");
+        setTimeout(() => {
+          setErrorMsg(false);
+        }, 4000);
+      }
     }
   };
   useEffect(() => {}, [xpSaved]);
