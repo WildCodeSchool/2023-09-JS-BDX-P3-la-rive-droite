@@ -10,6 +10,7 @@ router.post("/users", userControllers.postUser);
 
 router.post("/login", userControllers.postLogin);
 
+router.get("/offer", offerControllers.getOffers);
 router.post("/offer", offerControllers.postOffer);
 
 module.exports = router;

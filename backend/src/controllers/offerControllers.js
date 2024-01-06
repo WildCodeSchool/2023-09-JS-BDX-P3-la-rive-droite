@@ -1,18 +1,34 @@
 const models = require("../models/index");
 
-const postOffer = async (req, res) => {
-  try {
-    const result = await models.offer.create(req.body);
-    res.json({ insertId: result.insertId });
-  } catch (err) {
-    console.error(err);
-    res
-      .status(400)
-      .send({ message: "error pendant l'insertion dans la base de donnnées" });
-  }
+const getOffers = (req, res) => {
+  models.offer
+    .findAll()
+    .then(([rows]) => {
+      res.send(rows);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
+const postOffer = (req, res) => {
+  models.offer
+    .create(req.body)
+    .then(([rows]) => {
+      res.send({
+        id: rows.insertId,
+        email: req.body.email,
+      });
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(422).send({ error: err.message });
+    });
 };
 
 module.exports = {
+  getOffers,
   postOffer,
 };
 
