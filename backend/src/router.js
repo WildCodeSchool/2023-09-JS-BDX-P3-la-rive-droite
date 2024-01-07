@@ -17,7 +17,9 @@ router.post("/offer", offerControllers.postOffer);
 router.delete("/offer/:id", offerControllers.deleteOfferById);
 
 router.get("/experiences", experienceControllers.getExperiences);
+router.get("/experience/:id", experienceControllers.getExperienceById);
 router.post("/experience", experienceControllers.postExperience);
 router.put("/experience/:id", experienceControllers.updateExperience);
+router.delete("/experience/:id", experienceControllers.deleteExperienceById);
 
 module.exports = router;
