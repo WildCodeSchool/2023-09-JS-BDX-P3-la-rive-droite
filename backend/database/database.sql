@@ -61,6 +61,7 @@ CREATE TABLE
     );
 
 DROP TABLE offer;
+
 DROP TABLE course;
 
 CREATE TABLE

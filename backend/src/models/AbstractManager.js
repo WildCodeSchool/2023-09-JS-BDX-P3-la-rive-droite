@@ -9,22 +9,19 @@ class AbstractManager {
     // Provide access to the database client
   }
 
-  findAll() {
-    return this.database.query(`SELECT * FROM ${this.table}`);
+  async findAll() {
+    const [rows] = await this.database.query(`SELECT * FROM ${this.table}`);
+    return rows;
   }
 
   findId(id) {
-    return this.database.query(`SELECT * FROM ${this.table} WHERE id = ?`, [
+    return this.database.query(`SELECT * FROM ${this.table} WHERE name = ?`, [
       id,
     ]);
   }
 
   setDatabase(database) {
     this.database = database;
-  }
-
-  deleteAll() {
-    return this.database.query(`DELETE FROM ${this.table}`);
   }
 
   deleteId(id) {
