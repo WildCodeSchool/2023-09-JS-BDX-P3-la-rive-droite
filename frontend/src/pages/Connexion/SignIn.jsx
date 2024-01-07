@@ -29,13 +29,32 @@ function SignIn() {
     handleSubmitSignIn,
   } = useSignContext();
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const formulaire = event.target;
+    const valeurs = {};
+
+    // Itérer à travers tous les éléments du formulaire
+    for (let i = 0; i < formulaire.elements.length; i += 1) {
+      const element = formulaire.elements[i];
+      // Vérifier si l'élément est un champ de formulaire avec une valeur
+      if (element.hasAttribute("data-competence") && element.checked) {
+        if (valeurs.competences === undefined) {
+          valeurs.competences = [];
+        }
+        valeurs.competences.push(element.value);
+      } else if (element.type !== "submit" && element.value) {
+        valeurs[element.name] = element.value;
+      }
+    }
+  };
   return (
     <>
       <HeaderLongTitle textTitle="Création de votre compte" />
       <div className="container-page container-general-login">
         <h1>S'inscrire</h1>
         <div className="champs-form">
-          <div>
+          <form onSubmit={handleSubmit}>
             <Input
               titleInput="E-mail *"
               holderText="john.doe@externatic.fr"
@@ -111,10 +130,12 @@ function SignIn() {
                   handleChange={() =>
                     handleCheckboxChange(setAddSkills, "html")
                   }
+                  fieldName="html"
                 />
                 <CompetenceSwitch
                   textCompetence="CSS"
                   handleChange={() => handleCheckboxChange(setAddSkills, "css")}
+                  fieldName="css"
                 />
                 <CompetenceSwitch
                   textCompetence="JAVASCRIPT"
@@ -176,8 +197,9 @@ function SignIn() {
               {errorMsg && <ErrorMsg message={msgContent} />}
               {succesMsg && <SuccesMsg message={msgContent} />}
             </div>
+            <button type="submit">soumettre</button>
             <ButtonMaxi textBtn="S'inscrire" clickFunc={handleSubmitSignIn} />
-          </div>
+          </form>
         </div>
         <div className="small-paragraphe-info">
           <p>

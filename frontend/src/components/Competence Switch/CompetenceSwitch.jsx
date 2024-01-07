@@ -17,6 +17,7 @@ function CompetenceSwitch({ textCompetence, fieldName, handleChange }) {
           name={fieldName}
           value={fieldName}
           onChange={handleChange}
+          data-competence="true"
         />
         <span className="slider round"> </span>
       </label>

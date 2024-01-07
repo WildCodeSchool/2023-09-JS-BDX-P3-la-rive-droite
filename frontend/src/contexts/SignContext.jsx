@@ -18,10 +18,10 @@ function SignContextProvider({ children }) {
 
   const [signIn, setSignIn] = useState({
     id: uuid(),
-    userName: "",
-    email: "",
-    password: "",
-    password2: "",
+    userName: "sdfgh",
+    email: "test@test.com",
+    password: "12345678",
+    password2: "12345678",
     cguAgree: false,
     addCvNow: false,
   });

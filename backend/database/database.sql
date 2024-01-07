@@ -14,15 +14,27 @@ CREATE TABLE
         address VARCHAR(155) NOT NULL,
         competence VARCHAR(100) NOT NULL,
         password VARCHAR(100) NOT NULL,
-        is_admin BOOL NOT NULL
+        is_admin BOOL NOT NULL,
+        UNIQUE (email)
     );
 
 CREATE TABLE
     competence (
         id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-        name VARCHAR(100) NOT NULL,
-        is_true BOOL NOT NULL
-    )
+        name VARCHAR(100) NOT NULL
+    );
+
+DROP table competence;
+
+CREATE TABLE
+    user_competence (
+        user_id INT NOT NULL,
+        competence_id INT NOT NULL,
+        PRIMARY KEY (user_id, competence_id),
+        FOREIGN KEY (user_id) REFERENCES user(id),
+        FOREIGN KEY (competence_id) REFERENCES competence(id),
+        UNIQUE (user_id, competence_id)
+    );
 
 CREATE TABLE
     experience (
