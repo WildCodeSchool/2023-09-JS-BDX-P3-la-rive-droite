@@ -9,13 +9,14 @@ class UserManager extends AbstractManager {
   create(user) {
     return UserManager.hashPassword(user.password).then((hash) => {
       return this.database.query(
-        `INSERT INTO ${this.table} (firstname, lastname, phone, address, email, password, is_admin) VALUES (?, ?, ?, ?, ?, ?, ?)`,
+        `INSERT INTO ${this.table} (firstname, lastname, phone, address, email, competence, password, is_admin) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
         [
           user.firstname,
           user.lastname,
           user.phone,
           user.address,
           user.email,
+          user.competence,
           hash,
           user.is_admin,
         ]
