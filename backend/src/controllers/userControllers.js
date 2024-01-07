@@ -28,6 +28,11 @@ const postUser = (req, res) => {
       });
       res.send({
         id: rows.insertId,
+        firstname: req.body.firstname,
+        lastname: req.body.lastname,
+        phone: req.body.phone,
+        address: req.body.address,
+        competence: req.body.competence,
         email: req.body.email,
         is_admin: req.body.is_admin,
         token,

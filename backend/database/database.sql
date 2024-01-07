@@ -6,13 +6,23 @@ USE externatic_db;
 -- Créer la table "user"
 CREATE TABLE
     user (
-        id INT NOT NULL PRIMARY KEY,
+        id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
         firstname VARCHAR(100) NOT NULL,
         lastname VARCHAR(100) NOT NULL,
+        phone VARCHAR(100) NOT NULL,
         email VARCHAR(100) NOT NULL,
+        address VARCHAR(155) NOT NULL,
+        competence VARCHAR(100) NOT NULL,
         password VARCHAR(100) NOT NULL,
         is_admin BOOL NOT NULL
     );
+
+CREATE TABLE
+    competence (
+        id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+        name VARCHAR(100) NOT NULL,
+        is_true BOOL NOT NULL
+    )
 
 CREATE TABLE
     experience (
@@ -58,39 +68,49 @@ CREATE TABLE
 -- Insérer des données dans la table "user"
 INSERT INTO
     user (
-        id,
         firstname,
         lastname,
+        phone,
         email,
+        address,
+        competence,
         password,
         is_admin
     )
 VALUES (
-        1,
         'Frédérique',
         'Druet',
+        '0473728392',
         'fredd@externatic.fr',
+        '46 boulevard Alfred Musset',
+        'HTML',
         '1234',
         0
     ), (
-        2,
         'Cassiopée',
         'Laurie',
+        '0382938473',
         'Cass@externatic.fr',
+        '1 rue de la rue',
+        'html',
         '1234',
         0
     ), (
-        3,
         'Marie',
         'Delaire',
+        '0638203818',
         'Marie@externatic.fr',
+        '1 rue de la rue',
+        'html',
         '1234',
         0
     ), (
-        4,
         'Nassime',
         'Harmach',
+        '03748274827',
         'Nassime@externatic.fr',
+        '1 rue de la rue',
+        'html',
         '1234',
         1
     );
