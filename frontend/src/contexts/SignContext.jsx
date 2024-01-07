@@ -1,6 +1,5 @@
 import PropTypes from "prop-types";
 import { useState, createContext, useContext, useMemo } from "react";
-import { useNavigate } from "react-router-dom";
 import { v4 as uuid } from "uuid";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
@@ -9,8 +8,13 @@ import { useGlobalContext } from "./GlobalContext";
 const SignContext = createContext();
 
 function SignContextProvider({ children }) {
-  const { setErrorMsg, setSuccesMsg, setMsgContent, handleCheckboxChange } =
-    useGlobalContext();
+  const {
+    setErrorMsg,
+    setSuccesMsg,
+    setMsgContent,
+    navigate,
+    handleCheckboxChange,
+  } = useGlobalContext();
 
   const [signIn, setSignIn] = useState({
     id: uuid(),
@@ -23,7 +27,6 @@ function SignContextProvider({ children }) {
   });
   const [userConnected, setUserConnected] = useState(false);
   const [userSaved, setUserSaved] = useState([]);
-  const navigate = useNavigate();
   // const [storageData, setStorageData] = useState([]);
 
   // Enregistrement dans le "Local Storage".

@@ -1,6 +1,5 @@
 import { useState, createContext, useContext, useMemo } from "react";
 import PropTypes from "prop-types";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import { useGlobalContext } from "./GlobalContext";
@@ -9,7 +8,8 @@ const LogContext = createContext();
 
 function LogContextProvider({ children }) {
   // Messages d'alertes.
-  const { setErrorMsg, setSuccesMsg, setMsgContent } = useGlobalContext();
+  const { setErrorMsg, setSuccesMsg, setMsgContent, navigate } =
+    useGlobalContext();
 
   const [userConnected, setUserConnected] = useState(false);
   const [logIn, setLogIn] = useState({
@@ -22,15 +22,12 @@ function LogContextProvider({ children }) {
     setShowStorage(JSON.parse(localStorage.getItem("User")));
   };
 
-  const navigate = useNavigate();
-
   const handleSubmitLogIn = async () => {
     try {
       const { data } = await axios.post(
         `http://localhost:3310/api/login`,
         logIn
       );
-      // console.log("lol", res);
       localStorage.setItem("token", data.token);
       const tokenData = jwtDecode(data.token);
       setSuccesMsg(true);

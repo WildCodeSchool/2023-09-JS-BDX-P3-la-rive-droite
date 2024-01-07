@@ -9,7 +9,7 @@ function Dashboard1() {
   // const { handleTest } = useAdminContext();
 
   const handleAddOffer = () => {
-    navigate("/offer");
+    navigate("/dashboard/offer");
   };
 
   return window.location.pathname === "/dashboard" ||

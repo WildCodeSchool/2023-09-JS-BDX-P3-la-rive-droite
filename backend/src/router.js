@@ -7,14 +7,17 @@ const offerControllers = require("./controllers/offerControllers");
 const experienceControllers = require("./controllers/experienceControllers");
 
 router.get("/users", userControllers.getUsers);
-router.get("/experiences", experienceControllers.getExperiences);
 router.post("/users", userControllers.postUser);
 
 router.post("/login", userControllers.postLogin);
 
+router.get("/offer", offerControllers.getOffers);
+router.get("/offer/:id", offerControllers.getOfferById);
 router.post("/offer", offerControllers.postOffer);
-router.post("/experience", experienceControllers.postExperience);
+router.delete("/offer/:id", offerControllers.deleteOfferById);
 
+router.get("/experiences", experienceControllers.getExperiences);
+router.post("/experience", experienceControllers.postExperience);
 router.put("/experience/:id", experienceControllers.updateExperience);
 
 module.exports = router;
