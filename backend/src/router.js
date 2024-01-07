@@ -20,6 +20,6 @@ router.get("/experiences", experienceControllers.getExperiences);
 router.post("/experience", experienceControllers.postExperience);
 router.put("/experience/:id", experienceControllers.updateExperience);
 
-router.post("/signin", userControllers.postUser);
-router.update("/signin", userControllers.putUser);
+// router.post("/signin", userControllers.postUser);
+// router.update("/signin", userControllers.putUser);
 module.exports = router;
