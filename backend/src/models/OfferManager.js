@@ -5,11 +5,11 @@ class OfferManager extends AbstractManager {
     super({ table: "offer" });
   }
 
-  findId(id) {
-    return this.database.query(`SELECT * FROM ${this.table} WHERE id = ?`, [
-      id,
-    ]);
-  }
+  // findId(id) {
+  //   return this.database.query(`SELECT * FROM ${this.table} WHERE id = ?`, [
+  //     id,
+  //   ]);
+  // }
 
   create(offer) {
     return this.database.query(
@@ -29,9 +29,9 @@ class OfferManager extends AbstractManager {
     );
   }
 
-  deleteId(id) {
-    return this.database.query(`DELETE FROM ${this.table} WHERE id = ?`, [id]);
-  }
+  // deleteId(id) {
+  //   return this.database.query(`DELETE FROM ${this.table} WHERE id = ?`, [id]);
+  // }
 }
 
 module.exports = OfferManager;

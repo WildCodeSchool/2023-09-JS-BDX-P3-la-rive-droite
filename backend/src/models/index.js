@@ -33,14 +33,17 @@ const models = {};
 const UserManager = require("./UserManager");
 const OfferManager = require("./OfferManager");
 const ExperienceManager = require("./ExperienceManager");
+const CourseManager = require("./CourseManager");
 
 models.user = new UserManager();
 models.offer = new OfferManager();
 models.experience = new ExperienceManager();
+models.course = new CourseManager();
 
 models.user.setDatabase(pool);
 models.offer.setDatabase(pool);
 models.experience.setDatabase(pool);
+models.course.setDatabase(pool);
 // bonus: use a proxy to personalize error message,
 // when asking for a non existing model
 const handler = {

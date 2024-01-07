@@ -13,12 +13,22 @@ class AbstractManager {
     return this.database.query(`SELECT * FROM ${this.table}`);
   }
 
+  findId(id) {
+    return this.database.query(`SELECT * FROM ${this.table} WHERE id = ?`, [
+      id,
+    ]);
+  }
+
   setDatabase(database) {
     this.database = database;
   }
 
   deleteAll() {
     return this.database.query(`DELETE FROM ${this.table}`);
+  }
+
+  deleteId(id) {
+    return this.database.query(`DELETE FROM ${this.table} WHERE id = ?`, [id]);
   }
 }
 

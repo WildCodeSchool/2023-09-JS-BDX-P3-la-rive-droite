@@ -1,12 +1,7 @@
-// const jwt = require("jsonwebtoken");
 const models = require("../models/index");
 
-// function generateAccessToken(data) {
-//   return jwt.sign(data, process.env.APP_SECRET);
-// }
-
-const getExperiences = (_, res) => {
-  models.experience
+const getCourse = (_, res) => {
+  models.course
     .findAll()
     .then(([rows]) => {
       res.send(rows);
@@ -17,10 +12,10 @@ const getExperiences = (_, res) => {
     });
 };
 
-const getExperienceById = (req, res) => {
+const getCourseById = (req, res) => {
   const id = parseInt(req.params.id, 10);
 
-  models.experience
+  models.course
     .findId(id)
     .then(([item]) => {
       if (item[0] != null) {
@@ -35,12 +30,14 @@ const getExperienceById = (req, res) => {
     });
 };
 
-const postExperience = (req, res) => {
-  models.experience
+const postCourse = (req, res) => {
+  models.course
     .create(req.body)
     .then((rows) => {
       res.send({
         id: rows.insertId,
+        domaine: req.body.domaine,
+        name: req.body.name,
       });
     })
     .catch((err) => {
@@ -50,13 +47,13 @@ const postExperience = (req, res) => {
   // res.status(418).send(req.body)
 };
 
-const updateExperience = async (req, res) => {
+const updateCourse = async (req, res) => {
   const id = parseInt(req.params.id, 10);
   if (!id) {
     res.sendStatus(500);
   }
 
-  models.experience
+  models.course
     .update(id, req.body)
     .then((result) => {
       if (result.affectedRows === 0) {
@@ -70,24 +67,24 @@ const updateExperience = async (req, res) => {
     });
 };
 
-const deleteExperienceById = (req, res) => {
+const deleteCourseById = (req, res) => {
   const id = parseInt(req.params.id, 10);
 
-  models.experience
+  models.course
     .deleteId(id)
     .then(([result]) => {
       res.status(201).send({ message: result });
     })
     .catch((err) => {
       console.error(err);
-      res.status(422).send({ message: "Experience not found." });
+      res.status(422).send({ message: "Course not found." });
     });
 };
 
 module.exports = {
-  getExperiences,
-  getExperienceById,
-  postExperience,
-  updateExperience,
-  deleteExperienceById,
+  getCourse,
+  getCourseById,
+  postCourse,
+  updateCourse,
+  deleteCourseById,
 };
