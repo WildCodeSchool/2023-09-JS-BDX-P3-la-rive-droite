@@ -1,4 +1,5 @@
 import { useState, createContext, useContext, useMemo } from "react";
+import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 
 const GlobalContext = createContext();
@@ -31,6 +32,8 @@ function GlobalContextProvider({ children }) {
     }));
   };
 
+  const navigate = useNavigate();
+
   const values = useMemo(
     () => ({
       getItemInLS,
@@ -43,6 +46,7 @@ function GlobalContextProvider({ children }) {
       setSuccesMsg,
       msgContent,
       setMsgContent,
+      navigate,
     }),
     [
       getItemInLS,
@@ -55,6 +59,7 @@ function GlobalContextProvider({ children }) {
       setSuccesMsg,
       msgContent,
       setMsgContent,
+      navigate,
     ]
   );
 

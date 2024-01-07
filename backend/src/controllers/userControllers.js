@@ -16,6 +16,7 @@ const getUsers = (_, res) => {
       res.sendStatus(500);
     });
 };
+
 const postUser = (req, res) => {
   models.user
     .create(req.body)

@@ -31,9 +31,16 @@ pool
 
 const models = {};
 const UserManager = require("./UserManager");
+const OfferManager = require("./OfferManager");
+const ExperienceManager = require("./ExperienceManager");
 
 models.user = new UserManager();
+models.offer = new OfferManager();
+models.experience = new ExperienceManager();
+
 models.user.setDatabase(pool);
+models.offer.setDatabase(pool);
+models.experience.setDatabase(pool);
 // bonus: use a proxy to personalize error message,
 // when asking for a non existing model
 const handler = {
