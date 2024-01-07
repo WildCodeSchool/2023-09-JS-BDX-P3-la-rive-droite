@@ -24,7 +24,9 @@ router.put("/experience/:id", experienceControllers.updateExperience);
 router.delete("/experience/:id", experienceControllers.deleteExperienceById);
 
 router.get("/course", courseControllers.getCourse);
+router.get("/course/:id", courseControllers.getCourseById);
 router.post("/course", courseControllers.postCourse);
 router.put("/course/:id", courseControllers.updateCourse);
+router.delete("/course/:id", courseControllers.deleteCourseById);
 
 module.exports = router;

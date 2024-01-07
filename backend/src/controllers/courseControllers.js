@@ -12,6 +12,24 @@ const getCourse = (_, res) => {
     });
 };
 
+const getCourseById = (req, res) => {
+  const id = parseInt(req.params.id, 10);
+
+  models.course
+    .findId(id)
+    .then(([item]) => {
+      if (item[0] != null) {
+        res.json(item[0]);
+      } else {
+        res.sendStatus(404);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(422);
+    });
+};
+
 const postCourse = (req, res) => {
   models.course
     .create(req.body)
@@ -49,8 +67,24 @@ const updateCourse = async (req, res) => {
     });
 };
 
+const deleteCourseById = (req, res) => {
+  const id = parseInt(req.params.id, 10);
+
+  models.course
+    .deleteId(id)
+    .then(([result]) => {
+      res.status(201).send({ message: result });
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(422).send({ message: "Course not found." });
+    });
+};
+
 module.exports = {
   getCourse,
+  getCourseById,
   postCourse,
   updateCourse,
+  deleteCourseById,
 };

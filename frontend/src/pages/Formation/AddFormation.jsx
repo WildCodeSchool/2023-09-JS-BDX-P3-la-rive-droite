@@ -25,7 +25,7 @@ function AddFormation() {
           fieldName="level"
           titleSelect="Niveau d'étude *"
         >
-          <option value="Licence">Baccalauréat</option>
+          <option value="Baccalaureat">Baccalauréat</option>
           <option value="Licence">Licence</option>
           <option value="Master 1">Master 1</option>
           <option value="Master 2">Master 2</option>
