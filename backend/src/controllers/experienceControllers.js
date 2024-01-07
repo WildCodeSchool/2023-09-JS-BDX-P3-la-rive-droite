@@ -17,6 +17,24 @@ const getExperiences = (_, res) => {
     });
 };
 
+const getExperienceById = (req, res) => {
+  const id = parseInt(req.params.id, 10);
+
+  models.experience
+    .findId(id)
+    .then(([item]) => {
+      if (item[0] != null) {
+        res.json(item[0]);
+      } else {
+        res.sendStatus(404);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(422);
+    });
+};
+
 const postExperience = (req, res) => {
   models.experience
     .create(req.body)
@@ -52,8 +70,24 @@ const updateExperience = async (req, res) => {
     });
 };
 
+const deleteExperienceById = (req, res) => {
+  const id = parseInt(req.params.id, 10);
+
+  models.experience
+    .deleteId(id)
+    .then(([result]) => {
+      res.status(201).send({ message: result });
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(422).send({ message: "Experience not found." });
+    });
+};
+
 module.exports = {
   getExperiences,
+  getExperienceById,
   postExperience,
   updateExperience,
+  deleteExperienceById,
 };
