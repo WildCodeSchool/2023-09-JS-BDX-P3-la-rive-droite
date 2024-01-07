@@ -171,7 +171,7 @@ function UserContextProvider({ children }) {
   });
   const [courseSaved, setCourseSaved] = useState([]);
 
-  const handleAddCourse = (event) => {
+  const handleAddCourse = async (event) => {
     if (
       addCourse.domaine === "" ||
       addCourse.name === "" ||
@@ -198,14 +198,25 @@ function UserContextProvider({ children }) {
         setErrorMsg(false);
       }, 4000);
     } else {
-      event.preventDefault();
-      setCourseSaved((prevData) => [...prevData, addCourse]);
-      setMsgContent("La formation a été ajoutée avec succès");
-      setSuccesMsg(true);
-      setTimeout(() => {
-        setSuccesMsg(false);
-      }, 4000);
-      saveItemInLS("Formation", courseSaved);
+      try {
+        // const data =
+        await axios.post(`http://localhost:3310/api/course/`, addCourse);
+        event.preventDefault();
+        setCourseSaved((prevData) => [...prevData, addCourse]);
+        setMsgContent("La formation a été ajoutée avec succès");
+        setSuccesMsg(true);
+        setTimeout(() => {
+          setSuccesMsg(false);
+        }, 4000);
+        saveItemInLS("Formation", courseSaved);
+      } catch (err) {
+        console.error(err);
+        setErrorMsg(true);
+        setMsgContent("Formulaire incorrect");
+        setTimeout(() => {
+          setErrorMsg(false);
+        }, 4000);
+      }
     }
   };
 
