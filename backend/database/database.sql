@@ -29,7 +29,7 @@ CREATE TABLE
 
 CREATE TABLE
     course (
-        id INT NOT NULL PRIMARY KEY,
+        id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
         level VARCHAR(100) NOT NULL,
         domaine VARCHAR(100) NOT NULL,
         name VARCHAR(100) NOT NULL,
@@ -39,6 +39,7 @@ CREATE TABLE
     );
 
 DROP TABLE offer;
+DROP TABLE course;
 
 CREATE TABLE
     offer (

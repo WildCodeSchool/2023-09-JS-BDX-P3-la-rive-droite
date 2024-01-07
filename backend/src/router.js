@@ -5,6 +5,7 @@ const router = express.Router();
 const userControllers = require("./controllers/userControllers");
 const offerControllers = require("./controllers/offerControllers");
 const experienceControllers = require("./controllers/experienceControllers");
+const courseControllers = require("./controllers/courseControllers");
 
 router.get("/users", userControllers.getUsers);
 router.post("/users", userControllers.postUser);
@@ -19,5 +20,9 @@ router.delete("/offer/:id", offerControllers.deleteOfferById);
 router.get("/experiences", experienceControllers.getExperiences);
 router.post("/experience", experienceControllers.postExperience);
 router.put("/experience/:id", experienceControllers.updateExperience);
+
+router.get("/course", courseControllers.getCourse);
+router.post("/course", courseControllers.postCourse);
+router.put("/course/:id", courseControllers.updateCourse);
 
 module.exports = router;
