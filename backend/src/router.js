@@ -27,4 +27,6 @@ router.post("/users", userControllers.postUser);
 router.post("/login", userControllers.postLogin);
 // router.post("/user", userControllers.getUser);
 
+router.post("/signin", userControllers.postUser);
+router.update("/signin", userControllers.putUser);
 module.exports = router;

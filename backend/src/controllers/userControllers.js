@@ -20,10 +20,16 @@ const postUser = (req, res) => {
   models.user
     .create(req.body)
     .then(([rows]) => {
+      const token = generateAccessToken({
+        id: rows.insertId,
+        email: req.body.email,
+        is_admin: req.body.is_admin,
+      });
       res.send({
         id: rows.insertId,
         email: req.body.email,
         is_admin: req.body.is_admin,
+        token,
       });
     })
     .catch((err) => {
@@ -32,6 +38,7 @@ const postUser = (req, res) => {
     });
   // res.status(418).send(req.body)
 };
+
 const postLogin = (req, res) => {
   models.user.login(req.body).then((user) => {
     if (user) {
@@ -43,6 +50,10 @@ const postLogin = (req, res) => {
     }
   });
 };
+
+// const putUser = (req, res) => {
+//   models.user.sigin(req.body).then((user) => {});
+// };
 
 module.exports = {
   getUsers,
