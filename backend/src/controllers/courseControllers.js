@@ -3,7 +3,7 @@ const models = require("../models/index");
 const getCourse = (_, res) => {
   models.course
     .findAll()
-    .then(([rows]) => {
+    .then((rows) => {
       res.send(rows);
     })
     .catch((err) => {

@@ -7,8 +7,8 @@ class UserManager extends AbstractManager {
   }
 
   create(user) {
-    return UserManager.hashPassword(user.password).then((hash) => {
-      return this.database.query(
+    return UserManager.hashPassword(user.password).then(async (hash) => {
+      const [rows] = await this.database.query(
         `INSERT INTO ${this.table} (firstname, lastname, phone, address, email, competence, password, is_admin) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
         [
           user.firstname,
@@ -21,10 +21,12 @@ class UserManager extends AbstractManager {
           user.is_admin,
         ]
       );
+      return rows;
     });
   }
 
-  async login({ email, password }) {
+  async login(user) {
+    const { email, password } = user;
     const [rows] = await this.database.query(
       `SELECT * FROM user WHERE email LIKE ?`,
       [email]
@@ -33,11 +35,11 @@ class UserManager extends AbstractManager {
       return undefined;
     }
 
-    const user = rows[0];
+    const dbUser = rows[0];
 
-    const result = await bcrypt.compare(password, user.password);
+    const result = await bcrypt.compare(password, dbUser.password);
 
-    return result ? user : undefined;
+    return result ? dbUser : undefined;
   }
 
   addOffer() {

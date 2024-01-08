@@ -8,7 +8,7 @@ const models = require("../models/index");
 const getExperiences = (_, res) => {
   models.experience
     .findAll()
-    .then(([rows]) => {
+    .then((rows) => {
       res.send(rows);
     })
     .catch((err) => {

@@ -8,7 +8,7 @@ function generateAccessToken(data) {
 const getUsers = (_, res) => {
   models.user
     .findAll()
-    .then(([rows]) => {
+    .then((rows) => {
       res.send(rows);
     })
     .catch((err) => {
@@ -20,7 +20,7 @@ const getUsers = (_, res) => {
 const postUser = (req, res) => {
   models.user
     .create(req.body)
-    .then(([rows]) => {
+    .then((rows) => {
       const token = generateAccessToken({
         id: rows.insertId,
         email: req.body.email,
