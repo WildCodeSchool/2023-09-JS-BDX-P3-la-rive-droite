@@ -57,12 +57,29 @@ const postLogin = (req, res) => {
   });
 };
 
-// const putUser = (req, res) => {
-//   models.user.sigin(req.body).then((user) => {});
-// };
+const updateUser = async (req, res) => {
+  const id = parseInt(req.params.id, 10);
+  if (!id) {
+    res.sendStatus(500);
+  }
+
+  models.experience
+    .update(id, req.body)
+    .then((result) => {
+      if (result.affectedRows === 0) {
+        res.sendStatus(500);
+      }
+      res.sendStatus(200);
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(422).send({ error: error.message });
+    });
+};
 
 module.exports = {
   getUsers,
   postUser,
   postLogin,
+  updateUser,
 };

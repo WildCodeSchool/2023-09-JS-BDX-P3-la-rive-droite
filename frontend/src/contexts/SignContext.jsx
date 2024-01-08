@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import { useState, createContext, useContext, useMemo } from "react";
 import { v4 as uuid } from "uuid";
 import axios from "axios";
-import { jwtDecode } from "jwt-decode";
+// import { jwtDecode } from "jwt-decode";
 import { useGlobalContext } from "./GlobalContext";
 
 const SignContext = createContext();
@@ -18,31 +18,41 @@ function SignContextProvider({ children }) {
 
   const [signIn, setSignIn] = useState({
     id: uuid(),
-    userName: "sdfgh",
-    email: "test@test.com",
-    password: "12345678",
-    password2: "12345678",
+    firstname: "",
+    lastname: "",
+    email: "",
+    address: "",
+    competence: "",
+    password: "",
+    password2: "",
     cguAgree: false,
     addCvNow: false,
   });
+
+  const [addSkills, setAddSkills] = useState({
+    html: false,
+    css: false,
+    javascript: false,
+    angular: false,
+    react: false,
+    php: false,
+    symphony: false,
+    git: false,
+    github: false,
+    trello: false,
+  });
+
   const [userConnected, setUserConnected] = useState(false);
   const [userSaved, setUserSaved] = useState([]);
-  // const [storageData, setStorageData] = useState([]);
 
-  // Enregistrement dans le "Local Storage".
-  const saveUser = async (newUser) => {
+  const saveUser = async () => {
     try {
-      const { data } = await axios.post(
-        `http://localhost:3310/api/signin`,
-        newUser
-      );
-      localStorage.setItem("token", data.token);
-      const tokenData = jwtDecode(data.token);
-      setUserSaved(
-        await axios.post("http://localhost:3310/api/users", newUser)
-      );
+      // localStorage.setItem("token", data.token);
+      // const tokenData = jwtDecode(data.token);
+      setUserSaved();
+      // await axios.post("http://localhost:3310/api/users", tokenData)
       setSuccesMsg(true);
-      setMsgContent(`Bienvenue, connexion avec ${tokenData.firstname}`);
+      // setMsgContent(`Bienvenue, connexion avec ${tokenData.firstname}`);
       setTimeout(() => {
         setSuccesMsg(false);
         navigate("/");
@@ -60,7 +70,7 @@ function SignContextProvider({ children }) {
   const passwordRegex =
     /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
-  const handleSubmitSignIn = (event) => {
+  const handleSubmitSignIn = () => {
     if (
       signIn.userName === "" ||
       signIn.email === "" ||
@@ -111,9 +121,9 @@ function SignContextProvider({ children }) {
         setSuccesMsg(false);
       }, 2000);
 
-      event.preventDefault();
+      axios.post(`http://localhost:3310/api/signin`, signIn);
       setUserSaved((prevData) => [...prevData, signIn]);
-      // Réinitialise les valeurs d'input à vide.
+      // // Réinitialise les valeurs d'input à vide.
       setSignIn({
         userName: "",
         email: "",
@@ -145,6 +155,8 @@ function SignContextProvider({ children }) {
       setUserSaved,
       handleCheckboxChange,
       userConnected,
+      addSkills,
+      setAddSkills,
     }),
     [
       signIn,
@@ -154,6 +166,8 @@ function SignContextProvider({ children }) {
       setUserSaved,
       handleCheckboxChange,
       userConnected,
+      addSkills,
+      setAddSkills,
     ]
   );
 

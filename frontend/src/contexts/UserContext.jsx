@@ -99,7 +99,6 @@ function UserContextProvider({ children }) {
       }, 4000);
     } else {
       try {
-        // const data =
         await axios.post(`http://localhost:3310/api/experience/`, addXp);
 
         setXpSaved((prevData) => [...prevData, addXp]);

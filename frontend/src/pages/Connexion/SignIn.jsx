@@ -3,7 +3,6 @@ import Input from "../../components/Inputs/Input";
 import CheckboxCondition from "../../components/Inputs/CheckboxCondition";
 import CompetenceSwitch from "../../components/Competence Switch/CompetenceSwitch";
 import HeaderLongTitle from "../../components/Headers/HeaderLongTitle";
-import ButtonMaxi from "../../components/Boutons/ButtonMaxi";
 import ErrorMsg from "../../components/Alertes Messages/ErrorMsg";
 import AddSomething from "../../components/Add Something/AddSomething";
 import Title from "../../components/Titles/Title";
@@ -18,7 +17,8 @@ import "../../components/Inputs/checkbox-conditions.css";
 
 function SignIn() {
   const { handleChange, handleCheckboxChange } = useGlobalContext();
-  const { editProfile, setEditProfile, setAddSkills } = useUserContext();
+  const { addSkills, setAddSkills } = useSignContext();
+  const { editProfile } = useUserContext();
 
   const {
     errorMsg,
@@ -30,11 +30,11 @@ function SignIn() {
   } = useSignContext();
 
   const handleSubmit = (event) => {
+    handleSubmitSignIn(event);
     event.preventDefault();
     const formulaire = event.target;
     const valeurs = {};
 
-    // Itérer à travers tous les éléments du formulaire
     for (let i = 0; i < formulaire.elements.length; i += 1) {
       const element = formulaire.elements[i];
       // Vérifier si l'élément est un champ de formulaire avec une valeur
@@ -91,7 +91,7 @@ function SignIn() {
                 fieldName="lastname"
                 valueInput={editProfile}
                 handleChange={(event) =>
-                  handleChange(setEditProfile, "lastName", event)
+                  handleChange(setSignIn, "lastname", event)
                 }
               />
               <Input
@@ -100,7 +100,7 @@ function SignIn() {
                 fieldName="firstname"
                 valueInput={editProfile}
                 handleChange={(event) =>
-                  handleChange(setEditProfile, "firstName", event)
+                  handleChange(setSignIn, "firstname", event)
                 }
               />
               <Input
@@ -110,7 +110,7 @@ function SignIn() {
                 typeInput="tel"
                 valueInput={editProfile}
                 handleChange={(event) =>
-                  handleChange(setEditProfile, "phone", event)
+                  handleChange(setSignIn, "phone", event)
                 }
               />
               <Input
@@ -120,7 +120,7 @@ function SignIn() {
                 inputType="text"
                 valueInput={editProfile}
                 handleChange={(event) =>
-                  handleChange(setEditProfile, "address", event)
+                  handleChange(setSignIn, "address", event)
                 }
               />
               <div className="container-switch">
@@ -130,11 +130,12 @@ function SignIn() {
                   handleChange={() =>
                     handleCheckboxChange(setAddSkills, "html")
                   }
+                  valueInput={addSkills}
                   fieldName="html"
                 />
                 <CompetenceSwitch
                   textCompetence="CSS"
-                  handleChange={() => handleCheckboxChange(setAddSkills, "css")}
+                  handleChange={() => handleCheckboxChange("css")}
                   fieldName="css"
                 />
                 <CompetenceSwitch
@@ -197,8 +198,8 @@ function SignIn() {
               {errorMsg && <ErrorMsg message={msgContent} />}
               {succesMsg && <SuccesMsg message={msgContent} />}
             </div>
+            {/* <ButtonMaxi textBtn="S'inscrire" clickFunc={handleSubmitSignIn} /> */}
             <button type="submit">soumettre</button>
-            <ButtonMaxi textBtn="S'inscrire" clickFunc={handleSubmitSignIn} />
           </form>
         </div>
         <div className="small-paragraphe-info">
