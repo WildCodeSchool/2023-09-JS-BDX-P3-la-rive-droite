@@ -4,11 +4,11 @@ import "./add-something.css";
 import "../../default-settings.css";
 import { Link } from "react-router-dom";
 
-function AddDetailsCV({ addDetail }) {
+function AddDetailsCV({ addDetail, url }) {
   return (
     <div className="add-details-button">
       <p>{addDetail}</p>
-      <Link to="/edit-profile/formation" className="link-style">
+      <Link to={url} className="link-style">
         <i className="fa-solid fa-plus"> </i>
       </Link>
     </div>
@@ -16,6 +16,7 @@ function AddDetailsCV({ addDetail }) {
 }
 AddDetailsCV.propTypes = {
   addDetail: PropTypes.string.isRequired,
+  url: PropTypes.string.isRequired,
 };
 
 export default AddDetailsCV;

@@ -5,141 +5,108 @@ USE externatic_db;
 
 DROP TABLE IF EXISTS user;
 -- Créer la table "user"
-CREATE TABLE user (
-    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    firstname VARCHAR(100) NOT NULL,
-    lastname VARCHAR(100) NOT NULL,
-    phone VARCHAR(100) NOT NULL,
-    email VARCHAR(100) NOT NULL,
-    address VARCHAR(155) NOT NULL,
-    competence VARCHAR(100) NOT NULL,
-    password VARCHAR(100) NOT NULL,
-    is_admin BOOL NOT NULL,
-    UNIQUE (email)
-);
+CREATE TABLE
+    user (
+        id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+        firstname VARCHAR(100) NOT NULL,
+        lastname VARCHAR(100) NOT NULL,
+        phone VARCHAR(100) NOT NULL,
+        email VARCHAR(100) NOT NULL,
+        address VARCHAR(155) NOT NULL,
+        competence VARCHAR(100) NOT NULL,
+        password VARCHAR(100) NOT NULL,
+        is_admin BOOL NOT NULL,
+        UNIQUE (email)
+    );
 
 DROP TABLE IF EXISTS competence;
-CREATE TABLE competence (
-    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100) NOT NULL
-);
+
+CREATE TABLE
+    competence (
+        id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+        name VARCHAR(100) NOT NULL
+    );
 
 DROP TABLE IF EXISTS cv;
-CREATE TABLE cv (
-    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    user_id INT,
-    FOREIGN KEY (user_id) REFERENCES user(id)
-);
+
+CREATE TABLE
+    cv (
+        id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+        user_id INT,
+        FOREIGN KEY (user_id) REFERENCES user(id)
+    );
 
 DROP TABLE IF EXISTS experience;
-CREATE TABLE experience (
-    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    title VARCHAR(100) NOT NULL,
-    company VARCHAR(100) NOT NULL,
-    city VARCHAR(100) NOT NULL,
-    type VARCHAR(100) NOT NULL,
-    is_working BOOL,
-    date_begin DATE NOT NULL,
-    date_end DATE,
-    description TEXT,
-    cv_id INT,
-    FOREIGN KEY (cv_id) REFERENCES cv(id)
-);
+
+CREATE TABLE
+    experience (
+        id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+        title VARCHAR(100) NOT NULL,
+        company VARCHAR(100) NOT NULL,
+        city VARCHAR(100) NOT NULL,
+        type VARCHAR(100) NOT NULL,
+        is_working BOOL,
+        date_begin DATE NOT NULL,
+        date_end DATE,
+        description TEXT,
+        cv_id INT NOT NULL,
+        FOREIGN KEY (cv_id) REFERENCES cv(id)
+    );
 
 DROP TABLE IF EXISTS course;
-CREATE TABLE course (
-    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    level VARCHAR(100) NOT NULL,
-    domaine VARCHAR(100) NOT NULL,
-    name VARCHAR(100) NOT NULL,
-    date_begin DATE NOT NULL,
-    date_end DATE NOT NULL,
-    description TEXT,
-    cv_id INT,
-    FOREIGN KEY (cv_id) REFERENCES cv(id)
-);
+
+CREATE TABLE
+    course (
+        id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+        level VARCHAR(100) NOT NULL,
+        domaine VARCHAR(100) NOT NULL,
+        name VARCHAR(100) NOT NULL,
+        date_begin DATE NOT NULL,
+        date_end DATE NOT NULL,
+        description TEXT,
+        cv_id INT,
+        FOREIGN KEY (cv_id) REFERENCES cv(id)
+    );
 
 DROP TABLE IF EXISTS offer;
-CREATE TABLE offer (
-    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    title VARCHAR(100) NOT NULL,
-    company VARCHAR(100) NOT NULL,
-    type VARCHAR(100) NOT NULL,
-    city VARCHAR(100) NOT NULL,
-    mission TEXT NOT NULL,
-    search_profile VARCHAR(100) NOT NULL,
-    work_place VARCHAR(100) NOT NULL,
-    salary VARCHAR(100) NOT NULL,
-    info TEXT NOT NULL,
-    email VARCHAR(100) NOT NULL
-);
+
+CREATE TABLE
+    offer (
+        id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+        title VARCHAR(100) NOT NULL,
+        company VARCHAR(100) NOT NULL,
+        type VARCHAR(100) NOT NULL,
+        city VARCHAR(100) NOT NULL,
+        mission TEXT NOT NULL,
+        search_profile VARCHAR(100) NOT NULL,
+        work_place VARCHAR(100) NOT NULL,
+        salary VARCHAR(100) NOT NULL,
+        info TEXT NOT NULL,
+        email VARCHAR(100) NOT NULL
+    );
 
 -- Insérer des données dans la table "user"
-INSERT INTO user (
-    firstname,
-    lastname,
-    phone,
-    email,
-    address,
-    competence,
-    password,
-    is_admin
-) VALUES (
-    'Frédérique',
-    'Druet',
-    '0473728392',
-    'fredd@externatic.fr',
-    '46 boulevard Alfred Musset',
-    'HTML',
-    '1234',
-    0
-), (
-    'Cassiopée',
-    'Laurie',
-    '0382938473',
-    'Cass@externatic.fr',
-    '1 rue de la rue',
-    'html',
-    '1234',
-    0
-), (
-    'Marie',
-    'Delaire',
-    '0638203818',
-    'Marie@externatic.fr',
-    '1 rue de la rue',
-    'html',
-    '1234',
-    0
-), (
-    'Nassime',
-    'Harmach',
-    '03748274827',
-    'Nassime@externatic.fr',
-    '1 rue de la rue',
-    'html',
-    '1234',
-    1
-);
 
 -- Insertion manquante pour la table "offer"
-INSERT INTO offer (
-    title,
-    company,
-    type,
-    city,
-    mission,
-    search_profile,
-    work_place,
-    salary,
-    info,
-    email
-) VALUES (
-    "Developpeur Web Front End",
-    "Invo'Tech",
-    "CDD",
-    "Bordeaux",
-    "
+INSERT INTO
+    offer (
+        title,
+        company,
+        type,
+        city,
+        mission,
+        search_profile,
+        work_place,
+        salary,
+        info,
+        email
+    )
+VALUES (
+        "Developpeur Web Front End",
+        "Invo'Tech",
+        "CDD",
+        "Bordeaux",
+        "
     Tous les 2 ou 3 mois, de nouveaux projets en mode Agile sur les dernières stacks technologiques, toujours effectuées depuis notre plateau Factory pour progresser et développer vos compétences.
     15% du temps consacré à des journées de partage technique, exploration, hack time rythmées par nos tribus Web, Mobile, Cloud...
     Journée de la Factory tous les mois : se retrouver physiquement en sortant des missions pour profiter et explorer ensemble !
@@ -150,10 +117,10 @@ INSERT INTO offer (
     La possibilité de développer votre expertise Web ou bien de monter en compétences aussi sur Android, sur iOS ou sur la xR (Unity / Unreal Engine) avec les experts de l'équipe
     Évoluer dans une entreprise qui encourage l'audace, la curiosité et l'envie d'entreprendre
 ",
-    "Junior",
-    "Présent",
-    "35k €/an",
-    "Ce que nous vous proposons :
+        "Junior",
+        "Présent",
+        "35k €/an",
+        "Ce que nous vous proposons :
 
     Un accord télétravail pour télétravailler jusqu'à 2 jours par semaine selon vos missions.
     Un package avantages intéressant : une mutuelle, un CSE, des titres restaurants, un accord d'intéressement, des primes vacances et cooptation.
@@ -163,15 +130,15 @@ INSERT INTO offer (
     La possibilité de s'engager auprès de notre fondation ou de notre partenaire « Vendredi ».
     L'opportunité de rejoindre le collectif Tech'Me UP (formations, conférences, veille, et bien plus encore…).
 ",
-    "marie@externatic.fr"
-);
+        "marie@externatic.fr"
+    );
 
 -- Créer la table "user_competence"
-CREATE TABLE user_competence (
-    user_id INT,
-    competence_id INT,
-    PRIMARY KEY (user_id, competence_id),
-    FOREIGN KEY (user_id) REFERENCES user(id),
-    FOREIGN KEY (competence_id) REFERENCES competence(id)
-);
-
+CREATE TABLE
+    user_competence (
+        user_id INT,
+        competence_id INT,
+        PRIMARY KEY (user_id, competence_id),
+        FOREIGN KEY (user_id) REFERENCES user(id),
+        FOREIGN KEY (competence_id) REFERENCES competence(id)
+    );
