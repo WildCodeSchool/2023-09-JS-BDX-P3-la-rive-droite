@@ -15,7 +15,7 @@ class AbstractManager {
   }
 
   findId(id) {
-    return this.database.query(`SELECT * FROM ${this.table} WHERE name = ?`, [
+    return this.database.query(`SELECT * FROM ${this.table} WHERE id = ?`, [
       id,
     ]);
   }

@@ -13,7 +13,7 @@ const getOffers = (req, res) => {
 };
 
 const getOfferById = (req, res) => {
-  const id = parseInt(req.params.id, 10);
+  const id = +req.params.id;
 
   models.offer
     .findId(id)
