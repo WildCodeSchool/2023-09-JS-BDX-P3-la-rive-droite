@@ -6,6 +6,7 @@ const userControllers = require("./controllers/userControllers");
 const offerControllers = require("./controllers/offerControllers");
 const experienceControllers = require("./controllers/experienceControllers");
 const courseControllers = require("./controllers/courseControllers");
+const cvControllers = require("./controllers/cvControllers");
 
 router.get("/users", userControllers.getUsers);
 router.post("/users", userControllers.postUser);
@@ -29,6 +30,8 @@ router.post("/course", courseControllers.postCourse);
 router.put("/course/:id", courseControllers.updateCourse);
 router.delete("/course/:id", courseControllers.deleteCourseById);
 
+router.get("/cvs/:userId", cvControllers.getCv);
+router.post("/cvs", cvControllers.postCv);
 // router.post("/signin", userControllers.postUser);
 // router.update("/signin", userControllers.putUser);
 module.exports = router;

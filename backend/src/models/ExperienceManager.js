@@ -8,7 +8,7 @@ class ExperienceManager extends AbstractManager {
   async create(experience) {
     try {
       const [res] = await this.database.query(
-        `INSERT INTO ${this.table} (title, company, city, type, is_working, date_begin, date_end, description) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+        `INSERT INTO ${this.table} (title, company, city, type, is_working, date_begin, date_end, description, cv_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
         [
           experience.title,
           experience.company,
@@ -18,6 +18,7 @@ class ExperienceManager extends AbstractManager {
           experience.dateBegin,
           experience.dateEnd,
           experience.description,
+          experience.cvId,
         ]
       );
 

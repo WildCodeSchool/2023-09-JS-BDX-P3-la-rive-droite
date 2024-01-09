@@ -1,8 +1,9 @@
-CREATE DATABASE externatic_db;
+CREATE DATABASE IF NOT EXISTS externatic_db;
 
 -- Sélectionner la base de données
 USE externatic_db;
 
+DROP TABLE IF EXISTS user;
 -- Créer la table "user"
 CREATE TABLE
     user (
@@ -18,23 +19,24 @@ CREATE TABLE
         UNIQUE (email)
     );
 
+DROP TABLE IF EXISTS competence;
+
 CREATE TABLE
     competence (
         id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
         name VARCHAR(100) NOT NULL
     );
 
-DROP table competence;
+DROP TABLE IF EXISTS cv;
 
 CREATE TABLE
-    user_competence (
-        user_id INT NOT NULL,
-        competence_id INT NOT NULL,
-        PRIMARY KEY (user_id, competence_id),
-        FOREIGN KEY (user_id) REFERENCES user(id),
-        FOREIGN KEY (competence_id) REFERENCES competence(id),
-        UNIQUE (user_id, competence_id)
+    cv (
+        id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+        user_id INT,
+        FOREIGN KEY (user_id) REFERENCES user(id)
     );
+
+DROP TABLE IF EXISTS experience;
 
 CREATE TABLE
     experience (
@@ -44,10 +46,14 @@ CREATE TABLE
         city VARCHAR(100) NOT NULL,
         type VARCHAR(100) NOT NULL,
         is_working BOOL,
-        date_begin DATE,
+        date_begin DATE NOT NULL,
         date_end DATE,
-        description TEXT
+        description TEXT,
+        cv_id INT NOT NULL,
+        FOREIGN KEY (cv_id) REFERENCES cv(id)
     );
+
+DROP TABLE IF EXISTS course;
 
 CREATE TABLE
     course (
@@ -57,12 +63,12 @@ CREATE TABLE
         name VARCHAR(100) NOT NULL,
         date_begin DATE NOT NULL,
         date_end DATE NOT NULL,
-        description TEXT
+        description TEXT,
+        cv_id INT,
+        FOREIGN KEY (cv_id) REFERENCES cv(id)
     );
 
-DROP TABLE offer;
-
-DROP TABLE course;
+DROP TABLE IF EXISTS offer;
 
 CREATE TABLE
     offer (
@@ -80,57 +86,8 @@ CREATE TABLE
     );
 
 -- Insérer des données dans la table "user"
-INSERT INTO
-    user (
-        firstname,
-        lastname,
-        phone,
-        email,
-        address,
-        competence,
-        password,
-        is_admin
-    )
-VALUES (
-        'Frédérique',
-        'Druet',
-        '0473728392',
-        'fredd@externatic.fr',
-        '46 boulevard Alfred Musset',
-        'HTML',
-        '1234',
-        0
-    ), (
-        'Cassiopée',
-        'Laurie',
-        '0382938473',
-        'Cass@externatic.fr',
-        '1 rue de la rue',
-        'html',
-        '1234',
-        0
-    ), (
-        'Marie',
-        'Delaire',
-        '0638203818',
-        'Marie@externatic.fr',
-        '1 rue de la rue',
-        'html',
-        '1234',
-        0
-    ), (
-        'Nassime',
-        'Harmach',
-        '03748274827',
-        'Nassime@externatic.fr',
-        '1 rue de la rue',
-        'html',
-        '1234',
-        1
-    );
 
-DROP TABLE user;
-
+-- Insertion manquante pour la table "offer"
 INSERT INTO
     offer (
         title,
@@ -174,4 +131,14 @@ VALUES (
     L'opportunité de rejoindre le collectif Tech'Me UP (formations, conférences, veille, et bien plus encore…).
 ",
         "marie@externatic.fr"
-    )
+    );
+
+-- Créer la table "user_competence"
+CREATE TABLE
+    user_competence (
+        user_id INT,
+        competence_id INT,
+        PRIMARY KEY (user_id, competence_id),
+        FOREIGN KEY (user_id) REFERENCES user(id),
+        FOREIGN KEY (competence_id) REFERENCES competence(id)
+    );
