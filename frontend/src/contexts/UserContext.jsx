@@ -1,7 +1,6 @@
 import { useState, createContext, useContext, useMemo, useEffect } from "react";
 import PropTypes from "prop-types";
 import { v4 as uuid } from "uuid";
-import axios from "axios";
 import { useGlobalContext } from "./GlobalContext";
 
 const UserContext = createContext();
@@ -92,68 +91,6 @@ function UserContextProvider({ children }) {
   };
   useEffect(() => {}, [cvSaved]);
 
-  const [addCourse, setAddCourse] = useState({
-    id: uuid(),
-    level: "",
-    domaine: "",
-    name: "",
-    dateBegin: "",
-    dateEnd: "",
-    description: "",
-  });
-  const [courseSaved, setCourseSaved] = useState([]);
-
-  const handleAddCourse = async (event) => {
-    if (
-      addCourse.domaine === "" ||
-      addCourse.name === "" ||
-      addCourse.description === ""
-      // addCourse.level === ""
-    ) {
-      setErrorMsg(true);
-      setMsgContent("Veuillez remplir tous les champs");
-      setTimeout(() => {
-        setErrorMsg(false);
-      }, 4000);
-    }
-    if (addCourse.dateBegin === "" || addCourse.dateEnd === "") {
-      setErrorMsg(true);
-      setMsgContent("Veuillez renseigner les dates");
-      setTimeout(() => {
-        setErrorMsg(false);
-      }, 4000);
-    }
-    if (addCourse.level === "- - -") {
-      setErrorMsg(true);
-      setMsgContent("Veuillez sélectionner un niveau valide");
-      setTimeout(() => {
-        setErrorMsg(false);
-      }, 4000);
-    } else {
-      try {
-        // const data =
-        await axios.post(`http://localhost:3310/api/course/`, addCourse);
-        event.preventDefault();
-        setCourseSaved((prevData) => [...prevData, addCourse]);
-        setMsgContent("La formation a été ajoutée avec succès");
-        setSuccesMsg(true);
-        setTimeout(() => {
-          setSuccesMsg(false);
-        }, 4000);
-        saveItemInLS("Formation", courseSaved);
-      } catch (err) {
-        console.error(err);
-        setErrorMsg(true);
-        setMsgContent("Formulaire incorrect");
-        setTimeout(() => {
-          setErrorMsg(false);
-        }, 4000);
-      }
-    }
-  };
-
-  useEffect(() => {}, [courseSaved]);
-
   const userContextValues = useMemo(
     () => ({
       editProfile,
@@ -162,12 +99,6 @@ function UserContextProvider({ children }) {
       addSkills,
       setAddSkills,
       handleSubmitProfile,
-
-      addCourse,
-      setAddCourse,
-      courseSaved,
-      setCourseSaved,
-      handleAddCourse,
       addCv,
       setAddCv,
       handleAddCv,
@@ -179,14 +110,7 @@ function UserContextProvider({ children }) {
       addSkills,
       setAddSkills,
       handleSubmitProfile,
-
-      addCourse,
-      setAddCourse,
-      courseSaved,
-      setCourseSaved,
-      handleAddCourse,
       addCv,
-
       setAddCv,
       handleAddCv,
     ]
