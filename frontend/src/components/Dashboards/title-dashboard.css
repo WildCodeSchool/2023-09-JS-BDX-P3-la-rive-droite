@@ -31,7 +31,7 @@
 .submit-btn-mini {
   background-color: var(--second-color);
   color: var(--text-btn);
-  padding: 18px 30px;
+  padding: 30px 0;
   border: 0;
   border-radius: 7px;
   text-transform: uppercase;
@@ -39,10 +39,7 @@
   font-size: 10px;
   width: 100%;
   margin-top: -20px;
-  margin-left: 20px;
-  height: 40px;
   align-items: center;
-  padding: 8px 8px;
 }
 
 .ref {
