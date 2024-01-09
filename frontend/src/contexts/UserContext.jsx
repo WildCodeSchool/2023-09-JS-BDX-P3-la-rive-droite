@@ -20,20 +20,7 @@ function UserContextProvider({ children }) {
     address: "",
   });
 
-  const [profileSaved, setProfileSaved] = useState([]);
-
-  const [addSkills, setAddSkills] = useState({
-    html: false,
-    css: false,
-    javascript: false,
-    angular: false,
-    react: false,
-    php: false,
-    symphony: false,
-    git: false,
-    github: false,
-    trello: false,
-  });
+  // const [profileSaved, setProfileSaved] = useState([]);
 
   const [addXp, setAddXp] = useState({
     id: uuid(),
@@ -48,23 +35,23 @@ function UserContextProvider({ children }) {
   });
   const [xpSaved, setXpSaved] = useState([]);
 
-  const handleSubmitProfile = () => {
-    const updatedProfile = {
-      ...editProfile,
-      skills: addSkills,
-    };
+  // const handleSubmitProfile = () => {
+  //   const updatedProfile = {
+  //     ...editProfile,
+  //     skills: addSkills,
+  //   };
 
-    setProfileSaved((prevData) => {
-      const newData = [...prevData, updatedProfile];
-      setMsgContent("Le profil a été modifié avec");
-      setSuccesMsg(true);
-      setTimeout(() => {
-        setSuccesMsg(false);
-      }, 4000);
-      saveItemInLS("Profile", newData);
-      return newData;
-    });
-  };
+  //   setProfileSaved((prevData) => {
+  //     const newData = [...prevData, updatedProfile];
+  //     setMsgContent("Le profil a été modifié avec");
+  //     setSuccesMsg(true);
+  //     setTimeout(() => {
+  //       setSuccesMsg(false);
+  //     }, 4000);
+  //     saveItemInLS("Profile", newData);
+  //     return newData;
+  //   });
+  // };
 
   const handleAddXp = async (event) => {
     event.preventDefault();
@@ -226,10 +213,6 @@ function UserContextProvider({ children }) {
     () => ({
       editProfile,
       setEditProfile,
-      profileSaved,
-      addSkills,
-      setAddSkills,
-      handleSubmitProfile,
       addXp,
       setAddXp,
       xpSaved,
@@ -247,10 +230,6 @@ function UserContextProvider({ children }) {
     [
       editProfile,
       setEditProfile,
-      profileSaved,
-      addSkills,
-      setAddSkills,
-      handleSubmitProfile,
       addXp,
       setAddXp,
       xpSaved,
