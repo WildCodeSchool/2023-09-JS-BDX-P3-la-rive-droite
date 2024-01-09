@@ -1,8 +1,9 @@
-CREATE DATABASE externatic_db;
+CREATE DATABASE if not exists externatic_db;
 
 -- Sélectionner la base de données
 USE externatic_db;
 
+DROP TABLE if exists user;
 -- Créer la table "user"
 CREATE TABLE
     user (
@@ -18,13 +19,13 @@ CREATE TABLE
         UNIQUE (email)
     );
 
+DROP table if exists competence;
+
 CREATE TABLE
     competence (
         id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
         name VARCHAR(100) NOT NULL
     );
-
-DROP table competence;
 
 CREATE TABLE
     user_competence (
@@ -36,6 +37,8 @@ CREATE TABLE
         UNIQUE (user_id, competence_id)
     );
 
+DROP TABLE if exists experience;
+
 CREATE TABLE
     experience (
         id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -44,10 +47,12 @@ CREATE TABLE
         city VARCHAR(100) NOT NULL,
         type VARCHAR(100) NOT NULL,
         is_working BOOL,
-        date_begin DATE,
+        date_begin DATE NOT NULL,
         date_end DATE,
         description TEXT
     );
+
+DROP TABLE if exists course;
 
 CREATE TABLE
     course (
@@ -60,9 +65,7 @@ CREATE TABLE
         description TEXT
     );
 
-DROP TABLE offer;
-
-DROP TABLE course;
+DROP TABLE if exists offer;
 
 CREATE TABLE
     offer (
@@ -128,5 +131,3 @@ VALUES (
         '1234',
         1
     );
-
-DROP TABLE user;

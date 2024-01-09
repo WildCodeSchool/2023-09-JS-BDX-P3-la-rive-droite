@@ -35,19 +35,6 @@ function UserContextProvider({ children }) {
     trello: false,
   });
 
-  const [addXp, setAddXp] = useState({
-    id: uuid(),
-    title: "",
-    company: "",
-    city: "",
-    type: "",
-    isWorking: false,
-    dateBegin: "",
-    dateEnd: "",
-    description: "",
-  });
-  const [xpSaved, setXpSaved] = useState([]);
-
   const handleSubmitProfile = () => {
     const updatedProfile = {
       ...editProfile,
@@ -65,61 +52,6 @@ function UserContextProvider({ children }) {
       return newData;
     });
   };
-
-  const handleAddXp = async (event) => {
-    event.preventDefault();
-    if (
-      addXp.title === "" ||
-      addXp.company === "" ||
-      addXp.type === "" ||
-      addXp.city === "" ||
-      addXp.description === ""
-    ) {
-      setErrorMsg(true);
-      setMsgContent("Veuillez remplir tous les champs");
-      setTimeout(() => {
-        setErrorMsg(false);
-      }, 4000);
-    }
-    if (
-      addXp.isWorking === false &&
-      (addXp.dateEnd === "" || addXp.dateBegin === "")
-    ) {
-      setErrorMsg(true);
-      setMsgContent("Veuillez renseigner les dates");
-      setTimeout(() => {
-        setErrorMsg(false);
-      }, 4000);
-    }
-    if (addXp.isWorking === true && addXp.dateBegin === "") {
-      setErrorMsg(true);
-      setMsgContent("Veuillez renseigner les dates");
-      setTimeout(() => {
-        setErrorMsg(false);
-      }, 4000);
-    } else {
-      try {
-        // const data =
-        await axios.post(`http://localhost:3310/api/experience/`, addXp);
-
-        setXpSaved((prevData) => [...prevData, addXp]);
-        setMsgContent("L'expérience a été ajoutée avec");
-        setSuccesMsg(true);
-        setTimeout(() => {
-          setSuccesMsg(false);
-        }, 4000);
-        saveItemInLS("Experience", xpSaved);
-      } catch (err) {
-        console.error(err);
-        setErrorMsg(true);
-        setMsgContent("Formulaire incorrect");
-        setTimeout(() => {
-          setErrorMsg(false);
-        }, 4000);
-      }
-    }
-  };
-  useEffect(() => {}, [xpSaved]);
 
   const [addCv, setAddCv] = useState({
     id: uuid(),
@@ -230,11 +162,7 @@ function UserContextProvider({ children }) {
       addSkills,
       setAddSkills,
       handleSubmitProfile,
-      addXp,
-      setAddXp,
-      xpSaved,
-      setXpSaved,
-      handleAddXp,
+
       addCourse,
       setAddCourse,
       courseSaved,
@@ -251,18 +179,14 @@ function UserContextProvider({ children }) {
       addSkills,
       setAddSkills,
       handleSubmitProfile,
-      addXp,
-      setAddXp,
-      xpSaved,
-      setXpSaved,
-      handleAddXp,
+
       addCourse,
       setAddCourse,
       courseSaved,
       setCourseSaved,
       handleAddCourse,
       addCv,
-      handleAddXp,
+
       setAddCv,
       handleAddCv,
     ]
