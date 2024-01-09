@@ -61,8 +61,11 @@ function CreateCV() {
           valueInput={addCv}
           handleChange={(event) => handleChange(setAddCv, "adress", event)}
         />
-        <AddDetailsCV addDetail="Expériences professionnelles" />
-        <AddDetailsCV addDetail="Formations" />
+        <AddDetailsCV
+          addDetail="Expériences professionnelles"
+          url="/edit-profile/experience"
+        />
+        <AddDetailsCV addDetail="Formations" url="/edit-profile/formation" />
         <div>
           {errorMsg && <ErrorMsg message={msgContent} />}
           {succesMsg && <SuccesMsg message={msgContent} />}
