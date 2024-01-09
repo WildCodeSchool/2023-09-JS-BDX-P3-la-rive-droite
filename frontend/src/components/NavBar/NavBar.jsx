@@ -10,7 +10,7 @@ import {
   MDBNavbarBrand,
   MDBCollapse,
 } from "mdb-react-ui-kit";
-import logo from "../../assets/ext-logo.png";
+// import logo from "../../assets/ext-logo.png";
 
 export default function Navbar() {
   const [openNavColor, setOpenNavColor] = useState(false);
@@ -26,14 +26,7 @@ export default function Navbar() {
         <MDBContainer fluid>
           <MDBNavbarBrand href="#">
             <span className="navbar-big-logo">
-              <img
-                className="navbar-logo-img"
-                src={logo}
-                alt="logo"
-                width="34"
-                height="34"
-              />
-              <h4 className="navbar-logo-title">EXTERNATIX</h4>
+              <h4 className="navbar-logo-title">EXTERNATIC</h4>
             </span>
           </MDBNavbarBrand>
           <MDBNavbarToggler
