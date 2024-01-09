@@ -35,19 +35,6 @@ function UserContextProvider({ children }) {
     trello: false,
   });
 
-  const [addXp, setAddXp] = useState({
-    id: uuid(),
-    title: "",
-    company: "",
-    city: "",
-    type: "",
-    isWorking: false,
-    dateBegin: "",
-    dateEnd: "",
-    description: "",
-  });
-  const [xpSaved, setXpSaved] = useState([]);
-
   const handleSubmitProfile = () => {
     const updatedProfile = {
       ...editProfile,
@@ -65,6 +52,18 @@ function UserContextProvider({ children }) {
       return newData;
     });
   };
+  const [addXp, setAddXp] = useState({
+    id: uuid(),
+    title: "",
+    company: "",
+    city: "",
+    type: "",
+    isWorking: false,
+    dateBegin: "",
+    dateEnd: "",
+    description: "",
+  });
+  const [xpSaved, setXpSaved] = useState([]);
 
   const handleAddXp = async (event) => {
     event.preventDefault();
@@ -160,68 +159,6 @@ function UserContextProvider({ children }) {
   };
   useEffect(() => {}, [cvSaved]);
 
-  const [addCourse, setAddCourse] = useState({
-    id: uuid(),
-    level: "",
-    domaine: "",
-    name: "",
-    dateBegin: "",
-    dateEnd: "",
-    description: "",
-  });
-  const [courseSaved, setCourseSaved] = useState([]);
-
-  const handleAddCourse = async (event) => {
-    if (
-      addCourse.domaine === "" ||
-      addCourse.name === "" ||
-      addCourse.description === ""
-      // addCourse.level === ""
-    ) {
-      setErrorMsg(true);
-      setMsgContent("Veuillez remplir tous les champs");
-      setTimeout(() => {
-        setErrorMsg(false);
-      }, 4000);
-    }
-    if (addCourse.dateBegin === "" || addCourse.dateEnd === "") {
-      setErrorMsg(true);
-      setMsgContent("Veuillez renseigner les dates");
-      setTimeout(() => {
-        setErrorMsg(false);
-      }, 4000);
-    }
-    if (addCourse.level === "- - -") {
-      setErrorMsg(true);
-      setMsgContent("Veuillez sélectionner un niveau valide");
-      setTimeout(() => {
-        setErrorMsg(false);
-      }, 4000);
-    } else {
-      try {
-        // const data =
-        await axios.post(`http://localhost:3310/api/course/`, addCourse);
-        event.preventDefault();
-        setCourseSaved((prevData) => [...prevData, addCourse]);
-        setMsgContent("La formation a été ajoutée avec succès");
-        setSuccesMsg(true);
-        setTimeout(() => {
-          setSuccesMsg(false);
-        }, 4000);
-        saveItemInLS("Formation", courseSaved);
-      } catch (err) {
-        console.error(err);
-        setErrorMsg(true);
-        setMsgContent("Formulaire incorrect");
-        setTimeout(() => {
-          setErrorMsg(false);
-        }, 4000);
-      }
-    }
-  };
-
-  useEffect(() => {}, [courseSaved]);
-
   const userContextValues = useMemo(
     () => ({
       editProfile,
@@ -235,11 +172,6 @@ function UserContextProvider({ children }) {
       xpSaved,
       setXpSaved,
       handleAddXp,
-      addCourse,
-      setAddCourse,
-      courseSaved,
-      setCourseSaved,
-      handleAddCourse,
       addCv,
       setAddCv,
       handleAddCv,
@@ -256,11 +188,6 @@ function UserContextProvider({ children }) {
       xpSaved,
       setXpSaved,
       handleAddXp,
-      addCourse,
-      setAddCourse,
-      courseSaved,
-      setCourseSaved,
-      handleAddCourse,
       addCv,
       handleAddXp,
       setAddCv,
