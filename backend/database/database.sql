@@ -74,7 +74,7 @@ CREATE TABLE
         company VARCHAR(100) NOT NULL,
         type VARCHAR(100) NOT NULL,
         city VARCHAR(100) NOT NULL,
-        mission VARCHAR(100) NOT NULL,
+        mission TEXT NOT NULL,
         search_profile VARCHAR(100) NOT NULL,
         work_place VARCHAR(100) NOT NULL,
         salary VARCHAR(100) NOT NULL,
@@ -130,4 +130,54 @@ VALUES (
         'html',
         '1234',
         1
+
     );
+
+
+DROP TABLE user;
+
+INSERT INTO
+    offer (
+        title,
+        company,
+        type,
+        city,
+        mission,
+        search_profile,
+        work_place,
+        salary,
+        info,
+        email
+    )
+VALUES (
+        "Developpeur Web Front End",
+        "Invo'Tech",
+        "CDD",
+        "Bordeaux",
+        "
+    Tous les 2 ou 3 mois, de nouveaux projets en mode Agile sur les dernières stacks technologiques, toujours effectuées depuis notre plateau Factory pour progresser et développer vos compétences.
+    15% du temps consacré à des journées de partage technique, exploration, hack time rythmées par nos tribus Web, Mobile, Cloud...
+    Journée de la Factory tous les mois : se retrouver physiquement en sortant des missions pour profiter et explorer ensemble !
+    Conférences privées organisées par Apple France, Microsoft
+    Des participations à des conférences locales, nationales, internationales (WWDC, AWS Summit)
+    Notre équipe de Chiefs Happiness Officiers bienveillants et surmotivés (animations, défis d'équipe) : Jeux de sociétés tous les midis, dans les locaux, events d'équipe mensuels, vrai bon café gratuit et illimité, baby-foot, mario-kart sur switch
+    Construire un avenir positif en mettant le digital au service de l'humain
+    La possibilité de développer votre expertise Web ou bien de monter en compétences aussi sur Android, sur iOS ou sur la xR (Unity / Unreal Engine) avec les experts de l'équipe
+    Évoluer dans une entreprise qui encourage l'audace, la curiosité et l'envie d'entreprendre
+",
+        "Junior",
+        "Présent",
+        "35k €/an",
+        "Ce que nous vous proposons :
+
+    Un accord télétravail pour télétravailler jusqu'à 2 jours par semaine selon vos missions.
+    Un package avantages intéressant : une mutuelle, un CSE, des titres restaurants, un accord d'intéressement, des primes vacances et cooptation.
+    Un accompagnement individualisé avec un mentor.
+    Des opportunités de carrières multiples : plus de 30 familles de métiers, autant de passerelles à imaginer ensemble.
+    Plusieurs centaines de formations accessibles en toute autonomie depuis l'app mobile avec Sopra Steria Academy.
+    La possibilité de s'engager auprès de notre fondation ou de notre partenaire « Vendredi ».
+    L'opportunité de rejoindre le collectif Tech'Me UP (formations, conférences, veille, et bien plus encore…).
+",
+        "marie@externatic.fr"
+    )
+
