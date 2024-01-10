@@ -9,7 +9,8 @@ const courseControllers = require("./controllers/courseControllers");
 const cvControllers = require("./controllers/cvControllers");
 
 router.get("/users", userControllers.getUsers);
-router.post("/users", userControllers.postUser);
+router.post("/user", userControllers.postUser);
+router.post("/user/skills", userControllers.postSkills);
 
 router.post("/login", userControllers.postLogin);
 

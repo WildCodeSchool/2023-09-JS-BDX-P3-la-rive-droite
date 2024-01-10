@@ -13,7 +13,7 @@ CREATE TABLE
         phone VARCHAR(100) NOT NULL,
         email VARCHAR(100) NOT NULL,
         address VARCHAR(155) NOT NULL,
-        competence VARCHAR(100) NOT NULL,
+        competence VARCHAR(100),
         password VARCHAR(100) NOT NULL,
         is_admin BOOL NOT NULL,
         UNIQUE (email)
@@ -24,8 +24,26 @@ DROP TABLE IF EXISTS competence;
 CREATE TABLE
     competence (
         id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-        name VARCHAR(100) NOT NULL
+        name VARCHAR(100),
+        confirmed BOOL
     );
+
+    -- CREATE
+-- TABLE
+    -- competence (
+    --     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    --     -- name VARCHAR(100),
+    --     html TEXT,
+    --     css TEXT,
+    --     javascript TEXT,
+    --     angular TEXT,
+    --     react TEXT,
+    --     php TEXT,
+    --     symphony TEXT,
+    --     git TEXT,
+    --     github TEXT,
+    --     trello TEXT
+    -- );
 
 DROP TABLE IF EXISTS cv;
 

@@ -31,7 +31,7 @@ function SignIn() {
     passwordRegex,
   } = useGlobalContext();
 
-  const { signIn, setSignIn } = useSignContext();
+  const { signIn, setSignIn, skills, setSkills } = useSignContext();
 
   // const handleSubmit = (event) => {
   //   event.preventDefault();
@@ -108,7 +108,39 @@ function SignIn() {
         setSuccesMsg(false);
       }, 2000);
 
-      axios.post("http://localhost:3010/api/user/", signIn);
+      const send = () => {
+        axios
+          .post("/api/user", signIn)
+          // .then((response) => {
+          //   // Gérer la réponse
+          //   // console.log(response);
+          // })
+          .catch((error) => {
+            if (error.response) {
+              // La requête a été faite, mais le serveur a répondu avec un code d'erreur
+              console.error(
+                "Réponse du serveur avec le statut:",
+                error.response.status
+              );
+            } else if (error.request) {
+              // La requête a été faite, mais aucune réponse n'a été reçue
+              console.error("Aucune réponse reçue du serveur");
+            } else {
+              // Une erreur s'est produite lors de la configuration de la requête
+              console.error(
+                "Erreur lors de la configuration de la requête",
+                error.message
+              );
+            }
+          });
+      };
+
+      send();
+      axios.post("http://localhost:3010/api/user", signIn);
+      // axios.post("http://localhost:3010/api/user/skills/", skills);
+
+      // console.log(signIn);
+      // console.log(skills);
 
       setSignIn({
         email: "",
@@ -215,69 +247,69 @@ function SignIn() {
                 <h2 className="label-champs"> Cochez vos compétences *</h2>
                 <CompetenceSwitch
                   textCompetence="HTML"
-                  valueInput={signIn}
-                  handleChange={() => handleCheckboxChange(setSignIn, "html")}
+                  valueInput={skills}
+                  handleChange={() => handleCheckboxChange(setSkills, "html")}
                   fieldName="html"
                 />
                 <CompetenceSwitch
                   textCompetence="CSS"
-                  valueInput={signIn}
-                  handleChange={() => handleCheckboxChange(setSignIn, "css")}
+                  valueInput={skills}
+                  handleChange={() => handleCheckboxChange(setSkills, "css")}
                   fieldName="css"
                 />
                 <CompetenceSwitch
                   textCompetence="JAVASCRIPT"
-                  valueInput={signIn}
+                  valueInput={skills}
                   fieldName="javascript"
                   handleChange={() =>
-                    handleCheckboxChange(setSignIn, "javascript")
+                    handleCheckboxChange(setSkills, "javascript")
                   }
                 />
                 <CompetenceSwitch
                   textCompetence="ANGULAR"
-                  valueInput={signIn}
+                  valueInput={skills}
                   fieldName="angular"
                   handleChange={() =>
-                    handleCheckboxChange(setSignIn, "angular")
+                    handleCheckboxChange(setSkills, "angular")
                   }
                 />
                 <CompetenceSwitch
                   textCompetence="REACT.JS"
-                  valueInput={signIn}
+                  valueInput={skills}
                   fieldName="react"
-                  handleChange={() => handleCheckboxChange(setSignIn, "react")}
+                  handleChange={() => handleCheckboxChange(setSkills, "react")}
                 />
                 <CompetenceSwitch
                   textCompetence="PHP"
-                  valueInput={signIn}
+                  valueInput={skills}
                   fieldName="php"
-                  handleChange={() => handleCheckboxChange(setSignIn, "php")}
+                  handleChange={() => handleCheckboxChange(setSkills, "php")}
                 />
                 <CompetenceSwitch
                   textCompetence="SYMPHONY"
-                  valueInput={signIn}
+                  valueInput={skills}
                   fieldName="symphony"
                   handleChange={() =>
-                    handleCheckboxChange(setSignIn, "symphony")
+                    handleCheckboxChange(setSkills, "symphony")
                   }
                 />
                 <CompetenceSwitch
                   textCompetence="GIT"
-                  valueInput={signIn}
+                  valueInput={skills}
                   fieldName="git"
-                  handleChange={() => handleCheckboxChange(setSignIn, "git")}
+                  handleChange={() => handleCheckboxChange(setSkills, "git")}
                 />
                 <CompetenceSwitch
                   textCompetence="GITHUB"
-                  valueInput={signIn}
+                  valueInput={skills}
                   fieldName="github"
-                  handleChange={() => handleCheckboxChange(setSignIn, "github")}
+                  handleChange={() => handleCheckboxChange(setSkills, "github")}
                 />
                 <CompetenceSwitch
                   textCompetence="TRELLO"
-                  valueInput={signIn}
+                  valueInput={skills}
                   fieldName="trello"
-                  handleChange={() => handleCheckboxChange(setSignIn, "trello")}
+                  handleChange={() => handleCheckboxChange(setSkills, "trello")}
                 />
                 <AddSomething addDetail="Votre CV" />
               </div>
