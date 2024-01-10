@@ -1,15 +1,19 @@
 import { useState, createContext, useContext, useMemo } from "react";
 import PropTypes from "prop-types";
-import axios from "axios";
-import { jwtDecode } from "jwt-decode";
 import { useGlobalContext } from "./GlobalContext";
 
 const LogContext = createContext();
 
 function LogContextProvider({ children }) {
   // Messages d'alertes.
-  const { setErrorMsg, setSuccesMsg, setMsgContent, navigate } =
-    useGlobalContext();
+  const {
+    apiService,
+    setUser,
+    // setErrorMsg,
+    // setSuccesMsg,
+    // setMsgContent,
+    navigate,
+  } = useGlobalContext();
 
   const [userConnected, setUserConnected] = useState(false);
   const [logIn, setLogIn] = useState({
@@ -21,33 +25,27 @@ function LogContextProvider({ children }) {
   const getUserFromStorage = () => {
     setShowStorage(JSON.parse(localStorage.getItem("User")));
   };
-
   const handleSubmitLogIn = async () => {
     try {
-      const { data } = await axios.post(
+      const data = await apiService.post(
         `http://localhost:3310/api/login`,
         logIn
       );
       localStorage.setItem("token", data.token);
-      const tokenData = jwtDecode(data.token);
-      setSuccesMsg(true);
-      setMsgContent(`Bienvenue, connexion avec ${tokenData.firstname}`);
-      setTimeout(() => {
-        setSuccesMsg(false);
-        navigate("/");
-      }, 3000);
-      setLogIn(tokenData);
-      if (tokenData.is_admin === 1) {
+
+      apiService.setToken(data.token);
+
+      const result = await apiService.get("http://localhost:3310/api/users/me");
+
+      alert(`Content de vous revoir ${result.data.email}`);
+      setUser(result.data);
+      if (result.data.isAdmin === 1) {
         return navigate("/dashboard");
       }
       return navigate("/");
     } catch (err) {
       console.error(err);
-      setErrorMsg(true);
-      setMsgContent("Identifiants non valides.");
-      setTimeout(() => {
-        setErrorMsg(false);
-      }, 4000);
+      alert(err.message);
     }
 
     return null;

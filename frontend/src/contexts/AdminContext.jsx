@@ -8,8 +8,7 @@ const AdminContext = createContext();
 
 function AdminContextProvider({ children }) {
   const { setErrorMsg, setSuccesMsg, setMsgContent } = useGlobalContext();
-
-  const [isAdmin, setIsAdmin] = useState(true);
+  const { isAdmin, setIsAdmin } = useGlobalContext();
 
   const [addOffer, setAddOffer] = useState({
     id: uuid(),
