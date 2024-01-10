@@ -52,7 +52,7 @@ export default function Navbar() {
                 <span className="navbar-link">Favoris</span>
               </Link>
 
-              <Link to="/admin">
+              <Link to="/dashboard">
                 <span className="navbar-link">Espace admin</span>
               </Link>
               <Link to="/">
