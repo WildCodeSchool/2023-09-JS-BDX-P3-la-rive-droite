@@ -23,7 +23,7 @@ import SignContextProvider from "./contexts/SignContext";
 import LogContextProvider from "./contexts/LogContext";
 import GlobalContextProvider from "./contexts/GlobalContext";
 import UserContextProvider from "./contexts/UserContext";
-import ApiService from "../../backend/src/services/api.service";
+import ApiService from "./services/api.service";
 
 const apiService = new ApiService();
 
@@ -33,7 +33,7 @@ const router = createBrowserRouter([
     loader: async () => {
       try {
         const data = await apiService.get("http://localhost:3310/api/users/me");
-        return data;
+        return { preloadUser: data ?? null };
       } catch (err) {
         console.error(err.message);
         return null;
@@ -41,7 +41,7 @@ const router = createBrowserRouter([
     },
 
     element: (
-      <GlobalContextProvider>
+      <GlobalContextProvider apiService={apiService}>
         <UserContextProvider>
           <App />
         </UserContextProvider>
@@ -90,7 +90,7 @@ const router = createBrowserRouter([
             loader: async () => {
               try {
                 const data = await axios.get(
-                  "http://localhost:3310/api/cvs/userId"
+                  "http://localhost:3310/api/users/:id/cvs"
                 );
                 return data;
               } catch (err) {
