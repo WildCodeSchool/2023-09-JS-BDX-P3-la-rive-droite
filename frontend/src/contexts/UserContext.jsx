@@ -21,19 +21,6 @@ function UserContextProvider({ children }) {
 
   // const [profileSaved, setProfileSaved] = useState([]);
 
-  const [addXp, setAddXp] = useState({
-    id: uuid(),
-    title: "",
-    company: "",
-    city: "",
-    type: "",
-    isWorking: false,
-    dateBegin: "",
-    dateEnd: "",
-    description: "",
-  });
-  const [xpSaved, setXpSaved] = useState([]);
-
   // const handleSubmitProfile = () => {
   //   const updatedProfile = {
   //     ...editProfile,
@@ -95,25 +82,11 @@ function UserContextProvider({ children }) {
     () => ({
       editProfile,
       setEditProfile,
-      addXp,
-      setAddXp,
-      xpSaved,
-      setXpSaved,
       addCv,
       setAddCv,
       handleAddCv,
     }),
-    [
-      editProfile,
-      setEditProfile,
-      addXp,
-      setAddXp,
-      xpSaved,
-      setXpSaved,
-      addCv,
-      setAddCv,
-      handleAddCv,
-    ]
+    [editProfile, setEditProfile, addCv, setAddCv, handleAddCv]
   );
 
   return (

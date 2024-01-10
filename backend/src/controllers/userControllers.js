@@ -21,11 +21,6 @@ const postUser = (req, res) => {
   models.user
     .create(req.body)
     .then((rows) => {
-      const token = generateAccessToken({
-        id: rows.insertId,
-        email: req.body.email,
-        is_admin: req.body.is_admin,
-      });
       res.send({
         id: rows.insertId,
         firstname: req.body.firstname,
@@ -35,7 +30,6 @@ const postUser = (req, res) => {
         competence: req.body.competence,
         email: req.body.email,
         is_admin: req.body.is_admin,
-        token,
       });
     })
     .catch((err) => {
