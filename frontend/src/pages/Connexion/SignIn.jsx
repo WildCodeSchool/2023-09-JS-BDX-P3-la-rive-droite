@@ -1,60 +1,148 @@
 import { Link } from "react-router-dom";
+import axios from "axios";
 import Input from "../../components/Inputs/Input";
 import CheckboxCondition from "../../components/Inputs/CheckboxCondition";
 import CompetenceSwitch from "../../components/Competence Switch/CompetenceSwitch";
 import HeaderLongTitle from "../../components/Headers/HeaderLongTitle";
+// import ButtonMaxi from "../../components/Boutons/ButtonMaxi";
 import ErrorMsg from "../../components/Alertes Messages/ErrorMsg";
 import AddSomething from "../../components/Add Something/AddSomething";
 import Title from "../../components/Titles/Title";
 import SuccesMsg from "../../components/Alertes Messages/SuccesMsg";
 import { useGlobalContext } from "../../contexts/GlobalContext";
 import { useSignContext } from "../../contexts/SignContext";
-import { useUserContext } from "../../contexts/UserContext";
 import "./login-signin.css";
 import "../../components/Inputs/input.css";
 import "../../components/Boutons/button-maxi.css";
 import "../../components/Inputs/checkbox-conditions.css";
 
 function SignIn() {
-  const { handleChange, handleCheckboxChange } = useGlobalContext();
-  const { addSkills, setAddSkills } = useSignContext();
-  const { editProfile } = useUserContext();
-
   const {
     errorMsg,
+    setErrorMsg,
     succesMsg,
+    setSuccesMsg,
     msgContent,
-    signIn,
-    setSignIn,
-    handleSubmitSignIn,
-  } = useSignContext();
+    setMsgContent,
+    handleChange,
+    handleCheckboxChange,
+    navigate,
+    emailRegex,
+    passwordRegex,
+  } = useGlobalContext();
 
-  const handleSubmit = (event) => {
-    handleSubmitSignIn(event);
+  const { signIn, setSignIn } = useSignContext();
+
+  // const handleSubmit = (event) => {
+  //   event.preventDefault();
+  //   const formulaire = event.target;
+  //   const valeurs = {};
+
+  //   // Itérer à travers tous les éléments du formulaire
+  //   for (let i = 0; i < formulaire.elements.length; i += 1) {
+  //     const element = formulaire.elements[i];
+  //     // Vérifier si l'élément est un champ de formulaire avec une valeur
+  //     if (element.hasAttribute("data-competence") && element.checked) {
+  //       if (valeurs.competences === undefined) {
+  //         valeurs.competences = [];
+  //       }
+  //       valeurs.competences.push(element.value);
+  //     } else if (element.type !== "submit" && element.value) {
+  //       valeurs[element.name] = element.value;
+  //     }
+  //   }
+  // };
+
+  const handleSubmitSignIn = (event) => {
     event.preventDefault();
-    const formulaire = event.target;
-    const valeurs = {};
+    if (
+      signIn.email === "" ||
+      signIn.password === "" ||
+      signIn.password2 === "" ||
+      signIn.lastname === "" ||
+      signIn.firstname === "" ||
+      signIn.phone === "" ||
+      signIn.address === ""
+    ) {
+      setErrorMsg(true);
+      setMsgContent("Champs non remplis");
+      setTimeout(() => {
+        setErrorMsg(false);
+      }, 4000);
+    } else if (!emailRegex.test(signIn.email)) {
+      setErrorMsg(true);
+      setMsgContent("L'adresse mail n'est pas correcte");
+      setTimeout(() => {
+        setErrorMsg(false);
+      }, 4000);
+    } else if (signIn.password.length < 8) {
+      setErrorMsg(true);
+      setMsgContent("Le mot de passe n'est pas assez long");
+      setTimeout(() => {
+        setErrorMsg(false);
+      }, 4000);
+    } else if (!passwordRegex.test(signIn.password)) {
+      setErrorMsg(true);
+      setMsgContent(
+        "Le mot de passe doit contenir au moins : 1 majuscule, 1 minuscule, 1 chiffre, 1 caractère spéciale(@$!%*?&)"
+      );
+      setTimeout(() => {
+        setErrorMsg(false);
+      }, 6000);
+    } else if (signIn.password !== signIn.password2) {
+      setErrorMsg(true);
+      setMsgContent("Les mots de passes ne sont pas identiques");
+      setTimeout(() => {
+        setErrorMsg(false);
+      }, 4000);
+    } else if (signIn.cguAgree === false) {
+      setErrorMsg(true);
+      setMsgContent("Vous n'avez pas validé les conditions générales");
+      setTimeout(() => {
+        setErrorMsg(false);
+      }, 4000);
+    } else {
+      setSuccesMsg(true);
+      setMsgContent("Compte créé avec");
+      setTimeout(() => {
+        setSuccesMsg(false);
+      }, 2000);
 
-    for (let i = 0; i < formulaire.elements.length; i += 1) {
-      const element = formulaire.elements[i];
-      // Vérifier si l'élément est un champ de formulaire avec une valeur
-      if (element.hasAttribute("data-competence") && element.checked) {
-        if (valeurs.competences === undefined) {
-          valeurs.competences = [];
-        }
-        valeurs.competences.push(element.value);
-      } else if (element.type !== "submit" && element.value) {
-        valeurs[element.name] = element.value;
+      axios.post("http://localhost:3010/api/user/", signIn);
+
+      setSignIn({
+        email: "",
+        password: "",
+        password2: "",
+        lastname: "",
+        firstname: "",
+        phone: "",
+        address: "",
+      });
+
+      // console.log(signIn);
+
+      // setUserConnected(true);
+
+      if (signIn.addCvNow === true) {
+        setTimeout(() => {
+          navigate("/edit-profile/cv");
+        }, 2000);
+      } else {
+        setTimeout(() => {
+          navigate("/");
+        }, 2000);
       }
     }
   };
+
   return (
     <>
       <HeaderLongTitle textTitle="Création de votre compte" />
       <div className="container-page container-general-login">
         <h1>S'inscrire</h1>
         <div className="champs-form">
-          <form onSubmit={handleSubmit}>
+          <form>
             <Input
               titleInput="E-mail *"
               holderText="john.doe@externatic.fr"
@@ -89,7 +177,7 @@ function SignIn() {
                 titleInput="Nom *"
                 holderText="Votre nom"
                 fieldName="lastname"
-                valueInput={editProfile}
+                valueInput={signIn}
                 handleChange={(event) =>
                   handleChange(setSignIn, "lastname", event)
                 }
@@ -98,7 +186,7 @@ function SignIn() {
                 titleInput="Prénom *"
                 holderText="Votre prénom"
                 fieldName="firstname"
-                valueInput={editProfile}
+                valueInput={signIn}
                 handleChange={(event) =>
                   handleChange(setSignIn, "firstname", event)
                 }
@@ -108,7 +196,7 @@ function SignIn() {
                 holderText="Numéro de téléphone"
                 fieldName="phone"
                 typeInput="tel"
-                valueInput={editProfile}
+                valueInput={signIn}
                 handleChange={(event) =>
                   handleChange(setSignIn, "phone", event)
                 }
@@ -118,7 +206,7 @@ function SignIn() {
                 holderText="Adresse"
                 fieldName="address"
                 inputType="text"
-                valueInput={editProfile}
+                valueInput={signIn}
                 handleChange={(event) =>
                   handleChange(setSignIn, "address", event)
                 }
@@ -127,79 +215,94 @@ function SignIn() {
                 <h2 className="label-champs"> Cochez vos compétences *</h2>
                 <CompetenceSwitch
                   textCompetence="HTML"
-                  handleChange={() =>
-                    handleCheckboxChange(setAddSkills, "html")
-                  }
-                  valueInput={addSkills}
+                  valueInput={signIn}
+                  handleChange={() => handleCheckboxChange(setSignIn, "html")}
                   fieldName="html"
                 />
                 <CompetenceSwitch
                   textCompetence="CSS"
-                  handleChange={() => handleCheckboxChange("css")}
+                  valueInput={signIn}
+                  handleChange={() => handleCheckboxChange(setSignIn, "css")}
                   fieldName="css"
                 />
                 <CompetenceSwitch
                   textCompetence="JAVASCRIPT"
+                  valueInput={signIn}
+                  fieldName="javascript"
                   handleChange={() =>
-                    handleCheckboxChange(setAddSkills, "javascript")
+                    handleCheckboxChange(setSignIn, "javascript")
                   }
                 />
                 <CompetenceSwitch
                   textCompetence="ANGULAR"
+                  valueInput={signIn}
+                  fieldName="angular"
                   handleChange={() =>
-                    handleCheckboxChange(setAddSkills, "angular")
+                    handleCheckboxChange(setSignIn, "angular")
                   }
                 />
                 <CompetenceSwitch
                   textCompetence="REACT.JS"
-                  handleChange={() =>
-                    handleCheckboxChange(setAddSkills, "react")
-                  }
+                  valueInput={signIn}
+                  fieldName="react"
+                  handleChange={() => handleCheckboxChange(setSignIn, "react")}
                 />
                 <CompetenceSwitch
                   textCompetence="PHP"
-                  handleChange={() => handleCheckboxChange(setAddSkills, "php")}
+                  valueInput={signIn}
+                  fieldName="php"
+                  handleChange={() => handleCheckboxChange(setSignIn, "php")}
                 />
                 <CompetenceSwitch
                   textCompetence="SYMPHONY"
+                  valueInput={signIn}
+                  fieldName="symphony"
                   handleChange={() =>
-                    handleCheckboxChange(setAddSkills, "symphony")
+                    handleCheckboxChange(setSignIn, "symphony")
                   }
                 />
                 <CompetenceSwitch
                   textCompetence="GIT"
-                  handleChange={() => handleCheckboxChange(setAddSkills, "git")}
+                  valueInput={signIn}
+                  fieldName="git"
+                  handleChange={() => handleCheckboxChange(setSignIn, "git")}
                 />
                 <CompetenceSwitch
                   textCompetence="GITHUB"
-                  handleChange={() =>
-                    handleCheckboxChange(setAddSkills, "github")
-                  }
+                  valueInput={signIn}
+                  fieldName="github"
+                  handleChange={() => handleCheckboxChange(setSignIn, "github")}
                 />
                 <CompetenceSwitch
                   textCompetence="TRELLO"
-                  handleChange={() =>
-                    handleCheckboxChange(setAddSkills, "trello")
-                  }
+                  valueInput={signIn}
+                  fieldName="trello"
+                  handleChange={() => handleCheckboxChange(setSignIn, "trello")}
                 />
                 <AddSomething addDetail="Votre CV" />
               </div>
             </div>
             <CheckboxCondition
               textCondition="J'accepte les conditions d' *"
+              valueInput={signIn}
               fieldName="cguAgree"
+              handleChange={() => handleCheckboxChange(setSignIn, "cguAgree")}
             />
             {/* <a href="#">Externatic</a> */}
             <CheckboxCondition
               textCondition="Je veux créer ou télécharger mon cv maintenant !"
+              valueInput={signIn}
               fieldName="addCvNow"
+              handleChange={() => handleCheckboxChange(setSignIn, "addCvNow")}
             />
             <div>
               {errorMsg && <ErrorMsg message={msgContent} />}
               {succesMsg && <SuccesMsg message={msgContent} />}
             </div>
+            <button type="button" onClick={handleSubmitSignIn}>
+              soumettre
+            </button>
             {/* <ButtonMaxi textBtn="S'inscrire" clickFunc={handleSubmitSignIn} /> */}
-            <button type="submit">soumettre</button>
           </form>
         </div>
         <div className="small-paragraphe-info">

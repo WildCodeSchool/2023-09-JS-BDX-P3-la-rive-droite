@@ -20,9 +20,8 @@ function CompetenceSwitch({
           type="checkbox"
           id={fieldName}
           name={fieldName}
-          value={(fieldName, valueInput)}
+          value={valueInput[fieldName]}
           onChange={handleChange}
-          data-competence="true"
         />
         <span className="slider round"> </span>
       </label>
