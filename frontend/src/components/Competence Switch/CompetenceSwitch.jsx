@@ -6,8 +6,8 @@ import "../../default-settings.css";
 function CompetenceSwitch({
   textCompetence,
   fieldName,
-  valueInput,
   handleChange,
+  valueInput,
 }) {
   return (
     <div className="competence-line">
@@ -32,8 +32,8 @@ function CompetenceSwitch({
 CompetenceSwitch.propTypes = {
   textCompetence: PropTypes.string.isRequired,
   fieldName: PropTypes.string.isRequired,
-  valueInput: PropTypes.string.isRequired,
   handleChange: PropTypes.func.isRequired,
+  valueInput: PropTypes.func.isRequired,
 };
 
 export default CompetenceSwitch;

@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import axios from "axios";
 import App from "./App";
 import Home from "./pages/HomeOffer/Home";
 import ReadOffer from "./pages/Offer/ReadOffer";
@@ -22,10 +23,23 @@ import SignContextProvider from "./contexts/SignContext";
 import LogContextProvider from "./contexts/LogContext";
 import GlobalContextProvider from "./contexts/GlobalContext";
 import UserContextProvider from "./contexts/UserContext";
+import ApiService from "../../backend/src/services/api.service";
+
+const apiService = new ApiService();
 
 const router = createBrowserRouter([
   {
     path: "/",
+    loader: async () => {
+      try {
+        const data = await apiService.get("http://localhost:3310/api/users/me");
+        return data;
+      } catch (err) {
+        console.error(err.message);
+        return null;
+      }
+    },
+
     element: (
       <GlobalContextProvider>
         <UserContextProvider>
@@ -73,6 +87,17 @@ const router = createBrowserRouter([
           {
             path: "/edit-profile/cv",
             element: <CreateCV />,
+            loader: async () => {
+              try {
+                const data = await axios.get(
+                  "http://localhost:3310/api/cvs/userId"
+                );
+                return data;
+              } catch (err) {
+                console.error(err.message);
+                return null;
+              }
+            },
           },
           {
             path: "/edit-profile/experience",
