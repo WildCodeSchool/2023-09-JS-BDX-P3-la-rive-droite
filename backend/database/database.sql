@@ -13,7 +13,6 @@ CREATE TABLE
         phone VARCHAR(100) NOT NULL,
         email VARCHAR(100) NOT NULL,
         address VARCHAR(155) NOT NULL,
-        competence VARCHAR(100) NOT NULL,
         password VARCHAR(100) NOT NULL,
         is_admin BOOL NOT NULL,
         UNIQUE (email)

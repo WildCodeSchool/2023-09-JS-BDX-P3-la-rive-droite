@@ -89,10 +89,15 @@ const updateUser = async (req, res) => {
     });
 };
 
+const getProfile = (req, res) => {
+  res.send(req.user);
+};
+
 module.exports = {
   getUsers,
   postUser,
   postSkills,
   postLogin,
   updateUser,
+  getProfile,
 };
