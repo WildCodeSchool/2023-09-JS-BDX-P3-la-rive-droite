@@ -19,38 +19,38 @@ function UserContextProvider({ children }) {
     address: "",
   });
 
-  const [profileSaved, setProfileSaved] = useState([]);
+  // const [profileSaved, setProfileSaved] = useState([]);
 
-  const [addSkills, setAddSkills] = useState({
-    html: false,
-    css: false,
-    javascript: false,
-    angular: false,
-    react: false,
-    php: false,
-    symphony: false,
-    git: false,
-    github: false,
-    trello: false,
+  const [addXp, setAddXp] = useState({
+    id: uuid(),
+    title: "",
+    company: "",
+    city: "",
+    type: "",
+    isWorking: false,
+    dateBegin: "",
+    dateEnd: "",
+    description: "",
   });
+  const [xpSaved, setXpSaved] = useState([]);
 
-  const handleSubmitProfile = () => {
-    const updatedProfile = {
-      ...editProfile,
-      skills: addSkills,
-    };
+  // const handleSubmitProfile = () => {
+  //   const updatedProfile = {
+  //     ...editProfile,
+  //     skills: addSkills,
+  //   };
 
-    setProfileSaved((prevData) => {
-      const newData = [...prevData, updatedProfile];
-      setMsgContent("Le profil a été modifié avec");
-      setSuccesMsg(true);
-      setTimeout(() => {
-        setSuccesMsg(false);
-      }, 4000);
-      saveItemInLS("Profile", newData);
-      return newData;
-    });
-  };
+  //   setProfileSaved((prevData) => {
+  //     const newData = [...prevData, updatedProfile];
+  //     setMsgContent("Le profil a été modifié avec");
+  //     setSuccesMsg(true);
+  //     setTimeout(() => {
+  //       setSuccesMsg(false);
+  //     }, 4000);
+  //     saveItemInLS("Profile", newData);
+  //     return newData;
+  //   });
+  // };
 
   const [addCv, setAddCv] = useState({
     id: uuid(),
@@ -95,10 +95,10 @@ function UserContextProvider({ children }) {
     () => ({
       editProfile,
       setEditProfile,
-      profileSaved,
-      addSkills,
-      setAddSkills,
-      handleSubmitProfile,
+      addXp,
+      setAddXp,
+      xpSaved,
+      setXpSaved,
       addCv,
       setAddCv,
       handleAddCv,
@@ -106,10 +106,10 @@ function UserContextProvider({ children }) {
     [
       editProfile,
       setEditProfile,
-      profileSaved,
-      addSkills,
-      setAddSkills,
-      handleSubmitProfile,
+      addXp,
+      setAddXp,
+      xpSaved,
+      setXpSaved,
       addCv,
       setAddCv,
       handleAddCv,

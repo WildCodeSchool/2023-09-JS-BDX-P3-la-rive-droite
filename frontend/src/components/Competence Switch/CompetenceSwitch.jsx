@@ -3,7 +3,12 @@ import PropTypes from "prop-types";
 import "./competence-switch.css";
 import "../../default-settings.css";
 
-function CompetenceSwitch({ textCompetence, fieldName, handleChange }) {
+function CompetenceSwitch({
+  textCompetence,
+  fieldName,
+  valueInput,
+  handleChange,
+}) {
   return (
     <div className="competence-line">
       <p className="label-champs">
@@ -15,9 +20,8 @@ function CompetenceSwitch({ textCompetence, fieldName, handleChange }) {
           type="checkbox"
           id={fieldName}
           name={fieldName}
-          value={fieldName}
+          value={valueInput[fieldName]}
           onChange={handleChange}
-          data-competence="true"
         />
         <span className="slider round"> </span>
       </label>
@@ -28,6 +32,7 @@ function CompetenceSwitch({ textCompetence, fieldName, handleChange }) {
 CompetenceSwitch.propTypes = {
   textCompetence: PropTypes.string.isRequired,
   fieldName: PropTypes.string.isRequired,
+  valueInput: PropTypes.string.isRequired,
   handleChange: PropTypes.func.isRequired,
 };
 
