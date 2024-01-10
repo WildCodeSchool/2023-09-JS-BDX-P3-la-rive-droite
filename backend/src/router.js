@@ -32,6 +32,7 @@ router.delete("/course/:id", courseControllers.deleteCourseById);
 
 router.get("/cvs/:userId", cvControllers.getCv);
 router.post("/cvs", cvControllers.postCv);
+
 // router.post("/signin", userControllers.postUser);
 // router.update("/signin", userControllers.putUser);
 module.exports = router;

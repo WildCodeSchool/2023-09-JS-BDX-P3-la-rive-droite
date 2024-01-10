@@ -6,6 +6,7 @@ const getCv = (req, res) => {
   models.cv
     .findCvByUserId(userId)
     .then(([item]) => {
+      // console.log(item);
       if (item[0] != null) {
         res.json(item[0]);
       } else {
