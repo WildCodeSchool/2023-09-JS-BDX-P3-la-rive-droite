@@ -17,7 +17,7 @@ class UserManager extends AbstractManager {
           user.address,
           user.email,
           hash,
-          user.is_admin,
+          0,
         ]
       );
       return rows;
@@ -57,6 +57,13 @@ class UserManager extends AbstractManager {
     const result = await bcrypt.compare(password, dbUser.password);
 
     return result ? dbUser : undefined;
+  }
+
+  getProfile(id) {
+    return this.database.query(
+      `SELECT id, email, is_admin AS isAdmin FROM ${this.table} WHERE id = ?`,
+      [id]
+    );
   }
 
   static hashPassword(password, workFactor = 5) {

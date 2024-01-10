@@ -7,6 +7,9 @@ const offerControllers = require("./controllers/offerControllers");
 const experienceControllers = require("./controllers/experienceControllers");
 const courseControllers = require("./controllers/courseControllers");
 const cvControllers = require("./controllers/cvControllers");
+const {
+  authAdminMiddleware,
+} = require("./middlewares/security/auth.middlewares");
 
 router.get("/users", userControllers.getUsers);
 router.post("/users", userControllers.postUser);
@@ -32,6 +35,8 @@ router.delete("/course/:id", courseControllers.deleteCourseById);
 
 router.get("/cvs/:userId", cvControllers.getCv);
 router.post("/cvs", cvControllers.postCv);
+
+router.get("users/me", authAdminMiddleware, userControllers.getProfile);
 
 // router.post("/signin", userControllers.postUser);
 // router.update("/signin", userControllers.putUser);

@@ -108,7 +108,7 @@ function SignIn() {
         setSuccesMsg(false);
       }, 2000);
 
-      axios.post("http://localhost:3010/api/user/", signIn);
+      axios.post("http://localhost:3310/api/users", signIn);
 
       setSignIn({
         email: "",
