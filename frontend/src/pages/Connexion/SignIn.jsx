@@ -108,34 +108,6 @@ function SignIn() {
         setSuccesMsg(false);
       }, 2000);
 
-      const send = () => {
-        axios
-          .post("/api/user", signIn)
-          // .then((response) => {
-          //   // Gérer la réponse
-          //   // console.log(response);
-          // })
-          .catch((error) => {
-            if (error.response) {
-              // La requête a été faite, mais le serveur a répondu avec un code d'erreur
-              console.error(
-                "Réponse du serveur avec le statut:",
-                error.response.status
-              );
-            } else if (error.request) {
-              // La requête a été faite, mais aucune réponse n'a été reçue
-              console.error("Aucune réponse reçue du serveur");
-            } else {
-              // Une erreur s'est produite lors de la configuration de la requête
-              console.error(
-                "Erreur lors de la configuration de la requête",
-                error.message
-              );
-            }
-          });
-      };
-
-      send();
       axios.post("http://localhost:3010/api/user", signIn);
       // axios.post("http://localhost:3010/api/user/skills/", skills);
 
@@ -151,10 +123,6 @@ function SignIn() {
         phone: "",
         address: "",
       });
-
-      // console.log(signIn);
-
-      // setUserConnected(true);
 
       if (signIn.addCvNow === true) {
         setTimeout(() => {
