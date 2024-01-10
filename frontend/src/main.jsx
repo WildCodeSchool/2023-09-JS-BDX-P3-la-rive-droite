@@ -90,7 +90,7 @@ const router = createBrowserRouter([
             loader: async () => {
               try {
                 const data = await axios.get(
-                  "http://localhost:3310/api/cvs/userId"
+                  "http://localhost:3310/api/users/:id/cvs"
                 );
                 return data;
               } catch (err) {
