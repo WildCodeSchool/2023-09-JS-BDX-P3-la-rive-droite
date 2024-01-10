@@ -34,6 +34,10 @@ function GlobalContextProvider({ children }) {
 
   const navigate = useNavigate();
 
+  const emailRegex = /[a-z0-9._]+@[a-z0-9-]+\.[a-z]{2,3}/;
+  const passwordRegex =
+    /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
   const values = useMemo(
     () => ({
       getItemInLS,
@@ -47,6 +51,8 @@ function GlobalContextProvider({ children }) {
       msgContent,
       setMsgContent,
       navigate,
+      emailRegex,
+      passwordRegex,
     }),
     [
       getItemInLS,
@@ -60,6 +66,8 @@ function GlobalContextProvider({ children }) {
       msgContent,
       setMsgContent,
       navigate,
+      emailRegex,
+      passwordRegex,
     ]
   );
 
