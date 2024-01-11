@@ -38,6 +38,15 @@ function GlobalContextProvider({ children, apiService }) {
     }));
   };
 
+  const handleLogout = () => {
+    localStorage.setItem("token", null);
+
+    apiService.setToken(null);
+    setUser(null);
+    alert(`Déconnexion réussie`);
+    return navigate("/");
+  };
+
   const emailRegex = /[a-z0-9._]+@[a-z0-9-]+\.[a-z]{2,3}/;
   const passwordRegex =
     /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
@@ -62,6 +71,7 @@ function GlobalContextProvider({ children, apiService }) {
       user,
       setUser,
       apiService,
+      handleLogout,
     }),
     [
       getItemInLS,
@@ -82,6 +92,7 @@ function GlobalContextProvider({ children, apiService }) {
       user,
       setUser,
       apiService,
+      handleLogout,
     ]
   );
 

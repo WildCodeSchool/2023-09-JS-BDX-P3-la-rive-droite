@@ -171,7 +171,7 @@ function SignIn() {
                 handleChange(setSignIn, "password2", event)
               }
             />
-            <div className="container-page">
+            <div className="container-coordonnees">
               <Title titleText="Vos coordonnées" />
               <Input
                 titleInput="Nom *"
@@ -283,7 +283,7 @@ function SignIn() {
               </div>
             </div>
             <CheckboxCondition
-              textCondition="J'accepte les conditions d' *"
+              textCondition="J'accepte les conditions générales d'Externatic"
               valueInput={signIn}
               fieldName="cguAgree"
               handleChange={() => handleCheckboxChange(setSignIn, "cguAgree")}
