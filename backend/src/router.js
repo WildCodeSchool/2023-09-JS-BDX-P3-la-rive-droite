@@ -12,14 +12,25 @@ const {
   authAdminMiddleware,
 } = require("./middlewares/security/auth.middlewares");
 
-router.get("/users", userControllers.getUsers);
+router.get(
+  "/users",
+  authMiddleware,
+  authAdminMiddleware,
+  userControllers.getUsers
+);
 router.post("/users", userControllers.postUser);
-router.get("/users/:id/cvs", authMiddleware, cvControllers.getCv);
+router.get("/users/:id([0-9]+)/cvs", authMiddleware, cvControllers.getCv);
+router.get(
+  "/user/:id([0-9]+)",
+  authMiddleware,
+  authAdminMiddleware,
+  userControllers.getUserById
+);
 router.get("/users/me", authMiddleware, userControllers.getProfile);
 router.post("/login", userControllers.postLogin);
 
 router.get("/offer", offerControllers.getOffers);
-router.get("/offer/:id", offerControllers.getOfferById);
+router.get("/offer/:id([0-9]+)", offerControllers.getOfferById);
 router.post(
   "/offer",
   authMiddleware,
@@ -27,7 +38,7 @@ router.post(
   offerControllers.postOffer
 );
 router.delete(
-  "/offer/:id",
+  "/offer/:id([0-9]+)",
   authMiddleware,
   authAdminMiddleware,
   offerControllers.deleteOfferById
@@ -39,7 +50,7 @@ router.get(
   experienceControllers.getExperiences
 );
 router.get(
-  "/experience/:id",
+  "/experience/:id([0-9]+)",
   authMiddleware,
   experienceControllers.getExperienceById
 );
@@ -49,22 +60,30 @@ router.post(
   experienceControllers.postExperience
 );
 router.put(
-  "/experience/:id",
+  "/experience/:id([0-9]+)",
   authMiddleware,
   experienceControllers.updateExperience
 );
 router.delete(
-  "/experience/:id",
+  "/experience/:id([0-9]+)",
   authMiddleware,
   experienceControllers.deleteExperienceById
 );
 
 router.get("/course", authMiddleware, courseControllers.getCourse);
-router.get("/course/:id", authMiddleware, courseControllers.getCourseById);
+router.get(
+  "/course/:id([0-9]+)",
+  authMiddleware,
+  courseControllers.getCourseById
+);
 router.post("/course", authMiddleware, courseControllers.postCourse);
-router.put("/course/:id", authMiddleware, courseControllers.updateCourse);
+router.put(
+  "/course/:id([0-9]+)",
+  authMiddleware,
+  courseControllers.updateCourse
+);
 router.delete(
-  "/course/:id",
+  "/course/:id([0-9]+)",
   authMiddleware,
   courseControllers.deleteCourseById
 );
