@@ -2,9 +2,12 @@ import React, { useState, useEffect } from "react";
 import CardOffre from "../../components/CardModel/CardOffre";
 import HeaderLongResearch from "../../components/Headers/HeaderLongResearch";
 import ButtonMini from "../../components/Boutons/ButtonMini";
+import { useGlobalContext } from "../../contexts/GlobalContext";
 // import axios from "axios";
 
 function Home() {
+  const { viewOffer } = useGlobalContext();
+
   const [offers, setOffers] = useState([]);
 
   useEffect(() => {
@@ -59,7 +62,10 @@ function Home() {
               {offer.type} - {offer.city} - Publiée le 24/11/2023
             </h5>
             <p className="p-description ">{offer.info}</p>
-            <ButtonMini textBtn="Postuler" />
+            <ButtonMini
+              textBtn="Postuler"
+              onClick={() => viewOffer(offer.id)}
+            />
           </div>
         ))}
       </div>

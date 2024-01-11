@@ -28,23 +28,22 @@ CREATE TABLE
         confirmed BOOL
     );
 
-    -- CREATE
+-- CREATE
 -- TABLE
-    -- competence (
-    --     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    --     -- name VARCHAR(100),
-    --     html TEXT,
-    --     css TEXT,
-    --     javascript TEXT,
-    --     angular TEXT,
-    --     react TEXT,
-    --     php TEXT,
-    --     symphony TEXT,
-    --     git TEXT,
-    --     github TEXT,
-    --     trello TEXT
-    -- );
-
+-- competence (
+--     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+--     -- name VARCHAR(100),
+--     html TEXT,
+--     css TEXT,
+--     javascript TEXT,
+--     angular TEXT,
+--     react TEXT,
+--     php TEXT,
+--     symphony TEXT,
+--     git TEXT,
+--     github TEXT,
+--     trello TEXT
+-- );
 DROP TABLE IF EXISTS cv;
 
 CREATE TABLE
@@ -120,36 +119,28 @@ INSERT INTO
         email
     )
 VALUES (
-        "Developpeur Web Front End",
-        "Invo'Tech",
-        "CDD",
-        "Bordeaux",
-        "
-    Tous les 2 ou 3 mois, de nouveaux projets en mode Agile sur les dernières stacks technologiques, toujours effectuées depuis notre plateau Factory pour progresser et développer vos compétences.
-    15% du temps consacré à des journées de partage technique, exploration, hack time rythmées par nos tribus Web, Mobile, Cloud...
-    Journée de la Factory tous les mois : se retrouver physiquement en sortant des missions pour profiter et explorer ensemble !
-    Conférences privées organisées par Apple France, Microsoft
-    Des participations à des conférences locales, nationales, internationales (WWDC, AWS Summit)
-    Notre équipe de Chiefs Happiness Officiers bienveillants et surmotivés (animations, défis d'équipe) : Jeux de sociétés tous les midis, dans les locaux, events d'équipe mensuels, vrai bon café gratuit et illimité, baby-foot, mario-kart sur switch
-    Construire un avenir positif en mettant le digital au service de l'humain
-    La possibilité de développer votre expertise Web ou bien de monter en compétences aussi sur Android, sur iOS ou sur la xR (Unity / Unreal Engine) avec les experts de l'équipe
-    Évoluer dans une entreprise qui encourage l'audace, la curiosité et l'envie d'entreprendre
-",
-        "Junior",
-        "Présent",
-        "35k €/an",
-        "Ce que nous vous proposons :
-
-    Un accord télétravail pour télétravailler jusqu'à 2 jours par semaine selon vos missions.
-    Un package avantages intéressant : une mutuelle, un CSE, des titres restaurants, un accord d'intéressement, des primes vacances et cooptation.
-    Un accompagnement individualisé avec un mentor.
-    Des opportunités de carrières multiples : plus de 30 familles de métiers, autant de passerelles à imaginer ensemble.
-    Plusieurs centaines de formations accessibles en toute autonomie depuis l'app mobile avec Sopra Steria Academy.
-    La possibilité de s'engager auprès de notre fondation ou de notre partenaire « Vendredi ».
-    L'opportunité de rejoindre le collectif Tech'Me UP (formations, conférences, veille, et bien plus encore…).
-",
-        "marie@externatic.fr"
-    );
+    "Developpeur Web Front End",
+    "Invo'Tech",
+    "CDD",
+    "Bordeaux",
+    "Tous les 2 ou 3 mois, de nouveaux projets en mode Agile sur les dernières stacks technologiques, toujours effectuées depuis notre plateau Factory pour progresser et développer vos compétences. 15% du temps consacré à des journées de partage technique, exploration, hack time rythmées par nos tribus Web, Mobile, Cloud... Journée de la Factory tous les mois : se retrouver physiquement en sortant des missions pour profiter et explorer ensemble ! Conférences privées organisées par Apple France, Microsoft Des participations à des conférences locales, nationales, internationales (WWDC, AWS Summit) Notre équipe de Chiefs Happiness Officiers bienveillants et surmotivés (animations, défis d'équipe) : Jeux de sociétés tous les midis, dans les locaux, events d'équipe mensuels, vrai bon café gratuit et illimité, baby-foot, mario-kart sur switch Construire un avenir positif en mettant le digital au service de l'humain La possibilité de développer votre expertise Web ou bien de monter en compétences aussi sur Android, sur iOS ou sur la xR (Unity / Unreal Engine) avec les experts de l'équipe Évoluer dans une entreprise qui encourage l'audace, la curiosité et l'envie d'entreprendre",
+    "Junior",
+    "Présent",
+    "35k €/an",
+    "Ce que nous vous proposons : Un accord télétravail pour télétravailler jusqu'à 2 jours par semaine selon vos missions. Un package avantages intéressant : une mutuelle, un CSE, des titres restaurants, un accord d'intéressement, des primes vacances et cooptation. Un accompagnement individualisé avec un mentor.",
+    "marie@externatic.fr"
+), (
+    "Développeur Front-End",
+    "Diffusez",
+    "CDD",
+    "Lille",
+    "S’approprier le besoin métier Développement front-end Connaissance du W3C Intégrer fidèlement sur base d'une maquette Les missions seront réalisées sous la supervision du Responsable de Projet puis en autonomie selon les opportunités et l’évolution des compétences.",
+    "Junior",
+    "Présent",
+    "25k €/an",
+    "Ce que nous vous proposons : En étude d'informatique Autonome et organisé(e), tu es doté(e) d’un bon esprit d’analyse et d’innovation Esprit de synthèse, Réactivité, autonomie, rigueur et organisation Curieux, Esprit d'équipe, Respect des délais imposés.",
+    "marie@externatic.fr"
+);
 
 -- Créer la table "user_competence"
 CREATE TABLE

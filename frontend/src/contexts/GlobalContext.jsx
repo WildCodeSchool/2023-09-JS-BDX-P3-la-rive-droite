@@ -42,6 +42,22 @@ function GlobalContextProvider({ children, apiService }) {
   const passwordRegex =
     /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
+  // Renvoie sur la lien de l'offre avec le bon "id".
+  const viewOffer = async (id) => {
+    try {
+      const response = await fetch(`http://localhost:3310/api/offer/${id}`);
+      if (response.ok) {
+        const data = await response.json();
+        // setOffers(data);
+        navigate(data);
+      } else {
+        console.error("Echec de la récupération des données.");
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   const values = useMemo(
     () => ({
       getItemInLS,
@@ -62,6 +78,7 @@ function GlobalContextProvider({ children, apiService }) {
       user,
       setUser,
       apiService,
+      viewOffer,
     }),
     [
       getItemInLS,
@@ -82,6 +99,7 @@ function GlobalContextProvider({ children, apiService }) {
       user,
       setUser,
       apiService,
+      viewOffer,
     ]
   );
 
