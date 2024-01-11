@@ -99,7 +99,7 @@ function LogContextProvider({ children }) {
 }
 
 LogContextProvider.propTypes = {
-  children: PropTypes.element.isRequired,
+  children: PropTypes.node.isRequired,
 };
 
 export default LogContextProvider;
