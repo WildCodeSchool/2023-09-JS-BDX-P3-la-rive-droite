@@ -17,6 +17,19 @@ const getUsers = (_, res) => {
     });
 };
 
+const getUserById = async (req, res) => {
+  const id = +req.params.id;
+  try {
+    const [result] = await models.user.findId(id);
+    if (!result.length) {
+      return res.status(404).send({ error: "User not found" });
+    }
+    return res.send(result[0]);
+  } catch (error) {
+    return res.status(422).send({ error: error.message });
+  }
+};
+
 const postUser = (req, res) => {
   models.user
     .create(req.body)
@@ -94,4 +107,5 @@ module.exports = {
   postLogin,
   updateUser,
   getProfile,
+  getUserById,
 };
