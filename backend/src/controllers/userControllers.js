@@ -17,15 +17,23 @@ const getUsers = (_, res) => {
     });
 };
 
+const getUserById = async (req, res) => {
+  const id = +req.params.id;
+  try {
+    const [result] = await models.user.findId(id);
+    if (!result.length) {
+      return res.status(404).send({ error: "User not found" });
+    }
+    return res.send(result[0]);
+  } catch (error) {
+    return res.status(422).send({ error: error.message });
+  }
+};
+
 const postUser = (req, res) => {
   models.user
     .create(req.body)
     .then((rows) => {
-      const token = generateAccessToken({
-        id: rows.insertId,
-        email: req.body.email,
-        is_admin: req.body.is_admin,
-      });
       res.send({
         id: rows.insertId,
         firstname: req.body.firstname,
@@ -35,7 +43,6 @@ const postUser = (req, res) => {
         competence: req.body.competence,
         email: req.body.email,
         is_admin: req.body.is_admin,
-        token,
       });
     })
     .catch((err) => {
@@ -69,13 +76,36 @@ const postLogin = (req, res) => {
   });
 };
 
-// const putUser = (req, res) => {
-//   models.user.sigin(req.body).then((user) => {});
-// };
+const updateUser = async (req, res) => {
+  const id = parseInt(req.params.id, 10);
+  if (!id) {
+    res.sendStatus(500);
+  }
+
+  models.experience
+    .update(id, req.body)
+    .then((result) => {
+      if (result.affectedRows === 0) {
+        res.sendStatus(500);
+      }
+      res.sendStatus(200);
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(422).send({ error: error.message });
+    });
+};
+
+const getProfile = (req, res) => {
+  res.send(req.user);
+};
 
 module.exports = {
   getUsers,
   postUser,
   postSkills,
   postLogin,
+  updateUser,
+  getProfile,
+  getUserById,
 };

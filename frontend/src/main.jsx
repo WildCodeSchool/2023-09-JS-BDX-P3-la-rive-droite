@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import axios from "axios";
 import App from "./App";
 import Home from "./pages/HomeOffer/Home";
 import ReadOffer from "./pages/Offer/ReadOffer";
@@ -24,12 +25,25 @@ import UserContextProvider from "./contexts/UserContext";
 // Import Styles.
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "mdb-react-ui-kit/dist/css/mdb.min.css";
+import ApiService from "./services/api.service";
+
+const apiService = new ApiService();
 
 const router = createBrowserRouter([
   {
     path: "/",
+    loader: async () => {
+      try {
+        const data = await apiService.get("http://localhost:3310/api/users/me");
+        return { preloadUser: data ?? null };
+      } catch (err) {
+        console.error(err.message);
+        return null;
+      }
+    },
+
     element: (
-      <GlobalContextProvider>
+      <GlobalContextProvider apiService={apiService}>
         <UserContextProvider>
           <App />
         </UserContextProvider>
@@ -75,6 +89,17 @@ const router = createBrowserRouter([
           {
             path: "/edit-profile/cv",
             element: <CreateCV />,
+            loader: async () => {
+              try {
+                const data = await axios.get(
+                  "http://localhost:3310/api/users/:id/cvs"
+                );
+                return data;
+              } catch (err) {
+                console.error(err.message);
+                return null;
+              }
+            },
           },
           {
             path: "/edit-profile/experience",

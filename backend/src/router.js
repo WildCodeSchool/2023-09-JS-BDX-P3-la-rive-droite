@@ -7,32 +7,90 @@ const offerControllers = require("./controllers/offerControllers");
 const experienceControllers = require("./controllers/experienceControllers");
 const courseControllers = require("./controllers/courseControllers");
 const cvControllers = require("./controllers/cvControllers");
+const {
+  authMiddleware,
+  authAdminMiddleware,
+} = require("./middlewares/security/auth.middlewares");
 
-router.get("/users", userControllers.getUsers);
-router.post("/user", userControllers.postUser);
+router.get(
+  "/users",
+  authMiddleware,
+  authAdminMiddleware,
+  userControllers.getUsers
+);
+router.post("/users", userControllers.postUser);
 router.post("/user/skills", userControllers.postSkills);
-
+router.get("/users/:id([0-9]+)/cvs", authMiddleware, cvControllers.getCv);
+router.get(
+  "/user/:id([0-9]+)",
+  authMiddleware,
+  authAdminMiddleware,
+  userControllers.getUserById
+);
+router.get("/users/me", authMiddleware, userControllers.getProfile);
 router.post("/login", userControllers.postLogin);
 
 router.get("/offer", offerControllers.getOffers);
-router.get("/offer/:id", offerControllers.getOfferById);
-router.post("/offer", offerControllers.postOffer);
-router.delete("/offer/:id", offerControllers.deleteOfferById);
+router.get("/offer/:id([0-9]+)", offerControllers.getOfferById);
+router.post(
+  "/offer",
+  authMiddleware,
+  authAdminMiddleware,
+  offerControllers.postOffer
+);
+router.delete(
+  "/offer/:id([0-9]+)",
+  authMiddleware,
+  authAdminMiddleware,
+  offerControllers.deleteOfferById
+);
 
-router.get("/experiences", experienceControllers.getExperiences);
-router.get("/experience/:id", experienceControllers.getExperienceById);
-router.post("/experience", experienceControllers.postExperience);
-router.put("/experience/:id", experienceControllers.updateExperience);
-router.delete("/experience/:id", experienceControllers.deleteExperienceById);
+router.get(
+  "/experiences",
+  authMiddleware,
+  experienceControllers.getExperiences
+);
+router.get(
+  "/experience/:id([0-9]+)",
+  authMiddleware,
+  experienceControllers.getExperienceById
+);
+router.post(
+  "/experience",
+  authMiddleware,
+  experienceControllers.postExperience
+);
+router.put(
+  "/experience/:id([0-9]+)",
+  authMiddleware,
+  experienceControllers.updateExperience
+);
+router.delete(
+  "/experience/:id([0-9]+)",
+  authMiddleware,
+  experienceControllers.deleteExperienceById
+);
 
-router.get("/course", courseControllers.getCourse);
-router.get("/course/:id", courseControllers.getCourseById);
-router.post("/course", courseControllers.postCourse);
-router.put("/course/:id", courseControllers.updateCourse);
-router.delete("/course/:id", courseControllers.deleteCourseById);
+router.get("/course", authMiddleware, courseControllers.getCourse);
+router.get(
+  "/course/:id([0-9]+)",
+  authMiddleware,
+  courseControllers.getCourseById
+);
+router.post("/course", authMiddleware, courseControllers.postCourse);
+router.put(
+  "/course/:id([0-9]+)",
+  authMiddleware,
+  courseControllers.updateCourse
+);
+router.delete(
+  "/course/:id([0-9]+)",
+  authMiddleware,
+  courseControllers.deleteCourseById
+);
 
-router.get("/cvs/:userId", cvControllers.getCv);
-router.post("/cvs", cvControllers.postCv);
+router.post("/cvs", authMiddleware, authAdminMiddleware, cvControllers.postCv);
+
 // router.post("/signin", userControllers.postUser);
 // router.update("/signin", userControllers.putUser);
 module.exports = router;
