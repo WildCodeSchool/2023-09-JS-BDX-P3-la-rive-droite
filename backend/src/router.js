@@ -27,6 +27,7 @@ router.get(
   userControllers.getUserById
 );
 router.get("/users/me", authMiddleware, userControllers.getProfile);
+router.get("/user/profile", authMiddleware, userControllers.getInfoProfile);
 router.post("/login", userControllers.postLogin);
 
 router.get("/offer", offerControllers.getOffers);
