@@ -56,11 +56,11 @@ const postSkills = (req, res) => {
   models.user
     .skills(req.body)
     .then((rows) => {
-      res.sendStatus(201).send(rows);
+      res.status(201).send(rows);
     })
     .catch((err) => {
       console.error(err);
-      res.send({ message: err.message });
+      res.status(500).json({ message: err.message });
     });
 };
 

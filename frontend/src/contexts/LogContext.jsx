@@ -38,7 +38,7 @@ function LogContextProvider({ children }) {
 
       const result = await apiService.get("http://localhost:3310/api/users/me");
 
-      alert(`Content de vous revoir ${result.data.email}`);
+      // alert(`Content de vous revoir ${result.data.email}`);
       setUser(result.data);
       if (result.data.isAdmin === 1) {
         return navigate("/dashboard");
@@ -46,7 +46,7 @@ function LogContextProvider({ children }) {
       return navigate("/");
     } catch (err) {
       console.error(err);
-      alert(err.message);
+      // alert(err.message);
     }
 
     return null;
@@ -100,7 +100,7 @@ function LogContextProvider({ children }) {
 }
 
 LogContextProvider.propTypes = {
-  children: PropTypes.element.isRequired,
+  children: PropTypes.node.isRequired,
 };
 
 export default LogContextProvider;

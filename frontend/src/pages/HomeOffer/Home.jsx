@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
-import CardOffre from "../../components/CardModel/CardOffre";
+// import CardOffre from "../../components/CardModel/CardOffre";
 import HeaderLongResearch from "../../components/Headers/HeaderLongResearch";
 import ButtonMini from "../../components/Boutons/ButtonMini";
+import { useGlobalContext } from "../../contexts/GlobalContext";
 import "./Home.css";
 // import axios from "axios";
 
 function Home() {
+  const { goToOffer } = useGlobalContext();
+
   const [offers, setOffers] = useState([]);
 
   useEffect(() => {
@@ -44,10 +47,10 @@ function Home() {
       <div className="container-page">
         <h2>Les offres qui matchent !</h2>
         <div className="offer-container">
+          {/* <CardOffre />
           <CardOffre />
           <CardOffre />
-          <CardOffre />
-          <CardOffre />
+          <CardOffre /> */}
           {offers.map((offer, key) => (
             <div className="card-container" key={key.id}>
               <div className="card-icons">
@@ -62,7 +65,10 @@ function Home() {
                 {offer.type} - {offer.city} - Publiée le 24/11/2023
               </h5>
               <p className="p-description ">{offer.info}</p>
-              <ButtonMini textBtn="Postuler" />
+              <ButtonMini
+                textBtn="Postuler"
+                onClick={() => goToOffer(offer.id)}
+              />
             </div>
           ))}
         </div>
@@ -70,4 +76,5 @@ function Home() {
     </>
   );
 }
+
 export default Home;

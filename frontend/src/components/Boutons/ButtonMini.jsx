@@ -11,10 +11,11 @@ function ButtonMini({ textBtn, onClick }) {
   );
 }
 ButtonMini.propTypes = {
-  textBtn: PropTypes.string.isRequired,
+  textBtn: PropTypes.string,
   onClick: PropTypes.func,
 };
 ButtonMini.defaultProps = {
+  textBtn: "Enregistrer",
   onClick: () => {},
 };
 export default ButtonMini;

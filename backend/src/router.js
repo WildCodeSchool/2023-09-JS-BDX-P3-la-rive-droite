@@ -12,13 +12,13 @@ const {
   authAdminMiddleware,
 } = require("./middlewares/security/auth.middlewares");
 
+/* USER. */
 router.get(
   "/users",
   authMiddleware,
   authAdminMiddleware,
   userControllers.getUsers
 );
-router.post("/users", userControllers.postUser);
 router.get("/users/:id([0-9]+)/cvs", authMiddleware, cvControllers.getCv);
 router.get(
   "/user/:id([0-9]+)",
@@ -27,8 +27,11 @@ router.get(
   userControllers.getUserById
 );
 router.get("/users/me", authMiddleware, userControllers.getProfile);
+router.post("/users", userControllers.postUser);
+router.post("/user/skills", userControllers.postSkills);
 router.post("/login", userControllers.postLogin);
 
+/* OFFERS. */
 router.get("/offer", offerControllers.getOffers);
 router.get("/offer/:id([0-9]+)", offerControllers.getOfferById);
 router.post(
@@ -44,6 +47,7 @@ router.delete(
   offerControllers.deleteOfferById
 );
 
+/* EXPERIENCES. */
 router.get(
   "/experiences",
   authMiddleware,
@@ -70,6 +74,7 @@ router.delete(
   experienceControllers.deleteExperienceById
 );
 
+/* COURSES. */
 router.get("/course", authMiddleware, courseControllers.getCourse);
 router.get(
   "/course/:id([0-9]+)",
@@ -88,6 +93,7 @@ router.delete(
   courseControllers.deleteCourseById
 );
 
+/* CV. */
 router.post("/cvs", authMiddleware, authAdminMiddleware, cvControllers.postCv);
 
 // router.post("/signin", userControllers.postUser);

@@ -14,5 +14,9 @@ ButtonMaxi.propTypes = {
   textBtn: PropTypes.string.isRequired,
   clickFunc: PropTypes.func.isRequired,
 };
+// ButtonMaxi.defaultProps = {
+//   textBtn: "Enregistrer",
+//   clickFunc: () => {},
+// };
 
 export default ButtonMaxi;
