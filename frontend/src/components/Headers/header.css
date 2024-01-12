@@ -1,9 +1,9 @@
 .header {
   color: var(--first-title-color);
   background-color: var(--main-color);
-  padding-bottom: 50px;
+  padding-bottom: 40px;
   margin-top: -50px;
-  padding-top: 70px;
+  padding-top: 80px;
 }
 
 .header.with-round-bottom {
@@ -79,4 +79,13 @@
   font-size: 16px;
   font-weight: 500;
   margin-top: 5px;
+}
+
+@media screen and (min-width: 1000px) {
+  .header {
+    padding-bottom: 100px;
+  }
+  .with-round-bottom {
+    margin-bottom: 50px;
+  }
 }

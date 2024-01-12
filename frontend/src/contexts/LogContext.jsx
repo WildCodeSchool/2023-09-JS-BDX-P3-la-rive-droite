@@ -16,6 +16,7 @@ function LogContextProvider({ children }) {
   } = useGlobalContext();
 
   const [userConnected, setUserConnected] = useState(false);
+
   const [logIn, setLogIn] = useState({
     email: "",
     password: "",

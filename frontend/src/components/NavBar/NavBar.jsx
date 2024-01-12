@@ -10,9 +10,14 @@ import {
   MDBNavbarBrand,
   MDBCollapse,
 } from "mdb-react-ui-kit";
+
+import { useGlobalContext } from "../../contexts/GlobalContext";
+
 // import logo from "../../assets/ext-logo.png";
 
 export default function Navbar() {
+  const { user, handleLogout } = useGlobalContext();
+
   const [openNavColor, setOpenNavColor] = useState(false);
   useEffect(() => {
     window.addEventListener("resize", () => {
@@ -22,7 +27,7 @@ export default function Navbar() {
 
   return (
     <>
-      <MDBNavbar expand="lg" dark className="navbar-bg-color">
+      <MDBNavbar expand="lg" dark className="navbar-bg-color no-shadow ">
         <MDBContainer fluid>
           <MDBNavbarBrand href="#">
             <span className="navbar-big-logo">
@@ -52,12 +57,29 @@ export default function Navbar() {
                 <span className="navbar-link">Favoris</span>
               </Link>
 
-              <Link to="/admin">
+              <Link to="/dashboard">
                 <span className="navbar-link">Espace admin</span>
               </Link>
-              <Link to="/">
-                <span className="navbar-link">Déconnection</span>
-              </Link>
+
+              <div className="btn-nav">
+                {user ? (
+                  <div>
+                    {/* <p>Bienvenue</p> */}
+                    <button type="button" onClick={handleLogout}>
+                      Se déconnecter
+                    </button>
+                  </div>
+                ) : (
+                  <>
+                    <Link to="/login">
+                      <span className="navbar-link">Se connecter</span>
+                    </Link>
+                    <Link to="/signin">
+                      <span className="navbar-link">S'inscrire</span>
+                    </Link>
+                  </>
+                )}
+              </div>
             </MDBNavbarNav>
           </MDBCollapse>
         </MDBContainer>

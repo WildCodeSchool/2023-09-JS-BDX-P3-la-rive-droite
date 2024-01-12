@@ -14,7 +14,7 @@ function Dashboard1() {
 
   return window.location.pathname === "/dashboard" ||
     window.location.pathname === "/dashboard/" ? (
-    <div>
+    <div className="container">
       <div className="title-btn">
         <h4 className="tab">Tableau de bord</h4>
         <ButtonMini textBtn="Ajouter une offre" onClick={handleAddOffer} />
