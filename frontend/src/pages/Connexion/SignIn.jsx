@@ -33,26 +33,6 @@ function SignIn() {
 
   const { signIn, setSignIn, skills, setSkills } = useSignContext();
 
-  // const handleSubmit = (event) => {
-  //   event.preventDefault();
-  //   const formulaire = event.target;
-  //   const valeurs = {};
-
-  //   // Itérer à travers tous les éléments du formulaire
-  //   for (let i = 0; i < formulaire.elements.length; i += 1) {
-  //     const element = formulaire.elements[i];
-  //     // Vérifier si l'élément est un champ de formulaire avec une valeur
-  //     if (element.hasAttribute("data-competence") && element.checked) {
-  //       if (valeurs.competences === undefined) {
-  //         valeurs.competences = [];
-  //       }
-  //       valeurs.competences.push(element.value);
-  //     } else if (element.type !== "submit" && element.value) {
-  //       valeurs[element.name] = element.value;
-  //     }
-  //   }
-  // };
-
   const handleSubmitSignIn = (event) => {
     event.preventDefault();
     if (
@@ -108,7 +88,7 @@ function SignIn() {
         setSuccesMsg(false);
       }, 2000);
 
-      axios.post("http://localhost:3010/api/user", signIn);
+      axios.post("http://localhost:3310/api/users", signIn);
       // axios.post("http://localhost:3310/api/users", signIn);
       // axios.post("http://localhost:3010/api/user/skills/", skills);
 
@@ -131,7 +111,7 @@ function SignIn() {
         }, 2000);
       } else {
         setTimeout(() => {
-          navigate("/");
+          navigate("/login");
         }, 2000);
       }
     }
@@ -172,7 +152,7 @@ function SignIn() {
                 handleChange(setSignIn, "password2", event)
               }
             />
-            <div className="container-page">
+            <div className="container-coordonnees">
               <Title titleText="Vos coordonnées" />
               <Input
                 titleInput="Nom *"
@@ -284,7 +264,7 @@ function SignIn() {
               </div>
             </div>
             <CheckboxCondition
-              textCondition="J'accepte les conditions d' *"
+              textCondition="J'accepte les conditions générales d'Externatic"
               valueInput={signIn}
               fieldName="cguAgree"
               handleChange={() => handleCheckboxChange(setSignIn, "cguAgree")}

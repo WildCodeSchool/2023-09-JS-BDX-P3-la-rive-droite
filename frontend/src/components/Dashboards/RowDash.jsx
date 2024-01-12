@@ -41,7 +41,7 @@ const OfferDash = [
 ];
 
 function RowDash() {
-  const { viewOffer } = useGlobalContext();
+  const { goToOffer } = useGlobalContext();
 
   const [offers, setOffers] = useState([]);
 
@@ -75,7 +75,7 @@ function RowDash() {
             <p className="bigArray-box">{offer.email}</p>
             <div className="icon-dash">
               <i className="fa-solid fa-pen" />
-              <button type="button" onClick={() => viewOffer(offer.id)}>
+              <button type="button" onClick={() => goToOffer(offer.id)}>
                 .
                 <i className="fa-solid fa-eye" />.
               </button>

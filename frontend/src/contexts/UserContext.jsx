@@ -82,6 +82,7 @@ function UserContextProvider({ children }) {
     () => ({
       editProfile,
       setEditProfile,
+
       addCv,
       setAddCv,
       handleAddCv,
