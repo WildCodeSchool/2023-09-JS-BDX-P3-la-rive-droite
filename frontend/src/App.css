@@ -59,6 +59,10 @@ body {
   font-size: 20px;
   width: 90%;
 }
+.invisible-button {
+  background-color: transparent;
+  border: none;
+}
 
 /* Style des paragraphes*/
 .p-description {

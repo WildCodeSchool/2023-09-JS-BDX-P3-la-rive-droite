@@ -78,16 +78,23 @@ function UserContextProvider({ children }) {
   };
   useEffect(() => {}, [cvSaved]);
 
+  const [favorites, setFavorites] = useState([]);
+
+  const toggleFavorite = (idAnnonce) => {
+    const newListe = [...favorites, idAnnonce];
+    setFavorites(newListe);
+  };
+
   const userContextValues = useMemo(
     () => ({
       editProfile,
       setEditProfile,
-
       addCv,
       setAddCv,
       handleAddCv,
+      toggleFavorite,
     }),
-    [editProfile, setEditProfile, addCv, setAddCv, handleAddCv]
+    [editProfile, setEditProfile, addCv, setAddCv, handleAddCv, toggleFavorite]
   );
 
   return (
