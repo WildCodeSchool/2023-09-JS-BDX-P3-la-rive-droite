@@ -120,8 +120,6 @@ function SignIn() {
         address: "",
       });
 
-      // console.log(signIn);
-
       // setUserConnected(true);
 
       if (signIn.addCvNow === true) {
