@@ -8,11 +8,12 @@ import AddSomething from "../../components/Add Something/AddSomething";
 import HeaderLongUser from "../../components/Headers/HeaderLongUser";
 import { useGlobalContext } from "../../contexts/GlobalContext";
 import { useUserContext } from "../../contexts/UserContext";
+import { useSignContext } from "../../contexts/SignContext";
 
 function UserProfileUser() {
   const { handleChange, handleCheckboxChange } = useGlobalContext();
-  const { editProfile, setEditProfile, handleSubmitProfile, setAddSkills } =
-    useUserContext();
+  const { handleSubmitProfile, setAddSkills } = useUserContext();
+  const { signIn, setSignIn } = useSignContext();
   const [getProfile, setGetProfile] = useState([]);
   useEffect(() => {
     const getProfileUser = async () => {
@@ -39,60 +40,49 @@ function UserProfileUser() {
       <>
         <HeaderLongUser />
         {getProfile.map((profil, key) => (
-          <div className="container-page">
-            <Title titleText="Vos coordonnées" key={key.id} />
+          <div className="container-page" key={key.id}>
+            <Title titleText="Vos coordonnées" />
             <Input
               titleInput="Nom *"
               holderText={profil.lastname}
               fieldName="lastname"
-              valueInput={editProfile}
+              valueInput={signIn}
+              handleChange={(event) =>
+                handleChange(setSignIn, "lastName", event)
+              }
             />
             <Input
               titleInput="Prénom *"
-              holderText="Votre prénom"
+              holderText={profil.firstname}
               fieldName="firstname"
-              valueInput={editProfile}
+              valueInput={signIn}
               handleChange={(event) =>
-                handleChange(setEditProfile, "firstName", event)
+                handleChange(setSignIn, "firstName", event)
               }
             />
             <Input
               titleInput="Email *"
-              holderText="Email"
+              holderText={profil.mail}
               fieldName="email"
-              valueInput={editProfile}
-              handleChange={(event) =>
-                handleChange(setEditProfile, "email", event)
-              }
-            />
-            <Input
-              titleInput="Mot de passess *"
-              holderText="Mot de passe"
-              fieldName="password"
-              typeInput="password"
-              valueInput={editProfile}
-              handleChange={(event) =>
-                handleChange(setEditProfile, "password", event)
-              }
+              valueInput={signIn}
+              handleChange={(event) => handleChange(setSignIn, "email", event)}
             />
             <Input
               titleInput="Téléphone *"
-              holderText="Numéro de téléphone"
+              holderText={profil.phone}
               fieldName="phone"
               typeInput="tel"
-              valueInput={editProfile}
-              handleChange={(event) =>
-                handleChange(setEditProfile, "phone", event)
-              }
+              valueInput={signIn}
+              handleChange={(event) => handleChange(setSignIn, "phone", event)}
             />
             <Input
               titleInput="Addresse *"
-              holderText="Adresse"
+              holderText={profil.address}
               fieldName="address"
               inputType="text"
-              valueInput={editProfile}
+              valueInput={signIn}
               handleChange={(event) =>
-                handleChange(setEditProfile, "address", event)
+                handleChange(setSignIn, "address", event)
               }
             />
             <div className="container-switch">
