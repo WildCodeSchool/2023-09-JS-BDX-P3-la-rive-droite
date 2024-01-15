@@ -43,16 +43,36 @@ function AdminContextProvider({ children }) {
         setErrorMsg(false);
       }, 4000);
     } else {
-      // try {
       axios.post(`http://localhost:3310/api/offer`, addOffer);
-      // } catch (err) {
-      //   console.error(err);
-      //   setErrorMsg(true);
-      //   setMsgContent("Veuillez remplir tous les champs");
-      //   setTimeout(() => {
-      //     setErrorMsg(false);
-      //   }, 4000);
-      // }
+      // const postOffer = async () => {
+      //   try {
+      //     const url = "http://localhost:3310/api/offer";
+      //     const payload = {
+      //       addOffer,
+      //     };
+
+      //     const response = await fetch(url, {
+      //       method: "POST",
+      //       headers: {
+      //         "Content-Type": "application/json",
+      //         // Ajoutez d'autres en-têtes si nécessaire
+      //       },
+      //       body: JSON.stringify(payload),
+      //     });
+
+      //     if (response.ok) {
+      //       const data = await response.json();
+      //       // Faites quelque chose avec les données reçues, si nécessaire
+      //       // console.log(data);
+      //     } else {
+      //       console.error("Echec de la requête POST.");
+      //     }
+      //   } catch (err) {
+      //     console.error(err);
+      //   }
+      // };
+
+      // postOffer();
 
       setMsgContent("L'offre à été ajouté avec");
       setSuccesMsg(true);
@@ -72,7 +92,6 @@ function AdminContextProvider({ children }) {
         info: "",
         email: "",
       });
-      // saveItemInLS("Offer", offerSaved);
     }
   };
 
