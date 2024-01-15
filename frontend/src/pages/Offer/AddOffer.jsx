@@ -13,8 +13,66 @@ import SuccesMsg from "../../components/Alertes Messages/SuccesMsg";
 import "./add-offer.css";
 
 function AddOffer() {
-  const { handleAddOffer, addOffer, setAddOffer } = useAdminContext();
-  const { errorMsg, succesMsg, msgContent, handleChange } = useGlobalContext();
+  const { addOffer, setAddOffer } = useAdminContext();
+  const {
+    errorMsg,
+    setErrorMsg,
+    succesMsg,
+    setSuccesMsg,
+    msgContent,
+    setMsgContent,
+    handleChange,
+    apiService,
+  } = useGlobalContext();
+
+  const handleAddOffer = () => {
+    if (
+      addOffer.title === "" ||
+      addOffer.company === "" ||
+      addOffer.type === "" ||
+      addOffer.city === "" ||
+      addOffer.mission === "" ||
+      addOffer.search_profile === "" ||
+      addOffer.work_place === "" ||
+      addOffer.salary === "" ||
+      addOffer.info === "" ||
+      addOffer.email === ""
+    ) {
+      setErrorMsg(true);
+      setMsgContent("Veuillez remplir tous les champs");
+      setTimeout(() => {
+        setErrorMsg(false);
+      }, 4000);
+    } else {
+      const postOffer = async () => {
+        apiService.post(`http://localhost:3310/api/offer`, addOffer);
+      };
+
+      postOffer();
+
+      // console.log(addOffer);
+
+      setMsgContent("L'offre à été ajouté avec");
+      setSuccesMsg(true);
+      setTimeout(() => {
+        setSuccesMsg(false);
+      }, 4000);
+
+      setAddOffer({
+        title: "",
+        company: "",
+        type: "",
+        city: "",
+        mission: "",
+        search_profile: "",
+        work_place: "",
+        salary: "",
+        info: "",
+        email: "",
+      });
+    }
+  };
+
   return (
     <div>
       <div className="page-offer">
