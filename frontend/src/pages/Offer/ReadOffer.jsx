@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import axios from "axios";
+// import axios from "axios";
 import HeaderCourt from "../../components/Headers/HeaderCourt";
 import ButtonMaxi from "../../components/Boutons/ButtonMaxi";
 // Import du style.
@@ -12,30 +12,15 @@ function ReadOffer() {
   const { id } = useParams();
 
   useEffect(() => {
-    // const getOffer = async () => {
-    //   try {
-    //     const response = await fetch(`https://localhost:3310/api/offer/12`);
-    //     if (response.ok) {
-    //       const data = await response.json();
-    //       // console.log(data);
-    //       setOffers(data);
-    //       // console.log(offers);
-    //     } else {
-    //       console.error("Echec de la récupération des données.");
-    //     }
-    //   } catch (err) {
-    //     console.error(err);
-    //   }
-    // };
-
-    // getOffer();
-
     const getOffer = async () => {
       try {
-        const response = await axios.get(
-          `http://localhost:3310/api/offer/${id}`
-        );
-        setOffer(response.data);
+        const response = await fetch(`http://localhost:3310/api/offer/${id}`);
+        if (response.ok) {
+          const data = await response.json();
+          setOffer(data);
+        } else {
+          console.error("Echec de la récupération des données.");
+        }
       } catch (err) {
         console.error(err);
       }
