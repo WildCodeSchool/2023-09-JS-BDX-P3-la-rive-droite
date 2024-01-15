@@ -84,7 +84,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/edit-profile",
-        element: <UserProfileModel />,
+        element: (
+          <SignContextProvider>
+            <UserProfileModel />
+          </SignContextProvider>
+        ),
         children: [
           {
             path: "/edit-profile/cv",

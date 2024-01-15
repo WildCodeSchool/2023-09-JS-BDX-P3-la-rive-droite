@@ -21,7 +21,7 @@ router.get(
 );
 router.get("/users/:id([0-9]+)/cvs", authMiddleware, cvControllers.getCv);
 router.get(
-  "/user/:id([0-9]+)",
+  "/users/:id([0-9]+)",
   authMiddleware,
   authAdminMiddleware,
   userControllers.getUserById
