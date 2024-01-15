@@ -17,3 +17,7 @@
 .container-switch {
   margin-top: 50px;
 }
+
+.container-switch.label-champs {
+  margin-top: 520px;
+}

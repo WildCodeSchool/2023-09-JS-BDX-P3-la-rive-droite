@@ -114,6 +114,10 @@ body {
   background-color: white;
 }
 
+.container-page h2 {
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
 .container-page.with-rounded-border {
   border-top-left-radius: 50px;
   border-top-right-radius: 50px;

@@ -28,7 +28,7 @@
   margin-bottom: 30px;
 }
 
-.submit-btn-mini {
+/* .submit-btn-mini {
   background-color: var(--second-color);
   color: var(--text-btn);
   padding: 30px 0;
@@ -40,7 +40,7 @@
   width: 100%;
   margin-top: -20px;
   align-items: center;
-}
+} */
 
 .ref {
   margin-top: -50px;

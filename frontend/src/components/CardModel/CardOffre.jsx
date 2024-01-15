@@ -3,6 +3,12 @@ import ButtonMini from "../Boutons/ButtonMini";
 import "./card-model.css";
 
 function CardOffre({ toggleFavorite, offer, goToOffer }) {
+  const trimText = (chaine, limite) => {
+    if (chaine.length <= limite) {
+      return chaine;
+    }
+    return `${chaine.slice(0, limite)}...`;
+  };
   return (
     <div className="card-container">
       <div className="card-icons">
@@ -25,7 +31,7 @@ function CardOffre({ toggleFavorite, offer, goToOffer }) {
       <h5 className="poste-champs">
         {offer.type} - {offer.city}
       </h5>
-      <p className="p-description ">{offer.info}</p>
+      <p className="p-description ">{trimText(offer.info, 250)}</p>
       <ButtonMini textBtn="Postuler" onClick={() => goToOffer(offer.id)} />
     </div>
   );
