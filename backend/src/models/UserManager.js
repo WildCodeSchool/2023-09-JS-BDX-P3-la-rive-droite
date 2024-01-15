@@ -82,10 +82,9 @@ class UserManager extends AbstractManager {
   }
 
   getProfile(id) {
-    return this.database.query(
-      `SELECT id, email, is_admin AS isAdmin FROM ${this.table} WHERE id = ?`,
-      [id]
-    );
+    return this.database.query(`SELECT * FROM ${this.table} WHERE id = ?`, [
+      id,
+    ]);
   }
 
   static hashPassword(password, workFactor = 5) {
