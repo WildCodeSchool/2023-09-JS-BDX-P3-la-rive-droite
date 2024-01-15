@@ -82,6 +82,7 @@ function UserContextProvider({ children }) {
     () => ({
       editProfile,
       setEditProfile,
+
       addCv,
       setAddCv,
       handleAddCv,
@@ -97,7 +98,7 @@ function UserContextProvider({ children }) {
 }
 
 UserContextProvider.propTypes = {
-  children: PropTypes.element.isRequired,
+  children: PropTypes.node.isRequired,
 };
 
 export default UserContextProvider;

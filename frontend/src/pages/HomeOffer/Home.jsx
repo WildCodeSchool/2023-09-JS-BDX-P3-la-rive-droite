@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from "react";
-import CardOffre from "../../components/CardModel/CardOffre";
+// import CardOffre from "../../components/CardModel/CardOffre";
 import HeaderLongResearch from "../../components/Headers/HeaderLongResearch";
 import ButtonMini from "../../components/Boutons/ButtonMini";
+import { useGlobalContext } from "../../contexts/GlobalContext";
+import "./Home.css";
 // import axios from "axios";
 
 function Home() {
+  const { goToOffer } = useGlobalContext();
+
   const [offers, setOffers] = useState([]);
 
   useEffect(() => {
@@ -42,28 +46,35 @@ function Home() {
       <HeaderLongResearch textTitle="Bienvenue sur" textTitle2="nos offres" />
       <div className="container-page">
         <h2>Les offres qui matchent !</h2>
-        <CardOffre />
-        <CardOffre />
-        <CardOffre />
-        {offers.map((offer, key) => (
-          <div className="card-container" key={key.id}>
-            <div className="card-icons">
-              <div className="icon-view">
-                <i className="fa-regular fa-heart" />
+        <div className="offer-container">
+          {/* <CardOffre />
+          <CardOffre />
+          <CardOffre />
+          <CardOffre /> */}
+          {offers.map((offer, key) => (
+            <div className="card-container" key={key.id}>
+              <div className="card-icons">
+                <div className="icon-view">
+                  <i className="fa-regular fa-heart" />
+                </div>
               </div>
-            </div>
 
-            <h3 className="label-offre">{offer.title}</h3>
-            <h4 className="entreprise-champs">{offer.company}</h4>
-            <h5 className="poste-champs">
-              {offer.type} - {offer.city} - Publiée le 24/11/2023
-            </h5>
-            <p className="p-description ">{offer.info}</p>
-            <ButtonMini textBtn="Postuler" />
-          </div>
-        ))}
+              <h3 className="label-offre">{offer.title}</h3>
+              <h4 className="entreprise-champs">{offer.company}</h4>
+              <h5 className="poste-champs">
+                {offer.type} - {offer.city} - Publiée le 24/11/2023
+              </h5>
+              <p className="p-description ">{offer.info}</p>
+              <ButtonMini
+                textBtn="Postuler"
+                onClick={() => goToOffer(offer.id)}
+              />
+            </div>
+          ))}
+        </div>
       </div>
     </>
   );
 }
+
 export default Home;

@@ -1,0 +1,15 @@
+@media all and (min-width: 1000px) {
+  .offer-container {
+    margin-top: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .offer-container:last-child {
+    justify-content: flex-start;
+  }
+
+  .card-container {
+    width: 30%;
+  }
+}

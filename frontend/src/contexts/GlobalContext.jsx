@@ -38,9 +38,39 @@ function GlobalContextProvider({ children, apiService }) {
     }));
   };
 
+  const handleLogout = () => {
+    localStorage.setItem("token", null);
+
+    apiService.setToken(null);
+    setUser(null);
+    alert(`Déconnexion réussie`);
+    return navigate("/");
+  };
+
   const emailRegex = /[a-z0-9._]+@[a-z0-9-]+\.[a-z]{2,3}/;
   const passwordRegex =
     /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+  const goToOffer = (id) => {
+    navigate(`/offer/${id}`);
+  };
+
+  // Renvoie sur la lien de l'offre avec le bon "id".
+  // const viewOffer = async (id) => {
+  //   try {
+  //     const response = await fetch(`http://localhost:3310/api/offer/${id}`);
+  //     if (response.ok) {
+  //       const data = await response.json();
+  //       console.log(data);
+  //       // setOffers(data);
+  //       navigate(`/offer/${id}`);
+  //     } else {
+  //       console.error("Echec de la récupération des données.");
+  //     }
+  //   } catch (err) {
+  //     console.error(err);
+  //   }
+  // };
 
   const values = useMemo(
     () => ({
@@ -62,6 +92,8 @@ function GlobalContextProvider({ children, apiService }) {
       user,
       setUser,
       apiService,
+      handleLogout,
+      goToOffer,
     }),
     [
       getItemInLS,
@@ -82,6 +114,8 @@ function GlobalContextProvider({ children, apiService }) {
       user,
       setUser,
       apiService,
+      handleLogout,
+      goToOffer,
     ]
   );
 

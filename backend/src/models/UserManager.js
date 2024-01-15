@@ -24,22 +24,44 @@ class UserManager extends AbstractManager {
     });
   }
 
+  // Ancienne méthode.
+  // skills(user) {
+  //   return this.database.query(
+  //     `INSERT INTO skill (html, css, javascript, angular, react, php, symphony, git, github, trello) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+  //     [
+  //       user.html,
+  //       user.css,
+  //       user.javascript,
+  //       user.angular,
+  //       user.react,
+  //       user.php,
+  //       user.symphony,
+  //       user.git,
+  //       user.github,
+  //       user.trello,
+  //     ]
+  //   );
+  // }
+
   skills(user) {
-    return this.database.query(
-      `INSERT INTO skill (html, css, javascript, angular, react, php, symphony, git, github, trello) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-      [
-        user.html,
-        user.css,
-        user.javascript,
-        user.angular,
-        user.react,
-        user.php,
-        user.symphony,
-        user.git,
-        user.github,
-        user.trello,
-      ]
+    const columns = Object.keys(user).filter((key) => user[key] === true);
+
+    if (columns.length === 0) {
+      // Aucune compétence à insérer
+      return Promise.resolve(); // ou une autre logique adaptée
+    }
+
+    const values = columns.map((key) => ({ name: key, confirmed: user[key] }));
+
+    const placeholders = Array(values.length).fill("(?, ?)").join(", ");
+    const flattenedValues = values.reduce(
+      (acc, val) => acc.concat([val.name, val.confirmed]),
+      []
     );
+
+    const query = `INSERT INTO competence (name, confirmed) VALUES ${placeholders}`;
+
+    return this.database.query(query, flattenedValues);
   }
 
   async login(user) {

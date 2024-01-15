@@ -23,3 +23,7 @@ span {
   display: flex;
   justify-content: center;
 }
+
+.container-coordonnees {
+  margin-top: 50px;
+}

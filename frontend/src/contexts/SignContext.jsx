@@ -16,6 +16,9 @@ function SignContextProvider({ children }) {
     address: "",
     cguAgree: false,
     addCvNow: false,
+  });
+
+  const [skills, setSkills] = useState({
     html: false,
     css: false,
     javascript: false,
@@ -28,55 +31,14 @@ function SignContextProvider({ children }) {
     trello: false,
   });
 
-  const [userConnected, setUserConnected] = useState(false);
-  const [userSaved, setUserSaved] = useState([]);
-
-  // Enregistrement dans le "Local Storage".
-  // const saveUser = async (newUser) => {
-  //   try {
-  //     const { data } = await axios.post(
-  //       `http://localhost:3310/api/signin`,
-  //       newUser
-  //     );
-  //     localStorage.setItem("token", data.token);
-  //     const tokenData = jwtDecode(data.token);
-  //     setUserSaved(
-  //       await axios.post("http://localhost:3310/api/users", newUser)
-  //     );
-  //     setSuccesMsg(true);
-  //     setMsgContent(`Bienvenue, connexion avec ${tokenData.firstname}`);
-  //     setTimeout(() => {
-  //       setSuccesMsg(false);
-  //       navigate("/");
-  //     }, 3000);
-  //   } catch (err) {
-  //     setErrorMsg(true);
-  //     setMsgContent("Identifiants non valides.");
-  //     setTimeout(() => {
-  //       setErrorMsg(false);
-  //     }, 4000);
-  //   }
-  // };
-
   const contextValues = useMemo(
     () => ({
       signIn,
       setSignIn,
-      userSaved,
-      setUserSaved,
-      // handleCheckboxChange,
-      userConnected,
-      setUserConnected,
+      skills,
+      setSkills,
     }),
-    [
-      signIn,
-      setSignIn,
-      userSaved,
-      setUserSaved,
-      // handleCheckboxChange,
-      userConnected,
-      setUserConnected,
-    ]
+    [signIn, setSignIn, skills, setSkills]
   );
 
   return (
@@ -87,7 +49,7 @@ function SignContextProvider({ children }) {
 }
 
 SignContextProvider.propTypes = {
-  children: PropTypes.element.isRequired,
+  children: PropTypes.node.isRequired,
 };
 
 export default SignContextProvider;
