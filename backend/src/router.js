@@ -21,13 +21,12 @@ router.get(
 router.post("/users", userControllers.postUser);
 router.get("/users/:id([0-9]+)/cvs", authMiddleware, cvControllers.getCv);
 router.get(
-  "/user/:id([0-9]+)",
+  "/users/:id([0-9]+)",
   authMiddleware,
   authAdminMiddleware,
   userControllers.getUserById
 );
 router.get("/users/me", authMiddleware, userControllers.getProfile);
-router.get("/user/profile", authMiddleware, userControllers.getInfoProfile);
 router.post("/login", userControllers.postLogin);
 
 router.get("/offer", offerControllers.getOffers);

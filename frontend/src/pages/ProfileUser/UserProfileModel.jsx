@@ -2,67 +2,69 @@ import { useEffect, useState } from "react";
 import Input from "../../components/Inputs/Input";
 import HeaderLongUser from "../../components/Headers/HeaderLongUser";
 import Title from "../../components/Titles/Title";
+import { useGlobalContext } from "../../contexts/GlobalContext";
 
-function UserProfileUser() {
+function UserProfileModel() {
+  const { apiService } = useGlobalContext();
   const [getProfile, setGetProfile] = useState({});
   useEffect(() => {
-    const getProfileUser = async () => {
+    const getUserProfile = async () => {
       try {
-        const response = await fetch("http://localhost:3310/api/user/profile");
+        const response = await apiService.get(
+          "http://localhost:3310/api/users/me"
+        );
 
-        if (response.ok) {
-          const data = await response.json();
-          setGetProfile(data);
-        } else {
-          console.error("Echec de la récupération des données.");
-        }
+        setGetProfile(response.data);
       } catch (err) {
         console.error(err);
       }
     };
-
-    getProfileUser();
+    getUserProfile();
   }, []);
   return (
     <>
-      <HeaderLongUser />
+      <HeaderLongUser
+        textTitle={getProfile.firstname}
+        textTitle2={getProfile.lastname}
+      />
       <div className="container-page">
         <Title titleText="Vos coordonnées" />
         <Input
           titleInput="Nom *"
-          holderText="test"
+          holderText={getProfile.lastname}
           fieldName="lastname"
-          value={getProfile.lastname || ""}
+          valueInput="coucou"
+          disabled
         />
         <Input
           titleInput="Prénom *"
-          holderText="test"
+          holderText={getProfile.firstname}
           fieldName="firstname"
-          valueInput={getProfile.firstname || ""}
+          valueInput="test"
         />
         <Input
           titleInput="Email *"
-          holderText="test"
+          holderText={getProfile.email}
           fieldName="email"
-          valueInput={getProfile.email || ""}
+          valueInput="test"
         />
         <Input
           titleInput="Téléphone *"
-          holderText="test"
+          holderText={getProfile.phone}
           fieldName="phone"
           typeInput="tel"
-          valueInput={getProfile.phone || ""}
+          valueInput="test"
         />
         <Input
           titleInput="Addresse *"
-          holderText="test"
+          holderText={getProfile.address}
           fieldName="address"
           inputType="text"
-          valueInput={getProfile.address || ""}
+          valueInput="test"
         />
       </div>
     </>
   );
 }
 
-export default UserProfileUser;
+export default UserProfileModel;

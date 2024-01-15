@@ -91,7 +91,7 @@ function GlobalContextProvider({ children, apiService }) {
 }
 
 GlobalContextProvider.propTypes = {
-  children: PropTypes.element.isRequired,
+  children: PropTypes.node.isRequired,
   apiService: PropTypes.instanceOf(ApiService).isRequired,
 };
 
