@@ -27,7 +27,7 @@ const authMiddleware = (req, res, next) => {
 };
 
 const authAdminMiddleware = (req, res, next) => {
-  if (req?.user?.isAdmin !== 1) {
+  if (req?.user?.is_admin !== 1) {
     return res.status(403).json({ error: "Vous n'êtes pas Admin" });
   }
 

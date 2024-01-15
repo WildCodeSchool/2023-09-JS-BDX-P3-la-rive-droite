@@ -3,6 +3,7 @@ import Input from "../../components/Inputs/Input";
 import Select from "../../components/Inputs/Select";
 import TextArea from "../../components/Inputs/TextArea";
 import HeaderCourt from "../../components/Headers/HeaderCourt";
+// Import de Context.
 import { useAdminContext } from "../../contexts/AdminContext";
 import { useGlobalContext } from "../../contexts/GlobalContext";
 

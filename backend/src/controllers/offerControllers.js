@@ -67,16 +67,16 @@ const postOffer = (req, res) => {
 };
 
 const deleteOfferById = (req, res) => {
-  const id = parseInt(req.params.id, 10);
+  const id = +req.params.id;
 
   models.offer
     .deleteId(id)
-    .then(([result]) => {
-      res.sendStatus(201).send({ message: result });
+    .then(() => {
+      res.status(201).json({ message: "Deleted." });
     })
     .catch((err) => {
       console.error(err);
-      res.sendStatus(422).send({ message: "Offer not found." });
+      res.status(500).json({ message: "Offer not found." });
     });
 };
 
@@ -86,17 +86,3 @@ module.exports = {
   postOffer,
   deleteOfferById,
 };
-
-// const postOffer = (req, res) => {
-//     models.offer
-//       .create(req.body)
-//       .then(([rows]) => {
-//         res.send({
-//           id: rows.insertId,
-//         });
-//       })
-//       .catch((err) => {
-//         console.error(err);
-//         res.status(422).send({ error: err.message });
-//       });
-//   };
