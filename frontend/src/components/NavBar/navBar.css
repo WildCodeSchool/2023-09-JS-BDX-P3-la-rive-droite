@@ -73,4 +73,11 @@
   .btn-nav {
     align-items: flex-end;
   }
+  .container-nav {
+    display: flex;
+
+    align-items: center;
+    background-color: brown;
+    width: 100%;
+  }
 }

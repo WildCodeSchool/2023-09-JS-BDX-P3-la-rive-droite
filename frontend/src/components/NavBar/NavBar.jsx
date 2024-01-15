@@ -27,61 +27,65 @@ export default function Navbar() {
 
   return (
     <>
-      <MDBNavbar expand="lg" dark className="navbar-bg-color no-shadow ">
-        <MDBContainer fluid>
-          <MDBNavbarBrand href="#">
-            <span className="navbar-big-logo">
-              <h4 className="navbar-logo-title">EXTERNATIC</h4>
-            </span>
-          </MDBNavbarBrand>
-          <MDBNavbarToggler
-            type="button"
-            data-target="#navbarColor02"
-            aria-controls="navbarColor02"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-            onClick={() => setOpenNavColor(!openNavColor)}
-          >
-            <MDBIcon icon="bars" fas className="navbar-burger-icon" />
-          </MDBNavbarToggler>
-          <MDBCollapse open={openNavColor} navbar>
-            <MDBNavbarNav className="me-auto mb-2 mb-lg-0">
-              <Link to="/">
-                <span className="active navbar-link">Accueil</span>
-              </Link>
+      <MDBNavbar expand="lg" dark className="  navbar-bg-color no-shadow ">
+        <MDBContainer className="container" fluid>
+          <div className="container-nav">
+            <MDBNavbarBrand href="#">
+              <span className="navbar-big-logo">
+                <h4 className="navbar-logo-title">EXTERNATIC</h4>
+              </span>
+            </MDBNavbarBrand>
 
-              <Link to="/login">
-                <span className="navbar-link">Connexion</span>
-              </Link>
-              <Link to="/profile/favorite">
-                <span className="navbar-link">Favoris</span>
-              </Link>
+            <MDBNavbarToggler
+              type="button"
+              data-target="#navbarColor02"
+              aria-controls="navbarColor02"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+              onClick={() => setOpenNavColor(!openNavColor)}
+            >
+              <MDBIcon icon="bars" fas className="navbar-burger-icon" />
+            </MDBNavbarToggler>
 
-              <Link to="/dashboard">
-                <span className="navbar-link">Espace admin</span>
-              </Link>
+            <MDBCollapse open={openNavColor} navbar>
+              <MDBNavbarNav className="me-auto mb-2 mb-lg-0">
+                <Link to="/">
+                  <span className="active navbar-link">Accueil</span>
+                </Link>
 
-              <div className="btn-nav">
-                {user ? (
-                  <div>
-                    {/* <p>Bienvenue</p> */}
-                    <button type="button" onClick={handleLogout}>
-                      Se déconnecter
-                    </button>
-                  </div>
-                ) : (
-                  <>
-                    <Link to="/login">
-                      <span className="navbar-link">Se connecter</span>
-                    </Link>
-                    <Link to="/signin">
-                      <span className="navbar-link">S'inscrire</span>
-                    </Link>
-                  </>
-                )}
-              </div>
-            </MDBNavbarNav>
-          </MDBCollapse>
+                <Link to="/login">
+                  <span className="navbar-link">Connexion</span>
+                </Link>
+                <Link to="/profile/favorite">
+                  <span className="navbar-link">Favoris</span>
+                </Link>
+
+                <Link to="/dashboard">
+                  <span className="navbar-link">Espace admin</span>
+                </Link>
+
+                <div className="btn-nav">
+                  {user ? (
+                    <div>
+                      {/* <p>Bienvenue</p> */}
+                      <button type="button" onClick={handleLogout}>
+                        Se déconnecter
+                      </button>
+                    </div>
+                  ) : (
+                    <>
+                      <Link to="/login">
+                        <span className="navbar-link">Se connecter</span>
+                      </Link>
+                      <Link to="/signin">
+                        <span className="navbar-link">S'inscrire</span>
+                      </Link>
+                    </>
+                  )}
+                </div>
+              </MDBNavbarNav>
+            </MDBCollapse>
+          </div>
         </MDBContainer>
       </MDBNavbar>
 
