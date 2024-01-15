@@ -66,6 +66,28 @@ const postOffer = (req, res) => {
     });
 };
 
+const putOffer = (req, res) => {
+  const id = +req.params.id;
+  // const updated
+
+  models.offer
+    .update(req.body, id)
+    .then(([rows]) => {
+      if (rows.affectedRows > 0) {
+        res.send({
+          id: req.body.id,
+          offer: req.body,
+        });
+      } else {
+        res.status(404).send({ error: "Une erreur s'est produite." });
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(422).send({ error: err.message });
+    });
+};
+
 const deleteOfferById = (req, res) => {
   const id = +req.params.id;
 
@@ -84,5 +106,6 @@ module.exports = {
   getOffers,
   getOfferById,
   postOffer,
+  putOffer,
   deleteOfferById,
 };

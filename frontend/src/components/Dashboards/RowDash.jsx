@@ -22,9 +22,18 @@ function RowDash() {
   };
 
   const deleteOffer = async (id) => {
-    apiService.delete(`http://localhost:3310/api/offer/${id}`);
+    try {
+      await apiService.delete(`http://localhost:3310/api/offer/${id}`);
 
-    fetchOffers();
+      // Methode 01.
+      // window.location.reload();
+      // Methode 02.
+      setOffers((previousOffer) =>
+        previousOffer.filter((offer) => offer.id !== id)
+      );
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   useEffect(() => {

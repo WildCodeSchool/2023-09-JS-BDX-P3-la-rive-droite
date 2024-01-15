@@ -22,6 +22,25 @@ class OfferManager extends AbstractManager {
       ]
     );
   }
+
+  update(offer) {
+    return this.database.query(
+      `UPDATE ${this.table} SET title = ?, company = ?, type = ?, city = ?, mission = ?, search_profile = ?, work_place = ?, salary = ?, info = ?, email = ? WHERE id = ?`,
+      [
+        offer.title,
+        offer.company,
+        offer.type,
+        offer.city,
+        offer.mission,
+        offer.search_profile,
+        offer.work_place,
+        offer.salary,
+        offer.info,
+        offer.email,
+        offer.id,
+      ]
+    );
+  }
 }
 
 module.exports = OfferManager;

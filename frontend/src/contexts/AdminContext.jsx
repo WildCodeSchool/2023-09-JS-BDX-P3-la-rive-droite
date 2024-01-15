@@ -1,6 +1,5 @@
 import { useState, createContext, useContext, useMemo } from "react";
 import PropTypes from "prop-types";
-import { v4 as uuid } from "uuid";
 import { useGlobalContext } from "./GlobalContext";
 
 const AdminContext = createContext();
@@ -10,7 +9,6 @@ function AdminContextProvider({ children }) {
   const { isAdmin, setIsAdmin } = useGlobalContext();
 
   const [addOffer, setAddOffer] = useState({
-    id: uuid(),
     title: "",
     company: "",
     type: "",

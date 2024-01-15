@@ -36,6 +36,11 @@ export default class ApiService {
     return data;
   }
 
+  async update(url, content, id) {
+    const { data } = await axios.put(url, content, id, this.getConfig());
+    return data;
+  }
+
   async delete(url) {
     return axios.delete(url, this.getConfig());
   }
