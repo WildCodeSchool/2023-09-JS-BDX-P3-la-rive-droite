@@ -105,6 +105,8 @@ function SignIn() {
         address: "",
       });
 
+      // setUserConnected(true);
+
       if (signIn.addCvNow === true) {
         setTimeout(() => {
           navigate("/edit-profile/cv");

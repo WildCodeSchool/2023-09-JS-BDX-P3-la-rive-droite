@@ -1,132 +1,70 @@
-import { Outlet } from "react-router-dom";
-import Title from "../../components/Titles/Title";
+import { useEffect, useState } from "react";
 import Input from "../../components/Inputs/Input";
-import ButtonMaxi from "../../components/Boutons/ButtonMaxi";
-import CompetenceSwitch from "../../components/Competence Switch/CompetenceSwitch";
-import AddSomething from "../../components/Add Something/AddSomething";
 import HeaderLongUser from "../../components/Headers/HeaderLongUser";
+import Title from "../../components/Titles/Title";
 import { useGlobalContext } from "../../contexts/GlobalContext";
-import { useUserContext } from "../../contexts/UserContext";
 
-function UserProfileUser() {
-  const { handleChange, handleCheckboxChange } = useGlobalContext();
-  const { editProfile, setEditProfile, handleSubmitProfile, setAddSkills } =
-    useUserContext();
+function UserProfileModel() {
+  const { apiService } = useGlobalContext();
+  const [getProfile, setGetProfile] = useState({});
+  useEffect(() => {
+    const getUserProfile = async () => {
+      try {
+        const response = await apiService.get(
+          "http://localhost:3310/api/users/me"
+        );
 
-  return window.location.pathname === "/edit-profile" ||
-    window.location.pathname === "/edit-profile/" ? (
+        setGetProfile(response.data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    getUserProfile();
+  }, []);
+  return (
     <>
-      <HeaderLongUser />
+      <HeaderLongUser
+        textTitle={getProfile.firstname}
+        textTitle2={getProfile.lastname}
+      />
       <div className="container-page">
         <Title titleText="Vos coordonnées" />
         <Input
           titleInput="Nom *"
-          holderText="Votre nom"
+          holderText={getProfile.lastname}
           fieldName="lastname"
-          valueInput={editProfile}
-          handleChange={(event) =>
-            handleChange(setEditProfile, "lastName", event)
-          }
+          valueInput="coucou"
+          disabled
         />
         <Input
           titleInput="Prénom *"
-          holderText="Votre prénom"
+          holderText={getProfile.firstname}
           fieldName="firstname"
-          valueInput={editProfile}
-          handleChange={(event) =>
-            handleChange(setEditProfile, "firstName", event)
-          }
+          valueInput="test"
         />
         <Input
           titleInput="Email *"
-          holderText="Email"
+          holderText={getProfile.email}
           fieldName="email"
-          valueInput={editProfile}
-          handleChange={(event) => handleChange(setEditProfile, "email", event)}
-        />
-        <Input
-          titleInput="Mot de passess *"
-          holderText="Mot de passe"
-          fieldName="password"
-          typeInput="password"
-          valueInput={editProfile}
-          handleChange={(event) =>
-            handleChange(setEditProfile, "password", event)
-          }
+          valueInput="test"
         />
         <Input
           titleInput="Téléphone *"
-          holderText="Numéro de téléphone"
+          holderText={getProfile.phone}
           fieldName="phone"
           typeInput="tel"
-          valueInput={editProfile}
-          handleChange={(event) => handleChange(setEditProfile, "phone", event)}
+          valueInput="test"
         />
         <Input
           titleInput="Addresse *"
-          holderText="Adresse"
+          holderText={getProfile.address}
           fieldName="address"
           inputType="text"
-          valueInput={editProfile}
-          handleChange={(event) =>
-            handleChange(setEditProfile, "address", event)
-          }
+          valueInput="test"
         />
-        <div className="container-switch">
-          <h2 className="label-champs"> Cochez vos compétences *</h2>
-          <CompetenceSwitch
-            textCompetence="HTML"
-            handleChange={() => handleCheckboxChange(setAddSkills, "html")}
-          />
-          <CompetenceSwitch
-            textCompetence="CSS"
-            handleChange={() => handleCheckboxChange(setAddSkills, "css")}
-          />
-          <CompetenceSwitch
-            textCompetence="JAVASCRIPT"
-            handleChange={() =>
-              handleCheckboxChange(setAddSkills, "javascript")
-            }
-          />
-          <CompetenceSwitch
-            textCompetence="ANGULAR"
-            handleChange={() => handleCheckboxChange(setAddSkills, "angular")}
-          />
-          <CompetenceSwitch
-            textCompetence="REACT.JS"
-            handleChange={() => handleCheckboxChange(setAddSkills, "react")}
-          />
-          <CompetenceSwitch
-            textCompetence="PHP"
-            handleChange={() => handleCheckboxChange(setAddSkills, "php")}
-          />
-          <CompetenceSwitch
-            textCompetence="SYMPHONY"
-            handleChange={() => handleCheckboxChange(setAddSkills, "symphony")}
-          />
-          <CompetenceSwitch
-            textCompetence="GIT"
-            handleChange={() => handleCheckboxChange(setAddSkills, "git")}
-          />
-          <CompetenceSwitch
-            textCompetence="GITHUB"
-            handleChange={() => handleCheckboxChange(setAddSkills, "github")}
-          />
-          <CompetenceSwitch
-            textCompetence="TRELLO"
-            handleChange={() => handleCheckboxChange(setAddSkills, "trello")}
-          />
-          <AddSomething addDetail="Votre CV" />
-        </div>
-
-        <ButtonMaxi textBtn="Enregistrer" clickFunc={handleSubmitProfile} />
       </div>
     </>
-  ) : (
-    <div>
-      <Outlet />
-    </div>
   );
 }
 
-export default UserProfileUser;
+export default UserProfileModel;

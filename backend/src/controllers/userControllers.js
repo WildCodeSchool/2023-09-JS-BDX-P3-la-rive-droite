@@ -97,6 +97,7 @@ const updateUser = async (req, res) => {
 };
 
 const getProfile = (req, res) => {
+  delete req.user.password;
   res.send(req.user);
 };
 
