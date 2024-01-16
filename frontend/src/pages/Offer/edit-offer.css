@@ -1,0 +1,12 @@
+.page-offer {
+  display: flex;
+}
+.container-page {
+  flex: 1;
+  padding: 20px;
+}
+
+.pink-block {
+  width: 200px;
+  background-color: var(--main-color);
+}

@@ -35,18 +35,21 @@ const OfferManager = require("./OfferManager");
 const ExperienceManager = require("./ExperienceManager");
 const CourseManager = require("./CourseManager");
 const CvManager = require("./CvManager");
+const UploadManager = require("./UploadManager");
 
 models.user = new UserManager();
 models.offer = new OfferManager();
 models.experience = new ExperienceManager();
 models.course = new CourseManager();
 models.cv = new CvManager();
+models.upload = new UploadManager();
 
 models.user.setDatabase(pool);
 models.offer.setDatabase(pool);
 models.experience.setDatabase(pool);
 models.course.setDatabase(pool);
 models.cv.setDatabase(pool);
+models.upload.setDatabase(pool);
 // bonus: use a proxy to personalize error message,
 // when asking for a non existing model
 const handler = {
