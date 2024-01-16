@@ -43,27 +43,6 @@ class UserManager extends AbstractManager {
   //   );
   // }
 
-  skills(user) {
-    const columns = Object.keys(user).filter((key) => user[key] === true);
-
-    if (columns.length === 0) {
-      // Aucune compétence à insérer
-      return Promise.resolve(); // ou une autre logique adaptée
-    }
-
-    const values = columns.map((key) => ({ name: key, confirmed: user[key] }));
-
-    const placeholders = Array(values.length).fill("(?, ?)").join(", ");
-    const flattenedValues = values.reduce(
-      (acc, val) => acc.concat([val.name, val.confirmed]),
-      []
-    );
-
-    const query = `INSERT INTO competence (name, confirmed) VALUES ${placeholders}`;
-
-    return this.database.query(query, flattenedValues);
-  }
-
   async login(user) {
     const { email, password } = user;
     const [rows] = await this.database.query(
@@ -85,6 +64,13 @@ class UserManager extends AbstractManager {
     return this.database.query(`SELECT * FROM ${this.table} WHERE id = ?`, [
       id,
     ]);
+  }
+
+  addAvatar(userId, avatarId) {
+    return this.database.query(
+      `UPDATE ${this.table} SET avatar = ? WHERE id = ?`,
+      [avatarId, userId]
+    );
   }
 
   static hashPassword(password, workFactor = 5) {

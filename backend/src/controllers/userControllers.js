@@ -52,18 +52,6 @@ const postUser = (req, res) => {
   // res.status(418).send(req.body)
 };
 
-const postSkills = (req, res) => {
-  models.user
-    .skills(req.body)
-    .then((rows) => {
-      res.status(201).send(rows);
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).json({ message: err.message });
-    });
-};
-
 const postLogin = (req, res) => {
   models.user.login(req.body).then((user) => {
     if (user) {
@@ -104,7 +92,6 @@ const getProfile = (req, res) => {
 module.exports = {
   getUsers,
   postUser,
-  postSkills,
   postLogin,
   updateUser,
   getProfile,
