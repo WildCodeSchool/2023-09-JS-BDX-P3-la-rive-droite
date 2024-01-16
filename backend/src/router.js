@@ -44,6 +44,12 @@ router.post(
   authAdminMiddleware,
   offerControllers.postOffer
 );
+router.put(
+  "/offer/:id([0-9]+)",
+  authMiddleware,
+  authAdminMiddleware,
+  offerControllers.putOffer
+);
 router.delete(
   "/offer/:id([0-9]+)",
   authMiddleware,

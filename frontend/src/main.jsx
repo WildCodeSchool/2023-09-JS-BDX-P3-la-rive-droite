@@ -16,6 +16,7 @@ import AddFormation from "./pages/Formation/AddFormation";
 import Dashboard1 from "./pages/Dashboard/Dashboard1";
 import Dashboard2 from "./pages/Dashboard/Dashboard2";
 import AddOffer from "./pages/Offer/AddOffer";
+import EditOffer from "./pages/Offer/EditOffer";
 // Import Contexts.
 import AdminContextProvider from "./contexts/AdminContext";
 import SignContextProvider from "./contexts/SignContext";
@@ -130,6 +131,10 @@ const router = createBrowserRouter([
           {
             path: "/dashboard/offer",
             element: <AddOffer />,
+          },
+          {
+            path: "/dashboard/edit-offer/:id",
+            element: <EditOffer />,
           },
         ],
       },

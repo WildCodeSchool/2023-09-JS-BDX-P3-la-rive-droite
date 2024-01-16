@@ -1,10 +1,11 @@
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import ButtonMaxi from "../../components/Boutons/ButtonMaxi";
 import Input from "../../components/Inputs/Input";
 import Select from "../../components/Inputs/Select";
 import TextArea from "../../components/Inputs/TextArea";
 import HeaderCourt from "../../components/Headers/HeaderCourt";
 // Import de Context.
-import { useAdminContext } from "../../contexts/AdminContext";
 import { useGlobalContext } from "../../contexts/GlobalContext";
 
 // Import messages d'erreurs.
@@ -14,7 +15,7 @@ import SuccesMsg from "../../components/Alertes Messages/SuccesMsg";
 import "./add-offer.css";
 
 function AddOffer() {
-  const { addOffer, setAddOffer } = useAdminContext();
+  // const { addOffer, setAddOffer } = useAdminContext();
   const {
     errorMsg,
     setErrorMsg,
@@ -26,18 +27,35 @@ function AddOffer() {
     apiService,
   } = useGlobalContext();
 
+  const [offer, setOffer] = useState([]);
+  const { id } = useParams();
+
+  const fetchOffer = async () => {
+    try {
+      const response = await fetch(`http://localhost:3310/api/offer/${id}`);
+      if (response.ok) {
+        const data = await response.json();
+        setOffer(data);
+      } else {
+        console.error("Echec de la récupération des données.");
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   const handleAddOffer = () => {
     if (
-      addOffer.title === "" ||
-      addOffer.company === "" ||
-      addOffer.type === "" ||
-      addOffer.city === "" ||
-      addOffer.mission === "" ||
-      addOffer.search_profile === "" ||
-      addOffer.work_place === "" ||
-      addOffer.salary === "" ||
-      addOffer.info === "" ||
-      addOffer.email === ""
+      offer.title === "" ||
+      offer.company === "" ||
+      offer.type === "" ||
+      offer.city === "" ||
+      offer.mission === "" ||
+      offer.search_profile === "" ||
+      offer.work_place === "" ||
+      offer.salary === "" ||
+      offer.info === "" ||
+      offer.email === ""
     ) {
       setErrorMsg(true);
       setMsgContent("Veuillez remplir tous les champs");
@@ -45,11 +63,15 @@ function AddOffer() {
         setErrorMsg(false);
       }, 4000);
     } else {
-      const postOffer = async () => {
-        apiService.post(`http://localhost:3310/api/offer`, addOffer);
+      const updateOffer = async () => {
+        apiService.update(
+          `http://localhost:3310/api/edit-offer/${id}`,
+          offer,
+          id
+        );
       };
 
-      postOffer();
+      updateOffer();
 
       // console.log(addOffer);
 
@@ -59,20 +81,24 @@ function AddOffer() {
         setSuccesMsg(false);
       }, 4000);
 
-      setAddOffer({
-        title: "",
-        company: "",
-        type: "",
-        city: "",
-        mission: "",
-        search_profile: "",
-        work_place: "",
-        salary: "",
-        info: "",
-        email: "",
-      });
+      // setAddOffer({
+      //   title: "",
+      //   company: "",
+      //   type: "",
+      //   city: "",
+      //   mission: "",
+      //   search_profile: "",
+      //   work_place: "",
+      //   salary: "",
+      //   info: "",
+      //   email: "",
+      // });
     }
   };
+
+  useEffect(() => {
+    fetchOffer();
+  }, []);
 
   return (
     <div>
@@ -80,28 +106,27 @@ function AddOffer() {
         <HeaderCourt />
         <div className="container-page with-rounded-border">
           <h1>Ajouter une offre</h1>
+          <h2>ID Offre = {id}</h2>
           <Input
             titleInput="Titre de l'offre"
             holderText="Développeur Web"
             fieldName="title"
             inputType="text"
-            valueInput={addOffer}
-            handleChange={(event) => handleChange(setAddOffer, "title", event)}
+            valueInput={offer}
+            handleChange={(event) => handleChange(setOffer, "title", event)}
           />
           <Input
             titleInput="Société"
             holderText="BackMarket"
             fieldName="company"
             inputType="text"
-            valueInput={addOffer}
-            handleChange={(event) =>
-              handleChange(setAddOffer, "company", event)
-            }
+            valueInput={offer}
+            handleChange={(event) => handleChange(setOffer, "company", event)}
           />
           <Select
             titleSelect="Type de contrat"
             fieldName="type"
-            handleChange={(event) => handleChange(setAddOffer, "type", event)}
+            handleChange={(event) => handleChange(setOffer, "type", event)}
           >
             <option value="CDD">CDD</option>
             <option value="CDI">CDI</option>
@@ -112,26 +137,24 @@ function AddOffer() {
             holderText="Bordeaux"
             inputType="text"
             fieldName="city"
-            valueInput={addOffer}
-            handleChange={(event) => handleChange(setAddOffer, "city", event)}
+            valueInput={offer}
+            handleChange={(event) => handleChange(setOffer, "city", event)}
           />
           <TextArea
             titleInput="Missions"
             holderText="Pour cette mission, vous allez devoir réaliser ..."
             fieldName="mission"
-            valueInput={addOffer}
-            handleChange={(event) =>
-              handleChange(setAddOffer, "mission", event)
-            }
+            valueInput={offer}
+            handleChange={(event) => handleChange(setOffer, "mission", event)}
           />
           <Input
             titleInput="Profil recherché"
             holderText="Junior avec 10 ans d'experience"
             fieldName="search_profile"
             inputType="text"
-            valueInput={addOffer}
+            valueInput={offer}
             handleChange={(event) =>
-              handleChange(setAddOffer, "search_profile", event)
+              handleChange(setOffer, "search_profile", event)
             }
           />
           <Input
@@ -139,9 +162,9 @@ function AddOffer() {
             holderText="Présentiel"
             fieldName="work_place"
             inputType="text"
-            valueInput={addOffer}
+            valueInput={offer}
             handleChange={(event) =>
-              handleChange(setAddOffer, "work_place", event)
+              handleChange(setOffer, "work_place", event)
             }
           />
           <Input
@@ -149,23 +172,23 @@ function AddOffer() {
             holderText="100k"
             fieldName="salary"
             inputType="text"
-            valueInput={addOffer}
-            handleChange={(event) => handleChange(setAddOffer, "salary", event)}
+            valueInput={offer}
+            handleChange={(event) => handleChange(setOffer, "salary", event)}
           />
           <TextArea
             titleInput="Infos complémentaires"
             holderText="Le travail est cool"
             fieldName="info"
-            valueInput={addOffer}
-            handleChange={(event) => handleChange(setAddOffer, "info", event)}
+            valueInput={offer}
+            handleChange={(event) => handleChange(setOffer, "info", event)}
           />
           <Input
             titleInput="Email du client lié à l'offre"
             holderText="Votre email"
             fieldName="email"
             inputType="email"
-            valueInput={addOffer}
-            handleChange={(event) => handleChange(setAddOffer, "email", event)}
+            valueInput={offer}
+            handleChange={(event) => handleChange(setOffer, "email", event)}
           />
           <div>
             {errorMsg && <ErrorMsg message={msgContent} />}

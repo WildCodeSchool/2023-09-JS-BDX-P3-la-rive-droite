@@ -66,17 +66,39 @@ const postOffer = (req, res) => {
     });
 };
 
-const deleteOfferById = (req, res) => {
-  const id = parseInt(req.params.id, 10);
+const putOffer = (req, res) => {
+  const id = +req.params.id;
+  // const updated
 
   models.offer
-    .deleteId(id)
-    .then(([result]) => {
-      res.sendStatus(201).send({ message: result });
+    .update(req.body, id)
+    .then(([rows]) => {
+      if (rows.affectedRows > 0) {
+        res.send({
+          id: req.body.id,
+          offer: req.body,
+        });
+      } else {
+        res.status(404).send({ error: "Une erreur s'est produite." });
+      }
     })
     .catch((err) => {
       console.error(err);
-      res.sendStatus(422).send({ message: "Offer not found." });
+      res.status(422).send({ error: err.message });
+    });
+};
+
+const deleteOfferById = (req, res) => {
+  const id = +req.params.id;
+
+  models.offer
+    .deleteId(id)
+    .then(() => {
+      res.status(201).json({ message: "Deleted." });
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).json({ message: "Offer not found." });
     });
 };
 
@@ -84,19 +106,6 @@ module.exports = {
   getOffers,
   getOfferById,
   postOffer,
+  putOffer,
   deleteOfferById,
 };
-
-// const postOffer = (req, res) => {
-//     models.offer
-//       .create(req.body)
-//       .then(([rows]) => {
-//         res.send({
-//           id: rows.insertId,
-//         });
-//       })
-//       .catch((err) => {
-//         console.error(err);
-//         res.status(422).send({ error: err.message });
-//       });
-//   };
