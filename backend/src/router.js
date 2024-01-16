@@ -1,7 +1,11 @@
 const express = require("express");
+const multer = require("multer");
+
+const upload = multer({ dest: "public/uploads/" });
 
 const router = express.Router();
 
+const uploadController = require("./controllers/uploadControllers");
 const userControllers = require("./controllers/userControllers");
 const offerControllers = require("./controllers/offerControllers");
 const experienceControllers = require("./controllers/experienceControllers");
@@ -98,7 +102,15 @@ router.delete(
   authMiddleware,
   courseControllers.deleteCourseById
 );
+// UPLOADS
+router.get("/uploads", authMiddleware, uploadController.getList);
 
+router.post(
+  "/uploads",
+  authMiddleware,
+  upload.single("avatar"),
+  uploadController.create
+);
 /* CV. */
 router.post("/cvs", authMiddleware, authAdminMiddleware, cvControllers.postCv);
 

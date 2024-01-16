@@ -143,11 +143,11 @@ VALUES (
         "Diffusez",
         "CDD",
         "Lille",
-        "S’approprier le besoin métier Développement front-end Connaissance du W3C Intégrer fidèlement sur base d'une maquette Les missions seront réalisées sous la supervision du Responsable de Projet puis en autonomie selon les opportunités et l’évolution des compétences.",
+        "S'approprier le besoin métier Développement front-end Connaissance du W3C Intégrer fidèlement sur base d'une maquette Les missions seront réalisées sous la supervision du Responsable de Projet puis en autonomie selon les opportunités et l'évolution des compétences.",
         "Junior",
         "Présent",
         "25k €/an",
-        "Ce que nous vous proposons : En étude d'informatique Autonome et organisé(e), tu es doté(e) d’un bon esprit d’analyse et d’innovation Esprit de synthèse, Réactivité, autonomie, rigueur et organisation Curieux, Esprit d'équipe, Respect des délais imposés.",
+        "Ce que nous vous proposons : En étude d'informatique Autonome et organisé(e), tu es doté(e) d'un bon esprit d'analyse et d'innovation Esprit de synthèse, Réactivité, autonomie, rigueur et organisation Curieux, Esprit d'équipe, Respect des délais imposés.",
         "marie@externatic.fr"
     ), (
         "Développeur Web Junior",
@@ -155,16 +155,16 @@ VALUES (
         "CDD",
         "Lille",
         "Nous recherchons une personne motivée et dynamique avec :
-    Un an d’expérience,
+    Un an d'expérience,
     De solides compétences en PHP,
-    La maitrise de MySQL, l’intégration HTML – CSS,
+    La maitrise de MySQL, l'intégration HTML - CSS,
     La maitrise de JQuery,
-    Un bon niveau d’anglais technique
+    Un bon niveau d'anglais technique
 .........Tu te retrouves dans le profil de poste ? Alors envoie nous ta candidature :-).",
         "Junior",
         "Présent",
         "25k €/an",
-        "Mis Group, c’est une équipe à taille humaine, jeune et dynamique, située en plein centre de Lille. Nous apportons notre expertise à des cabinets d’études marketing à travers des solutions d’études : études quantitatives en ligne, recrutements de consommateurs, locations de salles pour des réunions de consommateurs, réalisation de visites mystères, réalisation de tests de produits…",
+        "Mis Group, c'est une équipe à taille humaine, jeune et dynamique, située en plein centre de Lille. Nous apportons notre expertise à des cabinets d'études marketing à travers des solutions d'études : études quantitatives en ligne, recrutements de consommateurs, locations de salles pour des réunions de consommateurs, réalisation de visites mystères, réalisation de tests de produits…",
         "marie@externatic.fr"
     ), (
         "STAGE DEVELOPPEUR WEB Web",
@@ -191,7 +191,7 @@ VALUES (
         "Junior",
         "Présent",
         "25k €/an",
-        "Votre spécialité consiste à développer des logiciels au profit du ministère des Armées au sein d’un centre de développement. Sous la conduite d’un chef de projet, vous assurez la maintenance d’applications existantes et vous concevez de nouveaux logiciels liés aux besoins des armées. Vous soutenez les forces déployées depuis le territoire national et vous pouvez éventuellement être projetés sur des postes en dehors de votre compétence principale de développeur. Au bout de 4 à 6 ans, vous pouvez évoluer vers les métiers de la cybersécurité.",
+        "Votre spécialité consiste à développer des logiciels au profit du ministère des Armées au sein d'un centre de développement. Sous la conduite d'un chef de projet, vous assurez la maintenance d'applications existantes et vous concevez de nouveaux logiciels liés aux besoins des armées. Vous soutenez les forces déployées depuis le territoire national et vous pouvez éventuellement être projetés sur des postes en dehors de votre compétence principale de développeur. Au bout de 4 à 6 ans, vous pouvez évoluer vers les métiers de la cybersécurité.",
         "marie@externatic.fr"
     );
 
@@ -203,4 +203,12 @@ CREATE TABLE
         PRIMARY KEY (user_id, competence_id),
         FOREIGN KEY (user_id) REFERENCES user(id),
         FOREIGN KEY (competence_id) REFERENCES competence(id)
+    );
+
+CREATE TABLE
+    upload (
+        id int(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+        url varchar(255) NOT NULL,
+        unique(url),
+        created_at timestamp default CURRENT_TIMESTAMP
     );
