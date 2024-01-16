@@ -63,6 +63,19 @@ class ExperienceManager extends AbstractManager {
       return null;
     }
   }
+
+  async findAllByCvId(cvId) {
+    try {
+      const [results] = await this.database.query(
+        `SELECT * FROM ${this.table} WHERE cv_id = ?`,
+        [cvId]
+      );
+      return results;
+    } catch (err) {
+      console.error(err);
+      return null;
+    }
+  }
 }
 
 module.exports = ExperienceManager;

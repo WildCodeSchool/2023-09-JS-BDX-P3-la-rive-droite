@@ -64,6 +64,11 @@ router.get(
   experienceControllers.getExperiences
 );
 router.get(
+  "/experiences/by-cv-id/:id([0-9]+)",
+  authMiddleware,
+  experienceControllers.getExperiencesByCvId
+);
+router.get(
   "/experience/:id([0-9]+)",
   authMiddleware,
   experienceControllers.getExperienceById
@@ -112,7 +117,7 @@ router.post(
   uploadController.create
 );
 /* CV. */
-router.post("/cvs", authMiddleware, authAdminMiddleware, cvControllers.postCv);
+router.post("/cvs", authMiddleware, cvControllers.postCv);
 
 // router.post("/signin", userControllers.postUser);
 // router.update("/signin", userControllers.putUser);

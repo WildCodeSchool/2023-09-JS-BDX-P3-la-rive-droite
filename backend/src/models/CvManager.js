@@ -5,11 +5,11 @@ class CvManager extends AbstractManager {
     super({ table: "cv" });
   }
 
-  async create(cv) {
+  async create(userId) {
     try {
       const [res] = await this.database.query(
         `INSERT INTO ${this.table} (user_id) VALUES (?)`,
-        [cv.userId]
+        [userId]
       );
 
       return res;

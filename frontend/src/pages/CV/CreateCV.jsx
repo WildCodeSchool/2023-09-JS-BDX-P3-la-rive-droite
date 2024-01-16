@@ -1,4 +1,5 @@
 import React from "react";
+import { useLoaderData } from "react-router-dom";
 import Input from "../../components/Inputs/Input";
 import ButtonMaxi from "../../components/Boutons/ButtonMaxi";
 import AddDetailsCV from "../../components/Add Something/AddSomething";
@@ -13,6 +14,7 @@ import SuccesMsg from "../../components/Alertes Messages/SuccesMsg";
 function CreateCV() {
   const { addCv, setAddCv, handleAddCv } = useUserContext();
   const { errorMsg, succesMsg, msgContent, handleChange } = useGlobalContext();
+  const { experiences } = useLoaderData();
 
   return (
     <>
@@ -65,6 +67,16 @@ function CreateCV() {
           addDetail="Expériences professionnelles"
           url="/edit-profile/experience"
         />
+        {experiences &&
+          experiences.map((experience) => (
+            <div className="card-container" key={experience.id}>
+              <h3 className="diplome">{experience.title}</h3>
+              <h4 className="dates">
+                {experience.date_begin} - {experience.date_end ?? "en cours"}
+              </h4>
+              <p className="school">{experience.company}</p>
+            </div>
+          ))}
         <AddDetailsCV addDetail="Formations" url="/edit-profile/formation" />
         <div>
           {errorMsg && <ErrorMsg message={msgContent} />}
