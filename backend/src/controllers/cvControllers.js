@@ -3,7 +3,7 @@ const models = require("../models/index");
 const getCv = async (req, res) => {
   const userId = parseInt(req.params.id, 10);
   if (userId !== req.user.id) {
-    return res.status(403).send({ message: "Invalid user" });
+    return res.status(403).send({ message: "Invalid user" }); // <=== Ton erreur vient d'ici
   }
   try {
     const [item] = await models.cv.findCvByUserId(userId);
