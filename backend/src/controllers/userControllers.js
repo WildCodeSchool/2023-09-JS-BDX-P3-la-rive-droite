@@ -43,6 +43,8 @@ const postUser = (req, res) => {
         competence: req.body.competence,
         email: req.body.email,
         is_admin: req.body.is_admin,
+        userCompetenceId: rows.userCompetenceId,
+        competenceId: rows.competenceId,
       });
     })
     .catch((err) => {

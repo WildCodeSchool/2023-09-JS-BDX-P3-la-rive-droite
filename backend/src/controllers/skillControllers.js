@@ -13,7 +13,7 @@ const getSkills = (req, res) => {
 };
 
 const postSkills = (req, res) => {
-  models.user
+  models.skill
     .skills(req.body)
     .then((rows) => {
       res.status(201).send(rows);

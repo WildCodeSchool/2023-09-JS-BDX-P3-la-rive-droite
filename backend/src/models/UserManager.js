@@ -9,7 +9,7 @@ class UserManager extends AbstractManager {
   create(user) {
     return UserManager.hashPassword(user.password).then(async (hash) => {
       const [rows] = await this.database.query(
-        `INSERT INTO ${this.table} (firstname, lastname, phone, address, email, password, is_admin) VALUES (?, ?, ?, ?, ?, ?, ?)`,
+        `INSERT INTO user (firstname, lastname, phone, address, email, password, is_admin) VALUES (?, ?, ?, ?, ?, ?, ?)`,
         [
           user.firstname,
           user.lastname,
@@ -20,7 +20,26 @@ class UserManager extends AbstractManager {
           0,
         ]
       );
-      return rows;
+      const userId = rows.insertId;
+
+      const [userCompetence] = await this.database.query(
+        "INSERT INTO user_competence (user_id, html, css, javascript, angular, react, php, symphony, git, github, trello) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        [
+          userId,
+          user.html,
+          user.css,
+          user.javascript,
+          user.angular,
+          user.react,
+          user.php,
+          user.symphony,
+          user.git,
+          user.github,
+          user.trello,
+        ]
+      );
+
+      return { userCompetence, rows };
     });
   }
 

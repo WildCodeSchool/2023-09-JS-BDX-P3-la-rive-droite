@@ -6,7 +6,7 @@ USE externatic_db;
 DROP TABLE IF EXISTS user;
 -- Créer la table "user"
 CREATE TABLE user (
-    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, firstname VARCHAR(100) NOT NULL, lastname VARCHAR(100) NOT NULL, phone VARCHAR(100) NOT NULL, email VARCHAR(100) NOT NULL, address VARCHAR(155) NOT NULL, competence VARCHAR(100), password VARCHAR(100) NOT NULL, is_admin BOOL NOT NULL, UNIQUE (email)
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, firstname VARCHAR(100) NOT NULL, lastname VARCHAR(100) NOT NULL, phone VARCHAR(100) NOT NULL, email VARCHAR(100) NOT NULL, address VARCHAR(155) NOT NULL, password VARCHAR(100) NOT NULL, is_admin BOOL NOT NULL, UNIQUE (email)
 );
 
 -- INSERT INTO user (
@@ -16,12 +16,27 @@ CREATE TABLE user (
 --     email,
 --     address,
 --     password
--- )
-DROP TABLE IF EXISTS competence;
+-- -- )
+-- DROP TABLE IF EXISTS competence;
 
-CREATE TABLE competence (
-    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, name VARCHAR(100), confirmed BOOL
-);
+-- DELETE TABLE competence;
+
+-- CREATE TABLE competence (
+--     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, name VARCHAR(100)
+-- );
+
+-- INSERT INTO
+--     competence (name)
+-- values ("html"),
+--     ("css"),
+--     ("javascript"),
+--     ("angular"),
+--     ("react"),
+--     ("php"),
+--     ("symphony"),
+--     ("git"),
+--     ("github"),
+--     ("trello");
 
 -- CREATE
 -- TABLE
@@ -97,9 +112,11 @@ VALUES (
     Nationalité française, en règle avec les obligations du service national JDC et jouissant de ses droits civiques.", "Junior", "Présent", "25k €/an", "Votre spécialité consiste à développer des logiciels au profit du ministère des Armées au sein d'un centre de développement. Sous la conduite d'un chef de projet, vous assurez la maintenance d'applications existantes et vous concevez de nouveaux logiciels liés aux besoins des armées. Vous soutenez les forces déployées depuis le territoire national et vous pouvez éventuellement être projetés sur des postes en dehors de votre compétence principale de développeur. Au bout de 4 à 6 ans, vous pouvez évoluer vers les métiers de la cybersécurité.", "marie@externatic.fr"
     );
 
+DROP TABLE IF EXISTS user_competence;
 -- Créer la table "user_competence"
+
 CREATE TABLE user_competence (
-    user_id INT, competence_id INT, PRIMARY KEY (user_id, competence_id), FOREIGN KEY (user_id) REFERENCES user (id), FOREIGN KEY (competence_id) REFERENCES competence (id)
+    user_id INT, html BOOLEAN, css BOOLEAN, javascript BOOLEAN, angular BOOLEAN, react BOOLEAN, php BOOLEAN, symphony BOOLEAN, git BOOLEAN, github BOOLEAN, trello BOOLEAN
 );
 
 DROP TABLE IF EXISTS upload;

@@ -32,10 +32,13 @@ function GlobalContextProvider({ children, apiService }) {
   };
 
   const handleCheckboxChange = (callback, fieldName) => {
-    callback((prevData) => ({
-      ...prevData,
-      [fieldName]: !prevData[fieldName],
-    }));
+    callback((prevData) => {
+      const newValue = !prevData[fieldName];
+      return {
+        ...prevData,
+        [fieldName]: newValue,
+      };
+    });
   };
 
   const handleLogout = () => {

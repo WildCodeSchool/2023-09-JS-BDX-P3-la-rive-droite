@@ -12,6 +12,7 @@ function UserProfileModel() {
   const { apiService, handleChange } = useGlobalContext();
   const { handleSubmitProfile } = useUserContext();
   const [getProfile, setGetProfile] = useState([]);
+  const [getSkills, setGetSkills] = useState([]);
   useEffect(() => {
     const getUserProfile = async () => {
       try {
@@ -23,22 +24,35 @@ function UserProfileModel() {
         console.error(err);
       }
     };
+
+    const getSkillsProfile = async () => {
+      try {
+        const response = await apiService.get(
+          "http://localhost:3310/api/user/skill"
+        );
+        setGetSkills(response.data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    getSkillsProfile();
     getUserProfile();
   }, []);
-  // const [getSkills, setGetSkills] = useState([]);
-  // useEffect(() => {
-  //   const getSkillsProfile = async () => {
-  //     try {
-  //       const response = await apiService.get(
-  //         "http://localhost:3310/api/user/skill"
-  //       );
-  //       setGetSkills(response.data);
-  //     } catch (err) {
-  //       console.error(err);
-  //     }
-  //   };
-  //   getSkillsProfile();
-  // }, []);
+
+  const handleCheckboxChanged = async (fieldName) => {
+    const updatedSkills = { ...getSkills, [fieldName]: !getSkills[fieldName] };
+    setGetSkills(updatedSkills);
+
+    try {
+      await apiService.post(
+        "http://localhost:3310/api/user/updateSkills",
+        updatedSkills
+      );
+    } catch (error) {
+      console.error("Error updating skills:", error);
+    }
+  };
+
   return (
     (
       <>
@@ -54,7 +68,7 @@ function UserProfileModel() {
             fieldName="lastname"
             valueInput={getProfile}
             handleChange={(event) =>
-              handleChange(setGetProfile, "lastname", event)
+              handleChange(getProfile, "lastname", event)
             }
           />
           <Input
@@ -63,7 +77,7 @@ function UserProfileModel() {
             fieldName="firstname"
             valueInput={getProfile}
             handleChange={(event) =>
-              handleChange(setGetProfile, "firstname", event)
+              handleChange(getProfile, "firstname", event)
             }
           />
           <Input
@@ -71,9 +85,7 @@ function UserProfileModel() {
             holderText={getProfile.email}
             fieldName="email"
             valueInput={getProfile}
-            handleChange={(event) =>
-              handleChange(setGetProfile, "email", event)
-            }
+            handleChange={(event) => handleChange(getProfile, "email", event)}
           />
           <Input
             titleInput="Téléphone *"
@@ -81,9 +93,7 @@ function UserProfileModel() {
             fieldName="phone"
             typeInput="tel"
             valueInput={getProfile}
-            handleChange={(event) =>
-              handleChange(setGetProfile, "phone", event)
-            }
+            handleChange={(event) => handleChange(getProfile, "phone", event)}
           />
           <Input
             titleInput="Addresse *"
@@ -91,71 +101,89 @@ function UserProfileModel() {
             fieldName="address"
             inputType="text"
             valueInput={getProfile}
-            handleChange={(event) =>
-              handleChange(setGetProfile, "address", event)
-            }
+            handleChange={(event) => handleChange(getProfile, "address", event)}
           />
           <div className="container-switch">
             <h2 className="label-champs"> Cochez vos compétences *</h2>
             <CompetenceSwitch
               textCompetence="HTML"
-              // handleChange={(event) =>
-              //   handleCheckboxChange(setAddSkills, "html", event)
-              // }
+              fieldName="html"
+              valueInput={getSkills}
+              handleChange={(event) =>
+                handleCheckboxChanged(getSkills, "html", event)
+              }
             />
             <CompetenceSwitch
               textCompetence="CSS"
-              // handleChange={(event) =>
-              //   handleCheckboxChange(setAddSkills, "css", event)
-              // }
+              valueInput={getSkills}
+              fieldName="css"
+              handleChange={(event) =>
+                handleCheckboxChanged(getSkills, "css", event)
+              }
             />
             <CompetenceSwitch
               textCompetence="JAVASCRIPT"
-              // handleChange={(event) =>
-              //   handleCheckboxChange(setAddSkills, "javascript", event)
-              // }
+              fieldName="javascript"
+              valueInput={getSkills}
+              handleChange={(event) =>
+                handleCheckboxChanged(getSkills, "javascript", event)
+              }
             />
             <CompetenceSwitch
               textCompetence="ANGULAR"
-              // handleChange={(event) =>
-              //   handleCheckboxChange(setAddSkills, "angular", event)
-              // }
+              fieldName="angular"
+              valueInput={getSkills}
+              handleChange={(event) =>
+                handleCheckboxChanged(getSkills, "angular", event)
+              }
             />
             <CompetenceSwitch
               textCompetence="REACT.JS"
-              // handleChange={(event) =>
-              //   handleCheckboxChange(setAddSkills, "react", event)
-              // }
+              fieldName="react"
+              valueInput={getSkills}
+              handleChange={(event) =>
+                handleCheckboxChanged(getSkills, "react", event)
+              }
             />
             <CompetenceSwitch
               textCompetence="PHP"
-              // handleChange={(event) =>
-              //   handleCheckboxChange(setAddSkills, "php", event)
-              // }
+              fieldName="php"
+              valueInput={getSkills}
+              handleChange={(event) =>
+                handleCheckboxChanged(getSkills, "php", event)
+              }
             />
             <CompetenceSwitch
               textCompetence="SYMPHONY"
-              // handleChange={(event) =>
-              //   handleCheckboxChange(setAddSkills, "symphony", event)
-              // }
+              fieldName="symphony"
+              valueInput={getSkills}
+              handleChange={(event) =>
+                handleCheckboxChanged(getSkills, "symphony", event)
+              }
             />
             <CompetenceSwitch
               textCompetence="GIT"
-              // handleChange={(event) =>
-              //   handleCheckboxChange(setAddSkills, "git", event)
-              // }
+              fieldName="git"
+              valueInput={getSkills}
+              handleChange={(event) =>
+                handleCheckboxChanged(getSkills, "git", event)
+              }
             />
             <CompetenceSwitch
               textCompetence="GITHUB"
-              // handleChange={(event) =>
-              //   handleCheckboxChange(setAddSkills, "github", event)
-              // }
+              fieldName="github"
+              valueInput={getSkills}
+              handleChange={(event) =>
+                handleCheckboxChanged(getSkills, "github", event)
+              }
             />
             <CompetenceSwitch
               textCompetence="TRELLO"
-              // handleChange={(event) =>
-              //   handleCheckboxChange(setAddSkills, "trello", event)
-              // }
+              fieldName="trello"
+              valueInput={getSkills}
+              handleChange={(event) =>
+                handleCheckboxChanged(getSkills, "trello", event)
+              }
             />
             <AddSomething addDetail="Votre CV" />
           </div>
