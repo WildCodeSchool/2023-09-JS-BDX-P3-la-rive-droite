@@ -46,6 +46,7 @@ function GlobalContextProvider({ children, apiService }) {
 
     apiService.setToken(null);
     setUser(null);
+    // eslint-disable-next-line no-alert
     alert(`Déconnexion réussie`);
     return navigate("/");
   };
