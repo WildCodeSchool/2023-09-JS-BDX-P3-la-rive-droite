@@ -53,7 +53,7 @@ export default function Navbar() {
                   <span className="active navbar-link">Accueil</span>
                 </Link>
                 {user ? (
-                  <Link to="/profile">
+                  <Link to="/edit-profile">
                     <span className="navbar-link">Mon Profil</span>
                   </Link>
                 ) : null}

@@ -1,4 +1,4 @@
-import { useLoaderData } from "react-router-dom";
+import { Outlet, useLoaderData } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Input from "../../components/Inputs/Input";
 import HeaderLongUser from "../../components/Headers/HeaderLongUser";
@@ -31,7 +31,8 @@ function UserProfileModel() {
     };
     getUserProfile();
   }, []);
-  return (
+  return window.location.pathname === "/edit-profile" ||
+    window.location.pathname === "/edit-profile" ? (
     <>
       <HeaderLongUser
         textTitle={getProfile.firstname}
@@ -106,6 +107,10 @@ function UserProfileModel() {
         <ButtonMaxi textBtn="Enregistrer" clickFunc={handleAddCv} />
       </div>
     </>
+  ) : (
+    <div>
+      <Outlet />
+    </div>
   );
 }
 
