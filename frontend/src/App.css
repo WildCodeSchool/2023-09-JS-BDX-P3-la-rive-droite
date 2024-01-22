@@ -1,56 +1,126 @@
-body {
+:root {
+  /* Couleurs du thème */
+  --main-color: #c91f61;
+  --second-color: #851442;
+  --background-input: #fcf5f7;
+  /* Couleurs des titres. */
+  --first-title-color: #fff;
+  --second-title-color: #000000;
+  --third-title-color: var(--second-title-color);
+  /* Couleurs des textes */
+  --texte-default: black;
+  --text-btn: #fff;
+  --entreprise-name: var(--second-color);
+  --input-text: var(--second-color);
+  --text-exemple: #9a9999;
+  --border-radius: 70px;
+  --border-radius-negatif: -70px;
+  /* Couleurs de messages d'alerte */
+  --succes-msg: #355233;
+  --succes-background: #d4eed9;
+  --error-msg: #3f1519;
+  --error-background: #f7d7da;
+}
+* {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  list-style: none;
+  text-decoration: none;
+  font-family: "Jost", sans-serif;
+  box-sizing: border-box;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
-}
-
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
+body {
+  position: relative;
+  overflow-x: hidden;
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1em;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.img-fluid {
+  width: 100%;
+  height: auto;
 }
 
-button {
-  font-size: calc(10px + 2vmin);
+/* Style des boutons */
+.submit-btn {
+  background-color: var(--second-color);
+  color: var(--text-btn);
+  padding: 20px 30px;
+  border: 0;
+  border-radius: 7px;
+  text-transform: uppercase;
+  font-weight: 500;
+  font-size: 20px;
+  width: 90%;
+}
+.invisible-button {
+  background-color: transparent;
+  border: none;
+}
+
+/* Style des paragraphes*/
+.p-description {
+  line-height: 1.6;
+}
+
+.p-checkbox {
+  color: var(--text-exemple);
+  font-weight: 300;
+}
+
+/* Style interface Login */
+.login-title {
+  font-size: 36px;
+  color: var(--second-title-color);
+}
+
+/* Style des titres */
+.first-title-white {
+  font-size: 36px;
+  color: var(--first-title-color);
+}
+.first-title-black {
+  font-size: 30px;
+  color: var(--second-title-color);
+  font-weight: 600;
+}
+
+/* Style du profil user */
+
+.name-user {
+  font-size: 30px;
+  color: black;
+  font-weight: 600;
+}
+
+.title-add-something {
+  font-size: 24px;
+  color: var(--second-title-color);
+  font-weight: 500;
+}
+
+.container-page {
+  margin: 0 auto;
+
+  padding-left: 18px;
+  padding-right: 18px;
+  max-width: 1280px;
+  background-color: white;
+}
+
+.container-page h2 {
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+.container-page.with-rounded-border {
+  border-top-left-radius: 50px;
+  border-top-right-radius: 50px;
+  padding-top: 70px;
+  margin-top: -170px;
 }

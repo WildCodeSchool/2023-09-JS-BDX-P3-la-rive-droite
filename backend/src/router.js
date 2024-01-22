@@ -1,23 +1,124 @@
 const express = require("express");
+const multer = require("multer");
+
+const upload = multer({ dest: "public/uploads/" });
 
 const router = express.Router();
 
-/* ************************************************************************* */
-// Define Your API Routes Here
-/* ************************************************************************* */
+const uploadController = require("./controllers/uploadControllers");
+const userControllers = require("./controllers/userControllers");
+const offerControllers = require("./controllers/offerControllers");
+const experienceControllers = require("./controllers/experienceControllers");
+const courseControllers = require("./controllers/courseControllers");
+const cvControllers = require("./controllers/cvControllers");
+const {
+  authMiddleware,
+  authAdminMiddleware,
+} = require("./middlewares/security/auth.middlewares");
 
-// Import itemControllers module for handling item-related operations
-const itemControllers = require("./controllers/itemControllers");
+/* USER. */
+router.get(
+  "/users",
+  authMiddleware,
+  authAdminMiddleware,
+  userControllers.getUsers
+);
+router.get("/users/:id([0-9]+)/cvs", authMiddleware, cvControllers.getCv);
+router.get(
+  "/users/:id([0-9]+)",
+  authMiddleware,
+  authAdminMiddleware,
+  userControllers.getUserById
+);
+router.get("/users/me", authMiddleware, userControllers.getProfile);
+router.post("/users", userControllers.postUser);
+router.post("/user/skills", userControllers.postSkills);
+router.post("/login", userControllers.postLogin);
 
-// Route to get a list of items
-router.get("/items", itemControllers.browse);
+/* OFFERS. */
+router.get("/offer", offerControllers.getOffers);
+router.get("/offer/:id([0-9]+)", offerControllers.getOfferById);
+router.post(
+  "/offer",
+  authMiddleware,
+  authAdminMiddleware,
+  offerControllers.postOffer
+);
+router.put(
+  "/offer/:id([0-9]+)",
+  authMiddleware,
+  authAdminMiddleware,
+  offerControllers.putOffer
+);
+router.delete(
+  "/offer/:id([0-9]+)",
+  authMiddleware,
+  authAdminMiddleware,
+  offerControllers.deleteOfferById
+);
 
-// Route to get a specific item by ID
-router.get("/items/:id", itemControllers.read);
+/* EXPERIENCES. */
+router.get(
+  "/experiences",
+  authMiddleware,
+  experienceControllers.getExperiences
+);
+router.get(
+  "/experiences/by-cv-id/:id([0-9]+)",
+  authMiddleware,
+  experienceControllers.getExperiencesByCvId
+);
+router.get(
+  "/experience/:id([0-9]+)",
+  authMiddleware,
+  experienceControllers.getExperienceById
+);
+router.post(
+  "/experience",
+  authMiddleware,
+  experienceControllers.postExperience
+);
+router.put(
+  "/experience/:id([0-9]+)",
+  authMiddleware,
+  experienceControllers.updateExperience
+);
+router.delete(
+  "/experience/:id([0-9]+)",
+  authMiddleware,
+  experienceControllers.deleteExperienceById
+);
 
-// Route to add a new item
-router.post("/items", itemControllers.add);
+/* COURSES. */
+router.get("/course", authMiddleware, courseControllers.getCourse);
+router.get(
+  "/course/:id([0-9]+)",
+  authMiddleware,
+  courseControllers.getCourseById
+);
+router.post("/course", authMiddleware, courseControllers.postCourse);
+router.put(
+  "/course/:id([0-9]+)",
+  authMiddleware,
+  courseControllers.updateCourse
+);
+router.delete(
+  "/course/:id([0-9]+)",
+  authMiddleware,
+  courseControllers.deleteCourseById
+);
+// UPLOADS
+router.get("/uploads", authMiddleware, uploadController.getList);
 
-/* ************************************************************************* */
+router.post(
+  "/uploads",
+  authMiddleware,
+  upload.single("avatar"),
+  uploadController.create
+);
+/* CV. */
+router.post("/cvs", authMiddleware, cvControllers.postCv);
 
+// router.post("/signin", userControllers.postUser);
+// router.update("/signin", userControllers.putUser);
 module.exports = router;

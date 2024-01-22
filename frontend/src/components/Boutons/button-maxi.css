@@ -1,0 +1,21 @@
+.submit-btn-maxi {
+  background-color: var(--second-color);
+  color: var(--text-btn);
+  padding: 20px 30px;
+  border: 0;
+  border-radius: 7px;
+  text-transform: uppercase;
+  font-weight: 500;
+  font-size: 20px;
+  width: 100%;
+  margin-top: 30px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.submit-btn-maxi:hover {
+  transform: scale(0.9);
+}
+
+.submit-btn-maxi.pink {
+  background-color: var(--main-color);
+}

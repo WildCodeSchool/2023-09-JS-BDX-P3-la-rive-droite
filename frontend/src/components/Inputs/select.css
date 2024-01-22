@@ -1,0 +1,23 @@
+.select-background {
+  background-color: var(--background-input);
+  padding: 15px 20px;
+  border-radius: 7px;
+  border: none;
+  color: var(--second-color);
+  font-size: 16px;
+  font-weight: 500;
+  width: 100%;
+  margin-top: 5px;
+}
+
+.label-select {
+  font-weight: 500;
+  color: var(--third-title-color);
+  text-transform: uppercase;
+  font-size: 16px;
+  display: inline-block;
+}
+
+.container-select {
+  margin: 40px 0 10px 0;
+}

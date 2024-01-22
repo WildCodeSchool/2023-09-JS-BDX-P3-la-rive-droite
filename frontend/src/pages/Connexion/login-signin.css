@@ -1,0 +1,29 @@
+.container-general-login {
+  border-radius: var(--border-radius) var(--border-radius) 0% 0%;
+  margin-top: var(--border-radius-negatif);
+}
+
+.container-login h1 {
+  font-size: 43px;
+  margin-top: 800px;
+}
+
+span {
+  color: var(--second-color);
+  font-weight: 500;
+}
+
+.header-login {
+  background-color: var(--main-color);
+  height: 250px;
+  position: relative;
+}
+.small-paragraphe-info {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+.container-coordonnees {
+  margin-top: 50px;
+}

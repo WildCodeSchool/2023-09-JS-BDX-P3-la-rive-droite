@@ -1,0 +1,24 @@
+.offerDash-item {
+  display: flex;
+  justify-content: space-between;
+  box-shadow: 5px 5px 15px 8px rgba(217, 217, 217, 0.53);
+  padding: 10px 35px;
+}
+.array-box,
+.bigArray-box {
+  margin-inline: 5px;
+  margin: 25px 0;
+}
+.array-box {
+  width: 12%;
+}
+.bigArray-box {
+  width: 32%;
+}
+.icon-dash {
+  display: flex;
+  justify-content: space-between;
+  margin: 25px 0;
+  width: 100px;
+  color: var(--second-color);
+}

@@ -1,0 +1,13 @@
+.offre-container {
+  padding-top: 50px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 50px;
+}
+
+.container-checkbox-experience {
+  margin-top: 20px;
+  margin-left: 10px;
+}

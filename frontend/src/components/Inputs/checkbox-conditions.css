@@ -1,0 +1,12 @@
+.container-checkbox label {
+  margin-left: 10px;
+  color: var(--text-exemple);
+}
+
+.container-checkbox input {
+  transform: scale(1.5);
+}
+
+.container-checkbox {
+  margin: 20px 0 10px 0;
+}

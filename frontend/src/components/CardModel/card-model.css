@@ -1,0 +1,53 @@
+.card-container {
+  border: none;
+  padding: 30px;
+  border-radius: 6px;
+  box-shadow: 5px 5px 15px 8px rgba(217, 217, 217, 0.53);
+  margin: 20px 0px;
+  overflow: hidden;
+}
+
+.label-offre {
+  font-weight: 500;
+  color: var(--third-title-color);
+  text-transform: uppercase;
+  font-size: 16px;
+}
+.entreprise-champs {
+  color: var(--second-color);
+  font-weight: 400;
+}
+
+.poste-champs {
+  color: var(--texte-default);
+  font-weight: 400;
+  font-size: 15px;
+}
+
+.p-description {
+  line-height: 1.6;
+  margin-top: 6px;
+}
+.date-poste {
+  color: var(--text-exemple);
+  font-weight: 400;
+  font-size: 15px;
+  margin-top: 4px;
+}
+.card-icons {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  font-size: 18px;
+  color: var(--second-color);
+}
+.icon-modify {
+  padding: 5px;
+}
+
+.icon-trash {
+  padding: 5px;
+}
+.icon-view {
+  padding: 5px;
+}
