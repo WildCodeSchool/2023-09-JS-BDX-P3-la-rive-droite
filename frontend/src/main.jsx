@@ -100,9 +100,13 @@ const router = createBrowserRouter([
                 const experienceData = await apiService.get(
                   `http://localhost:3310/api/experiences/by-cv-id/${cvData.data.id}`
                 );
+                const courseData = await apiService.get(
+                  `http://localhost:3310/api/courses/by-cv-id/${cvData.data.id}`
+                );
 
                 return {
                   experiences: experienceData.data,
+                  courses: courseData.data,
                 };
               } catch (err) {
                 console.error(err.message);
