@@ -92,6 +92,11 @@ router.delete(
 /* COURSES. */
 router.get("/course", authMiddleware, courseControllers.getCourse);
 router.get(
+  "/courses/by-cv-id/:id([0-9]+)",
+  authMiddleware,
+  courseControllers.getCoursesByCvId
+);
+router.get(
   "/course/:id([0-9]+)",
   authMiddleware,
   courseControllers.getCourseById
