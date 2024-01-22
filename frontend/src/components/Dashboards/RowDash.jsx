@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useGlobalContext } from "../../contexts/GlobalContext";
 import "./RowDash.css";
+import { useAdminContext } from "../../contexts/AdminContext";
 
 function RowDash() {
   const { goToOffer, apiService } = useGlobalContext();
+  const { goToEditOffer } = useAdminContext();
 
   const [offers, setOffers] = useState([]);
 
@@ -50,14 +52,29 @@ function RowDash() {
           <p className="array-box">En ligne</p>
           <p className="bigArray-box">{offer.email}</p>
           <div className="icon-dash">
-            <i className="fa-solid fa-pen" />
-            <button type="button" onClick={() => goToOffer(offer.id)}>
-              .
-              <i className="fa-solid fa-eye" />.
+            <button
+              type="button"
+              aria-label="getoffer"
+              onClick={() => goToEditOffer(offer.id)}
+              className="invisible-button"
+            >
+              <i className="fa-solid fa-pen" />
             </button>
-            <button type="button" onClick={() => deleteOffer(offer.id)}>
-              .
-              <i className="fa-solid fa-trash" />.
+            <button
+              type="button"
+              aria-label="getoffer"
+              onClick={() => goToOffer(offer.id)}
+              className="invisible-button"
+            >
+              <i className="fa-solid fa-eye" />
+            </button>
+            <button
+              type="button"
+              aria-label="getoffer"
+              onClick={() => deleteOffer(offer.id)}
+              className="invisible-button"
+            >
+              <i className="fa-solid fa-trash" />
             </button>
           </div>
         </div>
