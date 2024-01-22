@@ -1,6 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { v4 as uuid } from "uuid";
-import axios from "axios";
 import ButtonMaxi from "../../components/Boutons/ButtonMaxi";
 import Date from "../../components/Inputs/Date";
 import Input from "../../components/Inputs/Input";
@@ -22,6 +21,8 @@ function AddFormation() {
     msgContent,
     setMsgContent,
     handleChange,
+    apiService,
+    user,
   } = useGlobalContext();
 
   const [addCourse, setAddCourse] = useState({
@@ -33,6 +34,7 @@ function AddFormation() {
     dateEnd: "",
     description: "",
   });
+  const [courseSaved, setCourseSaved] = useState([]);
 
   const handleAddCourse = async (event) => {
     event.preventDefault();
@@ -63,8 +65,24 @@ function AddFormation() {
       }, 4000);
     } else {
       try {
-        // const data =
-        await axios.post(`http://localhost:3310/api/course/`, addCourse);
+        const { data } = await apiService.get(
+          `http://localhost:3310/api/users/${user.id}/cvs`
+        );
+        const cvId = data.id;
+
+        // const personne = {
+        //   prenom: "Marie",
+        //   nom: "Delaire",
+        // };
+        // personne.prenom = "Mariiiiiiie";
+        // console.log(personne);
+
+        // peut etre que ca fait un bug, chépa tro
+        addCourse.cvId = cvId;
+
+        await apiService.post(`http://localhost:3310/api/course/`, addCourse);
+
+        setCourseSaved((prevData) => [...prevData, addCourse]);
         setMsgContent("La formation a été ajoutée avec succès");
         setSuccesMsg(true);
         setTimeout(() => {
@@ -80,6 +98,7 @@ function AddFormation() {
       }
     }
   };
+  useEffect(() => {}, [courseSaved]);
 
   return (
     <div>
