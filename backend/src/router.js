@@ -66,6 +66,11 @@ router.get(
   experienceControllers.getExperiences
 );
 router.get(
+  "/experiences/by-cv-id/:id([0-9]+)",
+  authMiddleware,
+  experienceControllers.getExperiencesByCvId
+);
+router.get(
   "/experience/:id([0-9]+)",
   authMiddleware,
   experienceControllers.getExperienceById
@@ -88,6 +93,11 @@ router.delete(
 
 /* COURSES. */
 router.get("/course", authMiddleware, courseControllers.getCourse);
+router.get(
+  "/courses/by-cv-id/:id([0-9]+)",
+  authMiddleware,
+  courseControllers.getCoursesByCvId
+);
 router.get(
   "/course/:id([0-9]+)",
   authMiddleware,
@@ -114,7 +124,7 @@ router.post(
   uploadController.create
 );
 /* CV. */
-router.post("/cvs", authMiddleware, authAdminMiddleware, cvControllers.postCv);
+router.post("/cvs", authMiddleware, cvControllers.postCv);
 
 // router.post("/signin", userControllers.postUser);
 // router.update("/signin", userControllers.putUser);

@@ -1,7 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import axios from "axios";
 import App from "./App";
 import Home from "./pages/HomeOffer/Home";
 import ReadOffer from "./pages/Offer/ReadOffer";
@@ -10,7 +9,6 @@ import LogIn from "./pages/Connexion/LogIn";
 import History from "./pages/Historique/History";
 import Favoris from "./pages/Favoris/Favoris";
 import UserProfileModel from "./pages/ProfileUser/UserProfileModel";
-import CreateCV from "./pages/CV/CreateCV";
 import AddExperience from "./pages/Experience/AddExperience";
 import AddFormation from "./pages/Formation/AddFormation";
 import Dashboard1 from "./pages/Dashboard/Dashboard1";
@@ -85,27 +83,37 @@ const router = createBrowserRouter([
       },
       {
         path: "/edit-profile",
+        loader: async () => {
+          try {
+            // D'abord, on va chercher le CV de l'utilisateur, ce qui nous intéresse est l'id du CV
+            const cvData = await apiService.get(
+              "http://localhost:3310/api/users/6/cvs" // TODO: remplacer le 5 par l'id de l'utilisateur connecté
+            );
+
+            // Ensuite, on va chercher les expériences de l'utilisateur via l'id du CV qu'on vient de récupérer
+            // le but est de pouvoir faire SELECT * FROM experiences WHERE cv_id = cvData.data.id
+            const experienceData = await apiService.get(
+              `http://localhost:3310/api/experiences/by-cv-id/${cvData.data.id}`
+            );
+            const courseData = await apiService.get(
+              `http://localhost:3310/api/courses/by-cv-id/${cvData.data.id}`
+            );
+
+            return {
+              experiences: experienceData.data,
+              courses: courseData.data,
+            };
+          } catch (err) {
+            console.error(err.message);
+            return null;
+          }
+        },
         element: (
           <SignContextProvider>
             <UserProfileModel />
           </SignContextProvider>
         ),
         children: [
-          {
-            path: "/edit-profile/cv",
-            element: <CreateCV />,
-            loader: async () => {
-              try {
-                const data = await axios.get(
-                  "http://localhost:3310/api/users/:id/cvs"
-                );
-                return data;
-              } catch (err) {
-                console.error(err.message);
-                return null;
-              }
-            },
-          },
           {
             path: "/edit-profile/experience",
             element: <AddExperience />,

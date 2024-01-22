@@ -1,4 +1,6 @@
 import { useEffect, useState, Outlet } from "react";
+import { Outlet, useLoaderData } from "react-router-dom";
+import { useEffect, useState } from "react";
 import Input from "../../components/Inputs/Input";
 import HeaderLongUser from "../../components/Headers/HeaderLongUser";
 import Title from "../../components/Titles/Title";
@@ -7,12 +9,18 @@ import AddSomething from "../../components/Add Something/AddSomething";
 import ButtonMaxi from "../../components/Boutons/ButtonMaxi";
 import { useGlobalContext } from "../../contexts/GlobalContext";
 import { useUserContext } from "../../contexts/UserContext";
+import AddDetailsCV from "../../components/Add Something/AddSomething";
+import ErrorMsg from "../../components/Alertes Messages/ErrorMsg";
+import SuccesMsg from "../../components/Alertes Messages/SuccesMsg";
+import ButtonMaxi from "../../components/Boutons/ButtonMaxi";
+import { useUserContext } from "../../contexts/UserContext";
 
 function UserProfileModel() {
   const { apiService, handleChange } = useGlobalContext();
   const { handleSubmitProfile } = useUserContext();
   const [getProfile, setGetProfile] = useState([]);
   const [getSkills, setGetSkills] = useState([]);
+
   useEffect(() => {
     const getUserProfile = async () => {
       try {
@@ -185,12 +193,40 @@ function UserProfileModel() {
                 handleCheckboxChanged(getSkills, "trello", event)
               }
             />
-            <AddSomething addDetail="Votre CV" />
-          </div>
-
-          <ButtonMaxi textBtn="Enregistrer" clickFunc={handleSubmitProfile} />
+           <AddDetailsCV
+          addDetail="Expériences professionnelles"
+          url="/edit-profile/experience"
+        />
+        {experiences &&
+          experiences.map((experience) => (
+            <div className="card-container" key={experience.id}>
+              <h3 className="diplome">{experience.title}</h3>
+              <h4 className="dates">
+                {experience.date_begin} - {experience.date_end ?? "en cours"}
+              </h4>
+              <p className="school">{experience.company}</p>
+            </div>
+          ))}
+        <AddDetailsCV addDetail="Formations" url="/edit-profile/formation" />
+        {courses &&
+          courses.map((course) => (
+            <div className="card-container" key={course.id}>
+              <h3 className="level">
+                {course.level} {course.domaine}
+              </h3>
+              <h4 className="dates">
+                {course.date_begin} - {course.date_end}
+              </h4>
+              <p className="school">{course.name}</p>
+            </div>
+          ))}
+        <div>
+          {errorMsg && <ErrorMsg message={msgContent} />}
+          {succesMsg && <SuccesMsg message={msgContent} />}
         </div>
-      </>
+        <ButtonMaxi textBtn="Enregistrer" clickFunc={handleAddCv} />
+      </div>
+    </>
     ) || (
       <div>
         <Outlet />

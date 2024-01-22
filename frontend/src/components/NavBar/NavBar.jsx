@@ -16,7 +16,7 @@ import { useGlobalContext } from "../../contexts/GlobalContext";
 // import logo from "../../assets/ext-logo.png";
 
 export default function Navbar() {
-  const { user, handleLogout } = useGlobalContext();
+  const { user, handleLogout, isAdmin } = useGlobalContext();
 
   const [openNavColor, setOpenNavColor] = useState(false);
   useEffect(() => {
@@ -52,18 +52,19 @@ export default function Navbar() {
                 <Link to="/">
                   <span className="active navbar-link">Accueil</span>
                 </Link>
-
-                <Link to="/login">
-                  <span className="navbar-link">Connexion</span>
-                </Link>
+                {user ? (
+                  <Link to="/edit-profile">
+                    <span className="navbar-link">Mon Profil</span>
+                  </Link>
+                ) : null}
                 <Link to="/profile/favorite">
                   <span className="navbar-link">Favoris</span>
                 </Link>
-
-                <Link to="/dashboard">
-                  <span className="navbar-link">Espace admin</span>
-                </Link>
-
+                {isAdmin ? (
+                  <Link to="/dashboard">
+                    <span className="navbar-link">Espace admin</span>
+                  </Link>
+                ) : null}
                 <div className="btn-nav">
                   {user ? (
                     <div>

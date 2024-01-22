@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { v4 as uuid } from "uuid";
-import axios from "axios";
 
 import "./add-experience.css";
 // import ButtonMaxi from "../../components/Boutons/ButtonMaxi";
@@ -26,6 +25,8 @@ function AddExperience() {
     setMsgContent,
     handleChange,
     handleCheckboxChange,
+    apiService,
+    user,
   } = useGlobalContext();
 
   const [addXp, setAddXp] = useState({
@@ -38,6 +39,7 @@ function AddExperience() {
     dateBegin: "",
     dateEnd: null,
     description: null,
+    cvId: null,
   });
 
   const [xpSaved, setXpSaved] = useState([]);
@@ -55,8 +57,7 @@ function AddExperience() {
       setTimeout(() => {
         setErrorMsg(false);
       }, 4000);
-    }
-    if (addXp.isWorking === false && addXp.dateBegin === "") {
+    } else if (addXp.isWorking === false && addXp.dateBegin === "") {
       addXp.dateBegin = "1970-01-01";
 
       // Affichage d'un message d'erreur
@@ -65,8 +66,7 @@ function AddExperience() {
       setTimeout(() => {
         setErrorMsg(false);
       }, 4000);
-    }
-    if (addXp.isWorking === true && addXp.dateBegin === "") {
+    } else if (addXp.isWorking === true && addXp.dateBegin === "") {
       setErrorMsg(true);
       setMsgContent("Veuillez renseigner les dates");
       setTimeout(() => {
@@ -74,8 +74,24 @@ function AddExperience() {
       }, 4000);
     } else {
       try {
-        // const data =
-        await axios.post(`http://localhost:3310/api/experience/`, addXp);
+        // ici on récupère l'id du cv, et le back fait en sorte
+        // que si l'utilisateur n'a pas de cv, il en crée un
+        const { data } = await apiService.get(
+          `http://localhost:3310/api/users/${user.id}/cvs`
+        );
+        const cvId = data.id;
+
+        // const personne = {
+        //   prenom: "Marie",
+        //   nom: "Delaire",
+        // };
+        // personne.prenom = "Mariiiiiiie";
+        // console.log(personne);
+
+        // peut etre que ca fait un bug, chépa tro
+        addXp.cvId = cvId;
+
+        await apiService.post(`http://localhost:3310/api/experience/`, addXp);
 
         setXpSaved((prevData) => [...prevData, addXp]);
         setMsgContent("L'expérience a été ajoutée avec");

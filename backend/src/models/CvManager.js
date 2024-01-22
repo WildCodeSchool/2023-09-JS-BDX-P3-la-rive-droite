@@ -5,11 +5,11 @@ class CvManager extends AbstractManager {
     super({ table: "cv" });
   }
 
-  async create(cv) {
+  async create(userId) {
     try {
       const [res] = await this.database.query(
         `INSERT INTO ${this.table} (user_id) VALUES (?)`,
-        [cv.userId]
+        [userId]
       );
 
       return res;
@@ -25,6 +25,19 @@ class CvManager extends AbstractManager {
         `SELECT * FROM ${this.table} WHERE user_id = ?`,
         [userId]
       );
+    } catch (err) {
+      console.error(err);
+      return null;
+    }
+  }
+
+  async findAllByCvId(cvId) {
+    try {
+      const [results] = await this.database.query(
+        `SELECT * FROM ${this.table} WHERE cv_id = ?`,
+        [cvId]
+      );
+      return results;
     } catch (err) {
       console.error(err);
       return null;
