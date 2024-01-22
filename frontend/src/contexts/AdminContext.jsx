@@ -6,7 +6,7 @@ const AdminContext = createContext();
 
 function AdminContextProvider({ children }) {
   // const { setErrorMsg, setSuccesMsg, setMsgContent } = useGlobalContext();
-  const { isAdmin, setIsAdmin } = useGlobalContext();
+  const { isAdmin, setIsAdmin, navigate } = useGlobalContext();
 
   const [addOffer, setAddOffer] = useState({
     title: "",
@@ -21,14 +21,19 @@ function AdminContextProvider({ children }) {
     email: "",
   });
 
+  const goToEditOffer = (id) => {
+    navigate(`/dashboard/edit-offer/${id}`);
+  };
+
   const contextValues = useMemo(
     () => ({
       isAdmin,
       setIsAdmin,
       addOffer,
       setAddOffer,
+      goToEditOffer,
     }),
-    [isAdmin, setIsAdmin, addOffer, setAddOffer]
+    [isAdmin, setIsAdmin, addOffer, setAddOffer, goToEditOffer]
   );
 
   return (
