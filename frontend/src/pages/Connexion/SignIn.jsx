@@ -87,56 +87,16 @@ function SignIn() {
       setTimeout(() => {
         setSuccesMsg(false);
       }, 2000);
-
-      axios.post("http://localhost:3310/api/users", signIn).then((response) => {
-        const userId = response.data.rows.insertId;
-        axios
-          .post(`http://localhost:3310/api/user_competence/${userId}`, {
-            ...signIn,
-            html: skills.html || false,
-            css: skills.css || false,
-            javascript: skills.javascript || false,
-            angular: skills.angular || false,
-            react: skills.react || false,
-            php: skills.php || false,
-            symphony: skills.symphony || false,
-            git: skills.git || false,
-            github: skills.github || false,
-            trello: skills.trello || false,
-          })
-          .then(() => {
-            setSignIn({
-              email: "",
-              password: "",
-              password2: "",
-              lastname: "",
-              firstname: "",
-              phone: "",
-              address: "",
-            });
-            if (signIn.addCvNow === true) {
-              setTimeout(() => {
-                navigate("/edit-profile/cv");
-              }, 2000);
-            } else {
-              setTimeout(() => {
-                navigate("/login");
-              }, 2000);
-            }
-          })
-          .catch((error) => {
-            console.error("Error during Axios request:", error);
-            if (error.response) {
-              console.error("Response data:", error.response.data);
-              console.error("Response status:", error.response.status);
-              console.error("Response headers:", error.response.headers);
-            } else if (error.request) {
-              console.error("No response received:", error.request);
-            } else {
-              console.error("Error message:", error.message);
-            }
-          });
-      });
+      axios.post("http://localhost:3310/api/users", { ...signIn, ...skills });
+      if (signIn.addCvNow === true) {
+        setTimeout(() => {
+          navigate("/edit-profile/cv");
+        }, 2000);
+      } else {
+        setTimeout(() => {
+          navigate("/login");
+        }, 2000);
+      }
     }
   };
 
@@ -321,5 +281,4 @@ function SignIn() {
     </>
   );
 }
-
 export default SignIn;

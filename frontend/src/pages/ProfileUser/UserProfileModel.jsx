@@ -1,4 +1,4 @@
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, Outlet } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Input from "../../components/Inputs/Input";
 import HeaderLongUser from "../../components/Headers/HeaderLongUser";
@@ -60,167 +60,178 @@ function UserProfileModel() {
   };
 
   return (
-    <>
-      <HeaderLongUser
-        textTitle={getProfile.firstname}
-        textTitle2={getProfile.lastname}
-      />
-      <div className="container-page">
-        <Title titleText="Vos coordonnées" />
-        <Input
-          titleInput="Nom *"
-          holderText={getProfile.lastname}
-          fieldName="lastname"
-          valueInput={getProfile}
-          handleChange={(event) => handleChange(getProfile, "lastname", event)}
+    ((window.location.pathname === "/edit-profile" ||
+      window.location.pathname === "/edit-profile/") && (
+      <>
+        <HeaderLongUser
+          textTitle={getProfile.firstname}
+          textTitle2={getProfile.lastname}
         />
-        <Input
-          titleInput="Prénom *"
-          holderText={getProfile.firstname}
-          fieldName="firstname"
-          valueInput={getProfile}
-          handleChange={(event) => handleChange(getProfile, "firstname", event)}
-        />
-        <Input
-          titleInput="Email *"
-          holderText={getProfile.email}
-          fieldName="email"
-          valueInput={getProfile}
-          handleChange={(event) => handleChange(getProfile, "email", event)}
-        />
-        <Input
-          titleInput="Téléphone *"
-          holderText={getProfile.phone}
-          fieldName="phone"
-          typeInput="tel"
-          valueInput={getProfile}
-          handleChange={(event) => handleChange(getProfile, "phone", event)}
-        />
-        <Input
-          titleInput="Addresse *"
-          holderText={getProfile.address}
-          fieldName="address"
-          inputType="text"
-          valueInput={getProfile}
-          handleChange={(event) => handleChange(getProfile, "address", event)}
-        />
-        <div className="container-switch">
-          <h2 className="label-champs"> Cochez vos compétences *</h2>
-          <CompetenceSwitch
-            textCompetence="HTML"
-            fieldName="html"
-            valueInput={getSkills}
+        <div className="container-page">
+          <Title titleText="Vos coordonnées" />
+          <Input
+            titleInput="Nom *"
+            holderText={getProfile.lastname}
+            fieldName="lastname"
+            valueInput={getProfile}
             handleChange={(event) =>
-              handleCheckboxChanged(getSkills, "html", event)
+              handleChange(getProfile, "lastname", event)
             }
           />
-          <CompetenceSwitch
-            textCompetence="CSS"
-            valueInput={getSkills}
-            fieldName="css"
+          <Input
+            titleInput="Prénom *"
+            holderText={getProfile.firstname}
+            fieldName="firstname"
+            valueInput={getProfile}
             handleChange={(event) =>
-              handleCheckboxChanged(getSkills, "css", event)
+              handleChange(getProfile, "firstname", event)
             }
           />
-          <CompetenceSwitch
-            textCompetence="JAVASCRIPT"
-            fieldName="javascript"
-            valueInput={getSkills}
-            handleChange={(event) =>
-              handleCheckboxChanged(getSkills, "javascript", event)
-            }
+          <Input
+            titleInput="Email *"
+            holderText={getProfile.email}
+            fieldName="email"
+            valueInput={getProfile}
+            handleChange={(event) => handleChange(getProfile, "email", event)}
           />
-          <CompetenceSwitch
-            textCompetence="ANGULAR"
-            fieldName="angular"
-            valueInput={getSkills}
-            handleChange={(event) =>
-              handleCheckboxChanged(getSkills, "angular", event)
-            }
+          <Input
+            titleInput="Téléphone *"
+            holderText={getProfile.phone}
+            fieldName="phone"
+            typeInput="tel"
+            valueInput={getProfile}
+            handleChange={(event) => handleChange(getProfile, "phone", event)}
           />
-          <CompetenceSwitch
-            textCompetence="REACT.JS"
-            fieldName="react"
-            valueInput={getSkills}
-            handleChange={(event) =>
-              handleCheckboxChanged(getSkills, "react", event)
-            }
+          <Input
+            titleInput="Addresse *"
+            holderText={getProfile.address}
+            fieldName="address"
+            inputType="text"
+            valueInput={getProfile}
+            handleChange={(event) => handleChange(getProfile, "address", event)}
           />
-          <CompetenceSwitch
-            textCompetence="PHP"
-            fieldName="php"
-            valueInput={getSkills}
-            handleChange={(event) =>
-              handleCheckboxChanged(getSkills, "php", event)
-            }
+          <div className="container-switch">
+            <h2 className="label-champs"> Cochez vos compétences *</h2>
+            <CompetenceSwitch
+              textCompetence="HTML"
+              fieldName="html"
+              valueInput={getSkills}
+              handleChange={(event) =>
+                handleCheckboxChanged(getSkills, "html", event)
+              }
+            />
+            <CompetenceSwitch
+              textCompetence="CSS"
+              valueInput={getSkills}
+              fieldName="css"
+              handleChange={(event) =>
+                handleCheckboxChanged(getSkills, "css", event)
+              }
+            />
+            <CompetenceSwitch
+              textCompetence="JAVASCRIPT"
+              fieldName="javascript"
+              valueInput={getSkills}
+              handleChange={(event) =>
+                handleCheckboxChanged(getSkills, "javascript", event)
+              }
+            />
+            <CompetenceSwitch
+              textCompetence="ANGULAR"
+              fieldName="angular"
+              valueInput={getSkills}
+              handleChange={(event) =>
+                handleCheckboxChanged(getSkills, "angular", event)
+              }
+            />
+            <CompetenceSwitch
+              textCompetence="REACT.JS"
+              fieldName="react"
+              valueInput={getSkills}
+              handleChange={(event) =>
+                handleCheckboxChanged(getSkills, "react", event)
+              }
+            />
+            <CompetenceSwitch
+              textCompetence="PHP"
+              fieldName="php"
+              valueInput={getSkills}
+              handleChange={(event) =>
+                handleCheckboxChanged(getSkills, "php", event)
+              }
+            />
+            <CompetenceSwitch
+              textCompetence="SYMPHONY"
+              fieldName="symphony"
+              valueInput={getSkills}
+              handleChange={(event) =>
+                handleCheckboxChanged(getSkills, "symphony", event)
+              }
+            />
+            <CompetenceSwitch
+              textCompetence="GIT"
+              fieldName="git"
+              valueInput={getSkills}
+              handleChange={(event) =>
+                handleCheckboxChanged(getSkills, "git", event)
+              }
+            />
+            <CompetenceSwitch
+              textCompetence="GITHUB"
+              fieldName="github"
+              valueInput={getSkills}
+              handleChange={(event) =>
+                handleCheckboxChanged(getSkills, "github", event)
+              }
+            />
+            <CompetenceSwitch
+              textCompetence="TRELLO"
+              fieldName="trello"
+              valueInput={getSkills}
+              handleChange={(event) =>
+                handleCheckboxChanged(getSkills, "trello", event)
+              }
+            />
+          </div>
+          <AddDetailsCV
+            addDetail="Expériences professionnelles"
+            url="/edit-profile/experience"
           />
-          <CompetenceSwitch
-            textCompetence="SYMPHONY"
-            fieldName="symphony"
-            valueInput={getSkills}
-            handleChange={(event) =>
-              handleCheckboxChanged(getSkills, "symphony", event)
-            }
-          />
-          <CompetenceSwitch
-            textCompetence="GIT"
-            fieldName="git"
-            valueInput={getSkills}
-            handleChange={(event) =>
-              handleCheckboxChanged(getSkills, "git", event)
-            }
-          />
-          <CompetenceSwitch
-            textCompetence="GITHUB"
-            fieldName="github"
-            valueInput={getSkills}
-            handleChange={(event) =>
-              handleCheckboxChanged(getSkills, "github", event)
-            }
-          />
-          <CompetenceSwitch
-            textCompetence="TRELLO"
-            fieldName="trello"
-            valueInput={getSkills}
-            handleChange={(event) =>
-              handleCheckboxChanged(getSkills, "trello", event)
-            }
-          />
+          {experiences &&
+            experiences.map((experience) => (
+              <div className="card-container" key={experience.id}>
+                <h3 className="diplome">{experience.title}</h3>
+                <h4 className="dates">
+                  {experience.date_begin} - {experience.date_end ?? "en cours"}
+                </h4>
+                <p className="school">{experience.company}</p>
+              </div>
+            ))}
+          <AddDetailsCV addDetail="Formations" url="/edit-profile/formation" />
+          {courses &&
+            courses.map((course) => (
+              <div className="card-container" key={course.id}>
+                <h3 className="level">
+                  {course.level} {course.domaine}
+                </h3>
+                <h4 className="dates">
+                  {course.date_begin} - {course.date_end}
+                </h4>
+                <p className="school">{course.name}</p>
+              </div>
+            ))}
+          <div>
+            {errorMsg && <ErrorMsg message={msgContent} />}
+            {succesMsg && <SuccesMsg message={msgContent} />}
+          </div>
+          <ButtonMaxi textBtn="Enregistrer" clickFunc={handleAddCv} />
         </div>
-        <AddDetailsCV
-          addDetail="Expériences professionnelles"
-          url="/edit-profile/experience"
-        />
-        {experiences &&
-          experiences.map((experience) => (
-            <div className="card-container" key={experience.id}>
-              <h3 className="diplome">{experience.title}</h3>
-              <h4 className="dates">
-                {experience.date_begin} - {experience.date_end ?? "en cours"}
-              </h4>
-              <p className="school">{experience.company}</p>
-            </div>
-          ))}
-        <AddDetailsCV addDetail="Formations" url="/edit-profile/formation" />
-        {courses &&
-          courses.map((course) => (
-            <div className="card-container" key={course.id}>
-              <h3 className="level">
-                {course.level} {course.domaine}
-              </h3>
-              <h4 className="dates">
-                {course.date_begin} - {course.date_end}
-              </h4>
-              <p className="school">{course.name}</p>
-            </div>
-          ))}
-        <div>
-          {errorMsg && <ErrorMsg message={msgContent} />}
-          {succesMsg && <SuccesMsg message={msgContent} />}
-        </div>
-        <ButtonMaxi textBtn="Enregistrer" clickFunc={handleAddCv} />
+      </>
+    )) || (
+      <div>
+        <Outlet />
       </div>
-    </>
+    )
   );
 }
 

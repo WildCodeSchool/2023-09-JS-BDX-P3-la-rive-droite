@@ -42,7 +42,6 @@ const postUser = (req, res) => {
         address: req.body.address,
         email: req.body.email,
         is_admin: req.body.is_admin,
-        userCompetenceId: rows.userCompetenceId,
         competenceId: rows.competenceId,
       });
     })
@@ -50,7 +49,31 @@ const postUser = (req, res) => {
       console.error(err);
       res.status(422).send({ error: err.message });
     });
-  // res.status(418).send(req.body)
+};
+
+const getSkills = (req, res) => {
+  models.user
+    .findAll(req.body)
+    .then((rows) => {
+      res.status(201).send(rows);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).json({ message: err.message });
+    });
+};
+
+const postSkills = (req, res) => {
+  const userId = +req.body.params.id;
+  models.user
+    .userCompetence(userId, req.body)
+    .then((rows) => {
+      res.status(201).send(rows);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).json({ message: err.message });
+    });
 };
 
 const postLogin = (req, res) => {
@@ -97,4 +120,6 @@ module.exports = {
   updateUser,
   getProfile,
   getUserById,
+  postSkills,
+  getSkills,
 };

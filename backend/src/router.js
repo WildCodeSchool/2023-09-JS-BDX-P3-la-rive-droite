@@ -11,7 +11,6 @@ const offerControllers = require("./controllers/offerControllers");
 const experienceControllers = require("./controllers/experienceControllers");
 const courseControllers = require("./controllers/courseControllers");
 const cvControllers = require("./controllers/cvControllers");
-const skillControllers = require("./controllers/skillControllers");
 const {
   authMiddleware,
   authAdminMiddleware,
@@ -33,8 +32,8 @@ router.get(
 );
 router.get("/users/me", authMiddleware, userControllers.getProfile);
 router.post("/users", userControllers.postUser);
-router.get("/user/skills", skillControllers.getSkills);
-router.post("/user/skills", skillControllers.postSkills);
+router.get("/user/skills", userControllers.getSkills);
+router.post("/user/skills/:id([0-9]+)", userControllers.postSkills);
 router.post("/login", userControllers.postLogin);
 
 /* OFFERS. */
