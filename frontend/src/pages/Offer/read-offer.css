@@ -26,8 +26,17 @@
 
 .sub-title {
   margin-bottom: -5px;
+  font-weight: 500;
 }
 
-.info-offer {
-  color: var(--texte-default);
+.type-offer {
+  background-color: var(--background-input);
+  padding: 10px;
+  border-radius: 7px;
+  border: none;
+  color: var(--second-color);
+  font-size: 16px;
+  font-weight: 500;
+  width: 55px;
+  margin-top: 5px;
 }

@@ -54,12 +54,22 @@ export default function Navbar() {
                 </Link>
                 {user ? (
                   <Link to="/edit-profile">
-                    <span className="navbar-link">Mon Profil</span>
+                    <span className="navbar-link">Mon Compte</span>
                   </Link>
                 ) : null}
-                <Link to="/profile/favorite">
+                {/* <Link to="/profile/favorite">
                   <span className="navbar-link">Favoris</span>
-                </Link>
+                </Link> */}
+                {user ? (
+                  <Link to="/edit-profile/formation">
+                    <span className="navbar-link">Mes Formations</span>
+                  </Link>
+                ) : null}
+                {user ? (
+                  <Link to="/edit-profile/experience">
+                    <span className="navbar-link">Mes Expériences</span>
+                  </Link>
+                ) : null}
                 {isAdmin ? (
                   <Link to="/dashboard">
                     <span className="navbar-link">Espace admin</span>
@@ -69,9 +79,13 @@ export default function Navbar() {
                   {user ? (
                     <div>
                       {/* <p>Bienvenue</p> */}
-                      <button type="button" onClick={handleLogout}>
+                      <Link
+                        to="/"
+                        className="navbar-link"
+                        onClick={handleLogout}
+                      >
                         Se déconnecter
-                      </button>
+                      </Link>
                     </div>
                   ) : (
                     <>

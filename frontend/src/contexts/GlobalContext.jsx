@@ -43,7 +43,6 @@ function GlobalContextProvider({ children, apiService }) {
 
   const handleLogout = () => {
     localStorage.setItem("token", null);
-
     apiService.setToken(null);
     setUser(null);
     // eslint-disable-next-line no-alert

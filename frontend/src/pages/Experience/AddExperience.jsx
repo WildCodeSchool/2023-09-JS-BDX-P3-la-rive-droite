@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { v4 as uuid } from "uuid";
-
 import "./add-experience.css";
 // import ButtonMaxi from "../../components/Boutons/ButtonMaxi";
 import Input from "../../components/Inputs/Input";
@@ -27,6 +26,7 @@ function AddExperience() {
     handleCheckboxChange,
     apiService,
     user,
+    navigate,
   } = useGlobalContext();
 
   const [addXp, setAddXp] = useState({
@@ -98,7 +98,8 @@ function AddExperience() {
         setSuccesMsg(true);
         setTimeout(() => {
           setSuccesMsg(false);
-        }, 4000);
+          navigate("/edit-profile");
+        }, 3000);
         // saveItemInLS("Experience", xpSaved);
       } catch (err) {
         console.error(err);

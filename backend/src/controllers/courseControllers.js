@@ -13,7 +13,7 @@ const getCourse = (_, res) => {
 };
 
 const getCoursesByCvId = (req, res) => {
-  models.experience
+  models.course
     .findAllByCvId(req.params.id)
     .then((rows) => {
       res.send(rows);

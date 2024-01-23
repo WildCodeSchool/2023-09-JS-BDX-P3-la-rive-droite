@@ -119,6 +119,10 @@ const router = createBrowserRouter([
             element: <AddExperience />,
           },
           {
+            path: "/edit-profile/experience/:id/edit",
+            element: <AddExperience />,
+          },
+          {
             path: "/edit-profile/formation",
             element: <AddFormation />,
           },

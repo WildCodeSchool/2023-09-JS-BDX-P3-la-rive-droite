@@ -23,6 +23,7 @@ function AddFormation() {
     handleChange,
     apiService,
     user,
+    navigate,
   } = useGlobalContext();
 
   const [addCourse, setAddCourse] = useState({
@@ -86,8 +87,9 @@ function AddFormation() {
         setMsgContent("La formation a été ajoutée avec succès");
         setSuccesMsg(true);
         setTimeout(() => {
+          navigate("/edit-profile");
           setSuccesMsg(false);
-        }, 4000);
+        }, 3000);
       } catch (err) {
         console.error(err);
         setErrorMsg(true);

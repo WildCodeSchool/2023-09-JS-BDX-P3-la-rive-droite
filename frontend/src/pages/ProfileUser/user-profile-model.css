@@ -21,3 +21,25 @@
 .container-switch.label-champs {
   margin-top: 520px;
 }
+
+.formation-container {
+  background-color: var(--main-bg-color);
+}
+
+@media all and (min-width: 1000px) {
+  .formation-container {
+    margin-top: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    background-color: red;
+  }
+
+  .formation-container:last-child {
+    justify-content: flex-start;
+  }
+
+  .exp-formation-container {
+    width: 30%;
+  }
+}
