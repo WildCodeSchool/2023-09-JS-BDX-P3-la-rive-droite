@@ -103,7 +103,7 @@ function SignIn() {
   return (
     <>
       <HeaderLongTitle textTitle="Création de votre compte" />
-      <div className="container-page container-general-login">
+      <div className="container-page with-rounded-border">
         <h1>S'inscrire</h1>
         <div className="champs-form">
           <form>
