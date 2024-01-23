@@ -9,6 +9,8 @@ const getUsers = (_, res) => {
   models.user
     .findAll()
     .then((rows) => {
+      // delete rows.forEach((info) => info.password);
+      // console.log(rows);
       res.send(rows);
     })
     .catch((err) => {
@@ -16,6 +18,17 @@ const getUsers = (_, res) => {
       res.sendStatus(500);
     });
 };
+
+// const getUsers = (req, res) => {
+//   console.log(req.body);
+//   console.log(res.body);
+//   models.user
+//     .getAll(res.body)
+//     .catch((err) => {
+//       console.error(err);
+//       res.sendStatus(500);
+//     });
+// };
 
 const getUserById = async (req, res) => {
   const id = +req.params.id;

@@ -26,6 +26,7 @@ import UserContextProvider from "./contexts/UserContext";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "mdb-react-ui-kit/dist/css/mdb.min.css";
 import ApiService from "./services/api.service";
+import Dashboard3 from "./pages/Dashboard/Dashboard3";
 
 const apiService = new ApiService();
 
@@ -136,6 +137,10 @@ const router = createBrowserRouter([
           </AdminContextProvider>
         ),
         children: [
+          {
+            path: "/dashboard/user",
+            element: <Dashboard3 />,
+          },
           {
             path: "/dashboard/candidates",
             element: <Dashboard2 />,
