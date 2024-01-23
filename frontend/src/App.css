@@ -124,3 +124,12 @@ body {
   padding-top: 70px;
   margin-top: -170px;
 }
+
+@media screen and (min-width: 1000px) {
+  .container-page.with-rounded-border {
+    padding: 70px;
+  }
+  .with-round-bottom {
+    margin-bottom: 50px;
+  }
+}

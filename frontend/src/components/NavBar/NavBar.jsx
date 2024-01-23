@@ -78,13 +78,16 @@ export default function Navbar() {
                 <div className="btn-nav">
                   {user ? (
                     <div>
-                      {/* <p>Bienvenue</p> */}
                       <Link
                         to="/"
                         className="navbar-link"
                         onClick={handleLogout}
                       >
                         Se déconnecter
+                      </Link>
+                      <Link className="navbar-link" to="/edit-profile">
+                        {" "}
+                        Hello {user.firstname}
                       </Link>
                     </div>
                   ) : (
