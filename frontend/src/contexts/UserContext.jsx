@@ -37,7 +37,6 @@ function UserContextProvider({ children }) {
   //     saveItemInLS("Profile", newData);
   //     return newData;
   //   });
-  // };
 
   const [addCv, setAddCv] = useState({
     id: uuid(),

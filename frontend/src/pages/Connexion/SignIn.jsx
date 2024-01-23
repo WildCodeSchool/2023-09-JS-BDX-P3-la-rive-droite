@@ -87,26 +87,7 @@ function SignIn() {
       setTimeout(() => {
         setSuccesMsg(false);
       }, 2000);
-
-      axios.post("http://localhost:3310/api/users", signIn);
-      // axios.post("http://localhost:3310/api/users", signIn);
-      // axios.post("http://localhost:3010/api/user/skills/", skills);
-
-      // console.log(signIn);
-      // console.log(skills);
-
-      setSignIn({
-        email: "",
-        password: "",
-        password2: "",
-        lastname: "",
-        firstname: "",
-        phone: "",
-        address: "",
-      });
-
-      // setUserConnected(true);
-
+      axios.post("http://localhost:3310/api/users", { ...signIn, ...skills });
       if (signIn.addCvNow === true) {
         setTimeout(() => {
           navigate("/edit-profile/cv");
