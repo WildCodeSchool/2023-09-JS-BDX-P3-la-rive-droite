@@ -40,7 +40,6 @@ const postUser = (req, res) => {
         lastname: req.body.lastname,
         phone: req.body.phone,
         address: req.body.address,
-        competence: req.body.competence,
         email: req.body.email,
         is_admin: req.body.is_admin,
         userCompetenceId: rows.userCompetenceId,

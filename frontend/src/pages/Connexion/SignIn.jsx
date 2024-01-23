@@ -114,7 +114,6 @@ function SignIn() {
               phone: "",
               address: "",
             });
-
             if (signIn.addCvNow === true) {
               setTimeout(() => {
                 navigate("/edit-profile/cv");

@@ -1,7 +1,7 @@
 const models = require("../models/index");
 
 const getSkills = (req, res) => {
-  models.skill
+  models.user_competence
     .findAll(req.body)
     .then((rows) => {
       res.status(201).send(rows);
@@ -13,7 +13,7 @@ const getSkills = (req, res) => {
 };
 
 const postSkills = (req, res) => {
-  models.skill
+  models.user_competence
     .skills(req.body)
     .then((rows) => {
       res.status(201).send(rows);

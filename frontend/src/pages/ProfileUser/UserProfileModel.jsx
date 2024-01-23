@@ -34,7 +34,7 @@ function UserProfileModel() {
     const getSkillsProfile = async () => {
       try {
         const response = await apiService.get(
-          "http://localhost:3310/api/user/skill"
+          "http://localhost:3310/api/users/me"
         );
         setGetSkills(response.data);
       } catch (err) {
