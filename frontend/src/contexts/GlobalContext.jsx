@@ -40,10 +40,9 @@ function GlobalContextProvider({ children, apiService }) {
 
   const handleLogout = () => {
     localStorage.setItem("token", null);
-
     apiService.setToken(null);
     setUser(null);
-    alert(`Déconnexion réussie`);
+    // alert(`Déconnexion réussie`);
     return navigate("/");
   };
 

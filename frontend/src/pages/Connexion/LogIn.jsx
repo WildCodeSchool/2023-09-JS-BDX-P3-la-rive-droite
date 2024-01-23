@@ -11,16 +11,8 @@ import "../../components/Inputs/input.css";
 import "../../components/Boutons/button-maxi.css";
 
 function Login() {
-  const { handleChange } = useGlobalContext();
-
-  const {
-    errorMsg,
-    succesMsg,
-    msgContent,
-    logIn,
-    setLogIn,
-    handleSubmitLogIn,
-  } = useLogContext();
+  const { errorMsg, succesMsg, msgContent, handleChange } = useGlobalContext();
+  const { logIn, setLogIn, handleSubmitLogIn } = useLogContext();
 
   return (
     <>
