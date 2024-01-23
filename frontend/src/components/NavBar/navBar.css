@@ -80,4 +80,10 @@
     align-items: center;
     width: 100%;
   }
+  .navbar-link.profile i {
+    padding: 0 10px;
+  }
+  .navbar-link.profile {
+    font-size: 25px;
+  }
 }

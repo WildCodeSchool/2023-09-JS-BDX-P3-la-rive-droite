@@ -1,12 +1,8 @@
-* {
-  margin: 0;
-  padding: 0;
-}
-.user-profile-page {
+#user-profile-model .user-profile-page {
   position: relative;
 }
 
-.label-champs {
+#user-profile-model .label-champs {
   font-weight: 500;
   color: var(--third-title-color);
   text-transform: uppercase;
@@ -18,28 +14,33 @@
   margin-top: 50px;
 }
 
-.container-switch.label-champs {
+#user-profile-model .container-switch.label-champs {
   margin-top: 520px;
 }
 
-.formation-container {
+#user-profile-model .formation-container {
   background-color: var(--main-bg-color);
 }
 
 @media all and (min-width: 1000px) {
-  .formation-container {
+  #user-profile-model .formation-container,
+  #user-profile-model .experience-container {
     margin-top: 30px;
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
-    background-color: red;
-  }
-
-  .formation-container:last-child {
     justify-content: flex-start;
   }
 
-  .exp-formation-container {
+  #user-profile-model .card-container {
+    width: 30%;
+    margin-right: 20px;
+  }
+
+  #user-profile-model .formation-container:last-child {
+    justify-content: flex-start;
+  }
+
+  #user-profile-model .exp-formation-container {
     width: 30%;
   }
 }

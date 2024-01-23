@@ -85,8 +85,9 @@ export default function Navbar() {
                       >
                         Se déconnecter
                       </Link>
-                      <Link className="navbar-link" to="/edit-profile">
+                      <Link className="navbar-link profile" to="/edit-profile">
                         {" "}
+                        {/* <i class="fa-solid fa-user"></i> */}
                         Hello {user.firstname}
                       </Link>
                     </div>
