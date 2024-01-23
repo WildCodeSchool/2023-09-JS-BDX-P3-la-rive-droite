@@ -62,6 +62,7 @@
 }
 .navbar-link:hover {
   transform: scale(0.9);
+  color: white;
 }
 .active {
   color: white;

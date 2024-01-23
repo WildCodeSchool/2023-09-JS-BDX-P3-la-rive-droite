@@ -6,14 +6,8 @@ const LogContext = createContext();
 
 function LogContextProvider({ children }) {
   // Messages d'alertes.
-  const {
-    apiService,
-    setUser,
-    // setErrorMsg,
-    // setSuccesMsg,
-    // setMsgContent,
-    navigate,
-  } = useGlobalContext();
+  const { apiService, setUser, setSuccesMsg, setMsgContent, navigate, user } =
+    useGlobalContext();
 
   const [userConnected, setUserConnected] = useState(false);
 
@@ -40,10 +34,17 @@ function LogContextProvider({ children }) {
 
       // alert(`Content de vous revoir ${result.data.email}`);
       setUser(result.data);
-      if (result.data.isAdmin === 1) {
-        return navigate("/dashboard");
-      }
-      return navigate("/");
+      setMsgContent(
+        `Content de vous revoir ${user.firstname} ${user.lastname}! Connexion effectuée avec`
+      );
+      setSuccesMsg(true);
+      setTimeout(() => {
+        setSuccesMsg(false);
+        if (result.data.isAdmin === 1) {
+          return navigate("/dashboard");
+        }
+        return navigate("/");
+      }, 2000);
     } catch (err) {
       console.error(err);
       // alert(err.message);
