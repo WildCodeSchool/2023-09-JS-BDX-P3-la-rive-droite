@@ -32,7 +32,8 @@ router.get(
 );
 router.get("/users/me", authMiddleware, userControllers.getProfile);
 router.post("/users", userControllers.postUser);
-router.post("/user/skills", userControllers.postSkills);
+router.get("/user/skills", userControllers.getSkills);
+router.post("/user/skills/:id([0-9]+)", userControllers.postSkills);
 router.post("/login", userControllers.postLogin);
 
 /* OFFERS. */
