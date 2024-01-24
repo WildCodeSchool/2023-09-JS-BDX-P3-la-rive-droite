@@ -202,7 +202,7 @@ function AddExperience() {
             </div>
           </div>
           <button className="submit-btn-maxi" type="submit">
-            Ajouter
+            Ajouter l'expérience
           </button>
         </form>
       </div>

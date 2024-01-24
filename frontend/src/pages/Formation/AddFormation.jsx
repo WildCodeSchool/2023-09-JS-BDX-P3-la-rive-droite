@@ -166,7 +166,7 @@ function AddFormation() {
             )}
           </div>
           <button className="submit-btn-maxi" type="submit">
-            Ajouter
+            Ajouter la formation
           </button>
         </form>
       </div>

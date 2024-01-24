@@ -46,7 +46,11 @@ function Home() {
 
   return (
     <div id="home">
-      <HeaderLongResearch textTitle="Bienvenue sur" textTitle2="nos offres" />
+      <HeaderLongResearch
+        textTitle="Cabinet de recrutement informatique
+"
+        textTitle2="Nos offres d'emploi"
+      />
       <div className="container-page">
         <h2>Les offres qui matchent !</h2>
         <div className="offer-container">
