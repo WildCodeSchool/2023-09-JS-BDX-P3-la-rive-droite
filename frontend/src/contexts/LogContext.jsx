@@ -18,6 +18,7 @@ function LogContextProvider({ children }) {
   const getUserFromStorage = () => {
     setShowStorage(JSON.parse(localStorage.getItem("User")));
   };
+
   const handleSubmitLogIn = async () => {
     try {
       const data = await globalContext.apiService.post(
@@ -55,30 +56,8 @@ function LogContextProvider({ children }) {
         globalContext.setErrorMsg(false);
       }, 2000);
     }
-
     return null;
   };
-
-  // getUserFromStorage();
-
-  // // Compare l'email.
-  // for (let i = 0; i < showStorage.length; i += 1) {
-  //   // i++
-  //   if (
-  //     showStorage[i].email === logIn.email &&
-  //     showStorage[i].password === logIn.password
-  //   ) {
-  //     // const idUser = showStorage[i].id;
-  //     const nameUser = showStorage[i].userName;
-  //     // console.log(nameUser);
-  //     // console.log(idUser);
-
-  // break;
-  //   } else {
-  //
-  //   }
-  // }
-  // };
 
   const contextValues = useMemo(
     () => ({
