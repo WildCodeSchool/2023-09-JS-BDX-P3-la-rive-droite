@@ -1,5 +1,6 @@
 import { Outlet, useLoaderData, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import "./user-profile-model.css";
 import Input from "../../components/Inputs/Input";
 import HeaderLongUser from "../../components/Headers/HeaderLongUser";
 import Title from "../../components/Titles/Title";
@@ -117,7 +118,7 @@ function UserProfileModel() {
 
   return window.location.pathname === "/edit-profile" ||
     window.location.pathname === "/edit-profile" ? (
-    <>
+    <div id="user-profile-model">
       <HeaderLongUser
         textTitle={getProfile.firstname}
         textTitle2={getProfile.lastname}
@@ -248,22 +249,23 @@ function UserProfileModel() {
           addDetail="Expériences professionnelles"
           url="/edit-profile/experience"
         />
-
-        {experiences &&
-          experiences.map((experience) => (
-            <CardExperience
-              key={experience.id}
-              id={experience.id}
-              company={experience.company}
-              title={experience.title}
-              type={experience.type}
-              city={experience.city}
-              dateBegin={experience.date_begin}
-              dateEnd={experience.date_end}
-              description={experience.description}
-              handleExperienceDelete={handleExperienceDelete}
-            />
-          ))}
+        <div className="experience-container">
+          {experiences &&
+            experiences.map((experience) => (
+              <CardExperience
+                key={experience.id}
+                id={experience.id}
+                company={experience.company}
+                title={experience.title}
+                type={experience.type}
+                city={experience.city}
+                dateBegin={experience.date_begin}
+                dateEnd={experience.date_end}
+                description={experience.description}
+                handleExperienceDelete={handleExperienceDelete}
+              />
+            ))}
+        </div>
         <AddDetailsCV addDetail="Formations" url="/edit-profile/formation" />
         <div className="formation-container">
           {courses &&
@@ -273,8 +275,8 @@ function UserProfileModel() {
                 id={course.id}
                 level={course.level}
                 domaine={course.domaine}
-                date_begin={course.date_begin}
-                date_end={course.date_end}
+                dateBegin={course.date_begin}
+                dateEnd={course.date_end}
                 name={course.name}
                 description={course.description}
                 handleCourseDelete={handleCourseDelete}
@@ -287,7 +289,7 @@ function UserProfileModel() {
         </div>
         <ButtonMaxi textBtn="Enregistrer" clickFunc={handleAddCv} />
       </div>
-    </>
+    </div>
   ) : (
     <div>
       <Outlet />

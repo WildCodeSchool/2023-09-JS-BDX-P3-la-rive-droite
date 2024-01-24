@@ -41,9 +41,9 @@ function LogContextProvider({ children }) {
       setTimeout(() => {
         setSuccesMsg(false);
         if (result.data.isAdmin === 1) {
-          return navigate("/dashboard");
+          navigate("/dashboard");
         }
-        return navigate("/");
+        navigate("/");
       }, 2000);
     } catch (err) {
       console.error(err);

@@ -43,7 +43,7 @@ function Home() {
   }, []);
 
   return (
-    <>
+    <div id="home">
       <HeaderLongResearch textTitle="Bienvenue sur" textTitle2="nos offres" />
       <div className="container-page">
         <h2>Les offres qui matchent !</h2>
@@ -58,7 +58,7 @@ function Home() {
           ))}
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
