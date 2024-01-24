@@ -13,18 +13,7 @@ import ErrorMsg from "../../components/Alertes Messages/ErrorMsg";
 import SuccesMsg from "../../components/Alertes Messages/SuccesMsg";
 
 function AddFormation() {
-  const {
-    errorMsg,
-    setErrorMsg,
-    succesMsg,
-    setSuccesMsg,
-    msgContent,
-    setMsgContent,
-    handleChange,
-    apiService,
-    user,
-    navigate,
-  } = useGlobalContext();
+  const globalContext = useGlobalContext();
 
   const [addCourse, setAddCourse] = useState({
     id: uuid(),
@@ -45,29 +34,31 @@ function AddFormation() {
       addCourse.description === ""
       // addCourse.level === ""
     ) {
-      setErrorMsg(true);
-      setMsgContent("Veuillez remplir tous les champs");
+      globalContext.setErrorMsg(true);
+      globalContext.setMsgContent("Veuillez remplir tous les champs");
       setTimeout(() => {
-        setErrorMsg(false);
+        globalContext.setErrorMsg(false);
       }, 4000);
     }
     if (addCourse.dateBegin === "" || addCourse.dateEnd === "") {
-      setErrorMsg(true);
-      setMsgContent("Veuillez renseigner les dates");
+      globalContext.setErrorMsg(true);
+      globalContext.setMsgContent("Veuillez renseigner les dates");
       setTimeout(() => {
-        setErrorMsg(false);
+        globalContext.setErrorMsg(false);
       }, 4000);
     }
     if (addCourse.level === "- - -") {
-      setErrorMsg(true);
-      setMsgContent("Veuillez sélectionner un niveau valide");
+      globalContext.setErrorMsg(true);
+      globalContext.setMsgContent("Veuillez sélectionner un niveau valide");
       setTimeout(() => {
-        setErrorMsg(false);
+        globalContext.setErrorMsg(false);
       }, 4000);
     } else {
       try {
-        const { data } = await apiService.get(
-          `${import.meta.env.VITE_BACKEND_URL}/api/users/${user.id}/cvs`
+        const { data } = await globalContext.apiService.get(
+          `${import.meta.env.VITE_BACKEND_URL}/api/users/${
+            globalContext.user.id
+          }/cvs`
         );
         const cvId = data.id;
 
@@ -81,24 +72,24 @@ function AddFormation() {
         // peut etre que ca fait un bug, chépa tro
         addCourse.cvId = cvId;
 
-        await apiService.post(
+        await globalContext.apiService.post(
           `${import.meta.env.VITE_BACKEND_URL}/api/course/`,
           addCourse
         );
 
         setCourseSaved((prevData) => [...prevData, addCourse]);
-        setMsgContent("La formation a été ajoutée avec succès");
-        setSuccesMsg(true);
+        globalContext.setMsgContent("La formation a été ajoutée avec succès");
+        globalContext.setSuccesMsg(true);
         setTimeout(() => {
-          navigate("/edit-profile");
-          setSuccesMsg(false);
+          globalContext.navigate("/edit-profile");
+          globalContext.setSuccesMsg(false);
         }, 3000);
       } catch (err) {
         console.error(err);
-        setErrorMsg(true);
-        setMsgContent("Formulaire incorrect");
+        globalContext.setErrorMsg(true);
+        globalContext.setMsgContent("Formulaire incorrect");
         setTimeout(() => {
-          setErrorMsg(false);
+          globalContext.setErrorMsg(false);
         }, 4000);
       }
     }
@@ -112,7 +103,9 @@ function AddFormation() {
         <h1>Ajouter une formation</h1>
         <form onSubmit={handleAddCourse}>
           <Select
-            handleChange={(event) => handleChange(setAddCourse, "level", event)}
+            handleChange={(event) =>
+              globalContext.handleChange(setAddCourse, "level", event)
+            }
             fieldName="level"
             titleSelect="Niveau d'étude *"
           >
@@ -128,7 +121,7 @@ function AddFormation() {
             inputType="text"
             valueInput={addCourse}
             handleChange={(event) =>
-              handleChange(setAddCourse, "domaine", event)
+              globalContext.handleChange(setAddCourse, "domaine", event)
             }
           />
           <Input
@@ -137,19 +130,21 @@ function AddFormation() {
             fieldName="name"
             inputType="text"
             valueInput={addCourse}
-            handleChange={(event) => handleChange(setAddCourse, "name", event)}
+            handleChange={(event) =>
+              globalContext.handleChange(setAddCourse, "name", event)
+            }
           />
           <Date
             fieldName="dateBegin"
             handleChange={(event) =>
-              handleChange(setAddCourse, "dateBegin", event)
+              globalContext.handleChange(setAddCourse, "dateBegin", event)
             }
             titleCalendar="Date de début *"
           />
           <Date
             fieldName="dateEnd"
             handleChange={(event) =>
-              handleChange(setAddCourse, "dateEnd", event)
+              globalContext.handleChange(setAddCourse, "dateEnd", event)
             }
             titleCalendar="Date de fin *"
           />
@@ -160,12 +155,16 @@ function AddFormation() {
             inputType="text"
             valueInput={addCourse}
             handleChange={(event) =>
-              handleChange(setAddCourse, "description", event)
+              globalContext.handleChange(setAddCourse, "description", event)
             }
           />
           <div>
-            {errorMsg && <ErrorMsg message={msgContent} />}
-            {succesMsg && <SuccesMsg message={msgContent} />}
+            {globalContext.errorMsg && (
+              <ErrorMsg message={globalContext.msgContent} />
+            )}
+            {globalContext.succesMsg && (
+              <SuccesMsg message={globalContext.msgContent} />
+            )}
           </div>
           <button type="submit">soumettre</button>
         </form>
