@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import "./navBar.css";
 import { Link } from "react-router-dom";
 import {
   MDBNavbar,
@@ -10,10 +9,8 @@ import {
   MDBNavbarBrand,
   MDBCollapse,
 } from "mdb-react-ui-kit";
-
 import { useGlobalContext } from "../../contexts/GlobalContext";
-
-// import logo from "../../assets/ext-logo.png";
+import "./navBar.css";
 
 export default function Navbar() {
   const { user, handleLogout, isAdmin } = useGlobalContext();

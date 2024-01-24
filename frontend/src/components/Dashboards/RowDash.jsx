@@ -45,7 +45,7 @@ function RowDash() {
   return (
     <div className="rowDash-container">
       {offers.map((offer) => (
-        <div key={offer.idOffer} className="offerDash-item">
+        <div key={offer.id} className="offerDash-item">
           <p className="array-box">{offer.id}</p>
           <p className="array-box">{offer.company}</p>
           <p className="array-box">{offer.NbrCandidats}</p>

@@ -25,6 +25,7 @@ function AddOffer() {
     setMsgContent,
     handleChange,
     apiService,
+    unauthorized,
   } = useGlobalContext();
 
   const [offer, setOffer] = useState([]);
@@ -97,6 +98,7 @@ function AddOffer() {
   };
 
   useEffect(() => {
+    unauthorized();
     fetchOffer();
   }, []);
 

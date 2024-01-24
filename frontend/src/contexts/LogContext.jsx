@@ -6,8 +6,15 @@ const LogContext = createContext();
 
 function LogContextProvider({ children }) {
   // Messages d'alertes.
-  const { apiService, setUser, setSuccesMsg, setMsgContent, navigate, user } =
-    useGlobalContext();
+  const {
+    apiService,
+    setUser,
+    setSuccesMsg,
+    setMsgContent,
+    navigate,
+    setIsAdmin,
+    user,
+  } = useGlobalContext();
 
   const [userConnected, setUserConnected] = useState(false);
 
@@ -33,14 +40,16 @@ function LogContextProvider({ children }) {
       const result = await apiService.get("http://localhost:3310/api/users/me");
 
       // alert(`Content de vous revoir ${result.data.email}`);
+      // console.log(isAdmin);
       setUser(result.data);
+      setIsAdmin(result.data.is_admin);
       setMsgContent(
         `Content de vous revoir ${user.firstname} ${user.lastname}! Connexion effectuée avec`
       );
       setSuccesMsg(true);
       setTimeout(() => {
         setSuccesMsg(false);
-        if (result.data.isAdmin === 1) {
+        if (result.data.is_admin === 1) {
           navigate("/dashboard");
         }
         navigate("/");
