@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { v4 as uuid } from "uuid";
-import ButtonMaxi from "../../components/Boutons/ButtonMaxi";
 import Date from "../../components/Inputs/Date";
 import Input from "../../components/Inputs/Input";
 import Select from "../../components/Inputs/Select";
@@ -166,12 +165,10 @@ function AddFormation() {
               <SuccesMsg message={globalContext.msgContent} />
             )}
           </div>
-          <button type="submit">soumettre</button>
+          <button className="submit-btn-maxi" type="submit">
+            Ajouter
+          </button>
         </form>
-        <ButtonMaxi
-          textBtn="Ajouter une formation"
-          clickFunc={handleAddCourse}
-        />
       </div>
     </div>
   );
