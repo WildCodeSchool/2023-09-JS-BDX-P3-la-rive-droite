@@ -12,6 +12,7 @@ const getList = async (req, res) => {
 const create = async (req, res) => {
   try {
     const result = await models.upload.create(req.file);
+
     await models.user.addAvatar(req.user.id, result.id);
     return res.status(201).send({ ...req.user, avatar: result });
   } catch (err) {

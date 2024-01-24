@@ -1,4 +1,4 @@
-import { Outlet, useLoaderData, useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import "./user-profile-model.css";
 import Input from "../../components/Inputs/Input";
@@ -17,22 +17,17 @@ import AddDetailsCV from "../../components/Add Something/AddSomething";
 
 function UserProfileModel() {
   const { handleAddCv } = useUserContext();
-  const {
-    errorMsg,
-    succesMsg,
-    msgContent,
-    apiService,
-    setSuccesMsg,
-    setMsgContent,
-    setErrorMsg,
-    handleChange,
-  } = useGlobalContext();
+
+  const globalContext = useGlobalContext();
   const navigate = useNavigate();
   const [getSkills, setGetSkills] = useState([]);
   // const { skills, setSkills } = useSignContext();
   const [getProfile, setGetProfile] = useState({});
-  const { experiences, courses } = useLoaderData();
   // const [userCompetences, setUserCompetences] = useState({});
+  const { user, apiService } = useGlobalContext();
+  const [experiences, setExperiences] = useState([]);
+  const [courses, setCourses] = useState([]);
+  // const { experiences, courses } = useLoaderData();
 
   const handleExperienceDelete = async (id) => {
     // eslint-disable-next-line no-alert
@@ -40,21 +35,21 @@ function UserProfileModel() {
       return;
     }
     try {
-      await apiService.delete(
+      await globalContext.apiService.delete(
         `${import.meta.env.VITE_BACKEND_URL}/api/experience/${id}`
       );
-      setSuccesMsg(true);
-      setMsgContent("Votre expérience a bien été supprimée");
+      globalContext.setSuccesMsg(true);
+      globalContext.setMsgContent("Votre expérience a bien été supprimée");
       setTimeout(() => {
-        setSuccesMsg(false);
+        globalContext.setSuccesMsg(false);
       }, 4000);
       navigate("/edit-profile");
     } catch (err) {
       console.error(err);
-      setErrorMsg(true);
-      setMsgContent("Une erreur est survenue");
+      globalContext.setErrorMsg(true);
+      globalContext.setMsgContent("Une erreur est survenue");
       setTimeout(() => {
-        setErrorMsg(false);
+        globalContext.setErrorMsg(false);
       }, 4000);
     }
   };
@@ -65,29 +60,31 @@ function UserProfileModel() {
       return;
     }
     try {
-      await apiService.delete(
+      await globalContext.apiService.delete(
         `${import.meta.env.VITE_BACKEND_URL}/api/course/${id}`
       );
-      setSuccesMsg(true);
-      setMsgContent("Votre formation a bien été supprimée");
+      globalContext.setSuccesMsg(true);
+      globalContext.setMsgContent("Votre formation a bien été supprimée");
       setTimeout(() => {
-        setSuccesMsg(false);
+        globalContext.setSuccesMsg(false);
       }, 4000);
       navigate("/edit-profile");
     } catch (err) {
       console.error(err);
-      setErrorMsg(true);
-      setMsgContent("Une erreur est survenue");
+      globalContext.setErrorMsg(true);
+      globalContext.setMsgContent("Une erreur est survenue");
       setTimeout(() => {
-        setErrorMsg(false);
+        globalContext.setErrorMsg(false);
       }, 4000);
     }
   };
 
   useEffect(() => {
+    let cvId = null;
+
     const getUserProfile = async () => {
       try {
-        const response = await apiService.get(
+        const response = await globalContext.apiService.get(
           `${import.meta.env.VITE_BACKEND_URL}/api/users/me`
         );
         setGetProfile(response.data);
@@ -96,18 +93,32 @@ function UserProfileModel() {
       }
     };
 
-    // const getSkillsProfile = async () => {
-    //   try {
-    //     const response = await apiService.get(
-    //       `${import.meta.env.VITE_BACKEND_URL}/api/users/me`
-    //     );
-    //     setGetSkills(response.data);
-    //   } catch (err) {
-    //     console.error(err);
-    //   }
-    // };
-    // getSkillsProfile();
+    const fetchExperiences = async () => {
+      const experienceData = await apiService.get(
+        `${import.meta.env.VITE_BACKEND_URL}/api/experiences/by-cv-id/${cvId}`
+      );
+      setExperiences(experienceData.data);
+    };
+
+    const fetchCourses = async () => {
+      const courseData = await apiService.get(
+        `${import.meta.env.VITE_BACKEND_URL}/api/courses/by-cv-id/${cvId}`
+      );
+      setCourses(courseData.data);
+    };
+
+    const fetchCvId = async () => {
+      const cvData = await apiService.get(
+        `${import.meta.env.VITE_BACKEND_URL}/api/users/${user.id}/cvs`
+      );
+
+      cvId = cvData.data.id;
+
+      fetchExperiences();
+      fetchCourses();
+    };
     getUserProfile();
+    fetchCvId();
   }, []);
 
   const handleCheckboxChanged = async (fieldName) => {
@@ -115,7 +126,7 @@ function UserProfileModel() {
     setGetSkills(updatedSkills);
 
     try {
-      await apiService.post(
+      await globalContext.apiService.post(
         `${import.meta.env.VITE_BACKEND_URL}/api/user/updateSkills`,
         updatedSkills
       );
@@ -137,21 +148,27 @@ function UserProfileModel() {
           holderText={getProfile.lastname}
           fieldName="lastname"
           valueInput={getProfile}
-          handleChange={(event) => handleChange(getProfile, "lastname", event)}
+          handleChange={(event) =>
+            globalContext.handleChange(getProfile, "lastname", event)
+          }
         />
         <Input
           titleInput="Prénom *"
           holderText={getProfile.firstname}
           fieldName="firstname"
           valueInput={getProfile}
-          handleChange={(event) => handleChange(getProfile, "firstname", event)}
+          handleChange={(event) =>
+            globalContext.handleChange(getProfile, "firstname", event)
+          }
         />
         <Input
           titleInput="Email *"
           holderText={getProfile.email}
           fieldName="email"
           valueInput={getProfile}
-          handleChange={(event) => handleChange(getProfile, "email", event)}
+          handleChange={(event) =>
+            globalContext.handleChange(getProfile, "email", event)
+          }
         />
         <Input
           titleInput="Téléphone *"
@@ -159,7 +176,9 @@ function UserProfileModel() {
           fieldName="phone"
           typeInput="tel"
           valueInput={getProfile}
-          handleChange={(event) => handleChange(getProfile, "phone", event)}
+          handleChange={(event) =>
+            globalContext.handleChange(getProfile, "phone", event)
+          }
         />
         <Input
           titleInput="Addresse *"
@@ -167,7 +186,9 @@ function UserProfileModel() {
           fieldName="address"
           inputType="text"
           valueInput={getProfile}
-          handleChange={(event) => handleChange(getProfile, "address", event)}
+          handleChange={(event) =>
+            globalContext.handleChange(getProfile, "address", event)
+          }
         />
         <div className="container-switch">
           <h2 className="label-champs"> Cochez vos compétences *</h2>
@@ -292,8 +313,12 @@ function UserProfileModel() {
             ))}
         </div>
         <div>
-          {errorMsg && <ErrorMsg message={msgContent} />}
-          {succesMsg && <SuccesMsg message={msgContent} />}
+          {globalContext.errorMsg && (
+            <ErrorMsg message={globalContext.msgContent} />
+          )}
+          {globalContext.succesMsg && (
+            <SuccesMsg message={globalContext.msgContent} />
+          )}
         </div>
         <ButtonMaxi textBtn="Enregistrer" clickFunc={handleAddCv} />
       </div>

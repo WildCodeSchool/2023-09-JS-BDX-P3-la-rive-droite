@@ -4,9 +4,7 @@ import Input from "../../components/Inputs/Input";
 import CheckboxCondition from "../../components/Inputs/CheckboxCondition";
 import CompetenceSwitch from "../../components/Competence Switch/CompetenceSwitch";
 import HeaderLongTitle from "../../components/Headers/HeaderLongTitle";
-// import ButtonMaxi from "../../components/Boutons/ButtonMaxi";
 import ErrorMsg from "../../components/Alertes Messages/ErrorMsg";
-import AddSomething from "../../components/Add Something/AddSomething";
 import Title from "../../components/Titles/Title";
 import SuccesMsg from "../../components/Alertes Messages/SuccesMsg";
 import { useGlobalContext } from "../../contexts/GlobalContext";
@@ -17,19 +15,7 @@ import "../../components/Boutons/button-maxi.css";
 import "../../components/Inputs/checkbox-conditions.css";
 
 function SignIn() {
-  const {
-    emailRegex,
-    errorMsg,
-    handleChange,
-    handleCheckboxChange,
-    msgContent,
-    navigate,
-    passwordRegex,
-    setErrorMsg,
-    setMsgContent,
-    setSuccesMsg,
-    succesMsg,
-  } = useGlobalContext();
+  const globalContext = useGlobalContext();
 
   const { signIn, setSignIn, skills, setSkills } = useSignContext();
 
@@ -44,48 +30,50 @@ function SignIn() {
       signIn.phone === "" ||
       signIn.address === ""
     ) {
-      setErrorMsg(true);
-      setMsgContent("Champs non remplis");
+      globalContext.setErrorMsg(true);
+      globalContext.setMsgContent("Champs non remplis");
       setTimeout(() => {
-        setErrorMsg(false);
+        globalContext.setErrorMsg(false);
       }, 4000);
-    } else if (!emailRegex.test(signIn.email)) {
-      setErrorMsg(true);
-      setMsgContent("L'adresse mail n'est pas correcte");
+    } else if (!globalContext.emailRegex.test(signIn.email)) {
+      globalContext.setErrorMsg(true);
+      globalContext.setMsgContent("L'adresse mail n'est pas correcte");
       setTimeout(() => {
-        setErrorMsg(false);
+        globalContext.setErrorMsg(false);
       }, 4000);
     } else if (signIn.password.length < 8) {
-      setErrorMsg(true);
-      setMsgContent("Le mot de passe n'est pas assez long");
+      globalContext.setErrorMsg(true);
+      globalContext.setMsgContent("Le mot de passe n'est pas assez long");
       setTimeout(() => {
-        setErrorMsg(false);
+        globalContext.setErrorMsg(false);
       }, 4000);
-    } else if (!passwordRegex.test(signIn.password)) {
-      setErrorMsg(true);
-      setMsgContent(
+    } else if (!globalContext.passwordRegex.test(signIn.password)) {
+      globalContext.setErrorMsg(true);
+      globalContext.setMsgContent(
         "Le mot de passe doit contenir au moins : 1 majuscule, 1 minuscule, 1 chiffre, 1 caractère spéciale(@$!%*?&)"
       );
       setTimeout(() => {
-        setErrorMsg(false);
+        globalContext.setErrorMsg(false);
       }, 6000);
     } else if (signIn.password !== signIn.password2) {
-      setErrorMsg(true);
-      setMsgContent("Les mots de passes ne sont pas identiques");
+      globalContext.setErrorMsg(true);
+      globalContext.setMsgContent("Les mots de passes ne sont pas identiques");
       setTimeout(() => {
-        setErrorMsg(false);
+        globalContext.setErrorMsg(false);
       }, 4000);
     } else if (signIn.cguAgree === false) {
-      setErrorMsg(true);
-      setMsgContent("Vous n'avez pas validé les conditions générales");
+      globalContext.setErrorMsg(true);
+      globalContext.setMsgContent(
+        "Vous n'avez pas validé les conditions générales"
+      );
       setTimeout(() => {
-        setErrorMsg(false);
+        globalContext.setErrorMsg(false);
       }, 4000);
     } else {
-      setSuccesMsg(true);
-      setMsgContent("Compte créé avec");
+      globalContext.setSuccesMsg(true);
+      globalContext.setMsgContent("Compte créé avec");
       setTimeout(() => {
-        setSuccesMsg(false);
+        globalContext.setSuccesMsg(false);
       }, 2000);
       axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/users`, {
         ...signIn,
@@ -93,11 +81,11 @@ function SignIn() {
       });
       if (signIn.addCvNow === true) {
         setTimeout(() => {
-          navigate("/edit-profile/cv");
+          globalContext.navigate("/edit-profile/cv");
         }, 2000);
       } else {
         setTimeout(() => {
-          navigate("/login");
+          globalContext.navigate("/login");
         }, 2000);
       }
     }
@@ -116,7 +104,9 @@ function SignIn() {
               fieldName="email"
               typeInput="email"
               valueInput={signIn}
-              handleChange={(event) => handleChange(setSignIn, "email", event)}
+              handleChange={(event) =>
+                globalContext.handleChange(setSignIn, "email", event)
+              }
             />
             <Input
               titleInput="Mot de passe *"
@@ -125,7 +115,7 @@ function SignIn() {
               typeInput="password"
               valueInput={signIn}
               handleChange={(event) =>
-                handleChange(setSignIn, "password", event)
+                globalContext.handleChange(setSignIn, "password", event)
               }
             />
             <Input
@@ -135,7 +125,7 @@ function SignIn() {
               typeInput="password"
               valueInput={signIn}
               handleChange={(event) =>
-                handleChange(setSignIn, "password2", event)
+                globalContext.handleChange(setSignIn, "password2", event)
               }
             />
             <div className="container-coordonnees">
@@ -146,7 +136,7 @@ function SignIn() {
                 fieldName="lastname"
                 valueInput={signIn}
                 handleChange={(event) =>
-                  handleChange(setSignIn, "lastname", event)
+                  globalContext.handleChange(setSignIn, "lastname", event)
                 }
               />
               <Input
@@ -155,7 +145,7 @@ function SignIn() {
                 fieldName="firstname"
                 valueInput={signIn}
                 handleChange={(event) =>
-                  handleChange(setSignIn, "firstname", event)
+                  globalContext.handleChange(setSignIn, "firstname", event)
                 }
               />
               <Input
@@ -165,7 +155,7 @@ function SignIn() {
                 typeInput="tel"
                 valueInput={signIn}
                 handleChange={(event) =>
-                  handleChange(setSignIn, "phone", event)
+                  globalContext.handleChange(setSignIn, "phone", event)
                 }
               />
               <Input
@@ -175,7 +165,7 @@ function SignIn() {
                 inputType="text"
                 valueInput={signIn}
                 handleChange={(event) =>
-                  handleChange(setSignIn, "address", event)
+                  globalContext.handleChange(setSignIn, "address", event)
                 }
               />
               <div className="container-switch">
@@ -183,13 +173,17 @@ function SignIn() {
                 <CompetenceSwitch
                   textCompetence="HTML"
                   valueInput={skills}
-                  handleChange={() => handleCheckboxChange(setSkills, "html")}
+                  handleChange={() =>
+                    globalContext.handleCheckboxChange(setSkills, "html")
+                  }
                   fieldName="html"
                 />
                 <CompetenceSwitch
                   textCompetence="CSS"
                   valueInput={skills}
-                  handleChange={() => handleCheckboxChange(setSkills, "css")}
+                  handleChange={() =>
+                    globalContext.handleCheckboxChange(setSkills, "css")
+                  }
                   fieldName="css"
                 />
                 <CompetenceSwitch
@@ -197,7 +191,7 @@ function SignIn() {
                   valueInput={skills}
                   fieldName="javascript"
                   handleChange={() =>
-                    handleCheckboxChange(setSkills, "javascript")
+                    globalContext.handleCheckboxChange(setSkills, "javascript")
                   }
                 />
                 <CompetenceSwitch
@@ -205,78 +199,90 @@ function SignIn() {
                   valueInput={skills}
                   fieldName="angular"
                   handleChange={() =>
-                    handleCheckboxChange(setSkills, "angular")
+                    globalContext.handleCheckboxChange(setSkills, "angular")
                   }
                 />
                 <CompetenceSwitch
                   textCompetence="REACT.JS"
                   valueInput={skills}
                   fieldName="react"
-                  handleChange={() => handleCheckboxChange(setSkills, "react")}
+                  handleChange={() =>
+                    globalContext.handleCheckboxChange(setSkills, "react")
+                  }
                 />
                 <CompetenceSwitch
                   textCompetence="PHP"
                   valueInput={skills}
                   fieldName="php"
-                  handleChange={() => handleCheckboxChange(setSkills, "php")}
+                  handleChange={() =>
+                    globalContext.handleCheckboxChange(setSkills, "php")
+                  }
                 />
                 <CompetenceSwitch
                   textCompetence="SYMPHONY"
                   valueInput={skills}
                   fieldName="symphony"
                   handleChange={() =>
-                    handleCheckboxChange(setSkills, "symphony")
+                    globalContext.handleCheckboxChange(setSkills, "symphony")
                   }
                 />
                 <CompetenceSwitch
                   textCompetence="GIT"
                   valueInput={skills}
                   fieldName="git"
-                  handleChange={() => handleCheckboxChange(setSkills, "git")}
+                  handleChange={() =>
+                    globalContext.handleCheckboxChange(setSkills, "git")
+                  }
                 />
                 <CompetenceSwitch
                   textCompetence="GITHUB"
                   valueInput={skills}
                   fieldName="github"
-                  handleChange={() => handleCheckboxChange(setSkills, "github")}
+                  handleChange={() =>
+                    globalContext.handleCheckboxChange(setSkills, "github")
+                  }
                 />
                 <CompetenceSwitch
                   textCompetence="TRELLO"
                   valueInput={skills}
                   fieldName="trello"
-                  handleChange={() => handleCheckboxChange(setSkills, "trello")}
+                  handleChange={() =>
+                    globalContext.handleCheckboxChange(setSkills, "trello")
+                  }
                 />
-                <AddSomething addDetail="Votre CV" />
               </div>
             </div>
             <CheckboxCondition
               textCondition="J'accepte les conditions générales d'Externatic"
               valueInput={signIn}
               fieldName="cguAgree"
-              handleChange={() => handleCheckboxChange(setSignIn, "cguAgree")}
+              handleChange={() =>
+                globalContext.handleCheckboxChange(setSignIn, "cguAgree")
+              }
             />
-            {/* <a href="#">Externatic</a> */}
-            <CheckboxCondition
-              textCondition="Je veux créer ou télécharger mon cv maintenant !"
-              valueInput={signIn}
-              fieldName="addCvNow"
-              handleChange={() => handleCheckboxChange(setSignIn, "addCvNow")}
-            />
+
             <div>
-              {errorMsg && <ErrorMsg message={msgContent} />}
-              {succesMsg && <SuccesMsg message={msgContent} />}
+              {globalContext.errorMsg && (
+                <ErrorMsg message={globalContext.msgContent} />
+              )}
+              {globalContext.succesMsg && (
+                <SuccesMsg message={globalContext.msgContent} />
+              )}
             </div>
-            <button type="button" onClick={handleSubmitSignIn}>
-              soumettre
+            <button
+              className="submit-btn-maxi"
+              type="button"
+              onClick={handleSubmitSignIn}
+            >
+              S'inscrire
             </button>
-            {/* <ButtonMaxi textBtn="S'inscrire" clickFunc={handleSubmitSignIn} /> */}
           </form>
         </div>
         <div className="small-paragraphe-info">
           <p>
             Vous avez déjà un compte ?
             <Link to="/login">
-              <span>Connectez-vous</span>
+              <span> Connectez-vous</span>
             </Link>
           </p>
         </div>
