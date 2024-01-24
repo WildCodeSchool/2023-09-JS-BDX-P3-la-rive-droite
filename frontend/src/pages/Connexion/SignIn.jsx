@@ -282,7 +282,7 @@ function SignIn() {
           <p>
             Vous avez déjà un compte ?
             <Link to="/login">
-              <span>Connectez-vous</span>
+              <span> Connectez-vous</span>
             </Link>
           </p>
         </div>

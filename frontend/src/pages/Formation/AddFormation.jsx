@@ -60,15 +60,6 @@ function AddFormation() {
           }/cvs`
         );
         const cvId = data.id;
-
-        // const personne = {
-        //   prenom: "Marie",
-        //   nom: "Delaire",
-        // };
-        // personne.prenom = "Mariiiiiiie";
-        // console.log(personne);
-
-        // peut etre que ca fait un bug, chépa tro
         addCourse.cvId = cvId;
 
         await globalContext.apiService.post(

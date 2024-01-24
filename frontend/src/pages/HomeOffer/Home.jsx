@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
-// import CardOffre from "../../components/CardModel/CardOffre";
 import HeaderLongResearch from "../../components/Headers/HeaderLongResearch";
 import { useGlobalContext } from "../../contexts/GlobalContext";
 import "./Home.css";
 import CardOffre from "../../components/CardModel/CardOffre";
 import { useUserContext } from "../../contexts/UserContext";
-// import axios from "axios";
 
 function Home() {
   const { goToOffer } = useGlobalContext();

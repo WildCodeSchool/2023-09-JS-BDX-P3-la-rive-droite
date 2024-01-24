@@ -13,8 +13,6 @@ function CardFormation({
 }) {
   const dateBeginObject = dateBegin ? new Date(dateBegin) : null;
   const dateEndObject = dateEnd ? new Date(dateEnd) : null;
-
-  // Formater les dates selon le modèle souhaité
   const formattedDateBegin = dateBeginObject
     ? format(dateBeginObject, "dd/MM/yyyy")
     : "Date début invalide";

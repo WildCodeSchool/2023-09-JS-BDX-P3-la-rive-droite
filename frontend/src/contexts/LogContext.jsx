@@ -37,7 +37,7 @@ function LogContextProvider({ children }) {
       globalContext.setUser(result.data);
       globalContext.setIsAdmin(result.data.is_admin);
       globalContext.setMsgContent(
-        `Content de vous revoir ${globalContext.user.firstname} ${globalContext.user.lastname}! Connexion effectuée avec`
+        `Content de vous revoir ${result.data.firstname} ${result.data.lastname}! Connexion effectuée avec`
       );
       globalContext.setSuccesMsg(true);
       setTimeout(() => {

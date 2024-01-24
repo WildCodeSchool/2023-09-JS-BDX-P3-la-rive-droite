@@ -30,7 +30,6 @@ import "mdb-react-ui-kit/dist/css/mdb.min.css";
 import currentUserProfileLoader from "./loaders/current-user-profil.loader";
 
 const apiService = new ApiService();
-// const navigate = useNavigate();
 
 const router = createBrowserRouter([
   {
