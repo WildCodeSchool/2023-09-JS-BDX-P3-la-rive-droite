@@ -1,7 +1,15 @@
+import React, { useEffect } from "react";
 import TitleDashboard from "../../components/Dashboards/TitleDashboard";
 import RowDash2 from "../../components/Dashboards/RowDash2";
+import { useGlobalContext } from "../../contexts/GlobalContext";
 
 function Dashboard3() {
+  const { unauthorized } = useGlobalContext();
+
+  useEffect(() => {
+    unauthorized();
+  }, []);
+
   return (
     <div>
       <div className="title-btn">

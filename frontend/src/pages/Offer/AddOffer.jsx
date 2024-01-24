@@ -1,3 +1,4 @@
+// import React, { useEffect } from "react";
 import ButtonMaxi from "../../components/Boutons/ButtonMaxi";
 import Input from "../../components/Inputs/Input";
 import Select from "../../components/Inputs/Select";
@@ -73,6 +74,10 @@ function AddOffer() {
       });
     }
   };
+
+  // useEffect(() => {
+  //   unauthorized();
+  // }, []);
 
   return (
     <div>

@@ -8,7 +8,9 @@ const GlobalContext = createContext();
 function GlobalContextProvider({ children, apiService }) {
   // Messages d'alertes.
   const givenData = useLoaderData();
-  const [isAdmin, setIsAdmin] = useState(givenData?.preloadUser?.data?.isAdmin);
+  const [isAdmin, setIsAdmin] = useState(
+    givenData?.preloadUser?.data?.is_admin
+  );
   const [user, setUser] = useState(givenData?.preloadUser?.data);
   const [errorMsg, setErrorMsg] = useState(false);
   const [succesMsg, setSuccesMsg] = useState(false);
@@ -43,6 +45,7 @@ function GlobalContextProvider({ children, apiService }) {
 
     apiService.setToken(null);
     setUser(null);
+    setIsAdmin(null);
     alert(`Déconnexion réussie`);
     return navigate("/");
   };
@@ -54,6 +57,16 @@ function GlobalContextProvider({ children, apiService }) {
   const goToOffer = (id) => {
     navigate(`/offer/${id}`);
   };
+
+  // const unauthorized = () => {
+  //   if (!isAdmin) {
+  //     return navigate("/");
+  //   }
+  // };
+
+  // const handleLog = () => {
+  //   console.log(isAdmin);
+  // };
 
   // Renvoie sur la lien de l'offre avec le bon "id".
   // const viewOffer = async (id) => {
@@ -94,6 +107,8 @@ function GlobalContextProvider({ children, apiService }) {
       apiService,
       handleLogout,
       goToOffer,
+      // unauthorized,
+      // handleLog,
     }),
     [
       getItemInLS,
@@ -116,6 +131,8 @@ function GlobalContextProvider({ children, apiService }) {
       apiService,
       handleLogout,
       goToOffer,
+      // unauthorized,
+      // handleLog,
     ]
   );
 

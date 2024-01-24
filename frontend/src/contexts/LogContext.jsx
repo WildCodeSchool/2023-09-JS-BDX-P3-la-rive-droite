@@ -9,6 +9,8 @@ function LogContextProvider({ children }) {
   const {
     apiService,
     setUser,
+    // isAdmin,
+    setIsAdmin,
     // setErrorMsg,
     // setSuccesMsg,
     // setMsgContent,
@@ -39,10 +41,15 @@ function LogContextProvider({ children }) {
       const result = await apiService.get("http://localhost:3310/api/users/me");
 
       // alert(`Content de vous revoir ${result.data.email}`);
+      // console.log(isAdmin);
       setUser(result.data);
-      if (result.data.isAdmin === 1) {
+      setIsAdmin(result.data.is_admin);
+      // console.log(result.data);
+      if (result.data.is_admin === 1) {
+        // console.log("Admin !");
         return navigate("/dashboard");
       }
+      // console.log("Not Admin :!");
       return navigate("/");
     } catch (err) {
       console.error(err);

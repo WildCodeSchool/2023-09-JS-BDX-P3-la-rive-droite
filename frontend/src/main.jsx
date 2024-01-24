@@ -14,6 +14,7 @@ import AddExperience from "./pages/Experience/AddExperience";
 import AddFormation from "./pages/Formation/AddFormation";
 import Dashboard1 from "./pages/Dashboard/Dashboard1";
 import Dashboard2 from "./pages/Dashboard/Dashboard2";
+import Dashboard3 from "./pages/Dashboard/Dashboard3";
 import AddOffer from "./pages/Offer/AddOffer";
 import EditOffer from "./pages/Offer/EditOffer";
 // Import Contexts.
@@ -22,13 +23,14 @@ import SignContextProvider from "./contexts/SignContext";
 import LogContextProvider from "./contexts/LogContext";
 import GlobalContextProvider from "./contexts/GlobalContext";
 import UserContextProvider from "./contexts/UserContext";
+// Import de classe.
+import ApiService from "./services/api.service";
 // Import Styles.
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "mdb-react-ui-kit/dist/css/mdb.min.css";
-import ApiService from "./services/api.service";
-import Dashboard3 from "./pages/Dashboard/Dashboard3";
 
 const apiService = new ApiService();
+// const navigate = useNavigate();
 
 const router = createBrowserRouter([
   {
@@ -136,6 +138,22 @@ const router = createBrowserRouter([
             <Dashboard1 />
           </AdminContextProvider>
         ),
+        // loader: async () => {
+        //   try {
+        //     const response = await apiService.get(
+        //       "http://localhost:3310/api/users/me"
+        //     );
+        //     // return  preloadUser: data ?? null;
+        //     // console.log(response.data.is_admin);
+        //     if (response.data.is_admin !== 1) {
+        //       // console.log("Unauthorized !");
+        //       Navigate("/");
+        //     }
+        //   } catch (err) {
+        //     console.error(err.message);
+        //     return null;
+        //   }
+        // },
         children: [
           {
             path: "/dashboard/user",

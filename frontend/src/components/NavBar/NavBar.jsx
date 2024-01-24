@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import "./navBar.css";
 import { Link } from "react-router-dom";
 import {
   MDBNavbar,
@@ -10,13 +9,11 @@ import {
   MDBNavbarBrand,
   MDBCollapse,
 } from "mdb-react-ui-kit";
-
 import { useGlobalContext } from "../../contexts/GlobalContext";
-
-// import logo from "../../assets/ext-logo.png";
+import "./navBar.css";
 
 export default function Navbar() {
-  const { user, handleLogout } = useGlobalContext();
+  const { user, handleLogout, handleLog } = useGlobalContext();
 
   const [openNavColor, setOpenNavColor] = useState(false);
   useEffect(() => {
@@ -63,7 +60,9 @@ export default function Navbar() {
                 <Link to="/dashboard">
                   <span className="navbar-link">Espace admin</span>
                 </Link>
-
+                <button type="button" onClick={handleLog}>
+                  Log
+                </button>
                 <div className="btn-nav">
                   {user ? (
                     <div>

@@ -1,9 +1,17 @@
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import TitleDashboard from "../../components/Dashboards/TitleDashboard";
 import RowDash2 from "../../components/Dashboards/RowDash2";
 import ButtonMini from "../../components/Boutons/ButtonMini";
+import { useGlobalContext } from "../../contexts/GlobalContext";
 
 function Dashboard2({ refAnnonce }) {
+  const { unauthorized } = useGlobalContext();
+
+  useEffect(() => {
+    unauthorized();
+  }, []);
+
   return (
     <div>
       <div className="title-btn">
