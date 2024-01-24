@@ -1,105 +1,73 @@
 const models = require("../models/index");
 
-const getOffers = (req, res) => {
-  models.offer
-    .findAll()
-    .then((rows) => {
-      res.send(rows);
-    })
-    .catch((err) => {
-      console.error(err);
-      res.sendStatus(500);
-    });
+const getOffers = async (req, res) => {
+  try {
+    const rows = await models.offer.findAll();
+    res.send(rows);
+  } catch (err) {
+    console.error(err);
+    res.sendStatus(500);
+  }
 };
 
-const getOfferById = (req, res) => {
-  const id = +req.params.id;
-
-  models.offer
-    .findId(id)
-    .then(([item]) => {
-      if (item[0] != null) {
-        res.json(item[0]);
-      } else {
-        res.sendStatus(404);
-      }
-    })
-    .catch((err) => {
-      console.error(err);
-      res.sendStatus(422);
-    });
+const getOfferById = async (req, res) => {
+  try {
+    const id = +req.params.id;
+    const [item] = await models.offer.findId(id);
+    if (item[0] != null) {
+      res.json(item[0]);
+    } else {
+      res.sendStatus(404);
+    }
+  } catch (err) {
+    console.error(err);
+    res.sendStatus(422);
+  }
 };
 
-// const getOfferById = (req, res) => {
-//   const id = parseInt(req.params.id);
-//   console.log("Étape 01.");
+const postOffer = async (req, res) => {
+  try {
+    const [rows] = await models.offer.create(req.body);
+    res.send({
+      id: rows.insertId,
+      email: req.body.email,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(422).send({ error: err.message });
+  }
+};
 
-//   models.offer
-//   .query(`SELECT * FROM offer WHERE id = ?`,[id])
-//   .then(([item]) => {
-//     console.log("Étape 02.");
-//     console.log(item);
-//     if (item[0] != null) {
-//         res.json(item[0]);
-//       } else {
-//         res.sendStatus(404);
-//       }
-//     })
-//     .catch((err) => {
-//       console.error(err);
-//       res.sendStatus(422);
-//     });
-// };
+const putOffer = async (req, res) => {
+  try {
+    const id = +req.params.id;
 
-const postOffer = (req, res) => {
-  models.offer
-    .create(req.body)
-    .then(([rows]) => {
+    const [rows] = await models.offer.update(req.body, id);
+
+    if (rows.affectedRows > 0) {
       res.send({
-        id: rows.insertId,
-        email: req.body.email,
+        id: req.body.id,
+        offer: req.body,
       });
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(422).send({ error: err.message });
-    });
+    } else {
+      res.status(404).send({ error: "Une erreur s'est produite." });
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(422).send({ error: err.message });
+  }
 };
 
-const putOffer = (req, res) => {
-  const id = +req.params.id;
-  // const updated
+const deleteOfferById = async (req, res) => {
+  try {
+    const id = +req.params.id;
 
-  models.offer
-    .update(req.body, id)
-    .then(([rows]) => {
-      if (rows.affectedRows > 0) {
-        res.send({
-          id: req.body.id,
-          offer: req.body,
-        });
-      } else {
-        res.status(404).send({ error: "Une erreur s'est produite." });
-      }
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(422).send({ error: err.message });
-    });
-};
-
-const deleteOfferById = (req, res) => {
-  const id = +req.params.id;
-
-  models.offer
-    .deleteId(id)
-    .then(() => {
-      res.status(201).json({ message: "Deleted." });
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).json({ message: "Offer not found." });
-    });
+    await models.offer.deleteId(id);
+    res.status(201).json({ message: "Deleted." });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Offer not found." });
+  }
 };
 
 module.exports = {

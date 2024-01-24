@@ -82,11 +82,11 @@ router.post(
   authMiddleware,
   experienceControllers.postExperience
 );
-router.put(
-  "/experience/:id([0-9]+)",
-  authMiddleware,
-  experienceControllers.updateExperience
-);
+// router.put(
+//   "/experience/:id([0-9]+)",
+//   authMiddleware,
+//   experienceControllers.updateExperience
+// );
 router.delete(
   "/experience/:id([0-9]+)",
   authMiddleware,
@@ -106,11 +106,11 @@ router.get(
   courseControllers.getCourseById
 );
 router.post("/course", authMiddleware, courseControllers.postCourse);
-router.put(
-  "/course/:id([0-9]+)",
-  authMiddleware,
-  courseControllers.updateCourse
-);
+// router.put(
+//   "/course/:id([0-9]+)",
+//   authMiddleware,
+//   courseControllers.updateCourse
+// );
 router.delete(
   "/course/:id([0-9]+)",
   authMiddleware,
