@@ -7,6 +7,7 @@ import ReadOffer from "./pages/Offer/ReadOffer";
 import SignIn from "./pages/Connexion/SignIn";
 import LogIn from "./pages/Connexion/LogIn";
 import History from "./pages/Historique/History";
+import currentUserProfileLoader from "./loaders/current-user-profil.loader";
 import Favoris from "./pages/Favoris/Favoris";
 import UserProfileModel from "./pages/ProfileUser/UserProfileModel";
 import AddExperience from "./pages/Experience/AddExperience";
@@ -27,7 +28,6 @@ import ApiService from "./services/api.service";
 // Import Styles.
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "mdb-react-ui-kit/dist/css/mdb.min.css";
-import currentUserProfileLoader from "./loaders/current-user-profil.loader";
 
 const apiService = new ApiService();
 

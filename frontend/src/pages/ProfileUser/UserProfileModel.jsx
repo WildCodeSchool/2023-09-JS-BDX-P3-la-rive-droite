@@ -13,6 +13,7 @@ import SuccesMsg from "../../components/Alertes Messages/SuccesMsg";
 import CardFormation from "../../components/CardModel/CardFormation";
 import CardExperience from "../../components/CardModel/CardExperience";
 import AddDetailsCV from "../../components/Add Something/AddSomething";
+// import { useSignContext } from "../../contexts/SignContext";
 
 function UserProfileModel() {
   const { handleAddCv } = useUserContext();
@@ -20,16 +21,16 @@ function UserProfileModel() {
   const globalContext = useGlobalContext();
   const navigate = useNavigate();
   const [getSkills, setGetSkills] = useState([]);
-
+  // const { skills, setSkills } = useSignContext();
   const [getProfile, setGetProfile] = useState({});
-
+  // const [userCompetences, setUserCompetences] = useState({});
   const { user, apiService } = useGlobalContext();
-
   const [experiences, setExperiences] = useState([]);
   const [courses, setCourses] = useState([]);
   // const { experiences, courses } = useLoaderData();
 
   const handleExperienceDelete = async (id) => {
+    // eslint-disable-next-line no-alert
     if (!window.confirm("Voulez-vous vraiment supprimer cette expérience ?")) {
       return;
     }
@@ -54,6 +55,7 @@ function UserProfileModel() {
   };
 
   const handleCourseDelete = async (id) => {
+    // eslint-disable-next-line no-alert
     if (!window.confirm("Voulez-vous vraiment supprimer cette formation ?")) {
       return;
     }
@@ -91,17 +93,6 @@ function UserProfileModel() {
       }
     };
 
-    const getSkillsProfile = async () => {
-      try {
-        const response = await globalContext.apiService.get(
-          `${import.meta.env.VITE_BACKEND_URL}/api/users/me`
-        );
-        setGetSkills(response.data);
-      } catch (err) {
-        console.error(err);
-      }
-    };
-
     const fetchExperiences = async () => {
       const experienceData = await apiService.get(
         `${import.meta.env.VITE_BACKEND_URL}/api/experiences/by-cv-id/${cvId}`
@@ -126,8 +117,6 @@ function UserProfileModel() {
       fetchExperiences();
       fetchCourses();
     };
-
-    getSkillsProfile();
     getUserProfile();
     fetchCvId();
   }, []);
@@ -145,7 +134,6 @@ function UserProfileModel() {
       console.error("Error updating skills:", error);
     }
   };
-
   return window.location.pathname === "/edit-profile" ||
     window.location.pathname === "/edit-profile" ? (
     <div id="user-profile-model">
@@ -207,81 +195,82 @@ function UserProfileModel() {
           <CompetenceSwitch
             textCompetence="HTML"
             fieldName="html"
-            valueInput={getSkills}
+            valueInput={getProfile}
             handleChange={(event) =>
-              handleCheckboxChanged(getSkills, "html", event)
+              handleCheckboxChanged(getProfile, "html", event)
             }
           />
+
           <CompetenceSwitch
             textCompetence="CSS"
-            valueInput={getSkills}
+            valueInput={getProfile}
             fieldName="css"
             handleChange={(event) =>
-              handleCheckboxChanged(getSkills, "css", event)
+              handleCheckboxChanged(getProfile, "css", event)
             }
           />
           <CompetenceSwitch
             textCompetence="JAVASCRIPT"
             fieldName="javascript"
-            valueInput={getSkills}
+            valueInput={getProfile}
             handleChange={(event) =>
-              handleCheckboxChanged(getSkills, "javascript", event)
+              handleCheckboxChanged(getProfile, "javascript", event)
             }
           />
           <CompetenceSwitch
             textCompetence="ANGULAR"
             fieldName="angular"
-            valueInput={getSkills}
+            valueInput={getProfile}
             handleChange={(event) =>
-              handleCheckboxChanged(getSkills, "angular", event)
+              handleCheckboxChanged(getProfile, "angular", event)
             }
           />
           <CompetenceSwitch
             textCompetence="REACT.JS"
             fieldName="react"
-            valueInput={getSkills}
+            valueInput={getProfile}
             handleChange={(event) =>
-              handleCheckboxChanged(getSkills, "react", event)
+              handleCheckboxChanged(getProfile, "react", event)
             }
           />
           <CompetenceSwitch
             textCompetence="PHP"
             fieldName="php"
-            valueInput={getSkills}
+            valueInput={getProfile}
             handleChange={(event) =>
-              handleCheckboxChanged(getSkills, "php", event)
+              handleCheckboxChanged(getProfile, "php", event)
             }
           />
           <CompetenceSwitch
             textCompetence="SYMPHONY"
             fieldName="symphony"
-            valueInput={getSkills}
+            valueInput={getProfile}
             handleChange={(event) =>
-              handleCheckboxChanged(getSkills, "symphony", event)
+              handleCheckboxChanged(getProfile, "symphony", event)
             }
           />
           <CompetenceSwitch
             textCompetence="GIT"
             fieldName="git"
-            valueInput={getSkills}
+            valueInput={getProfile}
             handleChange={(event) =>
-              handleCheckboxChanged(getSkills, "git", event)
+              handleCheckboxChanged(getProfile, "git", event)
             }
           />
           <CompetenceSwitch
             textCompetence="GITHUB"
             fieldName="github"
-            valueInput={getSkills}
+            valueInput={getProfile}
             handleChange={(event) =>
-              handleCheckboxChanged(getSkills, "github", event)
+              handleCheckboxChanged(getProfile, "github", event)
             }
           />
           <CompetenceSwitch
             textCompetence="TRELLO"
             fieldName="trello"
-            valueInput={getSkills}
+            valueInput={getProfile}
             handleChange={(event) =>
-              handleCheckboxChanged(getSkills, "trello", event)
+              handleCheckboxChanged(getProfile, "trello", event)
             }
           />
         </div>
