@@ -53,21 +53,33 @@ const postUser = (req, res) => {
         lastname: req.body.lastname,
         phone: req.body.phone,
         address: req.body.address,
-        competence: req.body.competence,
         email: req.body.email,
         is_admin: req.body.is_admin,
+        competenceId: rows.competenceId,
       });
     })
     .catch((err) => {
       console.error(err);
       res.status(422).send({ error: err.message });
     });
-  // res.status(418).send(req.body)
+};
+
+const getSkills = (req, res) => {
+  models.user
+    .findAll(req.body)
+    .then((rows) => {
+      res.status(201).send(rows);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).json({ message: err.message });
+    });
 };
 
 const postSkills = (req, res) => {
+  const userId = +req.body.params.id;
   models.user
-    .skills(req.body)
+    .userCompetence(userId, req.body)
     .then((rows) => {
       res.status(201).send(rows);
     })
@@ -94,8 +106,7 @@ const updateUser = async (req, res) => {
   if (!id) {
     res.sendStatus(500);
   }
-
-  models.experience
+  models.user
     .update(id, req.body)
     .then((result) => {
       if (result.affectedRows === 0) {
@@ -117,9 +128,10 @@ const getProfile = (req, res) => {
 module.exports = {
   getUsers,
   postUser,
-  postSkills,
   postLogin,
   updateUser,
   getProfile,
   getUserById,
+  postSkills,
+  getSkills,
 };

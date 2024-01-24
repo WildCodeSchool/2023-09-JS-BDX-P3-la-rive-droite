@@ -8,7 +8,7 @@ class CourseManager extends AbstractManager {
   async create(course) {
     try {
       const [res] = await this.database.query(
-        `INSERT INTO ${this.table} (level, domaine, name, date_begin, date_end, description) VALUES (?, ?, ?, ?, ?, ?)`,
+        `INSERT INTO ${this.table} (level, domaine, name, date_begin, date_end, description, cv_id) VALUES (?, ?, ?, ?, ?, ?, ?)`,
         [
           course.level,
           course.domaine,
@@ -16,6 +16,7 @@ class CourseManager extends AbstractManager {
           course.dateBegin,
           course.dateEnd,
           course.description,
+          course.cvId,
         ]
       );
 
@@ -36,6 +37,19 @@ class CourseManager extends AbstractManager {
       );
 
       return result;
+    } catch (err) {
+      console.error(err);
+      return null;
+    }
+  }
+
+  async findAllByCvId(cvId) {
+    try {
+      const [results] = await this.database.query(
+        `SELECT * FROM ${this.table} WHERE cv_id = ?`,
+        [cvId]
+      );
+      return results;
     } catch (err) {
       console.error(err);
       return null;

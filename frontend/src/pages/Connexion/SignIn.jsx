@@ -87,26 +87,7 @@ function SignIn() {
       setTimeout(() => {
         setSuccesMsg(false);
       }, 2000);
-
-      axios.post("http://localhost:3310/api/users", signIn);
-      // axios.post("http://localhost:3310/api/users", signIn);
-      // axios.post("http://localhost:3010/api/user/skills/", skills);
-
-      // console.log(signIn);
-      // console.log(skills);
-
-      setSignIn({
-        email: "",
-        password: "",
-        password2: "",
-        lastname: "",
-        firstname: "",
-        phone: "",
-        address: "",
-      });
-
-      // setUserConnected(true);
-
+      axios.post("http://localhost:3310/api/users", { ...signIn, ...skills });
       if (signIn.addCvNow === true) {
         setTimeout(() => {
           navigate("/edit-profile/cv");
@@ -122,7 +103,7 @@ function SignIn() {
   return (
     <>
       <HeaderLongTitle textTitle="Création de votre compte" />
-      <div className="container-page container-general-login">
+      <div className="container-page with-rounded-border">
         <h1>S'inscrire</h1>
         <div className="champs-form">
           <form>

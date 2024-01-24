@@ -9,12 +9,11 @@ function LogContextProvider({ children }) {
   const {
     apiService,
     setUser,
-    // isAdmin,
-    setIsAdmin,
-    // setErrorMsg,
-    // setSuccesMsg,
-    // setMsgContent,
+    setSuccesMsg,
+    setMsgContent,
     navigate,
+    setIsAdmin,
+    user,
   } = useGlobalContext();
 
   const [userConnected, setUserConnected] = useState(false);
@@ -44,13 +43,17 @@ function LogContextProvider({ children }) {
       // console.log(isAdmin);
       setUser(result.data);
       setIsAdmin(result.data.is_admin);
-      // console.log(result.data);
-      if (result.data.is_admin === 1) {
-        // console.log("Admin !");
-        return navigate("/dashboard");
-      }
-      // console.log("Not Admin :!");
-      return navigate("/");
+      setMsgContent(
+        `Content de vous revoir ${user.firstname} ${user.lastname}! Connexion effectuée avec`
+      );
+      setSuccesMsg(true);
+      setTimeout(() => {
+        setSuccesMsg(false);
+        if (result.data.is_admin === 1) {
+          navigate("/dashboard");
+        }
+        navigate("/");
+      }, 2000);
     } catch (err) {
       console.error(err);
       // alert(err.message);

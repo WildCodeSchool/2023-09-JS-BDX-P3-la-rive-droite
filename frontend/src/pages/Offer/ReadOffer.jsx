@@ -36,7 +36,6 @@ function ReadOffer() {
       <div className="container-page with-rounded-border offer-card">
         <div>
           <h1 className="title-page">Postuler à l'offre</h1>
-          <p>Vous avez déjà postuler à cette offre le ...</p>
         </div>
         <div className="card-container">
           <div className="card-icons">
@@ -47,17 +46,15 @@ function ReadOffer() {
 
           <h3 className="title-offer">{offer.title}</h3>
           <h4 className="company-offer">{offer.company}</h4>
+          <p className="type-offer">{offer.type}</p>
 
-          <p className="description-word">Description</p>
+          <p className="description-word">Missions</p>
           <p className="p-description">{offer.info}</p>
-
-          <p className="sub-title">Type de contrat :</p>
-          <p className="info-offer">{offer.type}</p>
 
           <p className="sub-title">Lieu :</p>
           <p className="info-offer">{offer.city}</p>
 
-          <p className="sub-title">Profile recherché :</p>
+          <p className="sub-title">Profil recherché :</p>
           <p className="info-offer">{offer.search_profile}</p>
 
           <p className="sub-title">Lieu de travail :</p>
@@ -66,7 +63,7 @@ function ReadOffer() {
           <p className="sub-title">Salaire :</p>
           <p className="info-offer">{offer.salary}</p>
 
-          <p className="sub-title">Informations supplémentaire.</p>
+          <p className="sub-title">Informations supplémentaires :</p>
           <p className="info-offer">{offer.info}</p>
 
           <ButtonMaxi textBtn="Postuler" />

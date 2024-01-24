@@ -13,7 +13,7 @@ import { useGlobalContext } from "../../contexts/GlobalContext";
 import "./navBar.css";
 
 export default function Navbar() {
-  const { user, handleLogout, handleLog } = useGlobalContext();
+  const { user, handleLogout, isAdmin } = useGlobalContext();
 
   const [openNavColor, setOpenNavColor] = useState(false);
   useEffect(() => {
@@ -49,27 +49,44 @@ export default function Navbar() {
                 <Link to="/">
                   <span className="active navbar-link">Accueil</span>
                 </Link>
-
-                <Link to="/login">
-                  <span className="navbar-link">Connexion</span>
-                </Link>
-                <Link to="/profile/favorite">
+                {user ? (
+                  <Link to="/edit-profile">
+                    <span className="navbar-link">Mon Compte</span>
+                  </Link>
+                ) : null}
+                {/* <Link to="/profile/favorite">
                   <span className="navbar-link">Favoris</span>
-                </Link>
-
-                <Link to="/dashboard">
-                  <span className="navbar-link">Espace admin</span>
-                </Link>
-                <button type="button" onClick={handleLog}>
-                  Log
-                </button>
+                </Link> */}
+                {user ? (
+                  <Link to="/edit-profile/formation">
+                    <span className="navbar-link">Mes Formations</span>
+                  </Link>
+                ) : null}
+                {user ? (
+                  <Link to="/edit-profile/experience">
+                    <span className="navbar-link">Mes Expériences</span>
+                  </Link>
+                ) : null}
+                {isAdmin ? (
+                  <Link to="/dashboard">
+                    <span className="navbar-link">Espace admin</span>
+                  </Link>
+                ) : null}
                 <div className="btn-nav">
                   {user ? (
                     <div>
-                      {/* <p>Bienvenue</p> */}
-                      <button type="button" onClick={handleLogout}>
+                      <Link
+                        to="/"
+                        className="navbar-link"
+                        onClick={handleLogout}
+                      >
                         Se déconnecter
-                      </button>
+                      </Link>
+                      <Link className="navbar-link profile" to="/edit-profile">
+                        {" "}
+                        {/* <i class="fa-solid fa-user"></i> */}
+                        Hello {user.firstname}
+                      </Link>
                     </div>
                   ) : (
                     <>

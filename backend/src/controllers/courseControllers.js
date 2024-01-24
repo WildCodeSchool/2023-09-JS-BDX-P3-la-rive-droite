@@ -12,6 +12,18 @@ const getCourse = (_, res) => {
     });
 };
 
+const getCoursesByCvId = (req, res) => {
+  models.course
+    .findAllByCvId(req.params.id)
+    .then((rows) => {
+      res.send(rows);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
 const getCourseById = (req, res) => {
   const id = parseInt(req.params.id, 10);
 
@@ -87,4 +99,5 @@ module.exports = {
   postCourse,
   updateCourse,
   deleteCourseById,
+  getCoursesByCvId,
 };
