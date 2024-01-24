@@ -67,7 +67,7 @@ function AddFormation() {
     } else {
       try {
         const { data } = await apiService.get(
-          `http://localhost:3310/api/users/${user.id}/cvs`
+          `${import.meta.env.VITE_BACKEND_URL}/api/users/${user.id}/cvs`
         );
         const cvId = data.id;
 
@@ -81,7 +81,10 @@ function AddFormation() {
         // peut etre que ca fait un bug, chépa tro
         addCourse.cvId = cvId;
 
-        await apiService.post(`http://localhost:3310/api/course/`, addCourse);
+        await apiService.post(
+          `${import.meta.env.VITE_BACKEND_URL}/api/course/`,
+          addCourse
+        );
 
         setCourseSaved((prevData) => [...prevData, addCourse]);
         setMsgContent("La formation a été ajoutée avec succès");

@@ -15,7 +15,9 @@ function Home() {
   useEffect(() => {
     const getOffer = async () => {
       try {
-        const response = await fetch("http://localhost:3310/api/offer");
+        const response = await fetch(
+          `${import.meta.env.VITE_BACKEND_URL}/api/offer`
+        );
         if (response.ok) {
           const data = await response.json();
           setOffers(data);
@@ -31,7 +33,7 @@ function Home() {
 
     //     const getOffer = async () => {
     //       try {
-    //         const response = await axios.get("http://localhost:3310/api/offer");
+    //         const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/offer`);
     //         console.log(response.data);
     //         setOffers(response.data);
     //   } catch (err) {

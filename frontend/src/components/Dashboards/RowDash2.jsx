@@ -10,7 +10,7 @@ function RowDash2() {
     const fetchUsers = async () => {
       try {
         const response = await apiService.get(
-          "http://localhost:3310/api/users"
+          `${import.meta.env.VITE_BACKEND_URL}/api/users`
         );
         setUsers(response.data);
         // console.log(response.data);

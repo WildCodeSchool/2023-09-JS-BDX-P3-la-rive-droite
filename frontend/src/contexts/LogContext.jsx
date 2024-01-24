@@ -30,14 +30,16 @@ function LogContextProvider({ children }) {
   const handleSubmitLogIn = async () => {
     try {
       const data = await apiService.post(
-        `http://localhost:3310/api/login`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/login`,
         logIn
       );
       localStorage.setItem("token", data.token);
 
       apiService.setToken(data.token);
 
-      const result = await apiService.get("http://localhost:3310/api/users/me");
+      const result = await apiService.get(
+        `${import.meta.env.VITE_BACKEND_URL}/api/users/me`
+      );
 
       // alert(`Content de vous revoir ${result.data.email}`);
       // console.log(isAdmin);

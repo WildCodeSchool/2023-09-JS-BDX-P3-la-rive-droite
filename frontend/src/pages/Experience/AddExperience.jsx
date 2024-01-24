@@ -77,7 +77,7 @@ function AddExperience() {
         // ici on récupère l'id du cv, et le back fait en sorte
         // que si l'utilisateur n'a pas de cv, il en crée un
         const { data } = await apiService.get(
-          `http://localhost:3310/api/users/${user.id}/cvs`
+          `${import.meta.env.VITE_BACKEND_URL}/api/users/${user.id}/cvs`
         );
         const cvId = data.id;
 
@@ -91,7 +91,10 @@ function AddExperience() {
         // peut etre que ca fait un bug, chépa tro
         addXp.cvId = cvId;
 
-        await apiService.post(`http://localhost:3310/api/experience/`, addXp);
+        await apiService.post(
+          `${import.meta.env.VITE_BACKEND_URL}/api/experience/`,
+          addXp
+        );
 
         setXpSaved((prevData) => [...prevData, addXp]);
         setMsgContent("L'expérience a été ajoutée avec");

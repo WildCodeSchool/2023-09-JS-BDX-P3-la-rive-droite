@@ -47,7 +47,10 @@ function AddOffer() {
       }, 4000);
     } else {
       const postOffer = async () => {
-        apiService.post(`http://localhost:3310/api/offer`, addOffer);
+        apiService.post(
+          `${import.meta.env.VITE_BACKEND_URL}/api/offer`,
+          addOffer
+        );
       };
 
       postOffer();

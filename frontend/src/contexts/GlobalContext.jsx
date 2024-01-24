@@ -74,7 +74,7 @@ function GlobalContextProvider({ children, apiService }) {
   // Renvoie sur la lien de l'offre avec le bon "id".
   // const viewOffer = async (id) => {
   //   try {
-  //     const response = await fetch(`http://localhost:3310/api/offer/${id}`);
+  //     const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/offer/${id}`);
   //     if (response.ok) {
   //       const data = await response.json();
   //       console.log(data);

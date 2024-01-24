@@ -33,7 +33,9 @@ function AddOffer() {
 
   const fetchOffer = async () => {
     try {
-      const response = await fetch(`http://localhost:3310/api/offer/${id}`);
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/api/offer/${id}`
+      );
       if (response.ok) {
         const data = await response.json();
         setOffer(data);
@@ -66,7 +68,7 @@ function AddOffer() {
     } else {
       const updateOffer = async () => {
         apiService.update(
-          `http://localhost:3310/api/edit-offer/${id}`,
+          `${import.meta.env.VITE_BACKEND_URL}/api/edit-offer/${id}`,
           offer,
           id
         );

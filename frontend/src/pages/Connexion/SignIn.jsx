@@ -87,7 +87,10 @@ function SignIn() {
       setTimeout(() => {
         setSuccesMsg(false);
       }, 2000);
-      axios.post("http://localhost:3310/api/users", { ...signIn, ...skills });
+      axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/users`, {
+        ...signIn,
+        ...skills,
+      });
       if (signIn.addCvNow === true) {
         setTimeout(() => {
           navigate("/edit-profile/cv");

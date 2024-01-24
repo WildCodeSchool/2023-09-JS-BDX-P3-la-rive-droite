@@ -37,7 +37,9 @@ function UserProfileModel() {
       return;
     }
     try {
-      await apiService.delete(`http://localhost:3310/api/experience/${id}`);
+      await apiService.delete(
+        `${import.meta.env.VITE_BACKEND_URL}/api/experience/${id}`
+      );
       setSuccesMsg(true);
       setMsgContent("Votre expérience a bien été supprimée");
       setTimeout(() => {
@@ -59,7 +61,9 @@ function UserProfileModel() {
       return;
     }
     try {
-      await apiService.delete(`http://localhost:3310/api/course/${id}`);
+      await apiService.delete(
+        `${import.meta.env.VITE_BACKEND_URL}/api/course/${id}`
+      );
       setSuccesMsg(true);
       setMsgContent("Votre formation a bien été supprimée");
       setTimeout(() => {
@@ -80,7 +84,7 @@ function UserProfileModel() {
     const getUserProfile = async () => {
       try {
         const response = await apiService.get(
-          "http://localhost:3310/api/users/me"
+          `${import.meta.env.VITE_BACKEND_URL}/api/users/me`
         );
         setGetProfile(response.data);
       } catch (err) {
@@ -91,7 +95,7 @@ function UserProfileModel() {
     const getSkillsProfile = async () => {
       try {
         const response = await apiService.get(
-          "http://localhost:3310/api/users/me"
+          `${import.meta.env.VITE_BACKEND_URL}/api/users/me`
         );
         setGetSkills(response.data);
       } catch (err) {
@@ -108,7 +112,7 @@ function UserProfileModel() {
 
     try {
       await apiService.post(
-        "http://localhost:3310/api/user/updateSkills",
+        `${import.meta.env.VITE_BACKEND_URL}/api/user/updateSkills`,
         updatedSkills
       );
     } catch (error) {
