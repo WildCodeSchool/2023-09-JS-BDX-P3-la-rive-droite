@@ -5,6 +5,11 @@ import { useGlobalContext } from "../../contexts/GlobalContext";
 
 function Dashboard3() {
   const { unauthorized } = useGlobalContext();
+  // const data = useLoaderData();
+
+  // if (data === null) {
+  //   // redirect to login
+  // }
 
   useEffect(() => {
     unauthorized();

@@ -19,6 +19,16 @@ const getUsers = (_, res) => {
     });
 };
 
+// const getUsers = async (_, res) => {
+//   try {
+//     const rows = await models.user.findAll();
+//     res.send(rows);
+//   } catch (error) {
+//     console.error(err);
+//     res.status(500).send({ error: error.message });
+//   }
+// };
+
 // const getUsers = (req, res) => {
 //   console.log(req.body);
 //   console.log(res.body);

@@ -18,17 +18,17 @@ import "../../components/Inputs/checkbox-conditions.css";
 
 function SignIn() {
   const {
+    emailRegex,
     errorMsg,
-    setErrorMsg,
-    succesMsg,
-    setSuccesMsg,
-    msgContent,
-    setMsgContent,
     handleChange,
     handleCheckboxChange,
+    msgContent,
     navigate,
-    emailRegex,
     passwordRegex,
+    setErrorMsg,
+    setMsgContent,
+    setSuccesMsg,
+    succesMsg,
   } = useGlobalContext();
 
   const { signIn, setSignIn, skills, setSkills } = useSignContext();

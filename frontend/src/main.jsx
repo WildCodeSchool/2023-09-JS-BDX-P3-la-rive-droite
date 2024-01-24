@@ -27,6 +27,7 @@ import ApiService from "./services/api.service";
 // Import Styles.
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "mdb-react-ui-kit/dist/css/mdb.min.css";
+import currentUserProfileLoader from "./loaders/current-user-profil.loader";
 
 const apiService = new ApiService();
 // const navigate = useNavigate();
@@ -34,18 +35,7 @@ const apiService = new ApiService();
 const router = createBrowserRouter([
   {
     path: "/",
-    loader: async () => {
-      try {
-        const data = await apiService.get(
-          `${import.meta.env.VITE_BACKEND_URL}/api/users/me`
-        );
-        return { preloadUser: data ?? null };
-      } catch (err) {
-        console.error(err.message);
-        return null;
-      }
-    },
-
+    loader: async () => currentUserProfileLoader(apiService),
     element: (
       <GlobalContextProvider apiService={apiService}>
         <UserContextProvider>
@@ -164,6 +154,13 @@ const router = createBrowserRouter([
           {
             path: "/dashboard/user",
             element: <Dashboard3 />,
+            // loader: async () => {
+            //   try {
+            //     // GET /api/users
+            //     // si ok => renvoir données
+            //     // si ko => null
+            //   }
+            // },
           },
           {
             path: "/dashboard/candidates",
