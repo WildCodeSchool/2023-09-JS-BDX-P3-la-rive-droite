@@ -8,7 +8,6 @@ function LogContextProvider({ children }) {
   // Messages d'alertes.
   const {
     apiService,
-    user,
     setUser,
     setSuccesMsg,
     setMsgContent,
@@ -42,7 +41,7 @@ function LogContextProvider({ children }) {
       setIsAdmin(result.data.is_admin);
 
       setMsgContent(
-        `Content de vous revoir ${user.firstname} ${user.lastname}! Connexion effectuée avec`
+        `Content de vous revoir ${result.data.firstname} ${result.data.lastname}! Connexion effectuée avec`
       );
       setSuccesMsg(true);
       setTimeout(() => {

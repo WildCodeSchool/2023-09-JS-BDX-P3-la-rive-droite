@@ -16,16 +16,17 @@ import AddDetailsCV from "../../components/Add Something/AddSomething";
 
 function UserProfileModel() {
   const { handleAddCv } = useUserContext();
-  const {
-    errorMsg,
-    succesMsg,
-    msgContent,
-    apiService,
-    setSuccesMsg,
-    setMsgContent,
-    setErrorMsg,
-    handleChange,
-  } = useGlobalContext();
+  // const {
+  //   errorMsg,
+  //   succesMsg,
+  //   msgContent,
+  //   apiService,
+  //   setSuccesMsg,
+  //   setMsgContent,
+  //   setErrorMsg,
+  //   handleChange,
+  // } = useGlobalContext();
+  const globalContext = useGlobalContext();
   const navigate = useNavigate();
   const [getSkills, setGetSkills] = useState([]);
 
@@ -37,21 +38,21 @@ function UserProfileModel() {
       return;
     }
     try {
-      await apiService.delete(
+      await globalContext.apiService.delete(
         `${import.meta.env.VITE_BACKEND_URL}/api/experience/${id}`
       );
-      setSuccesMsg(true);
-      setMsgContent("Votre expérience a bien été supprimée");
+      globalContext.setSuccesMsg(true);
+      globalContext.setMsgContent("Votre expérience a bien été supprimée");
       setTimeout(() => {
-        setSuccesMsg(false);
+        globalContext.setSuccesMsg(false);
       }, 4000);
       navigate("/edit-profile");
     } catch (err) {
       console.error(err);
-      setErrorMsg(true);
-      setMsgContent("Une erreur est survenue");
+      globalContext.setErrorMsg(true);
+      globalContext.setMsgContent("Une erreur est survenue");
       setTimeout(() => {
-        setErrorMsg(false);
+        globalContext.setErrorMsg(false);
       }, 4000);
     }
   };
@@ -61,21 +62,21 @@ function UserProfileModel() {
       return;
     }
     try {
-      await apiService.delete(
+      await globalContext.apiService.delete(
         `${import.meta.env.VITE_BACKEND_URL}/api/course/${id}`
       );
-      setSuccesMsg(true);
-      setMsgContent("Votre formation a bien été supprimée");
+      globalContext.setSuccesMsg(true);
+      globalContext.setMsgContent("Votre formation a bien été supprimée");
       setTimeout(() => {
-        setSuccesMsg(false);
+        globalContext.setSuccesMsg(false);
       }, 4000);
       navigate("/edit-profile");
     } catch (err) {
       console.error(err);
-      setErrorMsg(true);
-      setMsgContent("Une erreur est survenue");
+      globalContext.setErrorMsg(true);
+      globalContext.setMsgContent("Une erreur est survenue");
       setTimeout(() => {
-        setErrorMsg(false);
+        globalContext.setErrorMsg(false);
       }, 4000);
     }
   };
@@ -83,7 +84,7 @@ function UserProfileModel() {
   useEffect(() => {
     const getUserProfile = async () => {
       try {
-        const response = await apiService.get(
+        const response = await globalContext.apiService.get(
           `${import.meta.env.VITE_BACKEND_URL}/api/users/me`
         );
         setGetProfile(response.data);
@@ -94,7 +95,7 @@ function UserProfileModel() {
 
     const getSkillsProfile = async () => {
       try {
-        const response = await apiService.get(
+        const response = await globalContext.apiService.get(
           `${import.meta.env.VITE_BACKEND_URL}/api/users/me`
         );
         setGetSkills(response.data);
@@ -111,7 +112,7 @@ function UserProfileModel() {
     setGetSkills(updatedSkills);
 
     try {
-      await apiService.post(
+      await globalContext.apiService.post(
         `${import.meta.env.VITE_BACKEND_URL}/api/user/updateSkills`,
         updatedSkills
       );
@@ -134,21 +135,27 @@ function UserProfileModel() {
           holderText={getProfile.lastname}
           fieldName="lastname"
           valueInput={getProfile}
-          handleChange={(event) => handleChange(getProfile, "lastname", event)}
+          handleChange={(event) =>
+            globalContext.handleChange(getProfile, "lastname", event)
+          }
         />
         <Input
           titleInput="Prénom *"
           holderText={getProfile.firstname}
           fieldName="firstname"
           valueInput={getProfile}
-          handleChange={(event) => handleChange(getProfile, "firstname", event)}
+          handleChange={(event) =>
+            globalContext.handleChange(getProfile, "firstname", event)
+          }
         />
         <Input
           titleInput="Email *"
           holderText={getProfile.email}
           fieldName="email"
           valueInput={getProfile}
-          handleChange={(event) => handleChange(getProfile, "email", event)}
+          handleChange={(event) =>
+            globalContext.handleChange(getProfile, "email", event)
+          }
         />
         <Input
           titleInput="Téléphone *"
@@ -156,7 +163,9 @@ function UserProfileModel() {
           fieldName="phone"
           typeInput="tel"
           valueInput={getProfile}
-          handleChange={(event) => handleChange(getProfile, "phone", event)}
+          handleChange={(event) =>
+            globalContext.handleChange(getProfile, "phone", event)
+          }
         />
         <Input
           titleInput="Addresse *"
@@ -164,7 +173,9 @@ function UserProfileModel() {
           fieldName="address"
           inputType="text"
           valueInput={getProfile}
-          handleChange={(event) => handleChange(getProfile, "address", event)}
+          handleChange={(event) =>
+            globalContext.handleChange(getProfile, "address", event)
+          }
         />
         <div className="container-switch">
           <h2 className="label-champs"> Cochez vos compétences *</h2>
@@ -288,8 +299,12 @@ function UserProfileModel() {
             ))}
         </div>
         <div>
-          {errorMsg && <ErrorMsg message={msgContent} />}
-          {succesMsg && <SuccesMsg message={msgContent} />}
+          {globalContext.errorMsg && (
+            <ErrorMsg message={globalContext.msgContent} />
+          )}
+          {globalContext.succesMsg && (
+            <SuccesMsg message={globalContext.msgContent} />
+          )}
         </div>
         <ButtonMaxi textBtn="Enregistrer" clickFunc={handleAddCv} />
       </div>
