@@ -13,8 +13,6 @@ function CardFormation({
 }) {
   const dateBeginObject = dateBegin ? new Date(dateBegin) : null;
   const dateEndObject = dateEnd ? new Date(dateEnd) : null;
-
-  // Formater les dates selon le modèle souhaité
   const formattedDateBegin = dateBeginObject
     ? format(dateBeginObject, "dd/MM/yyyy")
     : "Date début invalide";
@@ -42,8 +40,7 @@ function CardFormation({
         {formattedDateBegin} au {formattedDateEnd}
       </h4>
       <h3 className="label-offre ">
-        {level}
-        {domaine}
+        {level} {domaine}
       </h3>
 
       <p className="entreprise-champs formation ">{name}</p>
