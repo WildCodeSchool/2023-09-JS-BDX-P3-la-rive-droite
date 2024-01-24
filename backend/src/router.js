@@ -32,6 +32,8 @@ router.get(
 );
 router.get("/users/me", authMiddleware, userControllers.getProfile);
 router.post("/users", userControllers.postUser);
+router.put("/users/edit", authMiddleware, userControllers.updateUser);
+
 router.post("/user/skills", userControllers.postSkills);
 router.post("/login", userControllers.postLogin);
 

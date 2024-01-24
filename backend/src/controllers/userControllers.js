@@ -81,8 +81,7 @@ const updateUser = async (req, res) => {
   if (!id) {
     res.sendStatus(500);
   }
-
-  models.experience
+  models.user
     .update(id, req.body)
     .then((result) => {
       if (result.affectedRows === 0) {
