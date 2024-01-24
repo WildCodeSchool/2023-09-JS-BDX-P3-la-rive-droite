@@ -43,6 +43,22 @@ class UserManager extends AbstractManager {
     });
   }
 
+  async update(id, user) {
+    const { firstname, lastname, phone, address, email } = user;
+
+    try {
+      const [result] = await this.database.query(
+        `UPDATE ${this.table} SET firstname = ?, lastname = ?, phone = ?, address = ?, email = ? WHERE id = ?`,
+        [firstname, lastname, phone, address, email, id]
+      );
+
+      return result;
+    } catch (err) {
+      console.error(err);
+      return null;
+    }
+  }
+
   // Ancienne méthode.
   // skills(user) {
   //   return this.database.query(
