@@ -5,7 +5,6 @@ import CheckboxCondition from "../../components/Inputs/CheckboxCondition";
 import CompetenceSwitch from "../../components/Competence Switch/CompetenceSwitch";
 import HeaderLongTitle from "../../components/Headers/HeaderLongTitle";
 import ErrorMsg from "../../components/Alertes Messages/ErrorMsg";
-import AddSomething from "../../components/Add Something/AddSomething";
 import Title from "../../components/Titles/Title";
 import SuccesMsg from "../../components/Alertes Messages/SuccesMsg";
 import { useGlobalContext } from "../../contexts/GlobalContext";
@@ -251,7 +250,6 @@ function SignIn() {
                     globalContext.handleCheckboxChange(setSkills, "trello")
                   }
                 />
-                <AddSomething addDetail="Votre CV" />
               </div>
             </div>
             <CheckboxCondition
