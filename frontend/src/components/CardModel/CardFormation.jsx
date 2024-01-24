@@ -42,8 +42,7 @@ function CardFormation({
         {formattedDateBegin} au {formattedDateEnd}
       </h4>
       <h3 className="label-offre ">
-        {level}
-        {domaine}
+        {level} {domaine}
       </h3>
 
       <p className="entreprise-champs formation ">{name}</p>

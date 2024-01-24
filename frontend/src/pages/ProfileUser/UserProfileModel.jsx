@@ -1,4 +1,4 @@
-import { Outlet, useLoaderData, useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import "./user-profile-model.css";
 import Input from "../../components/Inputs/Input";
@@ -22,7 +22,12 @@ function UserProfileModel() {
   const [getSkills, setGetSkills] = useState([]);
 
   const [getProfile, setGetProfile] = useState({});
-  const { experiences, courses } = useLoaderData();
+
+  const { user, apiService } = useGlobalContext();
+
+  const [experiences, setExperiences] = useState([]);
+  const [courses, setCourses] = useState([]);
+  // const { experiences, courses } = useLoaderData();
 
   const handleExperienceDelete = async (id) => {
     if (!window.confirm("Voulez-vous vraiment supprimer cette expérience ?")) {
@@ -73,6 +78,8 @@ function UserProfileModel() {
   };
 
   useEffect(() => {
+    let cvId = null;
+
     const getUserProfile = async () => {
       try {
         const response = await globalContext.apiService.get(
@@ -94,8 +101,35 @@ function UserProfileModel() {
         console.error(err);
       }
     };
+
+    const fetchExperiences = async () => {
+      const experienceData = await apiService.get(
+        `${import.meta.env.VITE_BACKEND_URL}/api/experiences/by-cv-id/${cvId}`
+      );
+      setExperiences(experienceData.data);
+    };
+
+    const fetchCourses = async () => {
+      const courseData = await apiService.get(
+        `${import.meta.env.VITE_BACKEND_URL}/api/courses/by-cv-id/${cvId}`
+      );
+      setCourses(courseData.data);
+    };
+
+    const fetchCvId = async () => {
+      const cvData = await apiService.get(
+        `${import.meta.env.VITE_BACKEND_URL}/api/users/${user.id}/cvs`
+      );
+
+      cvId = cvData.data.id;
+
+      fetchExperiences();
+      fetchCourses();
+    };
+
     getSkillsProfile();
     getUserProfile();
+    fetchCvId();
   }, []);
 
   const handleCheckboxChanged = async (fieldName) => {
