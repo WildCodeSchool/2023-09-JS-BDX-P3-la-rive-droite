@@ -78,7 +78,12 @@
     display: flex;
 
     align-items: center;
-    background-color: brown;
     width: 100%;
+  }
+  .navbar-link.profile i {
+    padding: 0 10px;
+  }
+  .navbar-link.profile {
+    font-size: 25px;
   }
 }

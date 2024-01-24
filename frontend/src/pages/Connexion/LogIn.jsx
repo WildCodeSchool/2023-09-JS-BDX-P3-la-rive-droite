@@ -17,7 +17,7 @@ function Login() {
   return (
     <>
       <HeaderLongTitle textTitle="Connexion" />
-      <div className="container-page container-general-login">
+      <div className="container-page with-rounded-border">
         <h1> Se connecter</h1>
         <form>
           <div className="champs-form">
