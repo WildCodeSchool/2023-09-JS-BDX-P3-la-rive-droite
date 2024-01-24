@@ -13,10 +13,6 @@ function Dashboard1() {
     navigate("/dashboard/offer");
   };
 
-  // useEffect(() => {
-  //   unauthorized();
-  // }, []);
-
   return window.location.pathname === "/dashboard" ||
     window.location.pathname === "/dashboard/" ? (
     <div className="container">

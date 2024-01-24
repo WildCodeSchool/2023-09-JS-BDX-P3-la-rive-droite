@@ -8,12 +8,12 @@ function LogContextProvider({ children }) {
   // Messages d'alertes.
   const {
     apiService,
+    user,
     setUser,
     setSuccesMsg,
     setMsgContent,
     navigate,
     setIsAdmin,
-    user,
   } = useGlobalContext();
 
   const [userConnected, setUserConnected] = useState(false);
@@ -27,63 +27,41 @@ function LogContextProvider({ children }) {
   const getUserFromStorage = () => {
     setShowStorage(JSON.parse(localStorage.getItem("User")));
   };
+
   const handleSubmitLogIn = async () => {
     try {
       const data = await apiService.post(
-        `${import.meta.env.VITE_BACKEND_URL}/api/login`,
+        `http://localhost:3310/api/login`,
         logIn
       );
       localStorage.setItem("token", data.token);
-
       apiService.setToken(data.token);
+      const result = await apiService.get("http://localhost:3310/api/users/me");
 
-      const result = await apiService.get(
-        `${import.meta.env.VITE_BACKEND_URL}/api/users/me`
-      );
-
-      // alert(`Content de vous revoir ${result.data.email}`);
-      // console.log(isAdmin);
       setUser(result.data);
       setIsAdmin(result.data.is_admin);
+
       setMsgContent(
         `Content de vous revoir ${user.firstname} ${user.lastname}! Connexion effectuée avec`
       );
       setSuccesMsg(true);
       setTimeout(() => {
         setSuccesMsg(false);
+
         if (result.data.is_admin === 1) {
+          // console.log("Admin !");
           navigate("/dashboard");
+        } else {
+          // console.log("Not Admin :!");
+          navigate("/");
         }
-        navigate("/");
       }, 2000);
     } catch (err) {
       console.error(err);
       // alert(err.message);
     }
-
     return null;
   };
-
-  // getUserFromStorage();
-
-  // // Compare l'email.
-  // for (let i = 0; i < showStorage.length; i += 1) {
-  //   // i++
-  //   if (
-  //     showStorage[i].email === logIn.email &&
-  //     showStorage[i].password === logIn.password
-  //   ) {
-  //     // const idUser = showStorage[i].id;
-  //     const nameUser = showStorage[i].userName;
-  //     // console.log(nameUser);
-  //     // console.log(idUser);
-
-  // break;
-  //   } else {
-  //
-  //   }
-  // }
-  // };
 
   const contextValues = useMemo(
     () => ({
