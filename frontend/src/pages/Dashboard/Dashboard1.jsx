@@ -4,13 +4,11 @@ import RowDash from "../../components/Dashboards/RowDash";
 import TitleDashboard from "../../components/Dashboards/TitleDashboard";
 import ButtonMini from "../../components/Boutons/ButtonMini";
 import { useGlobalContext } from "../../contexts/GlobalContext";
+import { useAdminContext } from "../../contexts/AdminContext";
 
 function Dashboard1() {
-  const { navigate, unauthorized } = useGlobalContext();
-
-  const handleAddOffer = () => {
-    navigate("/dashboard/offer");
-  };
+  const { unauthorized } = useGlobalContext();
+  const { handleAddOffer, handleUsers } = useAdminContext();
 
   useEffect(() => {
     unauthorized();
@@ -22,6 +20,7 @@ function Dashboard1() {
       <div className="title-btn">
         <h4 className="tab">Tableau de bord</h4>
         <ButtonMini textBtn="Ajouter une offre" onClick={handleAddOffer} />
+        <ButtonMini textBtn="Tableau d'Utilisateurs." onClick={handleUsers} />
       </div>
       <TitleDashboard
         labelDash="ID Offres"
