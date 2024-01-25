@@ -1,13 +1,14 @@
+// Import Composant React.
 import React from "react";
 import ReactDOM from "react-dom";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+// Import Composants.
 import App from "./App";
 import Home from "./pages/HomeOffer/Home";
 import ReadOffer from "./pages/Offer/ReadOffer";
 import SignIn from "./pages/Connexion/SignIn";
 import LogIn from "./pages/Connexion/LogIn";
 import History from "./pages/Historique/History";
-import currentUserProfileLoader from "./loaders/current-user-profil.loader";
 import Favoris from "./pages/Favoris/Favoris";
 import UserProfileModel from "./pages/ProfileUser/UserProfileModel";
 import AddExperience from "./pages/Experience/AddExperience";
@@ -23,6 +24,10 @@ import SignContextProvider from "./contexts/SignContext";
 import LogContextProvider from "./contexts/LogContext";
 import GlobalContextProvider from "./contexts/GlobalContext";
 import UserContextProvider from "./contexts/UserContext";
+// Import de loaders.
+import currentUserProfileLoader from "./loaders/current-user-profil.loader";
+import currentRequestsUserProfile from "./loaders/current-requests-profil.loader";
+import currentAdmin from "./loaders/current-admin.loader";
 // Import de classe.
 import ApiService from "./services/api.service";
 // Import Styles.
@@ -77,6 +82,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/edit-profile",
+        loader: async () => currentRequestsUserProfile(apiService),
         element: (
           <SignContextProvider>
             <UserProfileModel />
@@ -101,36 +107,16 @@ const router = createBrowserRouter([
         path: "/dashboard",
         element: (
           <AdminContextProvider>
+            {/* <AdminChecker> */}
             <Dashboard1 />
+            {/* </AdminChecker> */}
           </AdminContextProvider>
         ),
-        // loader: async () => {
-        //   try {
-        //     const response = await apiService.get(
-        //       `${import.meta.env.VITE_BACKEND_URL}/api/users/me`
-        //     );
-        //     // return  preloadUser: data ?? null;
-        //     // console.log(response.data.is_admin);
-        //     if (response.data.is_admin !== 1) {
-        //       // console.log("Unauthorized !");
-        //       Navigate("/");
-        //     }
-        //   } catch (err) {
-        //     console.error(err.message);
-        //     return null;
-        //   }
-        // },
+        loader: async () => currentAdmin(apiService),
         children: [
           {
             path: "/dashboard/user",
             element: <Dashboard3 />,
-            // loader: async () => {
-            //   try {
-            //     // GET /api/users
-            //     // si ok => renvoir données
-            //     // si ko => null
-            //   }
-            // },
           },
           {
             path: "/dashboard/candidates",

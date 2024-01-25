@@ -1,21 +1,20 @@
-// import React, { useEffect } from "react";
+import React, { useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import RowDash from "../../components/Dashboards/RowDash";
 import TitleDashboard from "../../components/Dashboards/TitleDashboard";
 import ButtonMini from "../../components/Boutons/ButtonMini";
 import { useGlobalContext } from "../../contexts/GlobalContext";
-// import { useAdminContext } from "../../contexts/AdminConte";
 
 function Dashboard1() {
-  const { navigate } = useGlobalContext();
+  const { navigate, unauthorized } = useGlobalContext();
 
   const handleAddOffer = () => {
     navigate("/dashboard/offer");
   };
 
-  // useEffect(() => {
-  //   unauthorized();
-  // }, []);
+  useEffect(() => {
+    unauthorized();
+  }, []);
 
   return window.location.pathname === "/dashboard" ||
     window.location.pathname === "/dashboard/" ? (
