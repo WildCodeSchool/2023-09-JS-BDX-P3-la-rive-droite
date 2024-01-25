@@ -58,7 +58,7 @@ function RowDash() {
           <div className="icon-dash">
             <button
               type="button"
-              aria-label="getoffer"
+              aria-label="editoffer"
               onClick={() => goToEditOffer(offer.id)}
               className="invisible-button"
             >
@@ -74,7 +74,7 @@ function RowDash() {
             </button>
             <button
               type="button"
-              aria-label="getoffer"
+              aria-label="deleteoffer"
               onClick={() => deleteOffer(offer.id)}
               className="invisible-button"
             >

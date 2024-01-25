@@ -5,7 +5,6 @@ import { useGlobalContext } from "./GlobalContext";
 const AdminContext = createContext();
 
 function AdminContextProvider({ children }) {
-  // const { setErrorMsg, setSuccesMsg, setMsgContent } = useGlobalContext();
   const { isAdmin, setIsAdmin, navigate } = useGlobalContext();
 
   const [addOffer, setAddOffer] = useState({
@@ -21,8 +20,25 @@ function AdminContextProvider({ children }) {
     email: "",
   });
 
+  /* Redirection bouton du dashboard. */
+  const handleAddOffer = () => {
+    navigate("/dashboard/offer");
+  };
+
+  const handleOffers = () => {
+    navigate("/dashboard");
+  };
+
+  const handleUsers = () => {
+    navigate("/dashboard/user");
+  };
+
   const goToEditOffer = (id) => {
     navigate(`/dashboard/edit-offer/${id}`);
+  };
+
+  const goToEditUser = (id) => {
+    navigate(`/dashboard/edit-user/${id}`);
   };
 
   const contextValues = useMemo(
@@ -31,9 +47,23 @@ function AdminContextProvider({ children }) {
       setIsAdmin,
       addOffer,
       setAddOffer,
+      handleAddOffer,
+      handleOffers,
+      handleUsers,
       goToEditOffer,
+      goToEditUser,
     }),
-    [isAdmin, setIsAdmin, addOffer, setAddOffer, goToEditOffer]
+    [
+      isAdmin,
+      setIsAdmin,
+      addOffer,
+      setAddOffer,
+      handleUsers,
+      handleAddOffer,
+      handleOffers,
+      goToEditOffer,
+      goToEditUser,
+    ]
   );
 
   return (

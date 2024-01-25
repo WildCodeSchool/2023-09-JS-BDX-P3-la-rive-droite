@@ -10,7 +10,6 @@ function UserContextProvider({ children }) {
     useGlobalContext();
 
   const [editProfile, setEditProfile] = useState({
-    id: uuid(),
     lastName: "",
     firstName: "",
     email: "",

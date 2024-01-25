@@ -61,6 +61,18 @@ const postUser = async (req, res) => {
   }
 };
 
+const deleteUser = async (req, res) => {
+  try {
+    const userId = +req.params.id;
+
+    await models.user.deleteId(userId);
+    res.status(201).json({ message: "Utilisateur supprimé." });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "User not found ..." });
+  }
+};
+
 const getSkills = async (req, res) => {
   try {
     const rows = await models.user.findAll(req.body);
@@ -124,6 +136,7 @@ module.exports = {
   postUser,
   postLogin,
   updateUser,
+  deleteUser,
   getProfile,
   getUserById,
   postSkills,
