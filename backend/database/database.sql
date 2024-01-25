@@ -18,7 +18,7 @@ CREATE TABLE user (
 --     address,
 --     password
 -- )
-DROP TABLE IF EXISTS competence;
+-- DROP TABLE IF EXISTS competence;
 
 -- DELETE TABLE competence;
 
@@ -115,14 +115,9 @@ VALUES (
 
 DROP TABLE IF EXISTS user_competence;
 -- Créer la table "user_competence"
-CREATE TABLE
-    user_competence (
-        user_id INT,
-        competence_id INT,
-        PRIMARY KEY (user_id, competence_id),
-        FOREIGN KEY (user_id) REFERENCES user(id),
-        FOREIGN KEY (competence_id) REFERENCES competence(id)
-    );
+CREATE TABLE user_competence (
+    user_id INT, html BOOLEAN, css BOOLEAN, javascript BOOLEAN, angular BOOLEAN, react BOOLEAN, php BOOLEAN, symphony BOOLEAN, git BOOLEAN, github BOOLEAN, trello BOOLEAN, PRIMARY KEY (user_id), FOREIGN KEY (user_id) REFERENCES user (id)
+);
 
 CREATE TABLE upload (
     id int(11) PRIMARY KEY NOT NULL AUTO_INCREMENT, url varchar(255) NOT NULL, unique (url), created_at timestamp default CURRENT_TIMESTAMP
