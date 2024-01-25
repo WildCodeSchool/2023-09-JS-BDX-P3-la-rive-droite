@@ -61,11 +61,11 @@ function GlobalContextProvider({ children, apiService }) {
     navigate(`/offer/${id}`);
   };
 
-  // const unauthorized = () => {
-  //   if (!isAdmin) {
-  //     return navigate("/");
-  //   }
-  // };
+  function unauthorized() {
+    if (!isAdmin) {
+      navigate("/");
+    }
+  }
 
   // const handleLog = () => {
   //   console.log(isAdmin);
@@ -110,7 +110,7 @@ function GlobalContextProvider({ children, apiService }) {
       apiService,
       handleLogout,
       goToOffer,
-      // unauthorized,
+      unauthorized,
       // handleLog,
     }),
     [
@@ -134,7 +134,7 @@ function GlobalContextProvider({ children, apiService }) {
       apiService,
       handleLogout,
       goToOffer,
-      // unauthorized,
+      unauthorized,
       // handleLog,
     ]
   );
