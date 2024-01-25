@@ -105,7 +105,9 @@ const router = createBrowserRouter([
         path: "/dashboard",
         element: (
           <AdminContextProvider>
+            {/* <AdminChecker> */}
             <Dashboard1 />
+            {/* </AdminChecker> */}
           </AdminContextProvider>
         ),
         loader: async () => currentAdmin(apiService),

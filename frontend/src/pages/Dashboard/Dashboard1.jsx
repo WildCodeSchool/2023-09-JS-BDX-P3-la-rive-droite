@@ -4,7 +4,6 @@ import RowDash from "../../components/Dashboards/RowDash";
 import TitleDashboard from "../../components/Dashboards/TitleDashboard";
 import ButtonMini from "../../components/Boutons/ButtonMini";
 import { useGlobalContext } from "../../contexts/GlobalContext";
-// import { useAdminContext } from "../../contexts/AdminConte";
 
 function Dashboard1() {
   const { navigate } = useGlobalContext();
