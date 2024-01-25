@@ -30,10 +30,15 @@ function CompetenceSwitch({
 }
 
 CompetenceSwitch.propTypes = {
-  textCompetence: PropTypes.string.isRequired,
+  textCompetence: PropTypes.string,
   fieldName: PropTypes.string.isRequired,
   handleChange: PropTypes.func.isRequired,
-  valueInput: PropTypes.func.isRequired,
+  valueInput: PropTypes.oneOfType([PropTypes.object]),
+};
+
+CompetenceSwitch.defaultProps = {
+  textCompetence: "La valeur n'est pas définie.",
+  valueInput: {},
 };
 
 export default CompetenceSwitch;
