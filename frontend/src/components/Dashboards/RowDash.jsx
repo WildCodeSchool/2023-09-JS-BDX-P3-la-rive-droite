@@ -11,7 +11,9 @@ function RowDash() {
 
   const fetchOffers = async () => {
     try {
-      const response = await fetch("http://localhost:3310/api/offer");
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/api/offer`
+      );
       if (response.ok) {
         const data = await response.json();
         setOffers(data);
@@ -25,7 +27,9 @@ function RowDash() {
 
   const deleteOffer = async (id) => {
     try {
-      await apiService.delete(`http://localhost:3310/api/offer/${id}`);
+      await apiService.delete(
+        `${import.meta.env.VITE_BACKEND_URL}/api/offer/${id}`
+      );
 
       // Methode 01.
       // window.location.reload();
@@ -45,7 +49,7 @@ function RowDash() {
   return (
     <div className="rowDash-container">
       {offers.map((offer) => (
-        <div key={offer.idOffer} className="offerDash-item">
+        <div key={offer.id} className="offerDash-item">
           <p className="array-box">{offer.id}</p>
           <p className="array-box">{offer.company}</p>
           <p className="array-box">{offer.NbrCandidats}</p>

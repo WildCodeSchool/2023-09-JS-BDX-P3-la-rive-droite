@@ -8,7 +8,9 @@ const GlobalContext = createContext();
 function GlobalContextProvider({ children, apiService }) {
   // Messages d'alertes.
   const givenData = useLoaderData();
-  const [isAdmin, setIsAdmin] = useState(givenData?.preloadUser?.data?.isAdmin);
+  const [isAdmin, setIsAdmin] = useState(
+    givenData?.preloadUser?.data?.is_admin
+  );
   const [user, setUser] = useState(givenData?.preloadUser?.data);
   const [errorMsg, setErrorMsg] = useState(false);
   const [succesMsg, setSuccesMsg] = useState(false);
@@ -32,17 +34,21 @@ function GlobalContextProvider({ children, apiService }) {
   };
 
   const handleCheckboxChange = (callback, fieldName) => {
-    callback((prevData) => ({
-      ...prevData,
-      [fieldName]: !prevData[fieldName],
-    }));
+    callback((prevData) => {
+      const newValue = !prevData[fieldName];
+      return {
+        ...prevData,
+        [fieldName]: newValue,
+      };
+    });
   };
 
   const handleLogout = () => {
     localStorage.setItem("token", null);
-
     apiService.setToken(null);
     setUser(null);
+    setIsAdmin(null);
+    // eslint-disable-next-line no-alert
     alert(`Déconnexion réussie`);
     return navigate("/");
   };
@@ -55,10 +61,20 @@ function GlobalContextProvider({ children, apiService }) {
     navigate(`/offer/${id}`);
   };
 
+  // const unauthorized = () => {
+  //   if (!isAdmin) {
+  //     return navigate("/");
+  //   }
+  // };
+
+  // const handleLog = () => {
+  //   console.log(isAdmin);
+  // };
+
   // Renvoie sur la lien de l'offre avec le bon "id".
   // const viewOffer = async (id) => {
   //   try {
-  //     const response = await fetch(`http://localhost:3310/api/offer/${id}`);
+  //     const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/offer/${id}`);
   //     if (response.ok) {
   //       const data = await response.json();
   //       console.log(data);
@@ -94,6 +110,8 @@ function GlobalContextProvider({ children, apiService }) {
       apiService,
       handleLogout,
       goToOffer,
+      // unauthorized,
+      // handleLog,
     }),
     [
       getItemInLS,
@@ -116,6 +134,8 @@ function GlobalContextProvider({ children, apiService }) {
       apiService,
       handleLogout,
       goToOffer,
+      // unauthorized,
+      // handleLog,
     ]
   );
 

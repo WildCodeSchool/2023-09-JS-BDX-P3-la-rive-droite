@@ -7,12 +7,14 @@ import ReadOffer from "./pages/Offer/ReadOffer";
 import SignIn from "./pages/Connexion/SignIn";
 import LogIn from "./pages/Connexion/LogIn";
 import History from "./pages/Historique/History";
+import currentUserProfileLoader from "./loaders/current-user-profil.loader";
 import Favoris from "./pages/Favoris/Favoris";
 import UserProfileModel from "./pages/ProfileUser/UserProfileModel";
 import AddExperience from "./pages/Experience/AddExperience";
 import AddFormation from "./pages/Formation/AddFormation";
 import Dashboard1 from "./pages/Dashboard/Dashboard1";
 import Dashboard2 from "./pages/Dashboard/Dashboard2";
+import Dashboard3 from "./pages/Dashboard/Dashboard3";
 import AddOffer from "./pages/Offer/AddOffer";
 import EditOffer from "./pages/Offer/EditOffer";
 // Import Contexts.
@@ -21,26 +23,18 @@ import SignContextProvider from "./contexts/SignContext";
 import LogContextProvider from "./contexts/LogContext";
 import GlobalContextProvider from "./contexts/GlobalContext";
 import UserContextProvider from "./contexts/UserContext";
+// Import de classe.
+import ApiService from "./services/api.service";
 // Import Styles.
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "mdb-react-ui-kit/dist/css/mdb.min.css";
-import ApiService from "./services/api.service";
 
 const apiService = new ApiService();
 
 const router = createBrowserRouter([
   {
     path: "/",
-    loader: async () => {
-      try {
-        const data = await apiService.get("http://localhost:3310/api/users/me");
-        return { preloadUser: data ?? null };
-      } catch (err) {
-        console.error(err.message);
-        return null;
-      }
-    },
-
+    loader: async () => currentUserProfileLoader(apiService),
     element: (
       <GlobalContextProvider apiService={apiService}>
         <UserContextProvider>
@@ -83,43 +77,18 @@ const router = createBrowserRouter([
       },
       {
         path: "/edit-profile",
-        loader: async () => {
-          try {
-            // D'abord, on va chercher le CV de l'utilisateur, ce qui nous intéresse est l'id du CV
-            const cvData = await apiService.get(
-              "http://localhost:3310/api/users/6/cvs" // TODO: remplacer le 5 par l'id de l'utilisateur connecté
-            );
-
-            // Ensuite, on va chercher les expériences de l'utilisateur via l'id du CV qu'on vient de récupérer
-            // le but est de pouvoir faire SELECT * FROM experiences WHERE cv_id = cvData.data.id
-            const experienceData = await apiService.get(
-              `http://localhost:3310/api/experiences/by-cv-id/${cvData.data.id}`
-            );
-            const courseData = await apiService.get(
-              `http://localhost:3310/api/courses/by-cv-id/${cvData.data.id}`
-            );
-
-            return {
-              experiences: experienceData.data,
-              courses: courseData.data,
-            };
-          } catch (err) {
-            console.error(err.message);
-            return null;
-          }
-        },
         element: (
           <SignContextProvider>
             <UserProfileModel />
           </SignContextProvider>
         ),
         children: [
-          // {
-          //   path: "/edit-profile/cv",
-          //   element: <CreateCV />,
-          // },
           {
             path: "/edit-profile/experience",
+            element: <AddExperience />,
+          },
+          {
+            path: "/edit-profile/experience/:id/edit",
             element: <AddExperience />,
           },
           {
@@ -135,7 +104,34 @@ const router = createBrowserRouter([
             <Dashboard1 />
           </AdminContextProvider>
         ),
+        // loader: async () => {
+        //   try {
+        //     const response = await apiService.get(
+        //       `${import.meta.env.VITE_BACKEND_URL}/api/users/me`
+        //     );
+        //     // return  preloadUser: data ?? null;
+        //     // console.log(response.data.is_admin);
+        //     if (response.data.is_admin !== 1) {
+        //       // console.log("Unauthorized !");
+        //       Navigate("/");
+        //     }
+        //   } catch (err) {
+        //     console.error(err.message);
+        //     return null;
+        //   }
+        // },
         children: [
+          {
+            path: "/dashboard/user",
+            element: <Dashboard3 />,
+            // loader: async () => {
+            //   try {
+            //     // GET /api/users
+            //     // si ok => renvoir données
+            //     // si ko => null
+            //   }
+            // },
+          },
           {
             path: "/dashboard/candidates",
             element: <Dashboard2 />,

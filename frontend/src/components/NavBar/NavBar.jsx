@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import "./navBar.css";
 import { Link } from "react-router-dom";
 import {
   MDBNavbar,
@@ -10,10 +9,8 @@ import {
   MDBNavbarBrand,
   MDBCollapse,
 } from "mdb-react-ui-kit";
-
 import { useGlobalContext } from "../../contexts/GlobalContext";
-
-// import logo from "../../assets/ext-logo.png";
+import "./navBar.css";
 
 export default function Navbar() {
   const { user, handleLogout, isAdmin } = useGlobalContext();
@@ -53,13 +50,23 @@ export default function Navbar() {
                   <span className="active navbar-link">Accueil</span>
                 </Link>
                 {user ? (
-                  <Link to="/profile">
-                    <span className="navbar-link">Mon Profil</span>
+                  <Link to="/edit-profile">
+                    <span className="navbar-link">Mon Compte</span>
                   </Link>
                 ) : null}
-                <Link to="/profile/favorite">
+                {/* <Link to="/profile/favorite">
                   <span className="navbar-link">Favoris</span>
-                </Link>
+                </Link> */}
+                {user ? (
+                  <Link to="/edit-profile/formation">
+                    <span className="navbar-link">Mes Formations</span>
+                  </Link>
+                ) : null}
+                {user ? (
+                  <Link to="/edit-profile/experience">
+                    <span className="navbar-link">Mes Expériences</span>
+                  </Link>
+                ) : null}
                 {isAdmin ? (
                   <Link to="/dashboard">
                     <span className="navbar-link">Espace admin</span>
@@ -68,10 +75,18 @@ export default function Navbar() {
                 <div className="btn-nav">
                   {user ? (
                     <div>
-                      {/* <p>Bienvenue</p> */}
-                      <button type="button" onClick={handleLogout}>
+                      <Link
+                        to="/"
+                        className="navbar-link"
+                        onClick={handleLogout}
+                      >
                         Se déconnecter
-                      </button>
+                      </Link>
+                      <Link className="navbar-link profile" to="/edit-profile">
+                        {" "}
+                        {/* <i class="fa-solid fa-user"></i> */}
+                        Hello {user.firstname}
+                      </Link>
                     </div>
                   ) : (
                     <>

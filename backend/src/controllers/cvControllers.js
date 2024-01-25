@@ -3,7 +3,7 @@ const models = require("../models/index");
 const getCv = async (req, res) => {
   const userId = parseInt(req.params.id, 10);
   if (userId !== req.user.id) {
-    return res.status(403).send({ message: "Invalid user" });
+    return res.status(403).send({ message: "Invalid user" }); // <=== Ton erreur vient d'ici
   }
   try {
     const [item] = await models.cv.findCvByUserId(userId);
@@ -25,20 +25,17 @@ const getCv = async (req, res) => {
   }
 };
 
-const postCv = (req, res) => {
-  models.cv
-    .create(req.body)
-    .then((rows) => {
-      res.send({
-        id: rows.insertId,
-        userId: rows.user_id,
-      });
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(422).send({ error: err.message });
+const postCv = async (req, res) => {
+  try {
+    const rows = await models.cv.create(req.body);
+    res.send({
+      id: rows.insertId,
+      userId: rows.user_id,
     });
-  // res.status(418).send(req.body)
+  } catch (err) {
+    console.error(err);
+    res.status(422).send({ error: err.message });
+  }
 };
 
 module.exports = { postCv, getCv };

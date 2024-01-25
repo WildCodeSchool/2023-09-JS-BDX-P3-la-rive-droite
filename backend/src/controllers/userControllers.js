@@ -5,16 +5,28 @@ function generateAccessToken(data) {
   return jwt.sign(data, process.env.APP_SECRET);
 }
 
-const getUsers = (_, res) => {
-  models.user
-    .findAll()
-    .then((rows) => {
-      res.send(rows);
-    })
-    .catch((err) => {
-      console.error(err);
-      res.sendStatus(500);
-    });
+// const getUsers = (_, res) => {
+//   models.user
+//     .findAll()
+//     .then((rows) => {
+//       // delete rows.forEach((info) => info.password);
+//       // console.log(rows);
+//       res.send(rows);
+//     })
+//     .catch((err) => {
+//       console.error(err);
+//       res.sendStatus(500);
+//     });
+// };
+
+const getUsers = async (_, res) => {
+  try {
+    const rows = await models.user.findAll();
+    res.send(rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send({ error: err.message });
+  }
 };
 
 const getUserById = async (req, res) => {
@@ -30,70 +42,76 @@ const getUserById = async (req, res) => {
   }
 };
 
-const postUser = (req, res) => {
-  models.user
-    .create(req.body)
-    .then((rows) => {
-      res.send({
-        id: rows.insertId,
-        firstname: req.body.firstname,
-        lastname: req.body.lastname,
-        phone: req.body.phone,
-        address: req.body.address,
-        competence: req.body.competence,
-        email: req.body.email,
-        is_admin: req.body.is_admin,
-      });
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(422).send({ error: err.message });
+const postUser = async (req, res) => {
+  try {
+    const rows = await models.user.create(req.body);
+    res.send({
+      id: rows.insertId,
+      firstname: req.body.firstname,
+      lastname: req.body.lastname,
+      phone: req.body.phone,
+      address: req.body.address,
+      email: req.body.email,
+      is_admin: req.body.is_admin,
+      competenceId: rows.competenceId,
     });
-  // res.status(418).send(req.body)
+  } catch (err) {
+    console.error(err);
+    res.status(422).send({ error: err.message });
+  }
 };
 
-const postSkills = (req, res) => {
-  models.user
-    .skills(req.body)
-    .then((rows) => {
-      res.status(201).send(rows);
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).json({ message: err.message });
-    });
+const getSkills = async (req, res) => {
+  try {
+    const rows = await models.user.findAll(req.body);
+    res.status(201).send(rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: err.message });
+  }
 };
 
-const postLogin = (req, res) => {
-  models.user.login(req.body).then((user) => {
+const postSkills = async (req, res) => {
+  try {
+    const userId = +req.body.params.id;
+    const rows = await models.user.userCompetence(userId, req.body);
+    res.status(201).send(rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: err.message });
+  }
+};
+
+const postLogin = async (req, res) => {
+  try {
+    const user = await models.user.login(req.body);
     if (user) {
-      // todo : filtrer les données à envoyer
       const token = generateAccessToken(user);
       res.send({ token });
     } else {
       res.status(401).send({ error: "Identifiant incorrect!!!" });
     }
-  });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send({ error: err.message });
+  }
 };
 
 const updateUser = async (req, res) => {
-  const id = parseInt(req.params.id, 10);
-  if (!id) {
-    res.sendStatus(500);
+  try {
+    const id = parseInt(req.params.id, 10);
+    if (!id) {
+      res.sendStatus(500);
+    }
+    const result = await models.user.update(id, req.body);
+    if (result.affectedRows === 0) {
+      res.sendStatus(500);
+    }
+    res.sendStatus(200);
+  } catch (error) {
+    console.error(error);
+    res.status(422).send({ error: error.message });
   }
-
-  models.experience
-    .update(id, req.body)
-    .then((result) => {
-      if (result.affectedRows === 0) {
-        res.sendStatus(500);
-      }
-      res.sendStatus(200);
-    })
-    .catch((error) => {
-      console.error(error);
-      res.status(422).send({ error: error.message });
-    });
 };
 
 const getProfile = (req, res) => {
@@ -104,9 +122,10 @@ const getProfile = (req, res) => {
 module.exports = {
   getUsers,
   postUser,
-  postSkills,
   postLogin,
   updateUser,
   getProfile,
   getUserById,
+  postSkills,
+  getSkills,
 };

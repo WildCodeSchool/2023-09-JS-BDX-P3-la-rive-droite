@@ -27,16 +27,29 @@ class CourseManager extends AbstractManager {
     }
   }
 
-  async update(id, course) {
-    const { level, domaine, name, dateBegin, dateEnd, description } = course;
+  // async update(id, course) {
+  //   const { level, domaine, name, dateBegin, dateEnd, description } = course;
 
+  //   try {
+  //     const [result] = await this.database.query(
+  //       `UPDATE ${this.table} SET level = ?, domaine = ?, name = ?, date_begin = ?, date_end = ?, description = ? WHERE id = ?`,
+  //       [level, domaine, name, dateBegin, dateEnd, description, id]
+  //     );
+
+  //     return result;
+  //   } catch (err) {
+  //     console.error(err);
+  //     return null;
+  //   }
+  // }
+
+  async findAllByCvId(cvId) {
     try {
-      const [result] = await this.database.query(
-        `UPDATE ${this.table} SET level = ?, domaine = ?, name = ?, date_begin = ?, date_end = ?, description = ? WHERE id = ?`,
-        [level, domaine, name, dateBegin, dateEnd, description, id]
+      const [results] = await this.database.query(
+        `SELECT * FROM ${this.table} WHERE cv_id = ?`,
+        [cvId]
       );
-
-      return result;
+      return results;
     } catch (err) {
       console.error(err);
       return null;

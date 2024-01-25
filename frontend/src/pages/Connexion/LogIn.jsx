@@ -11,21 +11,13 @@ import "../../components/Inputs/input.css";
 import "../../components/Boutons/button-maxi.css";
 
 function Login() {
-  const { handleChange } = useGlobalContext();
-
-  const {
-    errorMsg,
-    succesMsg,
-    msgContent,
-    logIn,
-    setLogIn,
-    handleSubmitLogIn,
-  } = useLogContext();
+  const { errorMsg, succesMsg, msgContent, handleChange } = useGlobalContext();
+  const { logIn, setLogIn, handleSubmitLogIn } = useLogContext();
 
   return (
     <>
       <HeaderLongTitle textTitle="Connexion" />
-      <div className="container-page container-general-login">
+      <div className="container-page with-rounded-border">
         <h1> Se connecter</h1>
         <form>
           <div className="champs-form">

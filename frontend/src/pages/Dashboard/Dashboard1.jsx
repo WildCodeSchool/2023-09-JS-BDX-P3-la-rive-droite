@@ -1,3 +1,4 @@
+// import React, { useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import RowDash from "../../components/Dashboards/RowDash";
 import TitleDashboard from "../../components/Dashboards/TitleDashboard";
@@ -11,6 +12,10 @@ function Dashboard1() {
   const handleAddOffer = () => {
     navigate("/dashboard/offer");
   };
+
+  // useEffect(() => {
+  //   unauthorized();
+  // }, []);
 
   return window.location.pathname === "/dashboard" ||
     window.location.pathname === "/dashboard/" ? (

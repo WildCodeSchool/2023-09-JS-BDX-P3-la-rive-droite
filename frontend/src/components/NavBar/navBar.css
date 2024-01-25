@@ -62,6 +62,7 @@
 }
 .navbar-link:hover {
   transform: scale(0.9);
+  color: white;
 }
 .active {
   color: white;
@@ -77,7 +78,12 @@
     display: flex;
 
     align-items: center;
-    background-color: brown;
     width: 100%;
+  }
+  .navbar-link.profile i {
+    padding: 0 10px;
+  }
+  .navbar-link.profile {
+    font-size: 25px;
   }
 }

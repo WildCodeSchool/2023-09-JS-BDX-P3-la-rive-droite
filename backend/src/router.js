@@ -32,7 +32,11 @@ router.get(
 );
 router.get("/users/me", authMiddleware, userControllers.getProfile);
 router.post("/users", userControllers.postUser);
+router.put("/users/edit", authMiddleware, userControllers.updateUser);
+
 router.post("/user/skills", userControllers.postSkills);
+router.get("/user/skills", userControllers.getSkills);
+router.post("/user/skills/:id([0-9]+)", userControllers.postSkills);
 router.post("/login", userControllers.postLogin);
 
 /* OFFERS. */
@@ -78,11 +82,11 @@ router.post(
   authMiddleware,
   experienceControllers.postExperience
 );
-router.put(
-  "/experience/:id([0-9]+)",
-  authMiddleware,
-  experienceControllers.updateExperience
-);
+// router.put(
+//   "/experience/:id([0-9]+)",
+//   authMiddleware,
+//   experienceControllers.updateExperience
+// );
 router.delete(
   "/experience/:id([0-9]+)",
   authMiddleware,
@@ -102,11 +106,11 @@ router.get(
   courseControllers.getCourseById
 );
 router.post("/course", authMiddleware, courseControllers.postCourse);
-router.put(
-  "/course/:id([0-9]+)",
-  authMiddleware,
-  courseControllers.updateCourse
-);
+// router.put(
+//   "/course/:id([0-9]+)",
+//   authMiddleware,
+//   courseControllers.updateCourse
+// );
 router.delete(
   "/course/:id([0-9]+)",
   authMiddleware,

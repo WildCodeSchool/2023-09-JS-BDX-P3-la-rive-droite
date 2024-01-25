@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
-// import CardOffre from "../../components/CardModel/CardOffre";
 import HeaderLongResearch from "../../components/Headers/HeaderLongResearch";
 import { useGlobalContext } from "../../contexts/GlobalContext";
 import "./Home.css";
 import CardOffre from "../../components/CardModel/CardOffre";
 import { useUserContext } from "../../contexts/UserContext";
-// import axios from "axios";
 
 function Home() {
   const { goToOffer } = useGlobalContext();
@@ -15,7 +13,9 @@ function Home() {
   useEffect(() => {
     const getOffer = async () => {
       try {
-        const response = await fetch("http://localhost:3310/api/offer");
+        const response = await fetch(
+          `${import.meta.env.VITE_BACKEND_URL}/api/offer`
+        );
         if (response.ok) {
           const data = await response.json();
           setOffers(data);
@@ -31,7 +31,7 @@ function Home() {
 
     //     const getOffer = async () => {
     //       try {
-    //         const response = await axios.get("http://localhost:3310/api/offer");
+    //         const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/offer`);
     //         console.log(response.data);
     //         setOffers(response.data);
     //   } catch (err) {
@@ -43,8 +43,12 @@ function Home() {
   }, []);
 
   return (
-    <>
-      <HeaderLongResearch textTitle="Bienvenue sur" textTitle2="nos offres" />
+    <div id="home">
+      <HeaderLongResearch
+        textTitle="Cabinet de recrutement informatique
+"
+        textTitle2="Nos offres d'emploi"
+      />
       <div className="container-page">
         <h2>Les offres qui matchent !</h2>
         <div className="offer-container">
@@ -58,7 +62,7 @@ function Home() {
           ))}
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

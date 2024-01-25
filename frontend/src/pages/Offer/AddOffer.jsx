@@ -1,3 +1,4 @@
+// import React, { useEffect } from "react";
 import ButtonMaxi from "../../components/Boutons/ButtonMaxi";
 import Input from "../../components/Inputs/Input";
 import Select from "../../components/Inputs/Select";
@@ -15,16 +16,7 @@ import "./add-offer.css";
 
 function AddOffer() {
   const { addOffer, setAddOffer } = useAdminContext();
-  const {
-    errorMsg,
-    setErrorMsg,
-    succesMsg,
-    setSuccesMsg,
-    msgContent,
-    setMsgContent,
-    handleChange,
-    apiService,
-  } = useGlobalContext();
+  const globalContext = useGlobalContext();
 
   const handleAddOffer = () => {
     if (
@@ -39,24 +31,25 @@ function AddOffer() {
       addOffer.info === "" ||
       addOffer.email === ""
     ) {
-      setErrorMsg(true);
-      setMsgContent("Veuillez remplir tous les champs");
+      globalContext.setErrorMsg(true);
+      globalContext.setMsgContent("Veuillez remplir tous les champs");
       setTimeout(() => {
-        setErrorMsg(false);
+        globalContext.setErrorMsg(false);
       }, 4000);
     } else {
       const postOffer = async () => {
-        apiService.post(`http://localhost:3310/api/offer`, addOffer);
+        globalContext.apiService.post(
+          `${import.meta.env.VITE_BACKEND_URL}/api/offer`,
+          addOffer
+        );
       };
 
       postOffer();
 
-      // console.log(addOffer);
-
-      setMsgContent("L'offre à été ajouté avec");
-      setSuccesMsg(true);
+      globalContext.setMsgContent("L'offre à été ajouté avec");
+      globalContext.setSuccesMsg(true);
       setTimeout(() => {
-        setSuccesMsg(false);
+        globalContext.setSuccesMsg(false);
       }, 4000);
 
       setAddOffer({
@@ -74,6 +67,10 @@ function AddOffer() {
     }
   };
 
+  // useEffect(() => {
+  //   unauthorized();
+  // }, []);
+
   return (
     <div>
       <div className="page-offer">
@@ -86,7 +83,9 @@ function AddOffer() {
             fieldName="title"
             inputType="text"
             valueInput={addOffer}
-            handleChange={(event) => handleChange(setAddOffer, "title", event)}
+            handleChange={(event) =>
+              globalContext.handleChange(setAddOffer, "title", event)
+            }
           />
           <Input
             titleInput="Société"
@@ -95,13 +94,15 @@ function AddOffer() {
             inputType="text"
             valueInput={addOffer}
             handleChange={(event) =>
-              handleChange(setAddOffer, "company", event)
+              globalContext.handleChange(setAddOffer, "company", event)
             }
           />
           <Select
             titleSelect="Type de contrat"
             fieldName="type"
-            handleChange={(event) => handleChange(setAddOffer, "type", event)}
+            handleChange={(event) =>
+              globalContext.handleChange(setAddOffer, "type", event)
+            }
           >
             <option value="CDD">CDD</option>
             <option value="CDI">CDI</option>
@@ -113,7 +114,9 @@ function AddOffer() {
             inputType="text"
             fieldName="city"
             valueInput={addOffer}
-            handleChange={(event) => handleChange(setAddOffer, "city", event)}
+            handleChange={(event) =>
+              globalContext.handleChange(setAddOffer, "city", event)
+            }
           />
           <TextArea
             titleInput="Missions"
@@ -121,7 +124,7 @@ function AddOffer() {
             fieldName="mission"
             valueInput={addOffer}
             handleChange={(event) =>
-              handleChange(setAddOffer, "mission", event)
+              globalContext.handleChange(setAddOffer, "mission", event)
             }
           />
           <Input
@@ -131,7 +134,7 @@ function AddOffer() {
             inputType="text"
             valueInput={addOffer}
             handleChange={(event) =>
-              handleChange(setAddOffer, "search_profile", event)
+              globalContext.handleChange(setAddOffer, "search_profile", event)
             }
           />
           <Input
@@ -141,7 +144,7 @@ function AddOffer() {
             inputType="text"
             valueInput={addOffer}
             handleChange={(event) =>
-              handleChange(setAddOffer, "work_place", event)
+              globalContext.handleChange(setAddOffer, "work_place", event)
             }
           />
           <Input
@@ -150,14 +153,18 @@ function AddOffer() {
             fieldName="salary"
             inputType="text"
             valueInput={addOffer}
-            handleChange={(event) => handleChange(setAddOffer, "salary", event)}
+            handleChange={(event) =>
+              globalContext.handleChange(setAddOffer, "salary", event)
+            }
           />
           <TextArea
             titleInput="Infos complémentaires"
             holderText="Le travail est cool"
             fieldName="info"
             valueInput={addOffer}
-            handleChange={(event) => handleChange(setAddOffer, "info", event)}
+            handleChange={(event) =>
+              globalContext.handleChange(setAddOffer, "info", event)
+            }
           />
           <Input
             titleInput="Email du client lié à l'offre"
@@ -165,11 +172,17 @@ function AddOffer() {
             fieldName="email"
             inputType="email"
             valueInput={addOffer}
-            handleChange={(event) => handleChange(setAddOffer, "email", event)}
+            handleChange={(event) =>
+              globalContext.handleChange(setAddOffer, "email", event)
+            }
           />
           <div>
-            {errorMsg && <ErrorMsg message={msgContent} />}
-            {succesMsg && <SuccesMsg message={msgContent} />}
+            {globalContext.errorMsg && (
+              <ErrorMsg message={globalContext.msgContent} />
+            )}
+            {globalContext.succesMsg && (
+              <SuccesMsg message={globalContext.msgContent} />
+            )}
           </div>
           <ButtonMaxi textBtn="Ajouter l'offre" clickFunc={handleAddOffer} />
         </div>

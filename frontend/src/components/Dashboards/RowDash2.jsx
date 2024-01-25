@@ -1,55 +1,37 @@
-import ButtonMini from "../Boutons/ButtonMini";
+import React, { useState, useEffect } from "react";
 import "./RowDash.css";
-
-const UserDash = [
-  {
-    id: 1,
-    lastname: "Gondry",
-    firstname: "Henri",
-    tel: "0611589643",
-    email: "blabla@gmail.com",
-  },
-  {
-    id: 2,
-    lastname: "Gondry",
-    firstname: "Henri",
-    tel: "0611589643",
-    email: "blabla@gmail.com",
-  },
-  {
-    id: 3,
-    lastname: "Gondry",
-    firstname: "Henri",
-    tel: "0611589643",
-    email: "blabla@gmail.com",
-  },
-  {
-    id: 4,
-    lastname: "Gondry",
-    firstname: "Henri",
-    tel: "0611589643",
-    email: "blabla@gmail.com",
-  },
-  {
-    id: 5,
-    lastname: "Gondry",
-    firstname: "Henri",
-    tel: "0611589643",
-    email: "blabla@gmail.com",
-  },
-];
+import { useGlobalContext } from "../../contexts/GlobalContext";
 
 function RowDash2() {
+  const { apiService } = useGlobalContext();
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await apiService.get(
+          `${import.meta.env.VITE_BACKEND_URL}/api/users`
+        );
+        setUsers(response.data);
+        // console.log(response.data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    fetchUsers();
+  }, []);
+
   return (
     <div className="rowDash-container">
-      {UserDash.map((user) => (
+      {users.map((user) => (
         <div key={user.tel} className="offerDash-item">
           <p className="array-box">{user.id}</p>
           <p className="array-box">{user.lastname}</p>
           <p className="array-box">{user.firstname}</p>
           <p className="array-box">{user.tel}</p>
           <p className="bigArray-box">{user.email}</p>
-          <ButtonMini textBtn="Envoyer" />
+          <p>{user.is_admin}</p>
         </div>
       ))}
     </div>
