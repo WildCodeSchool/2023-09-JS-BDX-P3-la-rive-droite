@@ -33,6 +33,7 @@ import ApiService from "./services/api.service";
 // Import Styles.
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "mdb-react-ui-kit/dist/css/mdb.min.css";
+import EditUser from "./pages/ProfileUser/EditUser";
 
 const apiService = new ApiService();
 
@@ -129,6 +130,10 @@ const router = createBrowserRouter([
           {
             path: "/dashboard/edit-offer/:id",
             element: <EditOffer />,
+          },
+          {
+            path: "/dashboard/edit-user/:id",
+            element: <EditUser />,
           },
         ],
       },
