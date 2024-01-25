@@ -24,15 +24,10 @@ router.get(
   userControllers.getUsers
 );
 router.get("/users/:id([0-9]+)/cvs", authMiddleware, cvControllers.getCv);
-router.get(
-  "/users/:id([0-9]+)",
-  authMiddleware,
-  authAdminMiddleware,
-  userControllers.getUserById
-);
+router.get("/users/:id([0-9]+)", authMiddleware, userControllers.getUserById);
 router.get("/users/me", authMiddleware, userControllers.getProfile);
 router.post("/users", userControllers.postUser);
-router.put("/users/edit", authMiddleware, userControllers.updateUser);
+router.put("/users/:id([0-9]+)", authMiddleware, userControllers.updateUser);
 
 router.post("/user/skills", userControllers.postSkills);
 router.get("/user/skills", userControllers.getSkills);

@@ -1,5 +1,6 @@
 import { Outlet, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+// import PropTypes from "prop-types";
 import "./user-profile-model.css";
 import Input from "../../components/Inputs/Input";
 import HeaderLongUser from "../../components/Headers/HeaderLongUser";
@@ -17,7 +18,6 @@ import AddDetailsCV from "../../components/Add Something/AddSomething";
 
 function UserProfileModel() {
   const { handleAddCv } = useUserContext();
-
   const globalContext = useGlobalContext();
   const navigate = useNavigate();
   const [getSkills, setGetSkills] = useState([]);
@@ -329,5 +329,36 @@ function UserProfileModel() {
     </div>
   );
 }
+
+// UserProfileModel.propTypes = {
+//   experiences: PropTypes.arrayOf(
+//     PropTypes.shape({
+//       id: PropTypes.number.isRequired,
+//       company: PropTypes.string.isRequired,
+//       title: PropTypes.string.isRequired,
+//       type: PropTypes.string.isRequired,
+//       city: PropTypes.string.isRequired,
+//       date_begin: PropTypes.string.isRequired,
+//       date_end: PropTypes.string.isRequired,
+//       description: PropTypes.string.isRequired,
+//     })
+//   ),
+//   courses: PropTypes.arrayOf(
+//     PropTypes.shape({
+//       id: PropTypes.number.isRequired,
+//       level: PropTypes.string.isRequired,
+//       domaine: PropTypes.string.isRequired,
+//       date_begin: PropTypes.string.isRequired,
+//       date_end: PropTypes.string.isRequired,
+//       name: PropTypes.string.isRequired,
+//       description: PropTypes.string.isRequired,
+//     })
+//   ),
+// };
+
+// UserProfileModel.defaultProps = {
+//   experiences: [],
+//   courses: [],
+// };
 
 export default UserProfileModel;
