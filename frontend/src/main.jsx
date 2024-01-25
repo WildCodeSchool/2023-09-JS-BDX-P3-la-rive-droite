@@ -25,6 +25,7 @@ import UserContextProvider from "./contexts/UserContext";
 // Import de loaders.
 import currentUserProfileLoader from "./loaders/current-user-profil.loader";
 import currentRequestsUserProfile from "./loaders/current-requests-profil.loader";
+import currentAdmin from "./loaders/current-admin.loader";
 // Import de classe.
 import ApiService from "./services/api.service";
 // Import Styles.
@@ -107,33 +108,11 @@ const router = createBrowserRouter([
             <Dashboard1 />
           </AdminContextProvider>
         ),
-        // loader: async () => {
-        //   try {
-        //     const response = await apiService.get(
-        //       `${import.meta.env.VITE_BACKEND_URL}/api/users/me`
-        //     );
-        //     // return  preloadUser: data ?? null;
-        //     // console.log(response.data.is_admin);
-        //     if (response.data.is_admin !== 1) {
-        //       // console.log("Unauthorized !");
-        //       Navigate("/");
-        //     }
-        //   } catch (err) {
-        //     console.error(err.message);
-        //     return null;
-        //   }
-        // },
+        loader: async () => currentAdmin(apiService),
         children: [
           {
             path: "/dashboard/user",
             element: <Dashboard3 />,
-            // loader: async () => {
-            //   try {
-            //     // GET /api/users
-            //     // si ok => renvoir données
-            //     // si ko => null
-            //   }
-            // },
           },
           {
             path: "/dashboard/candidates",
