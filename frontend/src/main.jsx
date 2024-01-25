@@ -1,6 +1,8 @@
+// Import Composant React.
 import React from "react";
 import ReactDOM from "react-dom";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+// Import Composants.
 import App from "./App";
 import Home from "./pages/HomeOffer/Home";
 import ReadOffer from "./pages/Offer/ReadOffer";

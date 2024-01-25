@@ -5,15 +5,7 @@ import { useGlobalContext } from "./GlobalContext";
 const LogContext = createContext();
 
 function LogContextProvider({ children }) {
-  // Messages d'alertes.
-  const {
-    apiService,
-    setUser,
-    setSuccesMsg,
-    setMsgContent,
-    navigate,
-    setIsAdmin,
-  } = useGlobalContext();
+  const globalContext = useGlobalContext();
 
   const [userConnected, setUserConnected] = useState(false);
 
@@ -29,35 +21,41 @@ function LogContextProvider({ children }) {
 
   const handleSubmitLogIn = async () => {
     try {
-      const data = await apiService.post(
-        `http://localhost:3310/api/login`,
+      const data = await globalContext.apiService.post(
+        `${import.meta.env.VITE_BACKEND_URL}/api/login`,
         logIn
       );
       localStorage.setItem("token", data.token);
-      apiService.setToken(data.token);
-      const result = await apiService.get("http://localhost:3310/api/users/me");
 
-      setUser(result.data);
-      setIsAdmin(result.data.is_admin);
+      globalContext.apiService.setToken(data.token);
 
-      setMsgContent(
+      const result = await globalContext.apiService.get(
+        `${import.meta.env.VITE_BACKEND_URL}/api/users/me`
+      );
+
+      // alert(`Content de vous revoir ${result.data.email}`);
+      // console.log(isAdmin);
+      globalContext.setUser(result.data);
+      globalContext.setIsAdmin(result.data.is_admin);
+      globalContext.setMsgContent(
         `Content de vous revoir ${result.data.firstname} ${result.data.lastname}! Connexion effectuée avec`
       );
-      setSuccesMsg(true);
+      globalContext.setSuccesMsg(true);
       setTimeout(() => {
-        setSuccesMsg(false);
-
+        globalContext.setSuccesMsg(false);
         if (result.data.is_admin === 1) {
-          // console.log("Admin !");
-          navigate("/dashboard");
+          globalContext.navigate("/dashboard");
         } else {
-          // console.log("Not Admin :!");
-          navigate("/");
+          globalContext.navigate("/");
         }
       }, 2000);
     } catch (err) {
       console.error(err);
-      // alert(err.message);
+      globalContext.setMsgContent(`Mot de passe ou identifiant incorrect`);
+      globalContext.setErrorMsg(true);
+      setTimeout(() => {
+        globalContext.setErrorMsg(false);
+      }, 2000);
     }
     return null;
   };
