@@ -4,9 +4,7 @@ import Input from "../../components/Inputs/Input";
 import CheckboxCondition from "../../components/Inputs/CheckboxCondition";
 import CompetenceSwitch from "../../components/Competence Switch/CompetenceSwitch";
 import HeaderLongTitle from "../../components/Headers/HeaderLongTitle";
-// import ButtonMaxi from "../../components/Boutons/ButtonMaxi";
 import ErrorMsg from "../../components/Alertes Messages/ErrorMsg";
-import AddSomething from "../../components/Add Something/AddSomething";
 import Title from "../../components/Titles/Title";
 import SuccesMsg from "../../components/Alertes Messages/SuccesMsg";
 import { useGlobalContext } from "../../contexts/GlobalContext";
@@ -252,7 +250,6 @@ function SignIn() {
                     globalContext.handleCheckboxChange(setSkills, "trello")
                   }
                 />
-                <AddSomething addDetail="Votre CV" />
               </div>
             </div>
             <CheckboxCondition
@@ -263,15 +260,7 @@ function SignIn() {
                 globalContext.handleCheckboxChange(setSignIn, "cguAgree")
               }
             />
-            {/* <a href="#">Externatic</a> */}
-            <CheckboxCondition
-              textCondition="Je veux créer ou télécharger mon cv maintenant !"
-              valueInput={signIn}
-              fieldName="addCvNow"
-              handleChange={() =>
-                globalContext.handleCheckboxChange(setSignIn, "addCvNow")
-              }
-            />
+
             <div>
               {globalContext.errorMsg && (
                 <ErrorMsg message={globalContext.msgContent} />
@@ -280,17 +269,20 @@ function SignIn() {
                 <SuccesMsg message={globalContext.msgContent} />
               )}
             </div>
-            <button type="button" onClick={handleSubmitSignIn}>
-              soumettre
+            <button
+              className="submit-btn-maxi"
+              type="button"
+              onClick={handleSubmitSignIn}
+            >
+              S'inscrire
             </button>
-            {/* <ButtonMaxi textBtn="S'inscrire" clickFunc={handleSubmitSignIn} /> */}
           </form>
         </div>
         <div className="small-paragraphe-info">
           <p>
             Vous avez déjà un compte ?
             <Link to="/login">
-              <span>Connectez-vous</span>
+              <span> Connectez-vous</span>
             </Link>
           </p>
         </div>

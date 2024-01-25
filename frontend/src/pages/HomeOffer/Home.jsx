@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
-// import CardOffre from "../../components/CardModel/CardOffre";
 import HeaderLongResearch from "../../components/Headers/HeaderLongResearch";
 import { useGlobalContext } from "../../contexts/GlobalContext";
 import "./Home.css";
 import CardOffre from "../../components/CardModel/CardOffre";
 import { useUserContext } from "../../contexts/UserContext";
-// import axios from "axios";
 
 function Home() {
   const { goToOffer } = useGlobalContext();
@@ -46,7 +44,11 @@ function Home() {
 
   return (
     <div id="home">
-      <HeaderLongResearch textTitle="Bienvenue sur" textTitle2="nos offres" />
+      <HeaderLongResearch
+        textTitle="Cabinet de recrutement informatique
+"
+        textTitle2="Nos offres d'emploi"
+      />
       <div className="container-page">
         <h2>Les offres qui matchent !</h2>
         <div className="offer-container">

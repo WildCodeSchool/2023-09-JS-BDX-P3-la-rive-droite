@@ -5,16 +5,7 @@ import { useGlobalContext } from "./GlobalContext";
 const LogContext = createContext();
 
 function LogContextProvider({ children }) {
-  // Messages d'alertes.
-  const {
-    apiService,
-    setUser,
-    setSuccesMsg,
-    setMsgContent,
-    navigate,
-    setIsAdmin,
-    user,
-  } = useGlobalContext();
+  const globalContext = useGlobalContext();
 
   const [userConnected, setUserConnected] = useState(false);
 
@@ -29,36 +20,40 @@ function LogContextProvider({ children }) {
   };
   const handleSubmitLogIn = async () => {
     try {
-      const data = await apiService.post(
+      const data = await globalContext.apiService.post(
         `${import.meta.env.VITE_BACKEND_URL}/api/login`,
         logIn
       );
       localStorage.setItem("token", data.token);
 
-      apiService.setToken(data.token);
+      globalContext.apiService.setToken(data.token);
 
-      const result = await apiService.get(
+      const result = await globalContext.apiService.get(
         `${import.meta.env.VITE_BACKEND_URL}/api/users/me`
       );
 
       // alert(`Content de vous revoir ${result.data.email}`);
       // console.log(isAdmin);
-      setUser(result.data);
-      setIsAdmin(result.data.is_admin);
-      setMsgContent(
-        `Content de vous revoir ${user.firstname} ${user.lastname}! Connexion effectuée avec`
+      globalContext.setUser(result.data);
+      globalContext.setIsAdmin(result.data.is_admin);
+      globalContext.setMsgContent(
+        `Content de vous revoir ${result.data.firstname} ${result.data.lastname}! Connexion effectuée avec`
       );
-      setSuccesMsg(true);
+      globalContext.setSuccesMsg(true);
       setTimeout(() => {
-        setSuccesMsg(false);
+        globalContext.setSuccesMsg(false);
         if (result.data.is_admin === 1) {
-          navigate("/dashboard");
+          globalContext.navigate("/dashboard");
         }
-        navigate("/");
+        globalContext.navigate("/");
       }, 2000);
     } catch (err) {
       console.error(err);
-      // alert(err.message);
+      globalContext.setMsgContent(`Mot de passe ou identifiant incorrect`);
+      globalContext.setErrorMsg(true);
+      setTimeout(() => {
+        globalContext.setErrorMsg(false);
+      }, 2000);
     }
 
     return null;

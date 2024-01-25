@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { v4 as uuid } from "uuid";
 import "./add-experience.css";
-// import ButtonMaxi from "../../components/Boutons/ButtonMaxi";
 import Input from "../../components/Inputs/Input";
 import Select from "../../components/Inputs/Select";
 import CheckboxCondition from "../../components/Inputs/CheckboxCondition";
@@ -48,7 +47,6 @@ function AddExperience() {
     } else if (addXp.isWorking === false && addXp.dateBegin === "") {
       addXp.dateBegin = "1970-01-01";
 
-      // Affichage d'un message d'erreur
       globalContext.setErrorMsg(true);
       globalContext.setMsgContent("Veuillez renseigner les dates");
       setTimeout(() => {
@@ -71,14 +69,6 @@ function AddExperience() {
         );
         const cvId = data.id;
 
-        // const personne = {
-        //   prenom: "Marie",
-        //   nom: "Delaire",
-        // };
-        // personne.prenom = "Mariiiiiiie";
-        // console.log(personne);
-
-        // peut etre que ca fait un bug, chépa tro
         addXp.cvId = cvId;
 
         await globalContext.apiService.post(
@@ -201,10 +191,10 @@ function AddExperience() {
               )}
             </div>
           </div>
-          <button type="submit">soumettre</button>
+          <button className="submit-btn-maxi" type="submit">
+            Ajouter l'expérience
+          </button>
         </form>
-
-        {/* <ButtonMaxi textBtn="Ajouter l'expérience" clickFunc={handleAddXp} /> */}
       </div>
     </>
   );

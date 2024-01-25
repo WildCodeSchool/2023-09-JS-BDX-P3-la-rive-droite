@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { v4 as uuid } from "uuid";
-import ButtonMaxi from "../../components/Boutons/ButtonMaxi";
 import Date from "../../components/Inputs/Date";
 import Input from "../../components/Inputs/Input";
 import Select from "../../components/Inputs/Select";
@@ -61,15 +60,6 @@ function AddFormation() {
           }/cvs`
         );
         const cvId = data.id;
-
-        // const personne = {
-        //   prenom: "Marie",
-        //   nom: "Delaire",
-        // };
-        // personne.prenom = "Mariiiiiiie";
-        // console.log(personne);
-
-        // peut etre que ca fait un bug, chépa tro
         addCourse.cvId = cvId;
 
         await globalContext.apiService.post(
@@ -166,12 +156,10 @@ function AddFormation() {
               <SuccesMsg message={globalContext.msgContent} />
             )}
           </div>
-          <button type="submit">soumettre</button>
+          <button className="submit-btn-maxi" type="submit">
+            Ajouter la formation
+          </button>
         </form>
-        <ButtonMaxi
-          textBtn="Ajouter une formation"
-          clickFunc={handleAddCourse}
-        />
       </div>
     </div>
   );

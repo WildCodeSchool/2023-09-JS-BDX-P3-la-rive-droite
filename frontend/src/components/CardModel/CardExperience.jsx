@@ -24,7 +24,6 @@ function CardExperience({
   const dateBeginObject = new Date(dateBegin);
   const dateEndObject = new Date(dateEnd);
 
-  // Formater les dates selon le modèle souhaité
   const formattedDateBegin = format(dateBeginObject, "dd/MM/yyyy");
   const formattedDateEnd = format(dateEndObject, "dd/MM/yyyy");
   return (

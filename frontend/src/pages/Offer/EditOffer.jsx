@@ -66,9 +66,6 @@ function AddOffer() {
       };
 
       updateOffer();
-
-      // console.log(addOffer);
-
       globalContext.setMsgContent("L'offre à été ajouté avec");
       globalContext.setSuccesMsg(true);
       setTimeout(() => {

@@ -96,9 +96,10 @@ class UserManager extends AbstractManager {
   }
 
   getProfile(id) {
-    return this.database.query(`SELECT * FROM ${this.table} WHERE id = ?`, [
-      id,
-    ]);
+    return this.database.query(
+      `SELECT * FROM user LEFT JOIN user_competence ON user.id = user_competence.user_id WHERE user.id = ?;`,
+      [id]
+    );
   }
 
   addAvatar(userId, avatarId) {
