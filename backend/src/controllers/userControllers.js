@@ -119,6 +119,23 @@ const getProfile = (req, res) => {
   res.send(req.user);
 };
 
+const addSkills = async (req, res) => {
+  try {
+    const userId = +req.params.id;
+    // sécurité
+    if (req.user.id !== userId && !req.user.is_admin) {
+      return res.status(403).send({ error: "You do not have permission" });
+    }
+
+    await models.userCompetence.addUserCompetences(userId, req.body);
+    const competences = await models.userCompetence.getUserCompetences(userId);
+
+    return res.status(201).send(competences);
+  } catch (err) {
+    return res.status(400).json({ message: err.message });
+  }
+};
+
 module.exports = {
   getUsers,
   postUser,
@@ -128,4 +145,5 @@ module.exports = {
   getUserById,
   postSkills,
   getSkills,
+  addSkills,
 };

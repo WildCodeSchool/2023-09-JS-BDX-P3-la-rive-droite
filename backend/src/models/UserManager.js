@@ -20,26 +20,26 @@ class UserManager extends AbstractManager {
           0,
         ]
       );
-      const userId = rows.insertId;
+      // const userId = rows.insertId;
 
-      const [userCompetence] = await this.database.query(
-        "INSERT INTO user_competence (user_id, html, css, javascript, angular, react, php, symphony, git, github, trello) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-        [
-          userId,
-          user.html,
-          user.css,
-          user.javascript,
-          user.angular,
-          user.react,
-          user.php,
-          user.symphony,
-          user.git,
-          user.github,
-          user.trello,
-        ]
-      );
+      // const [userCompetence] = await this.database.query(
+      //   "INSERT INTO user_competence (user_id, html, css, javascript, angular, react, php, symphony, git, github, trello) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+      //   [
+      //     userId,
+      //     user.html,
+      //     user.css,
+      //     user.javascript,
+      //     user.angular,
+      //     user.react,
+      //     user.php,
+      //     user.symphony,
+      //     user.git,
+      //     user.github,
+      //     user.trello,
+      //   ]
+      // );
 
-      return { userCompetence, rows };
+      return { rows };
     });
   }
 
@@ -96,10 +96,7 @@ class UserManager extends AbstractManager {
   }
 
   getProfile(id) {
-    return this.database.query(
-      `SELECT * FROM user LEFT JOIN user_competence ON user.id = user_competence.user_id WHERE user.id = ?;`,
-      [id]
-    );
+    return this.database.query(`SELECT * FROM user WHERE id = ?;`, [id]);
   }
 
   addAvatar(userId, avatarId) {
