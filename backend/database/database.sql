@@ -26,35 +26,27 @@ CREATE TABLE user (
 --     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, name VARCHAR(100)
 -- );
 
--- INSERT INTO
---     competence (name)
--- values ("html"),
---     ("css"),
---     ("javascript"),
---     ("angular"),
---     ("react"),
---     ("php"),
---     ("symphony"),
---     ("git"),
---     ("github"),
---     ("trello");
+DROP TABLE IF EXISTS competence;
 
--- CREATE
--- TABLE
--- competence (
---     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
---     -- name VARCHAR(100),
---     html TEXT,
---     css TEXT,
---     javascript TEXT,
---     angular TEXT,
---     react TEXT,
---     php TEXT,
---     symphony TEXT,
---     git TEXT,
---     github TEXT,
---     trello TEXT
--- );
+CREATE TABLE
+competence (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100)
+    );
+
+INSERT INTO
+    competence (name)
+values ("html"),
+    ("css"),
+    ("javascript"),
+    ("angular"),
+    ("react"),
+    ("php"),
+    ("symphony"),
+    ("git"),
+    ("github"),
+    ("trello");
+
 DROP TABLE IF EXISTS cv;
 
 CREATE TABLE cv (
@@ -113,12 +105,28 @@ VALUES (
     Nationalité française, en règle avec les obligations du service national JDC et jouissant de ses droits civiques.", "Junior", "Présent", "25k €/an", "Votre spécialité consiste à développer des logiciels au profit du ministère des Armées au sein d'un centre de développement. Sous la conduite d'un chef de projet, vous assurez la maintenance d'applications existantes et vous concevez de nouveaux logiciels liés aux besoins des armées. Vous soutenez les forces déployées depuis le territoire national et vous pouvez éventuellement être projetés sur des postes en dehors de votre compétence principale de développeur. Au bout de 4 à 6 ans, vous pouvez évoluer vers les métiers de la cybersécurité.", "marie@externatic.fr"
     );
 
-DROP TABLE IF EXISTS user_competence;
--- Créer la table "user_competence"
-CREATE TABLE user_competence (
-    user_id INT, html BOOLEAN, css BOOLEAN, javascript BOOLEAN, angular BOOLEAN, react BOOLEAN, php BOOLEAN, symphony BOOLEAN, git BOOLEAN, github BOOLEAN, trello BOOLEAN, PRIMARY KEY (user_id), FOREIGN KEY (user_id) REFERENCES user (id)
-);
-
 CREATE TABLE upload (
     id int(11) PRIMARY KEY NOT NULL AUTO_INCREMENT, url varchar(255) NOT NULL, unique (url), created_at timestamp default CURRENT_TIMESTAMP
 );
+
+DROP TABLE IF EXISTS user_competence;
+
+CREATE TABLE
+user_competence (
+    id int PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    user_id INT NOT NULL,
+    competence_id INT NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES user (id),
+    FOREIGN KEY (competence_id) REFERENCES competence (id)
+    );
+
+DROP TABLE IF EXISTS offer_competence;
+
+CREATE TABLE
+offer_competence (
+    id int PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    offer_id INT NOT NULL,
+    competence_id INT NOT NULL,
+    FOREIGN KEY (offer_id) REFERENCES offer (id),
+    FOREIGN KEY (competence_id) REFERENCES competence (id)
+    );
