@@ -18,7 +18,11 @@ function HeaderLongUser({ textTitle, textTitle2 }) {
 }
 
 HeaderLongUser.propTypes = {
-  textTitle: PropTypes.string.isRequired,
-  textTitle2: PropTypes.string.isRequired,
+  textTitle: PropTypes.string,
+  textTitle2: PropTypes.string,
+};
+HeaderLongUser.defaultProps = {
+  textTitle: "Titre par défaut",
+  textTitle2: "Titre 2 par défaut",
 };
 export default HeaderLongUser;

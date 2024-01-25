@@ -36,6 +36,10 @@ function Dashboard2({ refAnnonce }) {
 }
 
 Dashboard2.propTypes = {
-  refAnnonce: PropTypes.string.isRequired,
+  refAnnonce: PropTypes.string,
+};
+
+Dashboard2.defaultProps = {
+  refAnnonce: undefined,
 };
 export default Dashboard2;

@@ -35,11 +35,16 @@ function TextArea({
 }
 
 TextArea.propTypes = {
-  titleInput: PropTypes.string.isRequired,
-  holderText: PropTypes.string.isRequired,
+  titleInput: PropTypes.string,
+  holderText: PropTypes.string,
   fieldName: PropTypes.string.isRequired,
-  valueInput: PropTypes.element.isRequired,
+  valueInput: PropTypes.oneOfType([PropTypes.object]),
   handleChange: PropTypes.func.isRequired,
+};
+TextArea.defaultProps = {
+  titleInput: "Nom de l'input",
+  holderText: "Texte du placeholder",
+  valueInput: {},
 };
 
 export default TextArea;

@@ -28,12 +28,19 @@ function Input({
 }
 
 Input.propTypes = {
-  titleInput: PropTypes.string.isRequired,
-  holderText: PropTypes.string.isRequired,
-  typeInput: PropTypes.string.isRequired,
+  titleInput: PropTypes.string,
+  holderText: PropTypes.string,
+  typeInput: PropTypes.string,
   fieldName: PropTypes.string.isRequired,
-  valueInput: PropTypes.element.isRequired,
+  valueInput: PropTypes.oneOfType([PropTypes.object]),
   handleChange: PropTypes.func.isRequired,
+};
+
+Input.defaultProps = {
+  titleInput: "Nom de l'input",
+  holderText: "Texte du placeholder",
+  typeInput: "text",
+  valueInput: {},
 };
 
 export default Input;
