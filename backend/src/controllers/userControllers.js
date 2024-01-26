@@ -61,6 +61,32 @@ const postUser = async (req, res) => {
   }
 };
 
+const updateUser = async (req, res) => {
+  try {
+    const id = +req.params.id;
+    if (!id) {
+      res.status(500).json({ message: "User not found ..." });
+    }
+    const result = await models.user.update(id, req.body);
+    if (result.affectedRows.length === 0) {
+      res.status(500).json({ message: "User not edited." });
+    }
+    res.sendStatus(200);
+  } catch (error) {
+    console.error(error);
+    res.status(422).send({ error: error.message });
+  }
+};
+
+// const updateUserAsAdmin = async (req, res) => {
+//   try {
+//     const id = +req.params.id;
+//     if (!id) {
+//       res.status(500).json({ message: "User not found ."});
+//     }
+//   }
+// }
+
 const deleteUser = async (req, res) => {
   try {
     const userId = +req.params.id;
@@ -106,23 +132,6 @@ const postLogin = async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).send({ error: err.message });
-  }
-};
-
-const updateUser = async (req, res) => {
-  try {
-    const id = parseInt(req.params.id, 10);
-    if (!id) {
-      res.sendStatus(500);
-    }
-    const result = await models.user.update(id, req.body);
-    if (result.affectedRows.length === 0) {
-      res.sendStatus(500);
-    }
-    res.sendStatus(200);
-  } catch (error) {
-    console.error(error);
-    res.status(422).send({ error: error.message });
   }
 };
 
