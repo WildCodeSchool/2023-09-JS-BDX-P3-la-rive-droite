@@ -26,6 +26,12 @@ router.get(
 router.get("/users/:id([0-9]+)/cvs", authMiddleware, cvControllers.getCv);
 router.get("/users/me", authMiddleware, userControllers.getProfile);
 router.post("/users", userControllers.postUser);
+router.post(
+  "/users/:id([0-9]+)/add/skills",
+  authMiddleware,
+  userControllers.addSkills
+);
+
 router.put("/users/:id([0-9]+)", authMiddleware, userControllers.updateUser);
 // FOR ADMIN. */
 router.get("/users/:id([0-9]+)", authMiddleware, userControllers.getUserById);
@@ -39,7 +45,7 @@ router.delete(
 
 router.post("/user/skills", userControllers.postSkills);
 router.get("/user/skills", userControllers.getSkills);
-router.post("/user/skills/:id([0-9]+)", userControllers.postSkills);
+// router.post("/user/skills/:id([0-9]+)", userControllers.postSkills);
 router.post("/login", userControllers.postLogin);
 
 /* OFFERS. */
@@ -62,6 +68,12 @@ router.delete(
   authMiddleware,
   authAdminMiddleware,
   offerControllers.deleteOfferById
+);
+router.post(
+  "/offers/:id([0-9]+)/add/skills",
+  authMiddleware,
+  authAdminMiddleware,
+  offerControllers.addSkills
 );
 
 /* EXPERIENCES. */
