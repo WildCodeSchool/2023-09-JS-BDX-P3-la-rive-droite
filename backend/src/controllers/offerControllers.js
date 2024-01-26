@@ -70,7 +70,23 @@ const deleteOfferById = async (req, res) => {
   }
 };
 
+const addSkills = async (req, res) => {
+  try {
+    const offerId = +req.params.id;
+
+    await models.offerCompetence.addOfferCompetences(offerId, req.body);
+    const competences = await models.offerCompetence.getOfferCompetences(
+      offerId
+    );
+
+    return res.status(201).send(competences);
+  } catch (err) {
+    return res.status(400).json({ message: err.message });
+  }
+};
+
 module.exports = {
+  addSkills,
   getOffers,
   getOfferById,
   postOffer,
