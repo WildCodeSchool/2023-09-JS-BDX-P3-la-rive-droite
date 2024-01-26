@@ -56,15 +56,16 @@ function EditUser() {
         globalContext.setErrorMsg(false);
       }, 4000);
     } else {
-      const updateUser = async () => {
-        globalContext.apiService.update(
-          `${import.meta.env.VITE_BACKEND_URL}/api/edit-user/${id}`,
-          user
-          // id
-        );
-      };
+      // const updateUser = async () => {
+      //   globalContext.apiService.update(
+      //     `${import.meta.env.VITE_BACKEND_URL}/api/edit-user/${id}`,
+      //     user
+      //     // id
+      //   );
+      // };
 
-      updateUser();
+      // updateUser();
+      // console.log(user);
       globalContext.setMsgContent("L'offre à été ajouté avec");
       globalContext.setSuccesMsg(true);
       setTimeout(() => {
