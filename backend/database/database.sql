@@ -28,11 +28,9 @@ CREATE TABLE user (
 
 DROP TABLE IF EXISTS competence;
 
-CREATE TABLE
-competence (
-    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100)
-    );
+CREATE TABLE competence (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, name VARCHAR(100)
+);
 
 INSERT INTO
     competence (name)
@@ -111,22 +109,12 @@ CREATE TABLE upload (
 
 DROP TABLE IF EXISTS user_competence;
 
-CREATE TABLE
-user_competence (
-    id int PRIMARY KEY NOT NULL AUTO_INCREMENT,
-    user_id INT NOT NULL,
-    competence_id INT NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES user (id),
-    FOREIGN KEY (competence_id) REFERENCES competence (id)
-    );
+CREATE TABLE user_competence (
+    id int PRIMARY KEY NOT NULL AUTO_INCREMENT, user_id INT NOT NULL, competence_id INT NOT NULL, FOREIGN KEY (user_id) REFERENCES user (id), FOREIGN KEY (competence_id) REFERENCES competence (id)
+);
 
 DROP TABLE IF EXISTS offer_competence;
 
-CREATE TABLE
-offer_competence (
-    id int PRIMARY KEY NOT NULL AUTO_INCREMENT,
-    offer_id INT NOT NULL,
-    competence_id INT NOT NULL,
-    FOREIGN KEY (offer_id) REFERENCES offer (id),
-    FOREIGN KEY (competence_id) REFERENCES competence (id)
-    );
+CREATE TABLE offer_competence (
+    id int PRIMARY KEY NOT NULL AUTO_INCREMENT, offer_id INT NOT NULL, competence_id INT NOT NULL, FOREIGN KEY (offer_id) REFERENCES offer (id), FOREIGN KEY (competence_id) REFERENCES competence (id)
+);

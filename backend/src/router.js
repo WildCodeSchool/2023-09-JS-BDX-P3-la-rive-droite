@@ -15,6 +15,7 @@ const {
   authMiddleware,
   authAdminMiddleware,
 } = require("./middlewares/security/auth.middlewares");
+const OfferCompetenceManager = require("./models/OfferCompetenceManager");
 
 /* USER. */
 router.get(
@@ -75,6 +76,31 @@ router.post(
   authAdminMiddleware,
   offerControllers.addSkills
 );
+
+router.get(
+  "/offers/:id([0-9]+)/group/offers",
+  authMiddleware,
+  authAdminMiddleware,
+  OfferCompetenceManager.getOfferBySkill
+);
+
+// router.get(
+//   "/offers/:id([0-9]+)/group/offers",
+//   authMiddleware,
+//   authAdminMiddleware,
+//   async (req, res) => {
+//     console.log("Début de la route");
+//     try {
+//       // Votre logique de route ici
+//       await OfferCompetenceManager.getOfferBySkill(req, res);
+//       console.log("Fin de la route (success)");
+//     } catch (error) {
+//       console.error(error);
+//       console.log("Fin de la route (erreur)");
+//       res.status(500).send("Internal Server Error");
+//     }
+//   }
+// );
 
 /* EXPERIENCES. */
 router.get(
