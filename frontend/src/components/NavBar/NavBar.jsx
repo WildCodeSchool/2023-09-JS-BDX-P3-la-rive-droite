@@ -74,7 +74,7 @@ export default function Navbar() {
                 ) : null}
                 <div className="btn-nav">
                   {user ? (
-                    <div>
+                    <>
                       <Link
                         to="/"
                         className="navbar-link"
@@ -87,7 +87,7 @@ export default function Navbar() {
                         {/* <i class="fa-solid fa-user"></i> */}
                         Hello {user.firstname}
                       </Link>
-                    </div>
+                    </>
                   ) : (
                     <>
                       <Link to="/login">

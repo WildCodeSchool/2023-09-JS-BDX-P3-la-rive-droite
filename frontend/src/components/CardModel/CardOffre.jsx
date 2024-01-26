@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import ButtonMini from "../Boutons/ButtonMini";
 import "./card-model.css";
 
-function CardOffre({ toggleFavorite, offer, goToOffer }) {
+function CardOffre({ offer, goToOffer }) {
   const trimText = (chaine, limite) => {
     if (chaine.length <= limite) {
       return chaine;
@@ -11,21 +11,6 @@ function CardOffre({ toggleFavorite, offer, goToOffer }) {
   };
   return (
     <div className="card-container">
-      <div className="card-icons">
-        <div className="icon-view">
-          <button
-            className="invisible-button"
-            aria-label="toggleFavorite"
-            type="button"
-            onClick={() => {
-              toggleFavorite(offer.id);
-            }}
-          >
-            <i className="fa-solid fa-heart" />
-          </button>
-        </div>
-      </div>
-
       <h3 className="label-offre">{offer.title}</h3>
       <h4 className="entreprise-champs">{offer.company}</h4>
       <h5 className="poste-champs">
@@ -37,7 +22,6 @@ function CardOffre({ toggleFavorite, offer, goToOffer }) {
   );
 }
 CardOffre.propTypes = {
-  toggleFavorite: PropTypes.func.isRequired,
   goToOffer: PropTypes.func.isRequired,
   offer: PropTypes.shape({
     id: PropTypes.number.isRequired,

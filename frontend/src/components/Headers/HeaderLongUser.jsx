@@ -1,12 +1,13 @@
 import "./header.css";
 import PropTypes from "prop-types";
+import Unknow from "../../assets/no-profile.jpg";
 
 function HeaderLongUser({ textTitle, textTitle2 }) {
   return (
     <header className="header with-round-bottom">
       <div className="header-content user">
         <div className="profile-img-container">
-          <img src="/src/assets/no-profile.jpg" alt="" />
+          <img src={Unknow} alt="" />
         </div>
         <button type="button">Modifier</button>
         <h1>
