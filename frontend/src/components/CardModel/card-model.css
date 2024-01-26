@@ -1,9 +1,10 @@
 .card-container {
   border: none;
-  padding: 20px 20px;
+  padding: 30px;
   border-radius: 6px;
   box-shadow: 5px 5px 15px 8px rgba(217, 217, 217, 0.53);
-  margin-top: 20px;
+  margin: 20px 15px;
+  overflow: hidden;
 }
 
 .label-offre {
@@ -12,14 +13,29 @@
   text-transform: uppercase;
   font-size: 16px;
 }
+
 .entreprise-champs {
   color: var(--second-color);
   font-weight: 400;
+  font-size: 16px;
+}
+
+.entreprise-champs.experience {
+  margin-top: -8px;
+}
+
+.entreprise-champs.formation {
+  margin-top: -8px;
 }
 
 .poste-champs {
   color: var(--texte-default);
   font-weight: 400;
+  font-size: 15px;
+}
+
+.poste-champs.experience {
+  font-style: italic;
 }
 
 .p-description {
@@ -37,6 +53,11 @@
   justify-content: flex-end;
   align-items: center;
   font-size: 18px;
+  color: var(--second-color);
+}
+.card-icons i {
+  margin-left: 10px;
+  cursor: pointer;
   color: var(--second-color);
 }
 .icon-modify {

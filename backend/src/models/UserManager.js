@@ -1,5 +1,4 @@
 const bcrypt = require("bcrypt");
-
 const AbstractManager = require("./AbstractManager");
 
 class UserManager extends AbstractManager {
@@ -8,9 +7,9 @@ class UserManager extends AbstractManager {
   }
 
   create(user) {
-    return UserManager.hashPassword(user.password).then((hash) => {
-      return this.database.query(
-        `insert into ${this.table} (firstname, lastname, phone, address, email, password, is_admin) values (?, ?, ?, ?, ?, ?, ?)`,
+    return UserManager.hashPassword(user.password).then(async (hash) => {
+      const [rows] = await this.database.query(
+        `INSERT INTO user (firstname, lastname, phone, address, email, password, is_admin) VALUES (?, ?, ?, ?, ?, ?, ?)`,
         [
           user.firstname,
           user.lastname,
@@ -18,29 +17,93 @@ class UserManager extends AbstractManager {
           user.address,
           user.email,
           hash,
-          user.is_admin,
+          0,
         ]
       );
+      // const userId = rows.insertId;
+
+      // const [userCompetence] = await this.database.query(
+      //   "INSERT INTO user_competence (user_id, html, css, javascript, angular, react, php, symphony, git, github, trello) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+      //   [
+      //     userId,
+      //     user.html,
+      //     user.css,
+      //     user.javascript,
+      //     user.angular,
+      //     user.react,
+      //     user.php,
+      //     user.symphony,
+      //     user.git,
+      //     user.github,
+      //     user.trello,
+      //   ]
+      // );
+
+      return { rows };
     });
   }
 
-  async login({ email, password }) {
+  async update(id, user) {
+    const { firstname, lastname, phone, email, address } = user;
+
+    try {
+      const [result] = await this.database.query(
+        `UPDATE ${this.table} SET firstname = ?, lastname = ?, phone = ?, email = ?, address = ? WHERE id = ?`,
+        [firstname, lastname, phone, email, address, id]
+      );
+
+      return result;
+    } catch (err) {
+      console.error(err);
+      return null;
+    }
+  }
+
+  // Ancienne méthode.
+  // skills(user) {
+  //   return this.database.query(
+  //     `INSERT INTO skill (html, css, javascript, angular, react, php, symphony, git, github, trello) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+  //     [
+  //       user.html,
+  //       user.css,
+  //       user.javascript,
+  //       user.angular,
+  //       user.react,
+  //       user.php,
+  //       user.symphony,
+  //       user.git,
+  //       user.github,
+  //       user.trello,
+  //     ]
+  //   );
+  // }
+
+  async login(user) {
+    const { email, password } = user;
     const [rows] = await this.database.query(
-      `select * from user where email like ?`,
+      `SELECT * FROM user WHERE email LIKE ?`,
       [email]
     );
-    // console.log(rows);
     if (!rows.length) {
       return undefined;
     }
 
-    const user = rows[0];
-    // console.log(user);
+    const dbUser = rows[0];
 
-    const result = await bcrypt.compare(password, user.password);
-    // console.log(result);
+    const result = await bcrypt.compare(password, dbUser.password);
 
-    return result ? user : undefined;
+    return result ? dbUser : undefined;
+  }
+
+  getProfile(id) {
+    return this.database.query(`SELECT * FROM user WHERE id = ?;`, [id]);
+  }
+
+  addAvatar(userId, avatarId) {
+    return this.database.query(
+      `UPDATE ${this.table} SET avatar = ? WHERE id = ?`,
+      [avatarId, userId]
+    );
   }
 
   static hashPassword(password, workFactor = 5) {

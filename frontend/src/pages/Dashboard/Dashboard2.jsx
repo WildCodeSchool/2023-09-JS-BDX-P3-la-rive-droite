@@ -1,9 +1,17 @@
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import TitleDashboard from "../../components/Dashboards/TitleDashboard";
 import RowDash2 from "../../components/Dashboards/RowDash2";
 import ButtonMini from "../../components/Boutons/ButtonMini";
+import { useGlobalContext } from "../../contexts/GlobalContext";
 
 function Dashboard2({ refAnnonce }) {
+  const { unauthorized } = useGlobalContext();
+
+  useEffect(() => {
+    unauthorized();
+  }, []);
+
   return (
     <div>
       <div className="title-btn">
@@ -28,6 +36,10 @@ function Dashboard2({ refAnnonce }) {
 }
 
 Dashboard2.propTypes = {
-  refAnnonce: PropTypes.string.isRequired,
+  refAnnonce: PropTypes.string,
+};
+
+Dashboard2.defaultProps = {
+  refAnnonce: undefined,
 };
 export default Dashboard2;

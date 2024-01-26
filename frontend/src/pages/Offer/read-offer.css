@@ -1,0 +1,42 @@
+.title-page {
+  color: var(--texte-default);
+  font-size: 2.3rem;
+  font-weight: 700;
+}
+
+.title-offer {
+  color: var(--texte-default);
+  margin-top: -20px;
+}
+
+.company-offer {
+  color: var(--second-color);
+  font-size: 1rem;
+}
+
+.description-word {
+  color: var(--texte-default);
+  font-size: 1.2rem;
+  margin: 40px 0px -10px 0px;
+}
+
+.p-description {
+  margin-bottom: 30px;
+}
+
+.sub-title {
+  margin-bottom: -5px;
+  font-weight: 500;
+}
+
+.type-offer {
+  background-color: var(--background-input);
+  padding: 10px;
+  border-radius: 7px;
+  border: none;
+  color: var(--second-color);
+  font-size: 16px;
+  font-weight: 500;
+  width: 55px;
+  margin-top: 5px;
+}

@@ -1,15 +1,14 @@
 import { useState, createContext, useContext, useMemo } from "react";
 import PropTypes from "prop-types";
-import { useNavigate } from "react-router-dom";
 import { useGlobalContext } from "./GlobalContext";
 
 const LogContext = createContext();
 
 function LogContextProvider({ children }) {
-  // Messages d'alertes.
-  const { setErrorMsg, setSuccesMsg, setMsgContent } = useGlobalContext();
+  const globalContext = useGlobalContext();
 
   const [userConnected, setUserConnected] = useState(false);
+
   const [logIn, setLogIn] = useState({
     email: "",
     password: "",
@@ -20,62 +19,62 @@ function LogContextProvider({ children }) {
     setShowStorage(JSON.parse(localStorage.getItem("User")));
   };
 
-  const handleLogIn = (fieldName, event) => {
-    setLogIn((prevData) => ({
-      ...prevData,
-      [fieldName]: event.target.value,
-    }));
-  };
+  const handleSubmitLogIn = async () => {
+    try {
+      const data = await globalContext.apiService.post(
+        `${import.meta.env.VITE_BACKEND_URL}/api/login`,
+        logIn
+      );
+      localStorage.setItem("token", data.token);
 
-  const navigate = useNavigate();
+      globalContext.apiService.setToken(data.token);
 
-  const handleSubmitLogIn = () => {
-    getUserFromStorage();
+      const result = await globalContext.apiService.get(
+        `${import.meta.env.VITE_BACKEND_URL}/api/users/me`
+      );
 
-    // Compare l'email.
-    for (let i = 0; i < showStorage.length; i += 1) {
-      // i++
-      if (
-        showStorage[i].email === logIn.email &&
-        showStorage[i].password === logIn.password
-      ) {
-        // const idUser = showStorage[i].id;
-        const nameUser = showStorage[i].userName;
-        // console.log(nameUser);
-        // console.log(idUser);
-
-        setSuccesMsg(true);
-        setMsgContent(`Bienvenue, connexion avec ${nameUser}`);
-        setTimeout(() => {
-          setSuccesMsg(false);
-          navigate("/");
-        }, 3000);
-        break;
-      } else {
-        setErrorMsg(true);
-        setMsgContent("Identifiants non valides.");
-        setTimeout(() => {
-          setErrorMsg(false);
-        }, 4000);
-      }
+      // alert(`Content de vous revoir ${result.data.email}`);
+      // console.log(isAdmin);
+      globalContext.setUser(result.data);
+      globalContext.setIsAdmin(result.data.is_admin);
+      globalContext.setMsgContent(
+        `Content de vous revoir ${result.data.firstname} ${result.data.lastname}! Connexion effectuée avec`
+      );
+      globalContext.setSuccesMsg(true);
+      setTimeout(() => {
+        globalContext.setSuccesMsg(false);
+        if (result.data.is_admin === 1) {
+          globalContext.navigate("/dashboard");
+        } else {
+          globalContext.navigate("/");
+        }
+      }, 2000);
+    } catch (err) {
+      console.error(err);
+      globalContext.setMsgContent(`Mot de passe ou identifiant incorrect`);
+      globalContext.setErrorMsg(true);
+      setTimeout(() => {
+        globalContext.setErrorMsg(false);
+      }, 2000);
     }
+    return null;
   };
 
   const contextValues = useMemo(
     () => ({
       userConnected,
-      handleLogIn,
       handleSubmitLogIn,
       logIn,
+      setLogIn,
       showStorage,
       setUserConnected,
       getUserFromStorage,
     }),
     [
       userConnected,
-      handleLogIn,
       handleSubmitLogIn,
       logIn,
+      setLogIn,
       showStorage,
       setUserConnected,
       getUserFromStorage,
@@ -88,7 +87,7 @@ function LogContextProvider({ children }) {
 }
 
 LogContextProvider.propTypes = {
-  children: PropTypes.element.isRequired,
+  children: PropTypes.node.isRequired,
 };
 
 export default LogContextProvider;

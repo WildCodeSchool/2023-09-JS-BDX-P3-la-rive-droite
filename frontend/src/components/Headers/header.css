@@ -1,14 +1,9 @@
-/* 
-rgb(255, 0, 89)
-border-radius 24%
-*/
-
 .header {
   color: var(--first-title-color);
   background-color: var(--main-color);
-  padding-bottom: 50px;
+  padding-bottom: 40px;
   margin-top: -50px;
-  padding-top: 70px;
+  padding-top: 80px;
 }
 
 .header.with-round-bottom {
@@ -35,18 +30,16 @@ border-radius 24%
 }
 
 .header .header-content h1 {
-  /* color: white; */
   font-weight: 500;
-  /* margin-top: 25px; */
   margin-left: 30px;
   margin-right: 30px;
 }
 
 .header .header-content h2 {
-  /* color: white; */
   font-weight: 400;
   margin-left: 30px;
   margin-right: 30px;
+  margin-top: -10px;
 }
 
 .header .header-content.user {
@@ -87,4 +80,13 @@ border-radius 24%
   font-size: 16px;
   font-weight: 500;
   margin-top: 5px;
+}
+
+@media screen and (min-width: 1000px) {
+  .header {
+    padding-bottom: 100px;
+  }
+  .with-round-bottom {
+    margin-bottom: 50px;
+  }
 }

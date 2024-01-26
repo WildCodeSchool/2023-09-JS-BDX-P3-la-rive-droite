@@ -1,59 +1,44 @@
 import { useState, createContext, useContext, useMemo } from "react";
 import PropTypes from "prop-types";
-import { v4 as uuid } from "uuid";
 import { useGlobalContext } from "./GlobalContext";
 
 const AdminContext = createContext();
 
 function AdminContextProvider({ children }) {
-  const { saveItemInLS, setErrorMsg, setSuccesMsg, setMsgContent } =
-    useGlobalContext();
-
-  const [isAdmin, setIsAdmin] = useState(true);
+  const { isAdmin, setIsAdmin, navigate } = useGlobalContext();
 
   const [addOffer, setAddOffer] = useState({
-    id: uuid(),
     title: "",
     company: "",
     type: "",
     city: "",
     mission: "",
-    searchProfile: "",
-    workPlace: "",
+    search_profile: "",
+    work_place: "",
     salary: "",
     info: "",
     email: "",
   });
-  const [offerSaved, setOfferSaved] = useState([]);
 
-  const handleAddOffer = (event) => {
-    if (
-      addOffer.title === "" ||
-      addOffer.company === "" ||
-      addOffer.type === "" ||
-      addOffer.city === "" ||
-      addOffer.mission === "" ||
-      addOffer.searchProfile === "" ||
-      addOffer.workPlace === "" ||
-      addOffer.salary === "" ||
-      addOffer.info === "" ||
-      addOffer.email === ""
-    ) {
-      setErrorMsg(true);
-      setMsgContent("Veuillez remplir tous les champs");
-      setTimeout(() => {
-        setErrorMsg(false);
-      }, 4000);
-    } else {
-      event.preventDefault();
-      setOfferSaved((prevData) => [...prevData, addOffer]);
-      setMsgContent("L'offre à été ajouté avec");
-      setSuccesMsg(true);
-      setTimeout(() => {
-        setSuccesMsg(false);
-      }, 4000);
-      saveItemInLS("Offer", offerSaved);
-    }
+  /* Redirection bouton du dashboard. */
+  const handleAddOffer = () => {
+    navigate("/dashboard/offer");
+  };
+
+  const handleOffers = () => {
+    navigate("/dashboard");
+  };
+
+  const handleUsers = () => {
+    navigate("/dashboard/user");
+  };
+
+  const goToEditOffer = (id) => {
+    navigate(`/dashboard/edit-offer/${id}`);
+  };
+
+  const goToEditUser = (id) => {
+    navigate(`/dashboard/edit-user/${id}`);
   };
 
   const contextValues = useMemo(
@@ -62,10 +47,23 @@ function AdminContextProvider({ children }) {
       setIsAdmin,
       addOffer,
       setAddOffer,
-      offerSaved,
       handleAddOffer,
+      handleOffers,
+      handleUsers,
+      goToEditOffer,
+      goToEditUser,
     }),
-    [isAdmin, setIsAdmin, addOffer, offerSaved, handleAddOffer, setAddOffer]
+    [
+      isAdmin,
+      setIsAdmin,
+      addOffer,
+      setAddOffer,
+      handleUsers,
+      handleAddOffer,
+      handleOffers,
+      goToEditOffer,
+      goToEditUser,
+    ]
   );
 
   return (
@@ -76,7 +74,7 @@ function AdminContextProvider({ children }) {
 }
 
 AdminContextProvider.propTypes = {
-  children: PropTypes.element.isRequired,
+  children: PropTypes.node.isRequired,
 };
 
 export default AdminContextProvider;
