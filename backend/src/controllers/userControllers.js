@@ -5,20 +5,6 @@ function generateAccessToken(data) {
   return jwt.sign(data, process.env.APP_SECRET);
 }
 
-// const getUsers = (_, res) => {
-//   models.user
-//     .findAll()
-//     .then((rows) => {
-//       // delete rows.forEach((info) => info.password);
-//       // console.log(rows);
-//       res.send(rows);
-//     })
-//     .catch((err) => {
-//       console.error(err);
-//       res.sendStatus(500);
-//     });
-// };
-
 const getUsers = async (_, res) => {
   try {
     const rows = await models.user.findAll();
@@ -78,14 +64,22 @@ const updateUser = async (req, res) => {
   }
 };
 
-// const updateUserAsAdmin = async (req, res) => {
-//   try {
-//     const id = +req.params.id;
-//     if (!id) {
-//       res.status(500).json({ message: "User not found ."});
-//     }
-//   }
-// }
+const updateUserAsAdmin = async (req, res) => {
+  try {
+    const id = +req.params.id;
+    if (!id) {
+      res.status(500).json({ message: "User not found..." });
+    }
+    const result = await models.user.update(id, req.body);
+    if (result.affectedRows.length === 0) {
+      res.status(500).json({ message: "User not edited." });
+    }
+    res.send(200).json({ message: "User edited." });
+  } catch (err) {
+    console.error(err);
+    res.status(422).send({ error: err.message });
+  }
+};
 
 const deleteUser = async (req, res) => {
   try {
@@ -162,6 +156,7 @@ module.exports = {
   postUser,
   postLogin,
   updateUser,
+  updateUserAsAdmin,
   deleteUser,
   getProfile,
   getUserById,

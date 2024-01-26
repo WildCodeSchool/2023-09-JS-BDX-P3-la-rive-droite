@@ -34,7 +34,12 @@ router.post(
 router.put("/users/:id([0-9]+)", authMiddleware, userControllers.updateUser);
 // FOR ADMIN. */
 router.get("/users/:id([0-9]+)", authMiddleware, userControllers.getUserById);
-// router.put("/admin/edit-users/:id([0-9]+)", authMiddleware, authAdminMiddleware, userControllers.updateUserAsAdmin);
+router.put(
+  "/admin/edit-users/:id([0-9]+)",
+  authMiddleware,
+  authAdminMiddleware,
+  userControllers.updateUserAsAdmin
+);
 router.delete(
   "/admin/users/:id([0-9]+)",
   authMiddleware,
