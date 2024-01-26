@@ -27,7 +27,7 @@ import UserContextProvider from "./contexts/UserContext";
 // Import de loaders.
 import currentUserProfileLoader from "./loaders/current-user-profil.loader";
 import currentRequestsUserProfile from "./loaders/current-requests-profil.loader";
-import currentAdmin from "./loaders/current-admin.loader";
+// import currentAdmin from "./loaders/current-admin.loader";
 // Import de classe.
 import ApiService from "./services/api.service";
 // Import Styles.
@@ -113,7 +113,7 @@ const router = createBrowserRouter([
             {/* </AdminChecker> */}
           </AdminContextProvider>
         ),
-        loader: async () => currentAdmin(apiService),
+        // loader: async () => currentAdmin(apiService),
         children: [
           {
             path: "/dashboard/user",

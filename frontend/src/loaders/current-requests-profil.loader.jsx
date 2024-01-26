@@ -5,7 +5,6 @@ const currentRequestsUserProfile = async (apiService) => {
       `${import.meta.env.VITE_BACKEND_URL}/api/users/id/cvs` // TODO: remplacer le 5 par l'id de l'utilisateur connecté
       //   `${import.meta.env.VITE_BACKEND_URL}/api/users${cvData.data.id}/cvs` // Get CV avec l'id de l'user connecté.
     );
-    // console.log(cvData.data.id);
 
     // Ensuite, on va chercher les expériences de l'utilisateur via l'id du CV qu'on vient de récupérer
     // le but est de pouvoir faire SELECT * FROM experiences WHERE cv_id = cvData.data.id

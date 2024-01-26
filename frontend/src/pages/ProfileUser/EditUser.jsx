@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import HeaderCourt from "../../components/Headers/HeaderCourt";
 import ButtonMaxi from "../../components/Boutons/ButtonMaxi";
 import Select from "../../components/Inputs/Select";
 import Input from "../../components/Inputs/Input";
-import HeaderCourt from "../../components/Headers/HeaderCourt";
+import CompetenceSwitch from "../../components/Competence Switch/CompetenceSwitch";
 // Import de Context.
 import { useGlobalContext } from "../../contexts/GlobalContext";
 
@@ -162,11 +163,94 @@ function EditUser() {
               <SuccesMsg message={globalContext.msgContent} />
             )}
           </div>
-          <ButtonMaxi
-            textBtn="Modifier l'utilisateur."
-            clickFunc={handleEditUser}
-          />
         </div>
+      </div>
+      <div className="container-switch">
+        <h2 className="label-champs"> Cochez vos compétences *</h2>
+        <CompetenceSwitch
+          textCompetence="HTML"
+          valueInput={user}
+          handleChange={() =>
+            globalContext.handleCheckboxChange(setUser, "html")
+          }
+          fieldName="html"
+        />
+        <CompetenceSwitch
+          textCompetence="CSS"
+          valueInput={user}
+          handleChange={() =>
+            globalContext.handleCheckboxChange(setUser, "css")
+          }
+          fieldName="css"
+        />
+        <CompetenceSwitch
+          textCompetence="JAVASCRIPT"
+          valueInput={user}
+          fieldName="javascript"
+          handleChange={() =>
+            globalContext.handleCheckboxChange(setUser, "javascript")
+          }
+        />
+        <CompetenceSwitch
+          textCompetence="ANGULAR"
+          valueInput={user}
+          fieldName="angular"
+          handleChange={() =>
+            globalContext.handleCheckboxChange(setUser, "angular")
+          }
+        />
+        <CompetenceSwitch
+          textCompetence="REACT.JS"
+          valueInput={user}
+          fieldName="react"
+          handleChange={() =>
+            globalContext.handleCheckboxChange(setUser, "react")
+          }
+        />
+        <CompetenceSwitch
+          textCompetence="PHP"
+          valueInput={user}
+          fieldName="php"
+          handleChange={() =>
+            globalContext.handleCheckboxChange(setUser, "php")
+          }
+        />
+        <CompetenceSwitch
+          textCompetence="SYMPHONY"
+          valueInput={user}
+          fieldName="symphony"
+          handleChange={() =>
+            globalContext.handleCheckboxChange(setUser, "symphony")
+          }
+        />
+        <CompetenceSwitch
+          textCompetence="GIT"
+          valueInput={user}
+          fieldName="git"
+          handleChange={() =>
+            globalContext.handleCheckboxChange(setUser, "git")
+          }
+        />
+        <CompetenceSwitch
+          textCompetence="GITHUB"
+          valueInput={user}
+          fieldName="github"
+          handleChange={() =>
+            globalContext.handleCheckboxChange(setUser, "github")
+          }
+        />
+        <CompetenceSwitch
+          textCompetence="TRELLO"
+          valueInput={user}
+          fieldName="trello"
+          handleChange={() =>
+            globalContext.handleCheckboxChange(setUser, "trello")
+          }
+        />
+        <ButtonMaxi
+          textBtn="Modifier l'utilisateur."
+          clickFunc={handleEditUser}
+        />
       </div>
     </div>
   );
