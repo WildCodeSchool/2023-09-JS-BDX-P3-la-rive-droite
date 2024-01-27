@@ -1,17 +1,20 @@
 .add-details-button {
   display: flex;
   justify-content: space-between;
-  margin: 50px 0;
 }
 
 .add-details-button > p {
   font-size: 20px;
   font-weight: 500;
-  color: var(--text-default);
+  color: black;
+  text-transform: uppercase;
 }
 
-.add-details-button > i {
-  font-size: 25px;
+.add-details-button a {
   color: var(--second-color);
-  cursor: pointer;
+  font-size: 25px;
+}
+
+.add-details-button a:hover {
+  color: var(--main-color);
 }

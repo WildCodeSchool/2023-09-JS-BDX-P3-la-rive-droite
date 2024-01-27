@@ -70,3 +70,10 @@
 .icon-view {
   padding: 5px;
 }
+
+@media (min-width: 1000px) {
+  .card-container {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}

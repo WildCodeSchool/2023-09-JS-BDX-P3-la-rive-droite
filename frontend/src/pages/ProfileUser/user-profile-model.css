@@ -14,10 +14,6 @@
   margin-top: 50px;
 }
 
-#user-profile-model .container-switch.label-champs {
-  margin-top: 520px;
-}
-
 #user-profile-model .formation-container {
   background-color: var(--main-bg-color);
 }
@@ -25,7 +21,7 @@
 @media all and (min-width: 1000px) {
   #user-profile-model .formation-container,
   #user-profile-model .experience-container {
-    margin-top: 30px;
+    /* margin-top: 30px; */
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
@@ -36,11 +32,22 @@
     margin-right: 20px;
   }
 
-  #user-profile-model .formation-container:last-child {
-    justify-content: flex-start;
-  }
-
   #user-profile-model .exp-formation-container {
     width: 30%;
+  }
+
+  #user-profile-model h2.label-champs {
+    font-size: 20px;
+  }
+  #user-profile-model h2.label-champs,
+  #user-profile-model a {
+    margin-top: 100px;
+  }
+  #user-profile-model .container-page {
+    max-width: 900px;
+  }
+
+  #user-profile-model .container-switch .label-champs {
+    margin-bottom: 50px;
   }
 }

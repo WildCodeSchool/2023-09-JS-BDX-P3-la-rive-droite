@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import "./user-profile-model.css";
 import Input from "../../components/Inputs/Input";
 import HeaderLongUser from "../../components/Headers/HeaderLongUser";
-import Title from "../../components/Titles/Title";
 import CompetenceSwitch from "../../components/Competence Switch/CompetenceSwitch";
 import ButtonMaxi from "../../components/Boutons/ButtonMaxi";
 import { useGlobalContext } from "../../contexts/GlobalContext";
@@ -143,7 +142,7 @@ function UserProfileModel() {
         textTitle2={getProfile.lastname}
       />
       <div className="container-page">
-        <Title titleText="Vos coordonnées" />
+        <h2 className="label-champs">Vos coordonnées</h2>
         <Input
           titleInput="Nom *"
           holderText={getProfile.lastname}
@@ -192,7 +191,7 @@ function UserProfileModel() {
           }
         />
         <div className="container-switch">
-          <h2 className="label-champs"> Cochez vos compétences *</h2>
+          <h2 className="label-champs">Cochez vos compétences *</h2>
           <CompetenceSwitch
             textCompetence="HTML"
             fieldName="html"
