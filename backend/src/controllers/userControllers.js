@@ -148,6 +148,80 @@ const addSkills = async (req, res) => {
   }
 };
 
+const getMatchingOffers = async (req, res) => {
+  // 1) Récupérer les compétences de l'utilisateur actuel
+  // 2) Récupérer les offres qui correspondent à ces compétences
+  // 3) Récupérer TOUTES les compétences des offres trouvées
+  try {
+    // userCompetences contient les compétences de l'utilisateur actuel
+    const userCompetences = await models.userCompetence.getUserCompetences(
+      req.user.id
+    );
+
+    // userCompetencesIds contient les IDs des compétences de l'utilisateur actuel
+    const userCompetencesIds = userCompetences.map(
+      (competence) => competence.id
+    );
+
+    // matchingOffers contient les offres qui correspondent aux compétences de l'utilisateur actuel
+    const matchingOffers = await models.offer.getOffersByCompetenceIds(
+      userCompetencesIds
+    );
+
+    const matchingOfferIds = matchingOffers.map((offer) => offer.id);
+
+    // matchingOffersCompetences contient les compétences des offres qui correspondent aux compétences de l'utilisateur actuel
+    const matchingOffersCompetences =
+      await models.offerCompetence.getOfferCompetencesByOfferIds(
+        matchingOfferIds
+      );
+
+    // console.log(userCompetences);
+    // console.log(matchingOffers);
+    // console.log(matchingOffersCompetences);
+
+    // associer les offres et les compétences
+    const offers = matchingOffers.map((offer) => {
+      const offerCompetences = matchingOffersCompetences.filter(
+        (offerCompetence) => offerCompetence.offer_id === offer.id
+      );
+      return { ...offer, competences: offerCompetences };
+    });
+
+    // compter combien de compétences matchent avec celles de l'utilisateur actuel
+    const offersWithMatchingCompetences = offers.map((offer) => {
+      const matchingCompetences = offer.competences.filter((competence) =>
+        userCompetencesIds.includes(competence.id)
+      );
+      return { ...offer, matchingCompetences };
+    });
+
+    // tri des offres par nombre de compétences qui matchent par rapport au nombre total de compétences
+    offersWithMatchingCompetences.sort((a, b) => {
+      const aMatchingCompetencesRatio =
+        a.matchingCompetences.length / a.competences.length;
+      const bMatchingCompetencesRatio =
+        b.matchingCompetences.length / b.competences.length;
+      return bMatchingCompetencesRatio - aMatchingCompetencesRatio;
+    });
+
+    // inclure le pourcentage de match, arrondi à l'entier
+    offersWithMatchingCompetences.forEach((offer) => {
+      const modifiedOffer = { ...offer };
+      modifiedOffer.matchingCompetencesRatio = Math.round(
+        (modifiedOffer.matchingCompetences.length /
+          modifiedOffer.competences.length) *
+          100
+      );
+      return modifiedOffer;
+    });
+
+    res.send(offersWithMatchingCompetences);
+  } catch (err) {
+    res.status(500).send({ error: err.message });
+  }
+};
+
 module.exports = {
   getUsers,
   postUser,
@@ -159,4 +233,5 @@ module.exports = {
   postSkills,
   getSkills,
   addSkills,
+  getMatchingOffers,
 };

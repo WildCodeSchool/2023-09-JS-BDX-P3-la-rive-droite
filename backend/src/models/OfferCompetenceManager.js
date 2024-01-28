@@ -43,6 +43,15 @@ class OfferCompetenceManager extends AbstractManager {
 
     return result;
   }
+
+  async getOfferCompetencesByOfferIds(offerIds) {
+    const [result] = await this.database.query(
+      `SELECT ${this.table}.*, competence.* FROM ${this.table} INNER JOIN competence ON competence.id = ${this.table}.competence_id WHERE offer_id IN (?)`,
+      [offerIds]
+    );
+
+    return result;
+  }
 }
 
 module.exports = OfferCompetenceManager;
