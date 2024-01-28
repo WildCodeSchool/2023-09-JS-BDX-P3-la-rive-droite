@@ -189,7 +189,7 @@ const getMatchingOffers = async (req, res) => {
     });
 
     // compter combien de compétences matchent avec celles de l'utilisateur actuel
-    const offersWithMatchingCompetences = offers.map((offer) => {
+    let offersWithMatchingCompetences = offers.map((offer) => {
       const matchingCompetences = offer.competences.filter((competence) =>
         userCompetencesIds.includes(competence.id)
       );
@@ -206,15 +206,17 @@ const getMatchingOffers = async (req, res) => {
     });
 
     // inclure le pourcentage de match, arrondi à l'entier
-    offersWithMatchingCompetences.forEach((offer) => {
-      const modifiedOffer = { ...offer };
-      modifiedOffer.matchingCompetencesRatio = Math.round(
-        (modifiedOffer.matchingCompetences.length /
-          modifiedOffer.competences.length) *
-          100
-      );
-      return modifiedOffer;
-    });
+    offersWithMatchingCompetences = offersWithMatchingCompetences.map(
+      (offer) => {
+        const modifiedOffer = { ...offer };
+        modifiedOffer.matchingCompetencesRatio = Math.round(
+          (modifiedOffer.matchingCompetences.length /
+            modifiedOffer.competences.length) *
+            100
+        );
+        return modifiedOffer;
+      }
+    );
 
     res.send(offersWithMatchingCompetences);
   } catch (err) {

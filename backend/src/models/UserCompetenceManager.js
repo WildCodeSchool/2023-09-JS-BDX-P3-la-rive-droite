@@ -36,8 +36,13 @@ class UserCompetenceManager extends AbstractManager {
   }
 
   async getUserCompetences(userId) {
+    // Je sélécionne toutes les colonnes de la table compétences
+    // Je fais une jointure avec la table user_competence
+    // Je filtre sur les user_competence qui ont l'id de l'utilisateur actuel
+
     const [result] = await this.database.query(
       `SELECT competence.* FROM competence LEFT JOIN ${this.table} ON competence.id = ${this.table}.competence_id WHERE ${this.table}.user_id = ?`,
+
       userId
     );
 

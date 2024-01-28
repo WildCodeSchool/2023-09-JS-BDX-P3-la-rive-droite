@@ -9,6 +9,7 @@
 
 .label-offre {
   font-weight: 500;
+  margin-top: 20px;
   color: var(--third-title-color);
   text-transform: uppercase;
   font-size: 16px;
@@ -69,6 +70,36 @@
 }
 .icon-view {
   padding: 5px;
+}
+.competence {
+  background-color: rgb(234, 234, 234);
+  color: rgb(141, 141, 141);
+  padding: 8px 10px;
+  border-radius: 7px;
+  border: none;
+  font-size: 13px;
+  font-weight: 500;
+  margin: 5px 5px 5px 0px;
+  text-transform: capitalize;
+}
+.competence.is-matching {
+  background-color: var(--main-color);
+  color: white;
+}
+.competence-match {
+  display: flex;
+  margin-top: 20px;
+}
+.pourcentage {
+  background-color: var(--background-input);
+  padding: 10px;
+  border-radius: 7px;
+  border: none;
+  color: var(--second-color);
+  font-size: 16px;
+  font-weight: 500;
+  min-width: 55px;
+  margin-top: 5px;
 }
 
 @media (min-width: 1000px) {
