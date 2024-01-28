@@ -17,7 +17,7 @@
 
 .entreprise-champs {
   color: var(--second-color);
-  font-weight: 400;
+  font-weight: 500;
   font-size: 16px;
 }
 
@@ -31,8 +31,9 @@
 
 .poste-champs {
   color: var(--texte-default);
-  font-weight: 400;
+  font-weight: 500;
   font-size: 15px;
+  font-style: italic;
 }
 
 .poste-champs.experience {
@@ -104,7 +105,6 @@
 
 @media (min-width: 1000px) {
   .card-container {
-    margin-left: 0;
-    margin-right: 0;
+    margin: 0px 15px 0px 0px;
   }
 }
