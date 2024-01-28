@@ -70,7 +70,6 @@ function Home() {
               offer={offer}
               toggleFavorite={toggleFavorite}
               goToOffer={goToOffer}
-              matchingCompetencesRatio={offer.matchingCompetencesRatio}
             />
           ))}
         </div>

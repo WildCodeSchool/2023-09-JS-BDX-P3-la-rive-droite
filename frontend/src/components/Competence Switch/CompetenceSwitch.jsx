@@ -7,7 +7,7 @@ function CompetenceSwitch({
   textCompetence,
   fieldName,
   handleChange,
-  valueInput,
+  isChecked,
 }) {
   return (
     <div className="competence-line">
@@ -20,7 +20,7 @@ function CompetenceSwitch({
           type="checkbox"
           id={fieldName}
           name={fieldName}
-          checked={valueInput[fieldName]}
+          checked={isChecked}
           onChange={handleChange}
         />
         <span className="slider round"> </span>
@@ -33,12 +33,12 @@ CompetenceSwitch.propTypes = {
   textCompetence: PropTypes.string,
   fieldName: PropTypes.string.isRequired,
   handleChange: PropTypes.func.isRequired,
-  valueInput: PropTypes.oneOfType([PropTypes.object]),
+  isChecked: PropTypes.oneOfType([PropTypes.object]),
 };
 
 CompetenceSwitch.defaultProps = {
   textCompetence: "La valeur n'est pas définie.",
-  valueInput: {},
+  isChecked: {},
 };
 
 export default CompetenceSwitch;

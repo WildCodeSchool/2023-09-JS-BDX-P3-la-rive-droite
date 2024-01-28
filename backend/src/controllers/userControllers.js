@@ -126,8 +126,11 @@ const updateUser = async (req, res) => {
   }
 };
 
-const getProfile = (req, res) => {
+const getProfile = async (req, res) => {
   delete req.user.password;
+  req.user.competences = await models.userCompetence.getUserCompetences(
+    req.user.id
+  );
   res.send(req.user);
 };
 
@@ -159,16 +162,19 @@ const getMatchingOffers = async (req, res) => {
     );
 
     // userCompetencesIds contient les IDs des compétences de l'utilisateur actuel
-    const userCompetencesIds = userCompetences.map(
-      (competence) => competence.id
-    );
+    const userCompetencesIds = userCompetences.map((competence) => {
+      return competence.id;
+    });
 
     // matchingOffers contient les offres qui correspondent aux compétences de l'utilisateur actuel
     const matchingOffers = await models.offer.getOffersByCompetenceIds(
       userCompetencesIds
     );
 
-    const matchingOfferIds = matchingOffers.map((offer) => offer.id);
+    // matchingOfferIds contient les IDs des offres qui correspondent aux compétences de l'utilisateur actuel
+    const matchingOfferIds = matchingOffers.map((offer) => {
+      return offer.id;
+    });
 
     // matchingOffersCompetences contient les compétences des offres qui correspondent aux compétences de l'utilisateur actuel
     const matchingOffersCompetences =
@@ -188,21 +194,11 @@ const getMatchingOffers = async (req, res) => {
       return { ...offer, competences: offerCompetences };
     });
 
-    // compter combien de compétences matchent avec celles de l'utilisateur actuel
     let offersWithMatchingCompetences = offers.map((offer) => {
       const matchingCompetences = offer.competences.filter((competence) =>
         userCompetencesIds.includes(competence.id)
       );
       return { ...offer, matchingCompetences };
-    });
-
-    // tri des offres par nombre de compétences qui matchent par rapport au nombre total de compétences
-    offersWithMatchingCompetences.sort((a, b) => {
-      const aMatchingCompetencesRatio =
-        a.matchingCompetences.length / a.competences.length;
-      const bMatchingCompetencesRatio =
-        b.matchingCompetences.length / b.competences.length;
-      return bMatchingCompetencesRatio - aMatchingCompetencesRatio;
     });
 
     // inclure le pourcentage de match, arrondi à l'entier
@@ -217,6 +213,17 @@ const getMatchingOffers = async (req, res) => {
         return modifiedOffer;
       }
     );
+
+    // trier les offres par pourcentage de match décroissant
+    offersWithMatchingCompetences.sort((a, b) => {
+      if (a.matchingCompetencesRatio > b.matchingCompetencesRatio) {
+        return -1;
+      }
+      if (a.matchingCompetencesRatio < b.matchingCompetencesRatio) {
+        return 1;
+      }
+      return 0;
+    });
 
     res.send(offersWithMatchingCompetences);
   } catch (err) {
