@@ -1,6 +1,5 @@
 import "./header.css";
 import PropTypes from "prop-types";
-import InputSearch from "../Inputs/InputSearch";
 
 function HeaderLongResearch({ textTitle, textTitle2 }) {
   return (
@@ -8,7 +7,6 @@ function HeaderLongResearch({ textTitle, textTitle2 }) {
       <div className=" container header-content">
         <h1>{textTitle}</h1>
         <h2>{textTitle2}</h2>
-        <InputSearch holderText="Recherche..." />
       </div>
     </header>
   );

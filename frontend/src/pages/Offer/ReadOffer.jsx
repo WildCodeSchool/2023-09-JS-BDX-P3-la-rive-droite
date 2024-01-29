@@ -67,7 +67,6 @@ function ReadOffer() {
           <p className="info-offer">{offer.info}</p>
 
           <ButtonMaxi textBtn="Postuler" />
-          <ButtonMaxi textBtn="Contacter l'entreprise" />
         </div>
       </div>
     </>

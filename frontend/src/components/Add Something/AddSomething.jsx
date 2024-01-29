@@ -7,8 +7,8 @@ import { Link } from "react-router-dom";
 function AddDetailsCV({ addDetail, url }) {
   return (
     <div className="add-details-button">
-      <p>{addDetail}</p>
-      <Link to={url} className="link-style">
+      <h2 className="label-champs">{addDetail}</h2>
+      <Link to={url}>
         <i className="fa-solid fa-plus"> </i>
       </Link>
     </div>

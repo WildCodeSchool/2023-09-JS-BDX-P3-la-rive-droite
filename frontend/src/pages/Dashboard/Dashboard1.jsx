@@ -1,14 +1,18 @@
-// import React, { useEffect } from "react";
+import React, { useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import RowDash from "../../components/Dashboards/RowDash";
 import TitleDashboard from "../../components/Dashboards/TitleDashboard";
 import ButtonMini from "../../components/Boutons/ButtonMini";
-// import { useGlobalContext } from "../../contexts/GlobalContext";
+import { useGlobalContext } from "../../contexts/GlobalContext";
 import { useAdminContext } from "../../contexts/AdminContext";
 
 function Dashboard1() {
-  // const { unauthorized } = useGlobalContext();
+  const { unauthorized } = useGlobalContext();
   const { handleAddOffer, handleUsers } = useAdminContext();
+
+  useEffect(() => {
+    unauthorized();
+  }, []);
 
   return window.location.pathname === "/dashboard" ||
     window.location.pathname === "/dashboard/" ? (
