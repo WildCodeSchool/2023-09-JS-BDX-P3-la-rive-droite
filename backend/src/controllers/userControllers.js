@@ -5,20 +5,6 @@ function generateAccessToken(data) {
   return jwt.sign(data, process.env.APP_SECRET);
 }
 
-// const getUsers = (_, res) => {
-//   models.user
-//     .findAll()
-//     .then((rows) => {
-//       // delete rows.forEach((info) => info.password);
-//       // console.log(rows);
-//       res.send(rows);
-//     })
-//     .catch((err) => {
-//       console.error(err);
-//       res.sendStatus(500);
-//     });
-// };
-
 const getUsers = async (_, res) => {
   try {
     const rows = await models.user.findAll();
@@ -36,7 +22,9 @@ const getUserById = async (req, res) => {
     if (!result.length) {
       return res.status(404).send({ error: "User not found" });
     }
-    return res.send(result[0]);
+    const user = result[0];
+    delete user.password;
+    return res.send(user);
   } catch (error) {
     return res.status(422).send({ error: error.message });
   }
@@ -58,6 +46,41 @@ const postUser = async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(422).send({ error: err.message });
+  }
+};
+
+const updateUser = async (req, res) => {
+  try {
+    const id = +req.params.id;
+    if (!id) {
+      res.status(500).json({ message: "You are not authorized ..." });
+    }
+    const result = await models.user.update(id, req.body);
+    if (result.affectedRows.length === 0) {
+      res.status(500).json({ message: "User not edited." });
+    }
+    res.sendStatus(200);
+  } catch (error) {
+    console.error(error);
+    res.status(422).send({ error: error.message });
+  }
+};
+
+const updateUserAsAdmin = async (req, res) => {
+  try {
+    const id = +req.params.id;
+    let result = await models.user.updateUser(id, req.body);
+    if (result.affectedRows.length === 0) {
+      return res.status(404);
+    }
+    [result] = await models.user.findId(id);
+    const user = result[0];
+    delete user.password;
+
+    return res.send(user);
+  } catch (err) {
+    console.error(err);
+    return res.status(422).send({ error: err.message });
   }
 };
 
@@ -109,23 +132,6 @@ const postLogin = async (req, res) => {
   }
 };
 
-const updateUser = async (req, res) => {
-  try {
-    const id = parseInt(req.params.id, 10);
-    if (!id) {
-      res.sendStatus(500);
-    }
-    const result = await models.user.update(id, req.body);
-    if (result.affectedRows.length === 0) {
-      res.sendStatus(500);
-    }
-    res.sendStatus(200);
-  } catch (error) {
-    console.error(error);
-    res.status(422).send({ error: error.message });
-  }
-};
-
 const getProfile = (req, res) => {
   delete req.user.password;
   res.send(req.user);
@@ -153,6 +159,7 @@ module.exports = {
   postUser,
   postLogin,
   updateUser,
+  updateUserAsAdmin,
   deleteUser,
   getProfile,
   getUserById,
