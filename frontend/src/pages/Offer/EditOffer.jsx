@@ -59,7 +59,7 @@ function AddOffer() {
     } else {
       const updateOffer = async () => {
         globalContext.apiService.update(
-          `${import.meta.env.VITE_BACKEND_URL}/api/edit-offer/${id}`,
+          `${import.meta.env.VITE_BACKEND_URL}/api/offer/${id}`,
           offer,
           id
         );

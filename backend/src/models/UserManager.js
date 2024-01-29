@@ -59,24 +59,29 @@ class UserManager extends AbstractManager {
     }
   }
 
-  // Ancienne méthode.
-  // skills(user) {
-  //   return this.database.query(
-  //     `INSERT INTO skill (html, css, javascript, angular, react, php, symphony, git, github, trello) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-  //     [
-  //       user.html,
-  //       user.css,
-  //       user.javascript,
-  //       user.angular,
-  //       user.react,
-  //       user.php,
-  //       user.symphony,
-  //       user.git,
-  //       user.github,
-  //       user.trello,
-  //     ]
-  //   );
-  // }
+  async updateUser(id, user) {
+    // const { firstname, lastname, phone, email, address } = user;
+
+    try {
+      const [result] = await this.database.query(
+        `UPDATE ${this.table} SET is_admin = ?, firstname = ?, lastname = ?, phone = ?, email = ?, address = ? WHERE id = ?`,
+        [
+          user.is_admin,
+          user.firstname,
+          user.lastname,
+          user.phone,
+          user.email,
+          user.address,
+          id,
+        ]
+      );
+
+      return result;
+    } catch (err) {
+      console.error(err);
+      return null;
+    }
+  }
 
   async login(user) {
     const { email, password } = user;

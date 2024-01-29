@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
+// Import de contexts.
 import { useGlobalContext } from "../../contexts/GlobalContext";
-import "./RowDash.css";
 import { useAdminContext } from "../../contexts/AdminContext";
+// Import de style.
+import "./RowDash.css";
 
 function RowDash() {
   const { goToOffer, apiService } = useGlobalContext();

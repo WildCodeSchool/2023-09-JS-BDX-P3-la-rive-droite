@@ -17,7 +17,6 @@ import AddDetailsCV from "../../components/Add Something/AddSomething";
 
 function UserProfileModel() {
   const { handleAddCv } = useUserContext();
-
   const globalContext = useGlobalContext();
   const navigate = useNavigate();
   const [getSkills, setGetSkills] = useState([]);
