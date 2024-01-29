@@ -31,6 +31,12 @@ router.post(
   authMiddleware,
   userControllers.addSkills
 );
+router.get(
+  "/users/me/get-matching-offers",
+  authMiddleware,
+  userControllers.getMatchingOffers
+);
+
 router.put("/users/:id([0-9]+)", authMiddleware, userControllers.updateUser);
 // FOR ADMIN. */
 router.get("/users/:id([0-9]+)", authMiddleware, userControllers.getUserById);

@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import ButtonMini from "../Boutons/ButtonMini";
 import "./card-model.css";
 
-function CardOffre({ toggleFavorite, offer, goToOffer }) {
+function CardOffre({ offer, goToOffer }) {
   const trimText = (chaine, limite) => {
     if (chaine.length <= limite) {
       return chaine;
@@ -11,22 +11,31 @@ function CardOffre({ toggleFavorite, offer, goToOffer }) {
   };
   return (
     <div className="card-container">
-      <div className="card-icons">
-        <div className="icon-view">
-          <button
-            className="invisible-button"
-            aria-label="toggleFavorite"
-            type="button"
-            onClick={() => {
-              toggleFavorite(offer.id);
-            }}
-          >
-            <i className="fa-solid fa-heart" />
-          </button>
-        </div>
+      <h3 className="pourcentage">
+        Vous avez {offer.matchingCompetencesRatio} % des compétences requises
+      </h3>
+
+      <div className="competence-match">
+        {offer.competences.map((competence) => {
+          let isMatching = false;
+          offer.matchingCompetences.forEach((matchingCompetence) => {
+            if (matchingCompetence.id === competence.id) {
+              isMatching = true;
+            }
+          });
+          return (
+            <span
+              className={isMatching ? "competence is-matching" : "competence"}
+              key={competence.id}
+            >
+              {competence.name}
+            </span>
+          );
+        })}
       </div>
 
       <h3 className="label-offre">{offer.title}</h3>
+
       <h4 className="entreprise-champs">{offer.company}</h4>
       <h5 className="poste-champs">
         {offer.type} - {offer.city}
@@ -37,7 +46,6 @@ function CardOffre({ toggleFavorite, offer, goToOffer }) {
   );
 }
 CardOffre.propTypes = {
-  toggleFavorite: PropTypes.func.isRequired,
   goToOffer: PropTypes.func.isRequired,
   offer: PropTypes.shape({
     id: PropTypes.number.isRequired,
@@ -46,6 +54,19 @@ CardOffre.propTypes = {
     type: PropTypes.string.isRequired,
     city: PropTypes.string.isRequired,
     info: PropTypes.string.isRequired,
+    competences: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        name: PropTypes.string.isRequired,
+      })
+    ).isRequired,
+    matchingCompetences: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        name: PropTypes.string.isRequired,
+      })
+    ).isRequired,
+    matchingCompetencesRatio: PropTypes.number.isRequired,
   }).isRequired,
 };
 

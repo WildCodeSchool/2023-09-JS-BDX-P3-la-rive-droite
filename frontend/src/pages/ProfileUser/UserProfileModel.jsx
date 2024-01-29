@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import "./user-profile-model.css";
 import Input from "../../components/Inputs/Input";
 import HeaderLongUser from "../../components/Headers/HeaderLongUser";
-import Title from "../../components/Titles/Title";
 import CompetenceSwitch from "../../components/Competence Switch/CompetenceSwitch";
 import ButtonMaxi from "../../components/Boutons/ButtonMaxi";
 import { useGlobalContext } from "../../contexts/GlobalContext";
@@ -142,7 +141,7 @@ function UserProfileModel() {
         textTitle2={getProfile.lastname}
       />
       <div className="container-page">
-        <Title titleText="Vos coordonnées" />
+        <h2 className="label-champs">Vos coordonnées</h2>
         <Input
           titleInput="Nom *"
           holderText={getProfile.lastname}
@@ -191,11 +190,11 @@ function UserProfileModel() {
           }
         />
         <div className="container-switch">
-          <h2 className="label-champs"> Cochez vos compétences *</h2>
+          <h2 className="label-champs">Cochez vos compétences *</h2>
           <CompetenceSwitch
             textCompetence="HTML"
             fieldName="html"
-            valueInput={getProfile}
+            isChecked={getProfile.competences?.find((c) => c.name === "html")}
             handleChange={(event) =>
               handleCheckboxChanged(getProfile, "html", event)
             }
@@ -203,7 +202,7 @@ function UserProfileModel() {
 
           <CompetenceSwitch
             textCompetence="CSS"
-            valueInput={getProfile}
+            isChecked={getProfile.competences?.find((c) => c.name === "css")}
             fieldName="css"
             handleChange={(event) =>
               handleCheckboxChanged(getProfile, "css", event)
@@ -212,7 +211,9 @@ function UserProfileModel() {
           <CompetenceSwitch
             textCompetence="JAVASCRIPT"
             fieldName="javascript"
-            valueInput={getProfile}
+            isChecked={getProfile.competences?.find(
+              (c) => c.name === "javascript"
+            )}
             handleChange={(event) =>
               handleCheckboxChanged(getProfile, "javascript", event)
             }
@@ -220,7 +221,9 @@ function UserProfileModel() {
           <CompetenceSwitch
             textCompetence="ANGULAR"
             fieldName="angular"
-            valueInput={getProfile}
+            isChecked={getProfile.competences?.find(
+              (c) => c.name === "angular"
+            )}
             handleChange={(event) =>
               handleCheckboxChanged(getProfile, "angular", event)
             }
@@ -228,7 +231,7 @@ function UserProfileModel() {
           <CompetenceSwitch
             textCompetence="REACT.JS"
             fieldName="react"
-            valueInput={getProfile}
+            isChecked={getProfile.competences?.find((c) => c.name === "react")}
             handleChange={(event) =>
               handleCheckboxChanged(getProfile, "react", event)
             }
@@ -236,7 +239,7 @@ function UserProfileModel() {
           <CompetenceSwitch
             textCompetence="PHP"
             fieldName="php"
-            valueInput={getProfile}
+            isChecked={getProfile.competences?.find((c) => c.name === "php")}
             handleChange={(event) =>
               handleCheckboxChanged(getProfile, "php", event)
             }
@@ -244,7 +247,9 @@ function UserProfileModel() {
           <CompetenceSwitch
             textCompetence="SYMPHONY"
             fieldName="symphony"
-            valueInput={getProfile}
+            isChecked={getProfile.competences?.find(
+              (c) => c.name === "symphony"
+            )}
             handleChange={(event) =>
               handleCheckboxChanged(getProfile, "symphony", event)
             }
@@ -252,7 +257,7 @@ function UserProfileModel() {
           <CompetenceSwitch
             textCompetence="GIT"
             fieldName="git"
-            valueInput={getProfile}
+            isChecked={getProfile.competences?.find((c) => c.name === "git")}
             handleChange={(event) =>
               handleCheckboxChanged(getProfile, "git", event)
             }
@@ -260,7 +265,7 @@ function UserProfileModel() {
           <CompetenceSwitch
             textCompetence="GITHUB"
             fieldName="github"
-            valueInput={getProfile}
+            isChecked={getProfile.competences?.find((c) => c.name === "github")}
             handleChange={(event) =>
               handleCheckboxChanged(getProfile, "github", event)
             }
@@ -268,7 +273,7 @@ function UserProfileModel() {
           <CompetenceSwitch
             textCompetence="TRELLO"
             fieldName="trello"
-            valueInput={getProfile}
+            isChecked={getProfile.competences?.find((c) => c.name === "trello")}
             handleChange={(event) =>
               handleCheckboxChanged(getProfile, "trello", event)
             }

@@ -6,28 +6,40 @@ import CardOffre from "../../components/CardModel/CardOffre";
 import { useUserContext } from "../../contexts/UserContext";
 
 function Home() {
-  const { goToOffer } = useGlobalContext();
+  const { goToOffer, apiService } = useGlobalContext();
   const { toggleFavorite } = useUserContext();
-  const [offers, setOffers] = useState([]);
+  const [matchingOffers, setMatchingOffers] = useState([]);
 
   useEffect(() => {
-    const getOffer = async () => {
+    // const getOffer = async () => {
+    //   try {
+    //     const response = await fetch(
+    //       `${import.meta.env.VITE_BACKEND_URL}/api/offer`
+    //     );
+    //     if (response.ok) {
+    //       const data = await response.json();
+    //       setOffers(data);
+    //     } else {
+    //       console.error("Echec de la récupération des données.");
+    //     }
+    //   } catch (err) {
+    //     console.error(err);
+    //   }
+    // };
+
+    const getOfferMatch = async () => {
       try {
-        const response = await fetch(
-          `${import.meta.env.VITE_BACKEND_URL}/api/offer`
+        const response = await apiService.get(
+          `${import.meta.env.VITE_BACKEND_URL}/api/users/me/get-matching-offers`
         );
-        if (response.ok) {
-          const data = await response.json();
-          setOffers(data);
-        } else {
-          console.error("Echec de la récupération des données.");
-        }
+        setMatchingOffers(response.data);
       } catch (err) {
         console.error(err);
       }
     };
 
-    getOffer();
+    getOfferMatch();
+    // getOffer();
 
     //     const getOffer = async () => {
     //       try {
@@ -52,7 +64,7 @@ function Home() {
       <div className="container-page">
         <h2>Les offres qui matchent !</h2>
         <div className="offer-container">
-          {offers.map((offer) => (
+          {matchingOffers.map((offer) => (
             <CardOffre
               key={offer.id}
               offer={offer}

@@ -1,10 +1,13 @@
 /* Container */
 .competence-line {
-  margin: 15px 0 10px 0;
+  margin: 25px 0 30px 0;
   display: flex;
   justify-content: space-between;
 }
 
+.competence-line p.label-champs {
+  margin: 0 !important;
+}
 /* Text compentence */
 .label-champs {
   font-weight: 500;

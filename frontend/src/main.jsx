@@ -25,6 +25,7 @@ import LogContextProvider from "./contexts/LogContext";
 import GlobalContextProvider from "./contexts/GlobalContext";
 import UserContextProvider from "./contexts/UserContext";
 // Import de loaders.
+// import currentRequestsUserProfile from "./loaders/current-requests-profil.loader";
 import currentUserProfileLoader from "./loaders/current-user-profil.loader";
 // import currentRequestsUserProfile from "./loaders/current-requests-profil.loader";
 // import currentAdmin from "./loaders/current-admin.loader";
