@@ -79,15 +79,6 @@ function SignIn() {
         ...signIn,
         ...skills,
       });
-      if (signIn.addCvNow === true) {
-        setTimeout(() => {
-          globalContext.navigate("/edit-profile/cv");
-        }, 2000);
-      } else {
-        setTimeout(() => {
-          globalContext.navigate("/login");
-        }, 2000);
-      }
     }
   };
 

@@ -67,6 +67,23 @@ const updateUserAsAdmin = async (req, res) => {
   }
 };
 
+const updateUser = async (req, res) => {
+  try {
+    const id = +req.params.id;
+    if (!id) {
+      res.sendStatus(500);
+    }
+    const result = await models.user.update(id, req.body);
+    if (result.affectedRows.length === 0) {
+      res.sendStatus(404);
+    }
+    res.sendStatus(200);
+  } catch (err) {
+    console.error(err);
+    res.status(422).send({ error: err.message });
+  }
+};
+
 const deleteUser = async (req, res) => {
   try {
     const userId = +req.params.id;
@@ -112,23 +129,6 @@ const postLogin = async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).send({ error: err.message });
-  }
-};
-
-const updateUser = async (req, res) => {
-  try {
-    const id = parseInt(req.params.id, 10);
-    if (!id) {
-      res.sendStatus(500);
-    }
-    const result = await models.user.update(id, req.body);
-    if (result.affectedRows.length === 0) {
-      res.sendStatus(500);
-    }
-    res.sendStatus(200);
-  } catch (error) {
-    console.error(error);
-    res.status(422).send({ error: error.message });
   }
 };
 

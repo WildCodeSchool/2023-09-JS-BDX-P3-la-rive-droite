@@ -42,7 +42,7 @@ function UserProfileModel() {
       setTimeout(() => {
         globalContext.setSuccesMsg(false);
       }, 4000);
-      navigate("/edit-profile");
+      navigate("/profile");
     } catch (err) {
       console.error(err);
       globalContext.setErrorMsg(true);
@@ -133,8 +133,8 @@ function UserProfileModel() {
       console.error("Error updating skills:", error);
     }
   };
-  return window.location.pathname === "/edit-profile" ||
-    window.location.pathname === "/edit-profile" ? (
+  return window.location.pathname === "/profile" ||
+    window.location.pathname === "/profile" ? (
     <div id="user-profile-model">
       <HeaderLongUser
         textTitle={getProfile.firstname}
@@ -281,7 +281,7 @@ function UserProfileModel() {
         </div>
         <AddDetailsCV
           addDetail="Expériences professionnelles"
-          url="/edit-profile/experience"
+          url="/profile/add/experience"
         />
         <div className="experience-container">
           {experiences &&
@@ -300,7 +300,7 @@ function UserProfileModel() {
               />
             ))}
         </div>
-        <AddDetailsCV addDetail="Formations" url="/edit-profile/formation" />
+        <AddDetailsCV addDetail="Formations" url="/profile/add/formation" />
         <div className="formation-container">
           {courses &&
             courses.map((course) => (
