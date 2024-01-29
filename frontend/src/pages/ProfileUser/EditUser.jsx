@@ -15,8 +15,6 @@ import SuccesMsg from "../../components/Alertes Messages/SuccesMsg";
 import "../Offer/add-offer.css";
 
 function EditUser() {
-  // const { addOffer, setAddOffer } = useAdminContext();
-
   const globalContext = useGlobalContext();
 
   const [user, setUser] = useState([]);
@@ -28,6 +26,19 @@ function EditUser() {
         `${import.meta.env.VITE_BACKEND_URL}/api/users/${id}`
       );
       setUser(response.data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const postEditUser = async () => {
+    try {
+      const infoUser = await globalContext.apiService.update(
+        `${import.meta.env.VITE_BACKEND_URL}/api/admin/edit-users/${id}`,
+        user,
+        id
+      );
+      setUser(infoUser);
     } catch (err) {
       console.error(err);
     }
@@ -56,15 +67,8 @@ function EditUser() {
         globalContext.setErrorMsg(false);
       }, 4000);
     } else {
-      // const updateUser = async () => {
-      //   globalContext.apiService.update(
-      //     `${import.meta.env.VITE_BACKEND_URL}/api/edit-user/${id}`,
-      //     user
-      //     // id
-      //   );
-      // };
-
-      // updateUser();
+      // console.log(globalContext.isAdmin);
+      postEditUser();
       // console.log(user);
       globalContext.setMsgContent("L'offre à été ajouté avec");
       globalContext.setSuccesMsg(true);
@@ -93,8 +97,8 @@ function EditUser() {
               globalContext.handleChange(setUser, "is_admin", event)
             }
           >
-            <option value="false">False</option>
-            <option value="true">True</option>
+            <option value={0}>False</option>
+            <option value={1}>True</option>
           </Select>
           <Input
             titleInput="Nom *"

@@ -46,7 +46,7 @@ router.delete(
   authAdminMiddleware,
   userControllers.deleteUser
 );
-
+/* SKILLS. */
 router.post("/user/skills", userControllers.postSkills);
 router.get("/user/skills", userControllers.getSkills);
 // router.post("/user/skills/:id([0-9]+)", userControllers.postSkills);

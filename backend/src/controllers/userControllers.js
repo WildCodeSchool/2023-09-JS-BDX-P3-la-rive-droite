@@ -22,7 +22,9 @@ const getUserById = async (req, res) => {
     if (!result.length) {
       return res.status(404).send({ error: "User not found" });
     }
-    return res.send(result[0]);
+    const user = result[0];
+    delete user.password;
+    return res.send(user);
   } catch (error) {
     return res.status(422).send({ error: error.message });
   }
@@ -51,7 +53,7 @@ const updateUser = async (req, res) => {
   try {
     const id = +req.params.id;
     if (!id) {
-      res.status(500).json({ message: "User not found ..." });
+      res.status(500).json({ message: "You are not authorized ..." });
     }
     const result = await models.user.update(id, req.body);
     if (result.affectedRows.length === 0) {
@@ -67,17 +69,18 @@ const updateUser = async (req, res) => {
 const updateUserAsAdmin = async (req, res) => {
   try {
     const id = +req.params.id;
-    if (!id) {
-      res.status(500).json({ message: "User not found..." });
-    }
-    const result = await models.user.update(id, req.body);
+    let result = await models.user.updateUser(id, req.body);
     if (result.affectedRows.length === 0) {
-      res.status(500).json({ message: "User not edited." });
+      return res.status(404);
     }
-    res.send(200).json({ message: "User edited." });
+    [result] = await models.user.findId(id);
+    const user = result[0];
+    delete user.password;
+
+    return res.send(user);
   } catch (err) {
     console.error(err);
-    res.status(422).send({ error: err.message });
+    return res.status(422).send({ error: err.message });
   }
 };
 
