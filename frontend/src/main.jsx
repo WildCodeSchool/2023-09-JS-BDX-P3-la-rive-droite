@@ -2,7 +2,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-// Import Composants.
+// Import composants.
 import App from "./App";
 import Home from "./pages/HomeOffer/Home";
 import ReadOffer from "./pages/Offer/ReadOffer";
@@ -18,6 +18,7 @@ import Dashboard2 from "./pages/Dashboard/Dashboard2";
 import Dashboard3 from "./pages/Dashboard/Dashboard3";
 import AddOffer from "./pages/Offer/AddOffer";
 import EditOffer from "./pages/Offer/EditOffer";
+import EditUser from "./pages/ProfileUser/EditUser";
 // Import Contexts.
 import AdminContextProvider from "./contexts/AdminContext";
 import SignContextProvider from "./contexts/SignContext";
@@ -129,6 +130,10 @@ const router = createBrowserRouter([
           {
             path: "/dashboard/edit-offer/:id",
             element: <EditOffer />,
+          },
+          {
+            path: "/dashboard/edit-user/:id",
+            element: <EditUser />,
           },
         ],
       },

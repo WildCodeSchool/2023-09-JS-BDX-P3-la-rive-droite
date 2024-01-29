@@ -8,7 +8,7 @@
 .succes-description {
   color: var(--succes-msg);
   font-weight: 300;
-  padding: 10px 0px;
+  padding: 10px 5px;
   text-align: center;
 }
 

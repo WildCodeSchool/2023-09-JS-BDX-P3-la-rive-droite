@@ -5,20 +5,6 @@ function generateAccessToken(data) {
   return jwt.sign(data, process.env.APP_SECRET);
 }
 
-// const getUsers = (_, res) => {
-//   models.user
-//     .findAll()
-//     .then((rows) => {
-//       // delete rows.forEach((info) => info.password);
-//       // console.log(rows);
-//       res.send(rows);
-//     })
-//     .catch((err) => {
-//       console.error(err);
-//       res.sendStatus(500);
-//     });
-// };
-
 const getUsers = async (_, res) => {
   try {
     const rows = await models.user.findAll();
@@ -36,7 +22,9 @@ const getUserById = async (req, res) => {
     if (!result.length) {
       return res.status(404).send({ error: "User not found" });
     }
-    return res.send(result[0]);
+    const user = result[0];
+    delete user.password;
+    return res.send(user);
   } catch (error) {
     return res.status(422).send({ error: error.message });
   }
@@ -58,6 +46,36 @@ const postUser = async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(422).send({ error: err.message });
+  }
+};
+
+const updateUserAsAdmin = async (req, res) => {
+  try {
+    const id = +req.params.id;
+    let result = await models.user.updateUser(id, req.body);
+    if (result.affectedRows.length === 0) {
+      return res.status(404);
+    }
+    [result] = await models.user.findId(id);
+    const user = result[0];
+    delete user.password;
+
+    return res.send(user);
+  } catch (err) {
+    console.error(err);
+    return res.status(422).send({ error: err.message });
+  }
+};
+
+const deleteUser = async (req, res) => {
+  try {
+    const userId = +req.params.id;
+
+    await models.user.deleteId(userId);
+    res.status(201).json({ message: "Utilisateur supprimé." });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "User not found ..." });
   }
 };
 
@@ -141,6 +159,8 @@ module.exports = {
   postUser,
   postLogin,
   updateUser,
+  updateUserAsAdmin,
+  deleteUser,
   getProfile,
   getUserById,
   postSkills,

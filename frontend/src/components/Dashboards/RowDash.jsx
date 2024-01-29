@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
+// Import de contexts.
 import { useGlobalContext } from "../../contexts/GlobalContext";
-import "./RowDash.css";
 import { useAdminContext } from "../../contexts/AdminContext";
+// Import de style.
+import "./RowDash.css";
 
 function RowDash() {
   const { goToOffer, apiService } = useGlobalContext();
@@ -58,7 +60,7 @@ function RowDash() {
           <div className="icon-dash">
             <button
               type="button"
-              aria-label="getoffer"
+              aria-label="editoffer"
               onClick={() => goToEditOffer(offer.id)}
               className="invisible-button"
             >
@@ -74,7 +76,7 @@ function RowDash() {
             </button>
             <button
               type="button"
-              aria-label="getoffer"
+              aria-label="deleteoffer"
               onClick={() => deleteOffer(offer.id)}
               className="invisible-button"
             >

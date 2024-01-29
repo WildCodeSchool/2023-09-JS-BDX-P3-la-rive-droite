@@ -32,9 +32,22 @@ router.post(
   authMiddleware,
   userControllers.addSkills
 );
-
 router.put("/users/:id([0-9]+)", authMiddleware, userControllers.updateUser);
-
+// FOR ADMIN. */
+router.get("/users/:id([0-9]+)", authMiddleware, userControllers.getUserById);
+router.put(
+  "/admin/edit-users/:id([0-9]+)",
+  authMiddleware,
+  authAdminMiddleware,
+  userControllers.updateUserAsAdmin
+);
+router.delete(
+  "/admin/users/:id([0-9]+)",
+  authMiddleware,
+  authAdminMiddleware,
+  userControllers.deleteUser
+);
+/* SKILLS. */
 router.post("/user/skills", userControllers.postSkills);
 router.get("/user/skills", userControllers.getSkills);
 // router.post("/user/skills/:id([0-9]+)", userControllers.postSkills);

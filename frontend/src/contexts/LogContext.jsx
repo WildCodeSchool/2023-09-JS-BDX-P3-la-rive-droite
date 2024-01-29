@@ -33,8 +33,6 @@ function LogContextProvider({ children }) {
         `${import.meta.env.VITE_BACKEND_URL}/api/users/me`
       );
 
-      // alert(`Content de vous revoir ${result.data.email}`);
-      // console.log(isAdmin);
       globalContext.setUser(result.data);
       globalContext.setIsAdmin(result.data.is_admin);
       globalContext.setMsgContent(
