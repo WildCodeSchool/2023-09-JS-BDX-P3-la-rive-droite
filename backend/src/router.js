@@ -15,7 +15,7 @@ const {
   authMiddleware,
   authAdminMiddleware,
 } = require("./middlewares/security/auth.middlewares");
-const OfferCompetenceManager = require("./models/OfferCompetenceManager");
+// const OfferCompetenceManager = require("./models/OfferCompetenceManager");
 
 /* USER. */
 router.get(
@@ -87,12 +87,12 @@ router.post(
   offerControllers.addSkills
 );
 
-router.get(
-  "/offers/:id([0-9]+)/group/offers",
-  authMiddleware,
-  authAdminMiddleware,
-  OfferCompetenceManager.getOfferBySkill
-);
+// router.get(
+//   "/offers/:id([0-9]+)/group/offers",
+//   authMiddleware,
+//   authAdminMiddleware,
+//   OfferCompetenceManager.getOfferBySkill
+// );
 
 // router.get(
 //   "/offers/:id([0-9]+)/group/offers",
