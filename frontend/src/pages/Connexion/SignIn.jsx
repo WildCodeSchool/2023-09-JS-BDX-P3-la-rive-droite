@@ -79,6 +79,7 @@ function SignIn() {
         ...signIn,
         ...skills,
       });
+      globalContext.navigate("/login");
     }
   };
 

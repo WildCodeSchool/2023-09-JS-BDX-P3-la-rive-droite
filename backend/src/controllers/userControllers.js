@@ -49,10 +49,10 @@ const postUser = async (req, res) => {
   }
 };
 
-const updateUserAsAdmin = async (req, res) => {
+const updateUser = async (req, res) => {
   try {
     const id = +req.params.id;
-    let result = await models.user.updateUser(id, req.body);
+    let result = await models.user.update(id, req.body);
     if (result.affectedRows.length === 0) {
       return res.status(404);
     }
@@ -64,23 +64,6 @@ const updateUserAsAdmin = async (req, res) => {
   } catch (err) {
     console.error(err);
     return res.status(422).send({ error: err.message });
-  }
-};
-
-const updateUser = async (req, res) => {
-  try {
-    const id = +req.params.id;
-    if (!id) {
-      res.sendStatus(500);
-    }
-    const result = await models.user.update(id, req.body);
-    if (result.affectedRows.length === 0) {
-      res.sendStatus(404);
-    }
-    res.sendStatus(200);
-  } catch (err) {
-    console.error(err);
-    res.status(422).send({ error: err.message });
   }
 };
 
@@ -242,7 +225,6 @@ module.exports = {
   postUser,
   postLogin,
   updateUser,
-  updateUserAsAdmin,
   deleteUser,
   getProfile,
   getUserById,
