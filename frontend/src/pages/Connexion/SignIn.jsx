@@ -79,6 +79,7 @@ function SignIn() {
       axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/users`, {
         ...signIn,
       });
+      globalContext.navigate("/login");
     }
   };
 

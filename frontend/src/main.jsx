@@ -16,7 +16,6 @@ import Dashboard2 from "./pages/Dashboard/Dashboard2";
 import Dashboard3 from "./pages/Dashboard/Dashboard3";
 import AddOffer from "./pages/Offer/AddOffer";
 import EditOffer from "./pages/Offer/EditOffer";
-import EditUserDash from "./pages/ProfileUser/EditUserDash";
 // Import Contexts.
 import AdminContextProvider from "./contexts/AdminContext";
 import SignContextProvider from "./contexts/SignContext";
@@ -125,7 +124,7 @@ const router = createBrowserRouter([
           },
           {
             path: "/dashboard/edit-user/:id",
-            element: <EditUserDash />,
+            element: <EditUser />,
           },
         ],
       },

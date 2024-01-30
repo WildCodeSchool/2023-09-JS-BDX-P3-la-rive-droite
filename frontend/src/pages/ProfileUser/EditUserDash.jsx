@@ -79,7 +79,6 @@ function EditUserDash() {
   };
 
   useEffect(() => {
-    globalContext.unauthorized();
     fetchUser();
   }, []);
 
@@ -130,16 +129,7 @@ function EditUserDash() {
               globalContext.handleChange(setUser, "email", event)
             }
           />
-          <Input
-            titleInput="Mot de passe *"
-            holderText="*************"
-            fieldName="work_place"
-            inputType="password"
-            valueInput={user.lastname}
-            handleChange={(event) =>
-              globalContext.handleChange(setUser, "password", event)
-            }
-          />
+
           <Input
             titleInput="Numéro de téléphone *"
             holderText={user.phone}
