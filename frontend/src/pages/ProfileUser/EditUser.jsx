@@ -88,18 +88,22 @@ function EditUser() {
       <div className="page-offer">
         <HeaderCourt />
         <div className="container-page with-rounded-border">
-          <h1>Modifier cet utilisateur.</h1>
-          <h2>ID User = {id}</h2>
-          <Select
-            titleSelect="Administrateur *"
-            fieldName="is_admin"
-            handleChange={(event) =>
-              globalContext.handleChange(setUser, "is_admin", event)
-            }
-          >
-            <option value={0}>False</option>
-            <option value={1}>True</option>
-          </Select>
+          <h1>Modifier votre profil</h1>
+          {globalContext.isAdmin ? (
+            <>
+              <h2>ID User = {id}</h2>
+              <Select
+                titleSelect="Administrateur *"
+                fieldName="is_admin"
+                handleChange={(event) =>
+                  globalContext.handleChange(setUser, "is_admin", event)
+                }
+              >
+                <option value={0}>False</option>
+                <option value={1}>True</option>
+              </Select>
+            </>
+          ) : null}
           <Input
             titleInput="Nom *"
             holderText={user.lastname}

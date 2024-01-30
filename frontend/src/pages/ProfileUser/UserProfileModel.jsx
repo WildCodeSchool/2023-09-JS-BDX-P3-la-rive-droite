@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import "./user-profile-model.css";
 import Input from "../../components/Inputs/Input";
 import HeaderLongUser from "../../components/Headers/HeaderLongUser";
-import CompetenceSwitch from "../../components/Competence Switch/CompetenceSwitch";
 import ButtonMaxi from "../../components/Boutons/ButtonMaxi";
 import { useGlobalContext } from "../../contexts/GlobalContext";
 import { useUserContext } from "../../contexts/UserContext";
@@ -19,7 +18,7 @@ function UserProfileModel() {
   const { handleAddCv } = useUserContext();
   const globalContext = useGlobalContext();
   const navigate = useNavigate();
-  const [getSkills, setGetSkills] = useState([]);
+  // const [getSkills, setGetSkills] = useState([]);
   // const { skills, setSkills } = useSignContext();
   const [getProfile, setGetProfile] = useState({});
   // const [userCompetences, setUserCompetences] = useState({});
@@ -120,19 +119,6 @@ function UserProfileModel() {
     fetchCvId();
   }, []);
 
-  const handleCheckboxChanged = async (fieldName) => {
-    const updatedSkills = { ...getSkills, [fieldName]: !getSkills[fieldName] };
-    setGetSkills(updatedSkills);
-
-    try {
-      await globalContext.apiService.post(
-        `${import.meta.env.VITE_BACKEND_URL}/api/user/updateSkills`,
-        updatedSkills
-      );
-    } catch (error) {
-      console.error("Error updating skills:", error);
-    }
-  };
   return window.location.pathname === "/edit-profile" ||
     window.location.pathname === "/edit-profile" ? (
     <div id="user-profile-model">
@@ -142,6 +128,7 @@ function UserProfileModel() {
       />
       <div className="container-page">
         <h2 className="label-champs">Vos coordonnées</h2>
+
         <Input
           titleInput="Nom *"
           holderText={getProfile.lastname}
@@ -190,95 +177,17 @@ function UserProfileModel() {
           }
         />
         <div className="container-switch">
-          <h2 className="label-champs">Cochez vos compétences *</h2>
-          <CompetenceSwitch
-            textCompetence="HTML"
-            fieldName="html"
-            isChecked={getProfile.competences?.find((c) => c.name === "html")}
-            handleChange={(event) =>
-              handleCheckboxChanged(getProfile, "html", event)
-            }
-          />
-
-          <CompetenceSwitch
-            textCompetence="CSS"
-            isChecked={getProfile.competences?.find((c) => c.name === "css")}
-            fieldName="css"
-            handleChange={(event) =>
-              handleCheckboxChanged(getProfile, "css", event)
-            }
-          />
-          <CompetenceSwitch
-            textCompetence="JAVASCRIPT"
-            fieldName="javascript"
-            isChecked={getProfile.competences?.find(
-              (c) => c.name === "javascript"
-            )}
-            handleChange={(event) =>
-              handleCheckboxChanged(getProfile, "javascript", event)
-            }
-          />
-          <CompetenceSwitch
-            textCompetence="ANGULAR"
-            fieldName="angular"
-            isChecked={getProfile.competences?.find(
-              (c) => c.name === "angular"
-            )}
-            handleChange={(event) =>
-              handleCheckboxChanged(getProfile, "angular", event)
-            }
-          />
-          <CompetenceSwitch
-            textCompetence="REACT.JS"
-            fieldName="react"
-            isChecked={getProfile.competences?.find((c) => c.name === "react")}
-            handleChange={(event) =>
-              handleCheckboxChanged(getProfile, "react", event)
-            }
-          />
-          <CompetenceSwitch
-            textCompetence="PHP"
-            fieldName="php"
-            isChecked={getProfile.competences?.find((c) => c.name === "php")}
-            handleChange={(event) =>
-              handleCheckboxChanged(getProfile, "php", event)
-            }
-          />
-          <CompetenceSwitch
-            textCompetence="SYMPHONY"
-            fieldName="symphony"
-            isChecked={getProfile.competences?.find(
-              (c) => c.name === "symphony"
-            )}
-            handleChange={(event) =>
-              handleCheckboxChanged(getProfile, "symphony", event)
-            }
-          />
-          <CompetenceSwitch
-            textCompetence="GIT"
-            fieldName="git"
-            isChecked={getProfile.competences?.find((c) => c.name === "git")}
-            handleChange={(event) =>
-              handleCheckboxChanged(getProfile, "git", event)
-            }
-          />
-          <CompetenceSwitch
-            textCompetence="GITHUB"
-            fieldName="github"
-            isChecked={getProfile.competences?.find((c) => c.name === "github")}
-            handleChange={(event) =>
-              handleCheckboxChanged(getProfile, "github", event)
-            }
-          />
-          <CompetenceSwitch
-            textCompetence="TRELLO"
-            fieldName="trello"
-            isChecked={getProfile.competences?.find((c) => c.name === "trello")}
-            handleChange={(event) =>
-              handleCheckboxChanged(getProfile, "trello", event)
-            }
-          />
+          <h2 className="label-champs">Vos compétences</h2>
         </div>
+        <div className="container-comptence-user">
+          {" "}
+          {getProfile.competences?.map((competence) => (
+            <div key={competence.id}>
+              <p className="competence-user">{competence.name}</p>
+            </div>
+          ))}
+        </div>
+
         <AddDetailsCV
           addDetail="Expériences professionnelles"
           url="/edit-profile/experience"

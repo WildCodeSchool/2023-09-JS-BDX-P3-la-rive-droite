@@ -1,4 +1,4 @@
-// import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import ButtonMaxi from "../../components/Boutons/ButtonMaxi";
 import Input from "../../components/Inputs/Input";
 import Select from "../../components/Inputs/Select";
@@ -13,10 +13,20 @@ import ErrorMsg from "../../components/Alertes Messages/ErrorMsg";
 import SuccesMsg from "../../components/Alertes Messages/SuccesMsg";
 // Import styles.
 import "./add-offer.css";
+import CompetenceSwitch from "../../components/Competence Switch/CompetenceSwitch";
 
 function AddOffer() {
   const { addOffer, setAddOffer } = useAdminContext();
   const globalContext = useGlobalContext();
+  const [skills, setSkills] = useState([]);
+  const [checkedSkills, setCheckedSkills] = useState([]);
+  const switchClicked = (skillName) => {
+    if (checkedSkills.includes(skillName)) {
+      setCheckedSkills(checkedSkills.filter((skill) => skill !== skillName));
+    } else {
+      setCheckedSkills([...checkedSkills, skillName]);
+    }
+  };
 
   const handleAddOffer = () => {
     if (
@@ -67,10 +77,20 @@ function AddOffer() {
     }
   };
 
-  // useEffect(() => {
-  //   unauthorized();
-  // }, []);
+  useEffect(() => {
+    const getSkills = async () => {
+      try {
+        const response = await globalContext.apiService.get(
+          `${import.meta.env.VITE_BACKEND_URL}/api/skills`
+        );
+        setSkills(response.data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
 
+    getSkills();
+  }, []);
   return (
     <div>
       <div className="page-offer">
@@ -176,6 +196,17 @@ function AddOffer() {
               globalContext.handleChange(setAddOffer, "email", event)
             }
           />
+          {skills.map((skill) => (
+            <CompetenceSwitch
+              key={skill.id}
+              textCompetence={skill.name}
+              handleChange={() => {
+                switchClicked(skill.name);
+              }}
+              isChecked={checkedSkills.includes(skill.name)}
+            />
+          ))}
+
           <div>
             {globalContext.errorMsg && (
               <ErrorMsg message={globalContext.msgContent} />

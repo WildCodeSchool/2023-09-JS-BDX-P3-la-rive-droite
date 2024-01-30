@@ -27,8 +27,8 @@ import UserContextProvider from "./contexts/UserContext";
 // Import de loaders.
 // import currentRequestsUserProfile from "./loaders/current-requests-profil.loader";
 import currentUserProfileLoader from "./loaders/current-user-profil.loader";
+import currentAdmin from "./loaders/current-admin.loader";
 // import currentRequestsUserProfile from "./loaders/current-requests-profil.loader";
-// import currentAdmin from "./loaders/current-admin.loader";
 // Import de classe.
 import ApiService from "./services/api.service";
 // Import Styles.
@@ -101,6 +101,10 @@ const router = createBrowserRouter([
             path: "/edit-profile/formation",
             element: <AddFormation />,
           },
+          {
+            path: "/edit-profile/edit/",
+            element: <EditUser />,
+          },
         ],
       },
       {
@@ -110,6 +114,7 @@ const router = createBrowserRouter([
             <Dashboard1 />
           </AdminContextProvider>
         ),
+        loader: async () => currentAdmin(apiService),
         children: [
           {
             path: "/dashboard/user",

@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "./header.css";
 import PropTypes from "prop-types";
 import Unknow from "../../assets/no-profile.jpg";
@@ -9,7 +10,10 @@ function HeaderLongUser({ textTitle, textTitle2 }) {
         <div className="profile-img-container">
           <img src={Unknow} alt="" />
         </div>
-        <button type="button">Modifier</button>
+        <Link className="edit-profile-btn" to="/edit-profile/edit/">
+          {" "}
+          Modifier mon profil
+        </Link>
         <h1>
           {textTitle} {textTitle2}
         </h1>

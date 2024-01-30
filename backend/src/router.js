@@ -11,6 +11,7 @@ const offerControllers = require("./controllers/offerControllers");
 const experienceControllers = require("./controllers/experienceControllers");
 const courseControllers = require("./controllers/courseControllers");
 const cvControllers = require("./controllers/cvControllers");
+const competenceControllers = require("./controllers/competenceControllers");
 const {
   authMiddleware,
   authAdminMiddleware,
@@ -43,7 +44,6 @@ router.get("/users/:id([0-9]+)", authMiddleware, userControllers.getUserById);
 router.put(
   "/admin/edit-users/:id([0-9]+)",
   authMiddleware,
-  authAdminMiddleware,
   userControllers.updateUserAsAdmin
 );
 router.delete(
@@ -55,6 +55,7 @@ router.delete(
 /* SKILLS. */
 router.post("/user/skills", userControllers.postSkills);
 router.get("/user/skills", userControllers.getSkills);
+router.get("/skills", competenceControllers.getSkills);
 // router.post("/user/skills/:id([0-9]+)", userControllers.postSkills);
 router.post("/login", userControllers.postLogin);
 

@@ -81,7 +81,7 @@ const deleteUser = async (req, res) => {
 
 const getSkills = async (req, res) => {
   try {
-    const rows = await models.user.findAll(req.body);
+    const rows = await models.competence.findAll();
     res.status(201).send(rows);
   } catch (err) {
     console.error(err);
