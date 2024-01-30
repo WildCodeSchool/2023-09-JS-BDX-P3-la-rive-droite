@@ -6,6 +6,14 @@
   padding-top: 80px;
 }
 
+.edit-profile-btn {
+  background-color: white;
+  color: black;
+  padding: 10px 20px;
+  border-radius: 50px;
+  margin-top: -20px;
+  margin-bottom: 20px;
+}
 .header.with-round-bottom {
   border-radius: 0% 0% var(--border-radius) var(--border-radius);
 }
@@ -88,5 +96,8 @@
   }
   .with-round-bottom {
     margin-bottom: 50px;
+  }
+  .edit-profile-btn {
+    margin-top: -200px;
   }
 }

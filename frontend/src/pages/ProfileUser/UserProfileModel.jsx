@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import "./user-profile-model.css";
 import Input from "../../components/Inputs/Input";
 import HeaderLongUser from "../../components/Headers/HeaderLongUser";
-import CompetenceSwitch from "../../components/Competence Switch/CompetenceSwitch";
 import ButtonMaxi from "../../components/Boutons/ButtonMaxi";
 import { useGlobalContext } from "../../contexts/GlobalContext";
 import { useUserContext } from "../../contexts/UserContext";
@@ -13,6 +12,7 @@ import SuccesMsg from "../../components/Alertes Messages/SuccesMsg";
 import CardFormation from "../../components/CardModel/CardFormation";
 import CardExperience from "../../components/CardModel/CardExperience";
 import AddDetailsCV from "../../components/Add Something/AddSomething";
+import CompetenceSwitch from "../../components/Competence Switch/CompetenceSwitch";
 // import { useSignContext } from "../../contexts/SignContext";
 
 function UserProfileModel() {
@@ -127,6 +127,7 @@ function UserProfileModel() {
       />
       <div className="container-page">
         <h2 className="label-champs">Vos coordonnées</h2>
+
         <Input
           titleInput="Nom *"
           holderText={getProfile.lastname}
@@ -268,6 +269,7 @@ function UserProfileModel() {
             }
           />
         </div>
+
         <AddDetailsCV
           addDetail="Expériences professionnelles"
           url="/profile/add/experience"

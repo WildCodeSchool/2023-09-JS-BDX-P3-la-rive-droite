@@ -11,5 +11,6 @@
 
   #home .card-container {
     width: 30%;
+    margin-bottom: 20px;
   }
 }

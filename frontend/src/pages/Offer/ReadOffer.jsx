@@ -3,9 +3,12 @@ import { useParams } from "react-router-dom";
 import HeaderCourt from "../../components/Headers/HeaderCourt";
 import ButtonMaxi from "../../components/Boutons/ButtonMaxi";
 import "./read-offer.css";
+import { useGlobalContext } from "../../contexts/GlobalContext";
 
 function ReadOffer() {
   const [offer, setOffer] = useState([]);
+  const [skillsOffer, setSkillsOffer] = useState([]);
+  const { apiService } = useGlobalContext();
 
   const { id } = useParams();
 
@@ -26,6 +29,18 @@ function ReadOffer() {
       }
     };
 
+    const getSkillsOffer = async () => {
+      try {
+        const response = await apiService.get(
+          `${import.meta.env.VITE_BACKEND_URL}/api/offers/${id}/skills`
+        );
+
+        setSkillsOffer(response.data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    getSkillsOffer();
     getOffer();
   }, []);
 
@@ -38,16 +53,14 @@ function ReadOffer() {
           <h1 className="title-page">Postuler à l'offre</h1>
         </div>
         <div className="card-container">
-          <div className="card-icons">
-            <div className="icon-view">
-              <i className="fa-regular fa-heart" />
-            </div>
-          </div>
-
           <h3 className="title-offer">{offer.title}</h3>
           <h4 className="company-offer">{offer.company}</h4>
           <p className="type-offer">{offer.type}</p>
-
+          <div className="competence-match-offer">
+            {skillsOffer.map((skill) => (
+              <p className="skill-offer">{skill.name}</p>
+            ))}
+          </div>
           <p className="description-word">Missions</p>
           <p className="p-description">{offer.info}</p>
 

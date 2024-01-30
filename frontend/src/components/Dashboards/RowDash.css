@@ -3,6 +3,7 @@
   justify-content: space-between;
   box-shadow: 5px 5px 15px 8px rgba(217, 217, 217, 0.53);
   padding: 10px 35px;
+  margin-bottom: 20px;
 }
 .array-box,
 .bigArray-box {

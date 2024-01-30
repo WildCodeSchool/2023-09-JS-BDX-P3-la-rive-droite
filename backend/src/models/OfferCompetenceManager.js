@@ -37,7 +37,8 @@ class OfferCompetenceManager extends AbstractManager {
 
   async getOfferCompetences(offerId) {
     const [result] = await this.database.query(
-      `SELECT competence.* FROM competence LEFT JOIN ${this.table} ON competence.id = ${this.table}.competence_id WHERE ${this.table}.offer_id = ?`,
+      `SELECT competence.* FROM competence LEFT JOIN ${this.table} ON 
+      competence.id = ${this.table}.competence_id WHERE ${this.table}.offer_id = ?`,
       offerId
     );
 
