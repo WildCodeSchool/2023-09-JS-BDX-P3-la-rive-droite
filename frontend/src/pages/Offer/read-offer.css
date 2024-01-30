@@ -40,3 +40,13 @@
   width: 55px;
   margin-top: 5px;
 }
+
+.competence-match-offer {
+  background-color: var(--main-color);
+  color: white;
+}
+
+.competence-match-offer {
+  display: flex;
+  margin-top: 20px;
+}

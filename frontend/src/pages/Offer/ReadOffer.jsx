@@ -3,9 +3,12 @@ import { useParams } from "react-router-dom";
 import HeaderCourt from "../../components/Headers/HeaderCourt";
 import ButtonMaxi from "../../components/Boutons/ButtonMaxi";
 import "./read-offer.css";
+import { useGlobalContext } from "../../contexts/GlobalContext";
 
 function ReadOffer() {
   const [offer, setOffer] = useState([]);
+  const [skillsOffer, setSkillsOffer] = useState([]);
+  const { apiService } = useGlobalContext();
 
   const { id } = useParams();
 
@@ -26,6 +29,18 @@ function ReadOffer() {
       }
     };
 
+    const getSkillsOffer = async () => {
+      try {
+        const response = await apiService.get(
+          `${import.meta.env.VITE_BACKEND_URL}/api/offers/${id}/skills`
+        );
+
+        setSkillsOffer(response.data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    getSkillsOffer();
     getOffer();
   }, []);
 
@@ -65,6 +80,11 @@ function ReadOffer() {
 
           <p className="sub-title">Informations supplémentaires :</p>
           <p className="info-offer">{offer.info}</p>
+          <div className="competence-match-offer">
+            {skillsOffer.map((skill) => (
+              <p className="info-offer">{skill.name}</p>
+            ))}
+          </div>
 
           <ButtonMaxi textBtn="Postuler" />
         </div>

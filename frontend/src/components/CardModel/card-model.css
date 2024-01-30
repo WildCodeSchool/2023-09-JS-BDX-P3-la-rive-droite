@@ -90,6 +90,7 @@
 .competence-match {
   display: flex;
   margin-top: 20px;
+  display: wrap;
 }
 .pourcentage {
   background-color: var(--background-input);

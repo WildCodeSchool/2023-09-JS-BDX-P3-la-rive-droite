@@ -62,6 +62,7 @@ router.post("/login", userControllers.postLogin);
 /* OFFERS. */
 router.get("/offer", offerControllers.getOffers);
 router.get("/offer/:id([0-9]+)", offerControllers.getOfferById);
+router.get("/offers/:id([0-9]+)/skills", offerControllers.getSkillsByOfferId);
 router.post(
   "/offer",
   authMiddleware,

@@ -48,9 +48,23 @@ function AddOffer() {
       }, 4000);
     } else {
       const postOffer = async () => {
-        globalContext.apiService.post(
+        const resOffer = await globalContext.apiService.post(
           `${import.meta.env.VITE_BACKEND_URL}/api/offer`,
           addOffer
+        );
+
+        const checkedSkillsId = checkedSkills.map((skillName) => {
+          const matchingSkill = skills.find(
+            (skill) => skill.name === skillName
+          );
+          return matchingSkill.id;
+        });
+
+        await globalContext.apiService.post(
+          `${import.meta.env.VITE_BACKEND_URL}/api/offers/${
+            resOffer.id
+          }/add/skills`,
+          { competences: checkedSkillsId }
         );
       };
 
@@ -93,6 +107,8 @@ function AddOffer() {
   }, []);
   return (
     <div>
+      <HeaderCourt />
+
       <div className="page-offer">
         <HeaderCourt />
         <div className="container-page with-rounded-border">
