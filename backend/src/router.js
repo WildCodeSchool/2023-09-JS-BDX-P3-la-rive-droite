@@ -16,6 +16,7 @@ const {
   authMiddleware,
   authAdminMiddleware,
 } = require("./middlewares/security/auth.middlewares");
+// const OfferCompetenceManager = require("./models/OfferCompetenceManager");
 
 /* USER. */
 router.get(
@@ -25,6 +26,7 @@ router.get(
   userControllers.getUsers
 );
 router.get("/users/:id([0-9]+)/cvs", authMiddleware, cvControllers.getCv);
+router.get("/users/:id([0-9]+)", userControllers.getUserById);
 router.get("/users/me", authMiddleware, userControllers.getProfile);
 router.post("/users", userControllers.postUser);
 router.post(
@@ -37,15 +39,14 @@ router.get(
   authMiddleware,
   userControllers.getMatchingOffers
 );
+router.put(
+  "/users/edit/:id([0-9]+)",
+  authMiddleware,
+  userControllers.updateUser
+);
 
-router.put("/users/:id([0-9]+)", authMiddleware, userControllers.updateUser);
 // FOR ADMIN. */
 router.get("/users/:id([0-9]+)", authMiddleware, userControllers.getUserById);
-router.put(
-  "/admin/edit-users/:id([0-9]+)",
-  authMiddleware,
-  userControllers.updateUserAsAdmin
-);
 router.delete(
   "/admin/users/:id([0-9]+)",
   authMiddleware,
@@ -87,6 +88,31 @@ router.post(
   authAdminMiddleware,
   offerControllers.addSkills
 );
+
+// router.get(
+//   "/offers/:id([0-9]+)/group/offers",
+//   authMiddleware,
+//   authAdminMiddleware,
+//   OfferCompetenceManager.getOfferBySkill
+// );
+
+// router.get(
+//   "/offers/:id([0-9]+)/group/offers",
+//   authMiddleware,
+//   authAdminMiddleware,
+//   async (req, res) => {
+//     console.log("Début de la route");
+//     try {
+//       // Votre logique de route ici
+//       await OfferCompetenceManager.getOfferBySkill(req, res);
+//       console.log("Fin de la route (success)");
+//     } catch (error) {
+//       console.error(error);
+//       console.log("Fin de la route (erreur)");
+//       res.status(500).send("Internal Server Error");
+//     }
+//   }
+// );
 
 /* EXPERIENCES. */
 router.get(

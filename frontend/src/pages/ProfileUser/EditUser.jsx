@@ -15,28 +15,47 @@ import SuccesMsg from "../../components/Alertes Messages/SuccesMsg";
 import "../Offer/add-offer.css";
 
 function EditUser() {
-  const globalContext = useGlobalContext();
-
+  const {
+    apiService,
+    errorMsg,
+    setErrorMsg,
+    succesMsg,
+    setSuccesMsg,
+    msgContent,
+    setMsgContent,
+    handleChange,
+    handleCheckboxChanged,
+    isAdmin,
+  } = useGlobalContext();
   const [user, setUser] = useState([]);
+
   const { id } = useParams();
 
-  const fetchUser = async () => {
-    try {
-      const response = await globalContext.apiService.get(
-        `${import.meta.env.VITE_BACKEND_URL}/api/users/${id}`
-      );
-      setUser(response.data);
-    } catch (err) {
-      console.error(err);
-    }
-  };
+  useEffect(() => {
+    const getUser = async () => {
+      try {
+        const response = await fetch(
+          `${import.meta.env.VITE_BACKEND_URL}/api/users/${id}`
+        );
+        if (response.ok) {
+          const data = await response.json();
+          setUser(data);
+        } else {
+          console.error("Echec de la récupération des données.");
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    getUser();
+  }, []);
 
   const postEditUser = async () => {
     try {
-      const infoUser = await globalContext.apiService.update(
-        `${import.meta.env.VITE_BACKEND_URL}/api/admin/edit-users/${id}`,
-        user,
-        id
+      const infoUser = await apiService.update(
+        `${import.meta.env.VITE_BACKEND_URL}/api/users/edit/${user.id}`,
+        user
       );
       setUser(infoUser);
     } catch (err) {
@@ -44,44 +63,29 @@ function EditUser() {
     }
   };
 
-  useEffect(() => {
-    fetchUser();
-  }, []);
-
   const handleEditUser = () => {
     if (
-      user.title === "" ||
-      user.company === "" ||
-      user.type === "" ||
-      user.city === "" ||
-      user.mission === "" ||
-      user.search_profile === "" ||
-      user.work_place === "" ||
-      user.salary === "" ||
-      user.info === "" ||
-      user.email === ""
+      user.lastName === "" ||
+      user.firstName === "" ||
+      user.email === "" ||
+      user.phone === "" ||
+      user.address === ""
     ) {
-      globalContext.setErrorMsg(true);
-      globalContext.setMsgContent("Veuillez remplir tous les champs");
+      setErrorMsg(true);
+      setMsgContent("Veuillez remplir tous les champs");
       setTimeout(() => {
-        globalContext.setErrorMsg(false);
+        setErrorMsg(false);
       }, 4000);
     } else {
-      // console.log(globalContext.isAdmin);
       postEditUser();
       // console.log(user);
-      globalContext.setMsgContent("L'offre à été ajouté avec");
-      globalContext.setSuccesMsg(true);
+      setMsgContent("Votre profil a été modifié avec ");
+      setSuccesMsg(true);
       setTimeout(() => {
-        globalContext.setSuccesMsg(false);
+        setSuccesMsg(false);
       }, 4000);
     }
   };
-
-  useEffect(() => {
-    globalContext.unauthorized();
-    fetchUser();
-  }, []);
 
   return (
     <div>
@@ -89,178 +93,143 @@ function EditUser() {
         <HeaderCourt />
         <div className="container-page with-rounded-border">
           <h1>Modifier votre profil</h1>
-          {globalContext.isAdmin ? (
-            <>
-              <h2>ID User = {id}</h2>
+
+          {isAdmin ? (
+            <div>
+              <h2>ID User = {user.id}</h2>
               <Select
                 titleSelect="Administrateur *"
                 fieldName="is_admin"
                 handleChange={(event) =>
-                  globalContext.handleChange(setUser, "is_admin", event)
+                  handleChange(setUser, "is_admin", event)
                 }
               >
                 <option value={0}>False</option>
                 <option value={1}>True</option>
               </Select>
-            </>
+            </div>
           ) : null}
+
           <Input
             titleInput="Nom *"
             holderText={user.lastname}
             fieldName="lastname"
             inputType="text"
-            valueInput={user}
-            handleChange={(event) =>
-              globalContext.handleChange(setUser, "lastname", event)
-            }
+            valueInput={user.lastname}
+            handleChange={(event) => handleChange(setUser, "lastname", event)}
           />
           <Input
             titleInput="Prénom *"
             holderText={user.firstname}
             fieldName="firstname"
             inputType="text"
-            valueInput={user}
-            handleChange={(event) =>
-              globalContext.handleChange(setUser, "firstname", event)
-            }
+            valueInput={user.firstname}
+            handleChange={(event) => handleChange(setUser, "firstname", event)}
           />
           <Input
             titleInput="E-mail *"
             holderText={user.email}
             fieldName="email"
             inputType="text"
-            valueInput={user}
-            handleChange={(event) =>
-              globalContext.handleChange(setUser, "email", event)
-            }
-          />
-          <Input
-            titleInput="Mot de passe *"
-            holderText="*************"
-            fieldName="work_place"
-            inputType="password"
-            valueInput={user.lastname}
-            handleChange={(event) =>
-              globalContext.handleChange(setUser, "password", event)
-            }
+            valueInput={user.email}
+            handleChange={(event) => handleChange(setUser, "email", event)}
           />
           <Input
             titleInput="Numéro de téléphone *"
             holderText={user.phone}
             fieldName="phone"
             inputType="text"
-            valueInput={user}
-            handleChange={(event) =>
-              globalContext.handleChange(setUser, "phone", event)
-            }
+            valueInput={user.phone}
+            handleChange={(event) => handleChange(setUser, "phone", event)}
           />
           <Input
             titleInput="Adresse *"
             holderText={user.address}
             fieldName="address"
             inputType="text"
-            valueInput={user}
-            handleChange={(event) =>
-              globalContext.handleChange(setUser, "address", event)
-            }
+            valueInput={user.address}
+            handleChange={(event) => handleChange(setUser, "address", event)}
           />
-          <div>
-            {globalContext.errorMsg && (
-              <ErrorMsg message={globalContext.msgContent} />
-            )}
-            {globalContext.succesMsg && (
-              <SuccesMsg message={globalContext.msgContent} />
-            )}
-          </div>
         </div>
       </div>
       <div className="container-switch">
-        <h2 className="label-champs"> Cochez vos compétences *</h2>
+        <h2 className="label-champs">Cochez vos compétences *</h2>
         <CompetenceSwitch
           textCompetence="HTML"
-          valueInput={user}
-          handleChange={() =>
-            globalContext.handleCheckboxChange(setUser, "html")
-          }
           fieldName="html"
+          isChecked={user.competences?.find((c) => c.name === "html")}
+          handleChange={(event) => handleCheckboxChanged(user, "html", event)}
         />
+
         <CompetenceSwitch
           textCompetence="CSS"
-          valueInput={user}
-          handleChange={() =>
-            globalContext.handleCheckboxChange(setUser, "css")
-          }
+          isChecked={user.competences?.find((c) => c.name === "css")}
           fieldName="css"
+          handleChange={(event) => handleCheckboxChanged(setUser, "css", event)}
         />
         <CompetenceSwitch
           textCompetence="JAVASCRIPT"
-          valueInput={user}
           fieldName="javascript"
-          handleChange={() =>
-            globalContext.handleCheckboxChange(setUser, "javascript")
+          isChecked={user.competences?.find((c) => c.name === "javascript")}
+          handleChange={(event) =>
+            handleCheckboxChanged(user, "javascript", event)
           }
         />
         <CompetenceSwitch
           textCompetence="ANGULAR"
-          valueInput={user}
           fieldName="angular"
-          handleChange={() =>
-            globalContext.handleCheckboxChange(setUser, "angular")
+          isChecked={user.competences?.find((c) => c.name === "angular")}
+          handleChange={(event) =>
+            handleCheckboxChanged(user, "angular", event)
           }
         />
         <CompetenceSwitch
           textCompetence="REACT.JS"
-          valueInput={user}
           fieldName="react"
-          handleChange={() =>
-            globalContext.handleCheckboxChange(setUser, "react")
-          }
+          isChecked={user.competences?.find((c) => c.name === "react")}
+          handleChange={(event) => handleCheckboxChanged(user, "react", event)}
         />
         <CompetenceSwitch
           textCompetence="PHP"
-          valueInput={user}
           fieldName="php"
-          handleChange={() =>
-            globalContext.handleCheckboxChange(setUser, "php")
-          }
+          isChecked={user.competences?.find((c) => c.name === "php")}
+          handleChange={(event) => handleCheckboxChanged(user, "php", event)}
         />
         <CompetenceSwitch
           textCompetence="SYMPHONY"
-          valueInput={user}
           fieldName="symphony"
-          handleChange={() =>
-            globalContext.handleCheckboxChange(setUser, "symphony")
+          isChecked={user.competences?.find((c) => c.name === "symphony")}
+          handleChange={(event) =>
+            handleCheckboxChanged(user, "symphony", event)
           }
         />
         <CompetenceSwitch
           textCompetence="GIT"
-          valueInput={user}
           fieldName="git"
-          handleChange={() =>
-            globalContext.handleCheckboxChange(setUser, "git")
-          }
+          isChecked={user.competences?.find((c) => c.name === "git")}
+          handleChange={(event) => handleCheckboxChanged(user, "git", event)}
         />
         <CompetenceSwitch
           textCompetence="GITHUB"
-          valueInput={user}
           fieldName="github"
-          handleChange={() =>
-            globalContext.handleCheckboxChange(setUser, "github")
-          }
+          isChecked={user.competences?.find((c) => c.name === "github")}
+          handleChange={(event) => handleCheckboxChanged(user, "github", event)}
         />
         <CompetenceSwitch
           textCompetence="TRELLO"
-          valueInput={user}
           fieldName="trello"
-          handleChange={() =>
-            globalContext.handleCheckboxChange(setUser, "trello")
-          }
-        />
-        <ButtonMaxi
-          textBtn="Modifier l'utilisateur."
-          clickFunc={handleEditUser}
+          isChecked={user.competences?.find((c) => c.name === "trello")}
+          handleChange={(event) => handleCheckboxChanged(user, "trello", event)}
         />
       </div>
+      <div>
+        {errorMsg && <ErrorMsg message={msgContent} />}
+        {succesMsg && <SuccesMsg message={msgContent} />}
+      </div>
+      <ButtonMaxi
+        textBtn="Modifier l'utilisateur."
+        clickFunc={handleEditUser}
+      />
     </div>
   );
 }

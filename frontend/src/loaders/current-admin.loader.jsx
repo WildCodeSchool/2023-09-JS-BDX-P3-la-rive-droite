@@ -27,7 +27,7 @@ export default currentAdmin;
 //   const currentAdmin = async (apiService) => {
 //     try {
 //       const response = await apiService.get(
-//         ${import.meta.env.VITE_BACKEND_URL}/api/users/me
+//         `${import.meta.env.VITE_BACKEND_URL}/api/users/me`
 //       );
 //       // console.log(response.data.is_admin);
 //       console.log(response.data);
