@@ -79,15 +79,6 @@ function SignIn() {
       axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/users`, {
         ...signIn,
       });
-      if (signIn.addCvNow === true) {
-        setTimeout(() => {
-          globalContext.navigate("/edit-profile/cv");
-        }, 2000);
-      } else {
-        setTimeout(() => {
-          globalContext.navigate("/login");
-        }, 2000);
-      }
     }
   };
 

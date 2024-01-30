@@ -81,7 +81,7 @@ function AddExperience() {
         globalContext.setSuccesMsg(true);
         setTimeout(() => {
           globalContext.setSuccesMsg(false);
-          globalContext.navigate("/edit-profile");
+          globalContext.navigate("/profile");
         }, 3000);
         // saveItemInLS("Experience", xpSaved);
       } catch (err) {

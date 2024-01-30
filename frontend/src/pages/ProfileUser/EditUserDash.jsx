@@ -1,6 +1,8 @@
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import HeaderCourt from "../../components/Headers/HeaderCourt";
 import ButtonMaxi from "../../components/Boutons/ButtonMaxi";
+import Select from "../../components/Inputs/Select";
 import Input from "../../components/Inputs/Input";
 import CompetenceSwitch from "../../components/Competence Switch/CompetenceSwitch";
 // Import de Context.
@@ -12,36 +14,52 @@ import SuccesMsg from "../../components/Alertes Messages/SuccesMsg";
 // Import styles.
 import "../Offer/add-offer.css";
 
-function EditUser() {
+function EditUserDash() {
   const globalContext = useGlobalContext();
 
+  const [user, setUser] = useState([]);
   const { id } = useParams();
 
-  const postEditUser = async () => {
+  const fetchUser = async () => {
     try {
-      const infoUser = await globalContext.apiService.put(
-        `${import.meta.env.VITE_BACKEND_URL}/api/admin/edit-users/${id}`,
-        globalContext.user,
-        id
+      const response = await globalContext.apiService.get(
+        `${import.meta.env.VITE_BACKEND_URL}/api/users/${id}`
       );
-      globalContext.setUser(infoUser);
+      setUser(response.data);
     } catch (err) {
       console.error(err);
     }
   };
 
+  const postEditUser = async () => {
+    try {
+      const infoUser = await globalContext.apiService.update(
+        `${import.meta.env.VITE_BACKEND_URL}/api/admin/edit-users/${id}`,
+        user,
+        id
+      );
+      setUser(infoUser);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useEffect(() => {
+    fetchUser();
+  }, []);
+
   const handleEditUser = () => {
     if (
-      globalContext.user.title === "" ||
-      globalContext.user.company === "" ||
-      globalContext.user.type === "" ||
-      globalContext.user.city === "" ||
-      globalContext.user.mission === "" ||
-      globalContext.user.search_profile === "" ||
-      globalContext.user.work_place === "" ||
-      globalContext.user.salary === "" ||
-      globalContext.user.info === "" ||
-      globalContext.user.email === ""
+      user.title === "" ||
+      user.company === "" ||
+      user.type === "" ||
+      user.city === "" ||
+      user.mission === "" ||
+      user.search_profile === "" ||
+      user.work_place === "" ||
+      user.salary === "" ||
+      user.info === "" ||
+      user.email === ""
     ) {
       globalContext.setErrorMsg(true);
       globalContext.setMsgContent("Veuillez remplir tous les champs");
@@ -60,48 +78,56 @@ function EditUser() {
     }
   };
 
+  useEffect(() => {
+    globalContext.unauthorized();
+    fetchUser();
+  }, []);
+
   return (
     <div>
       <div className="page-offer">
         <HeaderCourt />
         <div className="container-page with-rounded-border">
           <h1>Modifier votre profil</h1>
+          <h2>ID User = {id}</h2>
+          <Select
+            titleSelect="Administrateur *"
+            fieldName="is_admin"
+            handleChange={(event) =>
+              globalContext.handleChange(setUser, "is_admin", event)
+            }
+          >
+            <option value={0}>False</option>
+            <option value={1}>True</option>
+          </Select>
           <Input
             titleInput="Nom *"
-            holderText={globalContext.user.lastname}
+            holderText={user.lastname}
             fieldName="lastname"
             inputType="text"
-            valueInput={globalContext.user}
+            valueInput={user}
             handleChange={(event) =>
-              globalContext.handleChange(
-                globalContext.setUser,
-                "lastname",
-                event
-              )
+              globalContext.handleChange(setUser, "lastname", event)
             }
           />
           <Input
             titleInput="Prénom *"
-            holderText={globalContext.user.firstname}
+            holderText={user.firstname}
             fieldName="firstname"
             inputType="text"
-            valueInput={globalContext.user}
+            valueInput={user}
             handleChange={(event) =>
-              globalContext.handleChange(
-                globalContext.setUser,
-                "firstname",
-                event
-              )
+              globalContext.handleChange(setUser, "firstname", event)
             }
           />
           <Input
             titleInput="E-mail *"
-            holderText={globalContext.user.email}
+            holderText={user.email}
             fieldName="email"
             inputType="text"
-            valueInput={globalContext.user}
+            valueInput={user}
             handleChange={(event) =>
-              globalContext.handleChange(globalContext.setUser, "email", event)
+              globalContext.handleChange(setUser, "email", event)
             }
           />
           <Input
@@ -109,37 +135,29 @@ function EditUser() {
             holderText="*************"
             fieldName="work_place"
             inputType="password"
-            valueInput={globalContext.user.lastname}
+            valueInput={user.lastname}
             handleChange={(event) =>
-              globalContext.handleChange(
-                globalContext.setUser,
-                "password",
-                event
-              )
+              globalContext.handleChange(setUser, "password", event)
             }
           />
           <Input
             titleInput="Numéro de téléphone *"
-            holderText={globalContext.user.phone}
+            holderText={user.phone}
             fieldName="phone"
             inputType="text"
-            valueInput={globalContext.user}
+            valueInput={user}
             handleChange={(event) =>
-              globalContext.handleChange(globalContext.setUser, "phone", event)
+              globalContext.handleChange(setUser, "phone", event)
             }
           />
           <Input
             titleInput="Adresse *"
-            holderText={globalContext.user.address}
+            holderText={user.address}
             fieldName="address"
             inputType="text"
-            valueInput={globalContext.user}
+            valueInput={user}
             handleChange={(event) =>
-              globalContext.handleChange(
-                globalContext.setUser,
-                "address",
-                event
-              )
+              globalContext.handleChange(setUser, "address", event)
             }
           />
           <div>
@@ -156,88 +174,82 @@ function EditUser() {
         <h2 className="label-champs"> Cochez vos compétences *</h2>
         <CompetenceSwitch
           textCompetence="HTML"
-          valueInput={globalContext.user}
+          valueInput={user}
           handleChange={() =>
-            globalContext.handleCheckboxChange(globalContext.setUser, "html")
+            globalContext.handleCheckboxChange(setUser, "html")
           }
           fieldName="html"
         />
         <CompetenceSwitch
           textCompetence="CSS"
-          valueInput={globalContext.user}
+          valueInput={user}
           handleChange={() =>
-            globalContext.handleCheckboxChange(globalContext.setUser, "css")
+            globalContext.handleCheckboxChange(setUser, "css")
           }
           fieldName="css"
         />
         <CompetenceSwitch
           textCompetence="JAVASCRIPT"
-          valueInput={globalContext.user}
+          valueInput={user}
           fieldName="javascript"
           handleChange={() =>
-            globalContext.handleCheckboxChange(
-              globalContext.setUser,
-              "javascript"
-            )
+            globalContext.handleCheckboxChange(setUser, "javascript")
           }
         />
         <CompetenceSwitch
           textCompetence="ANGULAR"
-          valueInput={globalContext.user}
+          valueInput={user}
           fieldName="angular"
           handleChange={() =>
-            globalContext.handleCheckboxChange(globalContext.setUser, "angular")
+            globalContext.handleCheckboxChange(setUser, "angular")
           }
         />
         <CompetenceSwitch
           textCompetence="REACT.JS"
-          valueInput={globalContext.user}
+          valueInput={user}
           fieldName="react"
           handleChange={() =>
-            globalContext.handleCheckboxChange(globalContext.setUser, "react")
+            globalContext.handleCheckboxChange(setUser, "react")
           }
         />
         <CompetenceSwitch
           textCompetence="PHP"
-          valueInput={globalContext.user}
+          valueInput={user}
           fieldName="php"
           handleChange={() =>
-            globalContext.handleCheckboxChange(globalContext.setUser, "php")
+            globalContext.handleCheckboxChange(setUser, "php")
           }
         />
         <CompetenceSwitch
           textCompetence="SYMPHONY"
-          valueInput={globalContext.user}
+          valueInput={user}
           fieldName="symphony"
           handleChange={() =>
-            globalContext.handleCheckboxChange(
-              globalContext.setUser,
-              "symphony"
-            )
+            globalContext.handleCheckboxChange(setUser, "symphony")
           }
         />
         <CompetenceSwitch
           textCompetence="GIT"
-          valueInput={globalContext.user}
+          valueInput={user}
           fieldName="git"
           handleChange={() =>
-            globalContext.handleCheckboxChange(globalContext.setUser, "git")
+            globalContext.handleCheckboxChange(setUser, "git")
           }
         />
         <CompetenceSwitch
           textCompetence="GITHUB"
-          valueInput={globalContext.user}
+          valueInput={user}
           fieldName="github"
           handleChange={() =>
-            globalContext.handleCheckboxChange(globalContext.setUser, "github")
+            globalContext.handleCheckboxChange(setUser, "github")
           }
         />
         <CompetenceSwitch
           textCompetence="TRELLO"
-          valueInput={globalContext.user}
+          valueInput={user}
           fieldName="trello"
           handleChange={() =>
-            globalContext.handleCheckboxChange(globalContext.setUser, "trello")
+            globalContext.handleCheckboxChange(setUser, "trello")
           }
         />
         <ButtonMaxi
@@ -249,4 +261,4 @@ function EditUser() {
   );
 }
 
-export default EditUser;
+export default EditUserDash;
