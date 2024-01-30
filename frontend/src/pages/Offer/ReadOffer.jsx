@@ -53,16 +53,14 @@ function ReadOffer() {
           <h1 className="title-page">Postuler à l'offre</h1>
         </div>
         <div className="card-container">
-          <div className="card-icons">
-            <div className="icon-view">
-              <i className="fa-regular fa-heart" />
-            </div>
-          </div>
-
           <h3 className="title-offer">{offer.title}</h3>
           <h4 className="company-offer">{offer.company}</h4>
           <p className="type-offer">{offer.type}</p>
-
+          <div className="competence-match-offer">
+            {skillsOffer.map((skill) => (
+              <p className="skill-offer">{skill.name}</p>
+            ))}
+          </div>
           <p className="description-word">Missions</p>
           <p className="p-description">{offer.info}</p>
 
@@ -80,11 +78,6 @@ function ReadOffer() {
 
           <p className="sub-title">Informations supplémentaires :</p>
           <p className="info-offer">{offer.info}</p>
-          <div className="competence-match-offer">
-            {skillsOffer.map((skill) => (
-              <p className="info-offer">{skill.name}</p>
-            ))}
-          </div>
 
           <ButtonMaxi textBtn="Postuler" />
         </div>

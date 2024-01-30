@@ -42,11 +42,18 @@
 }
 
 .competence-match-offer {
-  background-color: var(--main-color);
-  color: white;
+  display: flex;
 }
 
 .competence-match-offer {
   display: flex;
   margin-top: 20px;
+}
+
+.skill-offer {
+  background-color: var(--main-color);
+  color: white;
+  padding: 8px 10px;
+  margin: 0 5px 5px 0;
+  border-radius: 7px;
 }
