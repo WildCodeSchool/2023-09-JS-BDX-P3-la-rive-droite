@@ -44,22 +44,6 @@ class UserManager extends AbstractManager {
   }
 
   async update(id, user) {
-    const { firstname, lastname, phone, email, address } = user;
-
-    try {
-      const [result] = await this.database.query(
-        `UPDATE ${this.table} SET firstname = ?, lastname = ?, phone = ?, email = ?, address = ? WHERE id = ?`,
-        [firstname, lastname, phone, email, address, id]
-      );
-
-      return result;
-    } catch (err) {
-      console.error(err);
-      return null;
-    }
-  }
-
-  async updateUser(id, user) {
     // const { firstname, lastname, phone, email, address } = user;
 
     try {
