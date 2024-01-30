@@ -8,10 +8,13 @@ class UploadManager extends AbstractManager {
   }
 
   create(data) {
+    let fileName = data.destination.replace("/public", "");
+    fileName += `${data.fileName}`;
+    fileName += data.originalname.split(".").slice(-1);
     const filename = `${data.path}.${data.originalname.split(".").slice(-1)}`;
 
     return new Promise((resolve, reject) => {
-      fs.rename(`${data.path}`, filename, async (err) => {
+      fs.rename(`${data.path}`, fileName, async (err) => {
         if (err) {
           reject(err);
         }
@@ -21,7 +24,7 @@ class UploadManager extends AbstractManager {
         );
         resolve({
           id: result.insertId,
-          url: filename,
+          url: fileName,
         });
       });
     });
