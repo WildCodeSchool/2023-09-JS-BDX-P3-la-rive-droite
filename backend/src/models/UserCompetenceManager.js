@@ -41,9 +41,10 @@ class UserCompetenceManager extends AbstractManager {
     // Je filtre sur les user_competence qui ont l'id de l'utilisateur actuel
 
     const [result] = await this.database.query(
-      `SELECT competence.* FROM competence LEFT JOIN ${this.table} ON competence.id = ${this.table}.competence_id WHERE ${this.table}.user_id = ?`,
-
-      userId
+      `SELECT competence.* FROM competence 
+      LEFT JOIN ${this.table} ON competence.id = ${this.table}.competence_id 
+      WHERE ${this.table}.user_id = ?`,
+      [userId]
     );
 
     return result;

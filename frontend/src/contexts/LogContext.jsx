@@ -43,6 +43,8 @@ function LogContextProvider({ children }) {
         globalContext.setSuccesMsg(false);
         if (result.data.is_admin === 1) {
           globalContext.navigate("/dashboard");
+        } else {
+          globalContext.navigate("/");
         }
       }, 2000);
     } catch (err) {

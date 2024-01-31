@@ -7,6 +7,7 @@ class OfferCompetenceManager extends AbstractManager {
 
   async addOfferCompetences(offerId, body) {
     const uniqValues = new Set(body.competences ?? []);
+
     const [offerCompetences] = await this.database.query(
       `SELECT competence_id from ${this.table} where offer_id = ?`,
       [offerId]
@@ -17,7 +18,6 @@ class OfferCompetenceManager extends AbstractManager {
         uniqValues.delete(offerCompetence.competence_id);
       }
     });
-
     if (!uniqValues.size) {
       return [];
     }
@@ -37,7 +37,8 @@ class OfferCompetenceManager extends AbstractManager {
 
   async getOfferCompetences(offerId) {
     const [result] = await this.database.query(
-      `SELECT competence.* FROM competence LEFT JOIN ${this.table} ON competence.id = ${this.table}.competence_id WHERE ${this.table}.offer_id = ?`,
+      `SELECT competence.* FROM competence LEFT JOIN ${this.table} ON 
+      competence.id = ${this.table}.competence_id WHERE ${this.table}.offer_id = ?`,
       offerId
     );
 

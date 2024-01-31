@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import "./user-profile-model.css";
 import Input from "../../components/Inputs/Input";
 import HeaderLongUser from "../../components/Headers/HeaderLongUser";
-import CompetenceSwitch from "../../components/Competence Switch/CompetenceSwitch";
 import ButtonMaxi from "../../components/Boutons/ButtonMaxi";
 import { useGlobalContext } from "../../contexts/GlobalContext";
 import { useUserContext } from "../../contexts/UserContext";
@@ -13,17 +12,16 @@ import SuccesMsg from "../../components/Alertes Messages/SuccesMsg";
 import CardFormation from "../../components/CardModel/CardFormation";
 import CardExperience from "../../components/CardModel/CardExperience";
 import AddDetailsCV from "../../components/Add Something/AddSomething";
+import CompetenceSwitch from "../../components/Competence Switch/CompetenceSwitch";
 // import { useSignContext } from "../../contexts/SignContext";
 
 function UserProfileModel() {
   const { handleAddCv } = useUserContext();
   const globalContext = useGlobalContext();
   const navigate = useNavigate();
-  const [getSkills, setGetSkills] = useState([]);
   // const { skills, setSkills } = useSignContext();
   const [getProfile, setGetProfile] = useState({});
   // const [userCompetences, setUserCompetences] = useState({});
-  const { user, apiService } = useGlobalContext();
   const [experiences, setExperiences] = useState([]);
   const [courses, setCourses] = useState([]);
   // const { experiences, courses } = useLoaderData();
@@ -42,7 +40,7 @@ function UserProfileModel() {
       setTimeout(() => {
         globalContext.setSuccesMsg(false);
       }, 4000);
-      navigate("/edit-profile");
+      navigate("/profile");
     } catch (err) {
       console.error(err);
       globalContext.setErrorMsg(true);
@@ -67,7 +65,7 @@ function UserProfileModel() {
       setTimeout(() => {
         globalContext.setSuccesMsg(false);
       }, 4000);
-      navigate("/edit-profile");
+      navigate("/profile");
     } catch (err) {
       console.error(err);
       globalContext.setErrorMsg(true);
@@ -93,23 +91,23 @@ function UserProfileModel() {
     };
 
     const fetchExperiences = async () => {
-      const experienceData = await apiService.get(
+      const experienceData = await globalContext.apiService.get(
         `${import.meta.env.VITE_BACKEND_URL}/api/experiences/by-cv-id/${cvId}`
       );
       setExperiences(experienceData.data);
     };
 
     const fetchCourses = async () => {
-      const courseData = await apiService.get(
+      const courseData = await globalContext.apiService.get(
         `${import.meta.env.VITE_BACKEND_URL}/api/courses/by-cv-id/${cvId}`
       );
       setCourses(courseData.data);
     };
 
     const fetchCvId = async () => {
-      const cvData = await apiService.get(
-        `${import.meta.env.VITE_BACKEND_URL}/api/users/${user.id}/cvs`
-      );
+      const cvData = await globalContext.apiService.get(
+        `${import.meta.env.VITE_BACKEND_URL}/api/users/1/cvs`
+      ); // TODO FRED: remplacer le 1 par le vrai id du user
 
       cvId = cvData.data.id;
 
@@ -120,21 +118,8 @@ function UserProfileModel() {
     fetchCvId();
   }, []);
 
-  const handleCheckboxChanged = async (fieldName) => {
-    const updatedSkills = { ...getSkills, [fieldName]: !getSkills[fieldName] };
-    setGetSkills(updatedSkills);
-
-    try {
-      await globalContext.apiService.post(
-        `${import.meta.env.VITE_BACKEND_URL}/api/user/updateSkills`,
-        updatedSkills
-      );
-    } catch (error) {
-      console.error("Error updating skills:", error);
-    }
-  };
-  return window.location.pathname === "/edit-profile" ||
-    window.location.pathname === "/edit-profile" ? (
+  return window.location.pathname === "/profile" ||
+    window.location.pathname === "/profile" ? (
     <div id="user-profile-model">
       <HeaderLongUser
         textTitle={getProfile.firstname}
@@ -142,6 +127,7 @@ function UserProfileModel() {
       />
       <div className="container-page">
         <h2 className="label-champs">Vos coordonnées</h2>
+
         <Input
           titleInput="Nom *"
           holderText={getProfile.lastname}
@@ -196,7 +182,7 @@ function UserProfileModel() {
             fieldName="html"
             isChecked={getProfile.competences?.find((c) => c.name === "html")}
             handleChange={(event) =>
-              handleCheckboxChanged(getProfile, "html", event)
+              globalContext.handleCheckboxChanged(getProfile, "html", event)
             }
           />
 
@@ -205,7 +191,7 @@ function UserProfileModel() {
             isChecked={getProfile.competences?.find((c) => c.name === "css")}
             fieldName="css"
             handleChange={(event) =>
-              handleCheckboxChanged(getProfile, "css", event)
+              globalContext.handleCheckboxChanged(getProfile, "css", event)
             }
           />
           <CompetenceSwitch
@@ -215,7 +201,11 @@ function UserProfileModel() {
               (c) => c.name === "javascript"
             )}
             handleChange={(event) =>
-              handleCheckboxChanged(getProfile, "javascript", event)
+              globalContext.handleCheckboxChanged(
+                getProfile,
+                "javascript",
+                event
+              )
             }
           />
           <CompetenceSwitch
@@ -225,7 +215,7 @@ function UserProfileModel() {
               (c) => c.name === "angular"
             )}
             handleChange={(event) =>
-              handleCheckboxChanged(getProfile, "angular", event)
+              globalContext.handleCheckboxChanged(getProfile, "angular", event)
             }
           />
           <CompetenceSwitch
@@ -233,7 +223,7 @@ function UserProfileModel() {
             fieldName="react"
             isChecked={getProfile.competences?.find((c) => c.name === "react")}
             handleChange={(event) =>
-              handleCheckboxChanged(getProfile, "react", event)
+              globalContext.handleCheckboxChanged(getProfile, "react", event)
             }
           />
           <CompetenceSwitch
@@ -241,7 +231,7 @@ function UserProfileModel() {
             fieldName="php"
             isChecked={getProfile.competences?.find((c) => c.name === "php")}
             handleChange={(event) =>
-              handleCheckboxChanged(getProfile, "php", event)
+              globalContext.handleCheckboxChanged(getProfile, "php", event)
             }
           />
           <CompetenceSwitch
@@ -251,7 +241,7 @@ function UserProfileModel() {
               (c) => c.name === "symphony"
             )}
             handleChange={(event) =>
-              handleCheckboxChanged(getProfile, "symphony", event)
+              globalContext.handleCheckboxChanged(getProfile, "symphony", event)
             }
           />
           <CompetenceSwitch
@@ -259,7 +249,7 @@ function UserProfileModel() {
             fieldName="git"
             isChecked={getProfile.competences?.find((c) => c.name === "git")}
             handleChange={(event) =>
-              handleCheckboxChanged(getProfile, "git", event)
+              globalContext.handleCheckboxChanged(getProfile, "git", event)
             }
           />
           <CompetenceSwitch
@@ -267,7 +257,7 @@ function UserProfileModel() {
             fieldName="github"
             isChecked={getProfile.competences?.find((c) => c.name === "github")}
             handleChange={(event) =>
-              handleCheckboxChanged(getProfile, "github", event)
+              globalContext.handleCheckboxChanged(getProfile, "github", event)
             }
           />
           <CompetenceSwitch
@@ -275,13 +265,14 @@ function UserProfileModel() {
             fieldName="trello"
             isChecked={getProfile.competences?.find((c) => c.name === "trello")}
             handleChange={(event) =>
-              handleCheckboxChanged(getProfile, "trello", event)
+              globalContext.handleCheckboxChanged(getProfile, "trello", event)
             }
           />
         </div>
+
         <AddDetailsCV
           addDetail="Expériences professionnelles"
-          url="/edit-profile/experience"
+          url="/profile/add/experience"
         />
         <div className="experience-container">
           {experiences &&
@@ -300,7 +291,7 @@ function UserProfileModel() {
               />
             ))}
         </div>
-        <AddDetailsCV addDetail="Formations" url="/edit-profile/formation" />
+        <AddDetailsCV addDetail="Formations" url="/profile/add/formation" />
         <div className="formation-container">
           {courses &&
             courses.map((course) => (

@@ -71,7 +71,7 @@ function AddFormation() {
         globalContext.setMsgContent("La formation a été ajoutée avec succès");
         globalContext.setSuccesMsg(true);
         setTimeout(() => {
-          globalContext.navigate("/edit-profile");
+          globalContext.navigate("/profile");
           globalContext.setSuccesMsg(false);
         }, 3000);
       } catch (err) {

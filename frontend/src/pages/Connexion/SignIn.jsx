@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import Input from "../../components/Inputs/Input";
@@ -16,8 +17,8 @@ import "../../components/Inputs/checkbox-conditions.css";
 
 function SignIn() {
   const globalContext = useGlobalContext();
-
-  const { signIn, setSignIn, skills, setSkills } = useSignContext();
+  const [getProfile, setGetProfile] = useState();
+  const { signIn, setSignIn } = useSignContext();
 
   const handleSubmitSignIn = (event) => {
     event.preventDefault();
@@ -77,17 +78,8 @@ function SignIn() {
       }, 2000);
       axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/users`, {
         ...signIn,
-        ...skills,
       });
-      if (signIn.addCvNow === true) {
-        setTimeout(() => {
-          globalContext.navigate("/edit-profile/cv");
-        }, 2000);
-      } else {
-        setTimeout(() => {
-          globalContext.navigate("/login");
-        }, 2000);
-      }
+      globalContext.navigate("/login");
     }
   };
 
@@ -172,82 +164,88 @@ function SignIn() {
                 <h2 className="label-champs"> Cochez vos compétences *</h2>
                 <CompetenceSwitch
                   textCompetence="HTML"
-                  valueInput={skills}
-                  handleChange={() =>
-                    globalContext.handleCheckboxChange(setSkills, "html")
-                  }
+                  valueInput={getProfile}
                   fieldName="html"
+                  handleChange={() =>
+                    globalContext.handleCheckboxChange(setGetProfile, "html")
+                  }
                 />
                 <CompetenceSwitch
                   textCompetence="CSS"
-                  valueInput={skills}
-                  handleChange={() =>
-                    globalContext.handleCheckboxChange(setSkills, "css")
-                  }
+                  valueInput={getProfile}
                   fieldName="css"
+                  handleChange={() =>
+                    globalContext.handleCheckboxChange(setGetProfile, "css")
+                  }
                 />
                 <CompetenceSwitch
                   textCompetence="JAVASCRIPT"
-                  valueInput={skills}
+                  valueInput={getProfile}
                   fieldName="javascript"
                   handleChange={() =>
-                    globalContext.handleCheckboxChange(setSkills, "javascript")
+                    globalContext.handleCheckboxChange(
+                      setGetProfile,
+                      "javascript"
+                    )
                   }
                 />
                 <CompetenceSwitch
                   textCompetence="ANGULAR"
-                  valueInput={skills}
+                  valueInput={getProfile}
                   fieldName="angular"
                   handleChange={() =>
-                    globalContext.handleCheckboxChange(setSkills, "angular")
+                    globalContext.handleCheckboxChange(setGetProfile, "angular")
                   }
                 />
                 <CompetenceSwitch
                   textCompetence="REACT.JS"
-                  valueInput={skills}
+                  valueInput={getProfile}
                   fieldName="react"
                   handleChange={() =>
-                    globalContext.handleCheckboxChange(setSkills, "react")
+                    globalContext.handleCheckboxChange(setGetProfile, "react")
                   }
                 />
                 <CompetenceSwitch
                   textCompetence="PHP"
-                  valueInput={skills}
+                  valueInput={getProfile}
                   fieldName="php"
                   handleChange={() =>
-                    globalContext.handleCheckboxChange(setSkills, "php")
+                    globalContext.handleCheckboxChange(setGetProfile, "php")
                   }
                 />
                 <CompetenceSwitch
                   textCompetence="SYMPHONY"
-                  valueInput={skills}
+                  valueInput={getProfile}
                   fieldName="symphony"
                   handleChange={() =>
-                    globalContext.handleCheckboxChange(setSkills, "symphony")
+                    globalContext.handleCheckboxChange(
+                      setGetProfile,
+                      "symphony"
+                    )
                   }
                 />
                 <CompetenceSwitch
                   textCompetence="GIT"
-                  valueInput={skills}
+                  valueInput={getProfile}
                   fieldName="git"
                   handleChange={() =>
-                    globalContext.handleCheckboxChange(setSkills, "git")
+                    globalContext.handleCheckboxChange(setGetProfile, "git")
                   }
                 />
                 <CompetenceSwitch
                   textCompetence="GITHUB"
-                  valueInput={skills}
+                  valueInput={getProfile}
                   fieldName="github"
                   handleChange={() =>
-                    globalContext.handleCheckboxChange(setSkills, "github")
+                    globalContext.handleCheckboxChange(setGetProfile, "github")
                   }
                 />
                 <CompetenceSwitch
                   textCompetence="TRELLO"
-                  valueInput={skills}
+                  valueInput={getProfile}
                   fieldName="trello"
                   handleChange={() =>
-                    globalContext.handleCheckboxChange(setSkills, "trello")
+                    globalContext.handleCheckboxChange(setGetProfile, "trello")
                   }
                 />
               </div>
