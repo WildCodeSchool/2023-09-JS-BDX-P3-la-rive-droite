@@ -1,10 +1,17 @@
 const fs = require("fs");
-
 const AbstractManager = require("./AbstractManager");
 
 class UploadManager extends AbstractManager {
   constructor() {
     super({ table: "upload" });
+  }
+
+  async getUpload(uploadId) {
+    const [upload] = await this.database.query(
+      `SELECT * FROM ${this.table} WHERE id = ?`,
+      [uploadId]
+    );
+    return upload;
   }
 
   create(data) {

@@ -9,7 +9,7 @@ class UserManager extends AbstractManager {
   create(user) {
     return UserManager.hashPassword(user.password).then(async (hash) => {
       const [rows] = await this.database.query(
-        `INSERT INTO user (firstname, lastname, phone, address, email, password, is_admin) VALUES (?, ?, ?, ?, ?, ?, ?)`,
+        `INSERT INTO user (firstname, lastname, phone, address, email, password, is_admin, upload_url) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
         [
           user.firstname,
           user.lastname,
@@ -18,6 +18,7 @@ class UserManager extends AbstractManager {
           user.email,
           hash,
           0,
+          user.upload_url,
         ]
       );
       // const userId = rows.insertId;
@@ -59,28 +60,43 @@ class UserManager extends AbstractManager {
     }
   }
 
-  async updateUser(id, user) {
-    // const { firstname, lastname, phone, email, address } = user;
+  // async updateUser(id, user) {
+  //   // const { firstname, lastname, phone, email, address } = user;
 
-    try {
-      const [result] = await this.database.query(
-        `UPDATE ${this.table} SET is_admin = ?, firstname = ?, lastname = ?, phone = ?, email = ?, address = ? WHERE id = ?`,
-        [
-          user.is_admin,
-          user.firstname,
-          user.lastname,
-          user.phone,
-          user.email,
-          user.address,
-          id,
-        ]
-      );
+  //   try {
+  //     const [result] = await this.database.query(
+  //       `UPDATE ${this.table} SET is_admin = ?, firstname = ?, lastname = ?, phone = ?, email = ?, address = ?, upload_url = ? WHERE id = ?`,
+  //       [
+  //         user.is_admin,
+  //         user.firstname,
+  //         user.lastname,
+  //         user.phone,
+  //         user.email,
+  //         user.address,
+  //         user.upload_url,
+  //         id,
+  //       ]
+  //     );
 
-      return result;
-    } catch (err) {
-      console.error(err);
-      return null;
+  //     return result;
+  //   } catch (err) {
+  //     console.error(err);
+  //     return null;
+  //   }
+  // }
+
+  static async updateUser(id, structure) {
+    let sql = "UPDATE user set";
+    const sqlValues = [];
+    for (const [key, value] of Object.entries(structure)) {
+      sql += `${sqlValues.length ? "," : ""} ${key} = ?`;
+
+      sqlValues.push(value);
     }
+    sql += " where id = ?";
+    sqlValues.push(id);
+    const [res] = await this.database.query(sql, sqlValues);
+    return res;
   }
 
   async login(user) {

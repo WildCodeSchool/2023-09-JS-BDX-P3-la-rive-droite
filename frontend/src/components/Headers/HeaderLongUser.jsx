@@ -21,10 +21,11 @@ function HeaderLongUser({ textTitle, textTitle2 }) {
 
     try {
       const result = await apiService.post(
-        "http://localhost:3310/api/uploads",
+        `http://localhost:3310/api/uploads/${user.id}`,
         formData
       );
-      setUser(result);
+      setUser({ ...user, avatar: { url: result.url } });
+      setFile(null);
     } catch (error) {
       console.error("Upload error:", error);
     }
@@ -43,13 +44,15 @@ function HeaderLongUser({ textTitle, textTitle2 }) {
             onChange={(e) => setFile(e.target.files[0])}
           />
           <button type="submit">Modifier</button>
-          {user?.avatar?.url && (
-            <img
-              src={`http://localhost:3310/${user.avatar.url}`}
-              alt="avatar"
-              style={{ width: "100px", height: "100px" }}
-            />
-          )}
+          {user?.avatar?.url &&
+            (<img src="http://localhost/user.avatar" alt="avatar" />)(
+              <img
+                key={new Date().getTime()}
+                src={`http://localhost:3310/${user.avatar.url}`}
+                alt="avatar"
+                style={{ width: "100px", height: "100px" }}
+              />
+            )}
         </form>
         <h1>
           {textTitle} {textTitle2}

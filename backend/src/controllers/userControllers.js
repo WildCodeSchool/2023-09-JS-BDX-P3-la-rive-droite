@@ -121,7 +121,7 @@ const updateUser = async (req, res) => {
     if (!id) {
       res.sendStatus(500);
     }
-    const result = await models.user.update(id, req.body);
+    const result = await models.user.updateUser(id, req.body);
     if (result.affectedRows.length === 0) {
       res.sendStatus(500);
     }

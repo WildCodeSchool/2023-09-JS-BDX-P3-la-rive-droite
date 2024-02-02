@@ -1,22 +1,55 @@
 const models = require("../models");
+const userManager = require("../models/UserManager");
 
-const getList = async (req, res) => {
+const getUploadById = async (req, res) => {
   try {
-    const [result] = await models.upload.findAll();
-    return res.send(result);
+    const [item] = await models.upload.findId(req.params.id);
+    if (item[0] != null) {
+      res.json(item[0]);
+    } else {
+      res.sendStatus(404);
+    }
+  } catch (err) {
+    res.status(500).send({ message: err.message });
+  }
+};
+
+const createUpload = async (req, res) => {
+  try {
+    if (!req.file) {
+      return res
+        .status(400)
+        .send({ message: "Aucun fichier n'a été téléchargé." });
+    }
+    // const { id } = req.params.id;
+    const newUser = await models.user.create({
+      upload_url: req.file.path,
+    });
+    return res.status(201).send(newUser);
   } catch (err) {
     return res.status(400).send({ message: err.message });
   }
 };
 
-const create = async (req, res) => {
+async function updateUpload(req, res) {
   try {
-    const result = await models.upload.create(req.file);
-
-    return res.status(201).send({ ...req.user, avatar: result });
-  } catch (err) {
-    return res.status(400).send({ message: err.message });
+    const { id } = req.params;
+    const result = await userManager.updateUser(id, {
+      upload_url: req.newPath,
+    });
+    res.send(result);
+  } catch (error) {
+    console.warn(error.message);
   }
-};
+}
 
-module.exports = { getList, create };
+// const updateUpload = async (req, res) => {
+//   try {
+//     const [result] = await models.user.findAll();
+//     return res.send(result);
+//   } catch (err) {
+//     return res.status(400).send({ message: err.message });
+//   }
+// };
+
+module.exports = { getUploadById, updateUpload, createUpload };
