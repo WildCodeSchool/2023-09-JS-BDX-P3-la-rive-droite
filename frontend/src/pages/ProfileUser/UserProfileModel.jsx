@@ -11,7 +11,6 @@ import SuccesMsg from "../../components/Alertes Messages/SuccesMsg";
 import CardFormation from "../../components/CardModel/CardFormation";
 import CardExperience from "../../components/CardModel/CardExperience";
 import AddDetailsCV from "../../components/Add Something/AddSomething";
-import CompetenceSwitch from "../../components/Competence Switch/CompetenceSwitch";
 // import { useSignContext } from "../../contexts/SignContext";
 
 function UserProfileModel() {
@@ -175,98 +174,16 @@ function UserProfileModel() {
           }
         />
         <div className="container-switch">
-          <h2 className="label-champs">Cochez vos compétences *</h2>
-          <CompetenceSwitch
-            textCompetence="HTML"
-            fieldName="html"
-            isChecked={getProfile.competences?.find((c) => c.name === "html")}
-            handleChange={(event) =>
-              globalContext.handleCheckboxChanged(getProfile, "html", event)
-            }
-          />
-
-          <CompetenceSwitch
-            textCompetence="CSS"
-            isChecked={getProfile.competences?.find((c) => c.name === "css")}
-            fieldName="css"
-            handleChange={(event) =>
-              globalContext.handleCheckboxChanged(getProfile, "css", event)
-            }
-          />
-          <CompetenceSwitch
-            textCompetence="JAVASCRIPT"
-            fieldName="javascript"
-            isChecked={getProfile.competences?.find(
-              (c) => c.name === "javascript"
-            )}
-            handleChange={(event) =>
-              globalContext.handleCheckboxChanged(
-                getProfile,
-                "javascript",
-                event
-              )
-            }
-          />
-          <CompetenceSwitch
-            textCompetence="ANGULAR"
-            fieldName="angular"
-            isChecked={getProfile.competences?.find(
-              (c) => c.name === "angular"
-            )}
-            handleChange={(event) =>
-              globalContext.handleCheckboxChanged(getProfile, "angular", event)
-            }
-          />
-          <CompetenceSwitch
-            textCompetence="REACT.JS"
-            fieldName="react"
-            isChecked={getProfile.competences?.find((c) => c.name === "react")}
-            handleChange={(event) =>
-              globalContext.handleCheckboxChanged(getProfile, "react", event)
-            }
-          />
-          <CompetenceSwitch
-            textCompetence="PHP"
-            fieldName="php"
-            isChecked={getProfile.competences?.find((c) => c.name === "php")}
-            handleChange={(event) =>
-              globalContext.handleCheckboxChanged(getProfile, "php", event)
-            }
-          />
-          <CompetenceSwitch
-            textCompetence="SYMPHONY"
-            fieldName="symphony"
-            isChecked={getProfile.competences?.find(
-              (c) => c.name === "symphony"
-            )}
-            handleChange={(event) =>
-              globalContext.handleCheckboxChanged(getProfile, "symphony", event)
-            }
-          />
-          <CompetenceSwitch
-            textCompetence="GIT"
-            fieldName="git"
-            isChecked={getProfile.competences?.find((c) => c.name === "git")}
-            handleChange={(event) =>
-              globalContext.handleCheckboxChanged(getProfile, "git", event)
-            }
-          />
-          <CompetenceSwitch
-            textCompetence="GITHUB"
-            fieldName="github"
-            isChecked={getProfile.competences?.find((c) => c.name === "github")}
-            handleChange={(event) =>
-              globalContext.handleCheckboxChanged(getProfile, "github", event)
-            }
-          />
-          <CompetenceSwitch
-            textCompetence="TRELLO"
-            fieldName="trello"
-            isChecked={getProfile.competences?.find((c) => c.name === "trello")}
-            handleChange={(event) =>
-              globalContext.handleCheckboxChanged(getProfile, "trello", event)
-            }
-          />
+          <h2 className="label-champs">Vos compétences</h2>
+          <div className="competence-match">
+            {getProfile.competences?.map((competence) => {
+              return (
+                <span className="competence is-matching" key={competence.id}>
+                  {competence.name}
+                </span>
+              );
+            })}
+          </div>
         </div>
 
         <AddDetailsCV
