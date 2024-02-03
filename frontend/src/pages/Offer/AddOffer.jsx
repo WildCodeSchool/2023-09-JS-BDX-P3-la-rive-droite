@@ -144,9 +144,10 @@ function AddOffer() {
               globalContext.handleChange(setAddOffer, "type", event)
             }
           >
+            <option value="stage">Stage</option>
+            <option value="alternance">Alternance</option>
             <option value="CDD">CDD</option>
             <option value="CDI">CDI</option>
-            <option value="autre">Autre</option>
           </Select>
           <Input
             titleInput="Ville"

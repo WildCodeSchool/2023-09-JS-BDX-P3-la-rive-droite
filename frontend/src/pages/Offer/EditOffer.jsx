@@ -126,9 +126,18 @@ function AddOffer() {
               globalContext.handleChange(setOffer, "type", event)
             }
           >
-            <option value="CDD">CDD</option>
-            <option value="CDI">CDI</option>
-            <option value="autre">Autre</option>
+            <option value="stage" selected={offer.type === "stage"}>
+              Stage
+            </option>
+            <option value="alternance" selected={offer.type === "alternance"}>
+              Alternance
+            </option>
+            <option value="CDD" selected={offer.type === "CDD"}>
+              CDD
+            </option>
+            <option value="CDI" selected={offer.type === "CDI"}>
+              CDI
+            </option>
           </Select>
           <Input
             titleInput="Ville"

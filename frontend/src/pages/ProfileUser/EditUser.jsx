@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import HeaderCourt from "../../components/Headers/HeaderCourt";
 import ButtonMaxi from "../../components/Boutons/ButtonMaxi";
 import Select from "../../components/Inputs/Select";
@@ -15,6 +15,7 @@ import SuccesMsg from "../../components/Alertes Messages/SuccesMsg";
 import "../Offer/add-offer.css";
 
 function EditUser() {
+  const navigate = useNavigate();
   const {
     apiService,
     errorMsg,
@@ -83,6 +84,7 @@ function EditUser() {
       setSuccesMsg(true);
       setTimeout(() => {
         setSuccesMsg(false);
+        navigate("/dashboard/user");
       }, 4000);
     }
   };
@@ -104,8 +106,12 @@ function EditUser() {
                   handleChange(setUser, "is_admin", event)
                 }
               >
-                <option value={0}>False</option>
-                <option value={1}>True</option>
+                <option value={0} selected={user.is_admin === 0}>
+                  False
+                </option>
+                <option value={1} selected={user.is_admin === 1}>
+                  True
+                </option>
               </Select>
             </div>
           ) : null}
@@ -115,7 +121,7 @@ function EditUser() {
             holderText={user.lastname}
             fieldName="lastname"
             inputType="text"
-            valueInput={user.lastname}
+            valueInput={user}
             handleChange={(event) => handleChange(setUser, "lastname", event)}
           />
           <Input
@@ -123,7 +129,7 @@ function EditUser() {
             holderText={user.firstname}
             fieldName="firstname"
             inputType="text"
-            valueInput={user.firstname}
+            valueInput={user}
             handleChange={(event) => handleChange(setUser, "firstname", event)}
           />
           <Input
@@ -131,7 +137,7 @@ function EditUser() {
             holderText={user.email}
             fieldName="email"
             inputType="text"
-            valueInput={user.email}
+            valueInput={user}
             handleChange={(event) => handleChange(setUser, "email", event)}
           />
           <Input
@@ -139,7 +145,7 @@ function EditUser() {
             holderText={user.phone}
             fieldName="phone"
             inputType="text"
-            valueInput={user.phone}
+            valueInput={user}
             handleChange={(event) => handleChange(setUser, "phone", event)}
           />
           <Input
@@ -147,7 +153,7 @@ function EditUser() {
             holderText={user.address}
             fieldName="address"
             inputType="text"
-            valueInput={user.address}
+            valueInput={user}
             handleChange={(event) => handleChange(setUser, "address", event)}
           />
         </div>
