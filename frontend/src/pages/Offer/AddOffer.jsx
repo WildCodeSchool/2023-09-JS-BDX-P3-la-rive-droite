@@ -73,7 +73,7 @@ function AddOffer() {
 
       postOffer();
 
-      globalContext.setMsgContent("L'offre à été ajouté avec");
+      globalContext.setMsgContent("L'offre a été ajouté avec");
       globalContext.setSuccesMsg(true);
       setTimeout(() => {
         globalContext.setSuccesMsg(false);
