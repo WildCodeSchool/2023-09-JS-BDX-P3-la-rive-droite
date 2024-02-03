@@ -1,4 +1,3 @@
-import { Outlet, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 // import PropTypes from "prop-types";
 import "./user-profile-model.css";
@@ -18,13 +17,47 @@ import CompetenceSwitch from "../../components/Competence Switch/CompetenceSwitc
 function UserProfileModel() {
   const { handleAddCv } = useUserContext();
   const globalContext = useGlobalContext();
-  const navigate = useNavigate();
   // const { skills, setSkills } = useSignContext();
   const [getProfile, setGetProfile] = useState({});
   // const [userCompetences, setUserCompetences] = useState({});
   const [experiences, setExperiences] = useState([]);
   const [courses, setCourses] = useState([]);
   // const { experiences, courses } = useLoaderData();
+
+  const getUserProfile = async () => {
+    try {
+      const response = await globalContext.apiService.get(
+        `${import.meta.env.VITE_BACKEND_URL}/api/users/me`
+      );
+      setGetProfile(response.data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const fetchCvId = async () => {
+    const cvData = await globalContext.apiService.get(
+      `${import.meta.env.VITE_BACKEND_URL}/api/users/1/cvs`
+    ); // TODO FRED: remplacer le 1 par le vrai id du user
+
+    return cvData.data.id;
+  };
+
+  const fetchExperiences = async () => {
+    const cvid = await fetchCvId();
+    const experienceData = await globalContext.apiService.get(
+      `${import.meta.env.VITE_BACKEND_URL}/api/experiences/by-cv-id/${cvid}`
+    );
+    setExperiences(experienceData.data);
+  };
+
+  const fetchCourses = async () => {
+    const cvid = await fetchCvId();
+    const courseData = await globalContext.apiService.get(
+      `${import.meta.env.VITE_BACKEND_URL}/api/courses/by-cv-id/${cvid}`
+    );
+    setCourses(courseData.data);
+  };
 
   const handleExperienceDelete = async (id) => {
     // eslint-disable-next-line no-alert
@@ -37,10 +70,10 @@ function UserProfileModel() {
       );
       globalContext.setSuccesMsg(true);
       globalContext.setMsgContent("Votre expérience a bien été supprimée");
+      fetchExperiences();
       setTimeout(() => {
         globalContext.setSuccesMsg(false);
       }, 4000);
-      navigate("/profile");
     } catch (err) {
       console.error(err);
       globalContext.setErrorMsg(true);
@@ -62,10 +95,10 @@ function UserProfileModel() {
       );
       globalContext.setSuccesMsg(true);
       globalContext.setMsgContent("Votre formation a bien été supprimée");
+      fetchCourses();
       setTimeout(() => {
         globalContext.setSuccesMsg(false);
       }, 4000);
-      navigate("/profile");
     } catch (err) {
       console.error(err);
       globalContext.setErrorMsg(true);
@@ -77,49 +110,13 @@ function UserProfileModel() {
   };
 
   useEffect(() => {
-    let cvId = null;
-
-    const getUserProfile = async () => {
-      try {
-        const response = await globalContext.apiService.get(
-          `${import.meta.env.VITE_BACKEND_URL}/api/users/me`
-        );
-        setGetProfile(response.data);
-      } catch (err) {
-        console.error(err);
-      }
-    };
-
-    const fetchExperiences = async () => {
-      const experienceData = await globalContext.apiService.get(
-        `${import.meta.env.VITE_BACKEND_URL}/api/experiences/by-cv-id/${cvId}`
-      );
-      setExperiences(experienceData.data);
-    };
-
-    const fetchCourses = async () => {
-      const courseData = await globalContext.apiService.get(
-        `${import.meta.env.VITE_BACKEND_URL}/api/courses/by-cv-id/${cvId}`
-      );
-      setCourses(courseData.data);
-    };
-
-    const fetchCvId = async () => {
-      const cvData = await globalContext.apiService.get(
-        `${import.meta.env.VITE_BACKEND_URL}/api/users/1/cvs`
-      ); // TODO FRED: remplacer le 1 par le vrai id du user
-
-      cvId = cvData.data.id;
-
-      fetchExperiences();
-      fetchCourses();
-    };
+    fetchExperiences();
+    fetchCourses();
     getUserProfile();
     fetchCvId();
   }, []);
 
-  return window.location.pathname === "/profile" ||
-    window.location.pathname === "/profile" ? (
+  return (
     <div id="user-profile-model">
       <HeaderLongUser
         textTitle={getProfile.firstname}
@@ -318,10 +315,6 @@ function UserProfileModel() {
         </div>
         <ButtonMaxi textBtn="Enregistrer" clickFunc={handleAddCv} />
       </div>
-    </div>
-  ) : (
-    <div>
-      <Outlet />
     </div>
   );
 }

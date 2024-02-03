@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { v4 as uuid } from "uuid";
+import { useNavigate } from "react-router-dom";
+
 import Date from "../../components/Inputs/Date";
 import Input from "../../components/Inputs/Input";
 import Select from "../../components/Inputs/Select";
@@ -13,6 +15,7 @@ import SuccesMsg from "../../components/Alertes Messages/SuccesMsg";
 
 function AddFormation() {
   const globalContext = useGlobalContext();
+  const navigate = useNavigate();
 
   const [addCourse, setAddCourse] = useState({
     id: uuid(),
@@ -71,7 +74,7 @@ function AddFormation() {
         globalContext.setMsgContent("La formation a été ajoutée avec succès");
         globalContext.setSuccesMsg(true);
         setTimeout(() => {
-          globalContext.navigate("/profile");
+          navigate("/profile");
           globalContext.setSuccesMsg(false);
         }, 3000);
       } catch (err) {
