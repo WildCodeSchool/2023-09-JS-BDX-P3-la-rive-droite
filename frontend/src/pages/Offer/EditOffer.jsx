@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import ButtonMaxi from "../../components/Boutons/ButtonMaxi";
 import Input from "../../components/Inputs/Input";
 import Select from "../../components/Inputs/Select";
@@ -15,8 +15,7 @@ import SuccesMsg from "../../components/Alertes Messages/SuccesMsg";
 import "./add-offer.css";
 
 function AddOffer() {
-  // const { addOffer, setAddOffer } = useAdminContext();
-
+  const navigate = useNavigate();
   const globalContext = useGlobalContext();
 
   const [offer, setOffer] = useState([]);
@@ -66,10 +65,11 @@ function AddOffer() {
       };
 
       updateOffer();
-      globalContext.setMsgContent("L'offre à été ajouté avec");
+      globalContext.setMsgContent("L'offre à été modifiée avec");
       globalContext.setSuccesMsg(true);
       setTimeout(() => {
         globalContext.setSuccesMsg(false);
+        navigate("/dashboard");
       }, 4000);
 
       // setAddOffer({
@@ -97,7 +97,7 @@ function AddOffer() {
       <div className="page-offer">
         <HeaderCourt />
         <div className="container-page with-rounded-border">
-          <h1>Ajouter une offre</h1>
+          <h1>Modifier une offre</h1>
           <h2>ID Offre = {id}</h2>
           <Input
             titleInput="Titre de l'offre"
@@ -206,7 +206,7 @@ function AddOffer() {
               <SuccesMsg message={globalContext.msgContent} />
             )}
           </div>
-          <ButtonMaxi textBtn="Ajouter l'offre" clickFunc={handleAddOffer} />
+          <ButtonMaxi textBtn="Modifier l'offre" clickFunc={handleAddOffer} />
         </div>
       </div>
     </div>

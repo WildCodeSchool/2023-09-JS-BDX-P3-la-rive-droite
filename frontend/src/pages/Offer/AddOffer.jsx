@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import ButtonMaxi from "../../components/Boutons/ButtonMaxi";
 import Input from "../../components/Inputs/Input";
 import Select from "../../components/Inputs/Select";
@@ -16,6 +18,7 @@ import "./add-offer.css";
 import CompetenceSwitch from "../../components/Competence Switch/CompetenceSwitch";
 
 function AddOffer() {
+  const navigate = useNavigate();
   const { addOffer, setAddOffer } = useAdminContext();
   const globalContext = useGlobalContext();
   const [skills, setSkills] = useState([]);
@@ -74,6 +77,7 @@ function AddOffer() {
       globalContext.setSuccesMsg(true);
       setTimeout(() => {
         globalContext.setSuccesMsg(false);
+        navigate("/dashboard");
       }, 4000);
 
       setAddOffer({
