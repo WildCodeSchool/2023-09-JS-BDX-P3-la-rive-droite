@@ -92,10 +92,6 @@ const router = createBrowserRouter([
             path: "/profile/add/formation",
             element: <AddFormation />,
           },
-          {
-            path: "/edit-profile/edit/",
-            element: <EditUser />,
-          },
         ],
       },
       {
