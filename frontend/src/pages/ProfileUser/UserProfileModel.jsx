@@ -37,8 +37,10 @@ function UserProfileModel() {
 
   const fetchCvId = async () => {
     const cvData = await globalContext.apiService.get(
-      `${import.meta.env.VITE_BACKEND_URL}/api/users/1/cvs`
-    ); // TODO FRED: remplacer le 1 par le vrai id du user
+      `${import.meta.env.VITE_BACKEND_URL}/api/users/${
+        globalContext.user.id
+      }/cvs`
+    );
 
     return cvData.data.id;
   };
