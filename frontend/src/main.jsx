@@ -81,7 +81,7 @@ const router = createBrowserRouter([
         ),
         children: [
           {
-            path: "/profile/edit",
+            path: "/profile/edit/:id",
             element: <EditUser />,
           },
           {
@@ -91,10 +91,6 @@ const router = createBrowserRouter([
           {
             path: "/profile/add/formation",
             element: <AddFormation />,
-          },
-          {
-            path: "/edit-profile/edit/",
-            element: <EditUser />,
           },
         ],
       },
