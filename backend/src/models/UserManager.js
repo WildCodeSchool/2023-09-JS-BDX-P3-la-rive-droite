@@ -98,6 +98,13 @@ class UserManager extends AbstractManager {
   static hashPassword(password, workFactor = 5) {
     return bcrypt.hash(password, workFactor);
   }
+
+  async deleteId(id) {
+    await this.database.query(`DELETE FROM user_competence WHERE user_id = ?`, [
+      id,
+    ]);
+    return this.database.query(`DELETE FROM ${this.table} WHERE id = ?`, [id]);
+  }
 }
 
 module.exports = UserManager;
