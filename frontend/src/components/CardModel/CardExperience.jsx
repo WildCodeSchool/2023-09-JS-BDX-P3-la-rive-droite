@@ -59,6 +59,7 @@ function CardExperience({
     </div>
   );
 }
+
 CardExperience.propTypes = {
   id: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
@@ -67,9 +68,13 @@ CardExperience.propTypes = {
   city: PropTypes.string.isRequired,
   isWorking: PropTypes.bool.isRequired,
   dateBegin: PropTypes.string.isRequired,
-  dateEnd: PropTypes.string.isRequired,
+  dateEnd: PropTypes.string,
   description: PropTypes.string.isRequired,
   handleExperienceDelete: PropTypes.func.isRequired,
+};
+
+CardExperience.defaultProps = {
+  dateEnd: null,
 };
 
 export default CardExperience;
