@@ -50,6 +50,14 @@ class OfferManager extends AbstractManager {
 
     return result;
   }
+
+  async deleteId(id) {
+    await this.database.query(
+      `DELETE FROM offer_competence WHERE offer_id = ?`,
+      [id]
+    );
+    return this.database.query(`DELETE FROM ${this.table} WHERE id = ?`, [id]);
+  }
 }
 
 module.exports = OfferManager;
