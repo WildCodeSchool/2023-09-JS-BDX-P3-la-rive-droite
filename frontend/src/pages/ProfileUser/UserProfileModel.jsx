@@ -284,6 +284,7 @@ function UserProfileModel() {
                 type={experience.type}
                 city={experience.city}
                 dateBegin={experience.date_begin}
+                isWorking={experience.is_working}
                 dateEnd={experience.date_end}
                 description={experience.description}
                 handleExperienceDelete={handleExperienceDelete}
