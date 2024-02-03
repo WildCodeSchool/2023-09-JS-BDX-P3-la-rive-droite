@@ -1,9 +1,9 @@
 const express = require("express");
-// const multer = require("multer");
+const multer = require("multer");
 
-// const multerMiddleware = require("./middlewares/multerMiddleware");
+const multerMiddleware = require("./middlewares/multerMiddleware");
 
-// const upload = multer({ dest: "public/uploads/" });
+const upload = multer({ dest: "public/uploads/" });
 
 const router = express.Router();
 
@@ -172,15 +172,15 @@ router.delete(
 // UPLOADS
 router.get("/upload/:id", authMiddleware, uploadController.getUploadById);
 
-// router.get("/uploads", uploadController.getUpload);
+router.get("/uploads", uploadController.getAllUploads);
 
-// router.post(
-//   "/uploads/:id",
-//   authMiddleware,
-//   upload.single("avatar"),
-//   multerMiddleware.renameFile,
-//   uploadController.updateUpload
-// );
+router.post(
+  "/uploads/:id",
+  authMiddleware,
+  upload.single("avatar"),
+  multerMiddleware.renameFile,
+  uploadController.createUpload
+);
 
 // router.put("/uploads", authMiddleware, uploadController.updateUpload);
 

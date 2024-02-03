@@ -14,6 +14,19 @@ const getUploadById = async (req, res) => {
   }
 };
 
+const getAllUploads = async (req, res) => {
+  try {
+    const [item] = await models.upload.findAll(req.body);
+    if (item) {
+      res.json(item);
+    } else {
+      res.sendStatus(404);
+    }
+  } catch (err) {
+    res.status(500).send({ message: err.message });
+  }
+};
+
 const createUpload = async (req, res) => {
   try {
     if (!req.file) {
@@ -22,7 +35,7 @@ const createUpload = async (req, res) => {
         .send({ message: "Aucun fichier n'a été téléchargé." });
     }
     // const { id } = req.params.id;
-    const newUser = await models.user.create({
+    const newUser = await models.upload.create({
       upload_url: req.file.path,
     });
     return res.status(201).send(newUser);
@@ -52,4 +65,4 @@ async function updateUpload(req, res) {
 //   }
 // };
 
-module.exports = { getUploadById, updateUpload, createUpload };
+module.exports = { getUploadById, getAllUploads, updateUpload, createUpload };
