@@ -34,11 +34,11 @@ function EditUser() {
   useEffect(() => {
     const getUser = async () => {
       try {
-        const response = await fetch(
+        const { data } = await apiService.get(
           `${import.meta.env.VITE_BACKEND_URL}/api/users/${id}`
         );
-        if (response.ok) {
-          const data = await response.json();
+        if (data) {
+          // console.log(data);
           setUser(data);
         } else {
           console.error("Echec de la récupération des données.");

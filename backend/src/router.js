@@ -46,7 +46,6 @@ router.put(
 );
 
 // FOR ADMIN. */
-router.get("/users/:id([0-9]+)", authMiddleware, userControllers.getUserById);
 router.delete(
   "/admin/users/:id([0-9]+)",
   authMiddleware,
