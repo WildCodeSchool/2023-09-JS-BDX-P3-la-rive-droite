@@ -48,7 +48,7 @@ function AddOffer() {
       globalContext.setMsgContent("Veuillez remplir tous les champs");
       setTimeout(() => {
         globalContext.setErrorMsg(false);
-      }, 4000);
+      }, 2000);
     } else {
       const postOffer = async () => {
         const resOffer = await globalContext.apiService.post(
@@ -78,7 +78,7 @@ function AddOffer() {
       setTimeout(() => {
         globalContext.setSuccesMsg(false);
         navigate("/dashboard");
-      }, 4000);
+      }, 2000);
 
       setAddOffer({
         title: "",

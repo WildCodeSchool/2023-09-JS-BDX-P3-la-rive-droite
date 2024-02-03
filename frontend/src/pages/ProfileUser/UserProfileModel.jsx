@@ -74,14 +74,14 @@ function UserProfileModel() {
       fetchExperiences();
       setTimeout(() => {
         globalContext.setSuccesMsg(false);
-      }, 4000);
+      }, 2000);
     } catch (err) {
       console.error(err);
       globalContext.setErrorMsg(true);
       globalContext.setMsgContent("Une erreur est survenue");
       setTimeout(() => {
         globalContext.setErrorMsg(false);
-      }, 4000);
+      }, 2000);
     }
   };
 
@@ -99,14 +99,14 @@ function UserProfileModel() {
       fetchCourses();
       setTimeout(() => {
         globalContext.setSuccesMsg(false);
-      }, 4000);
+      }, 2000);
     } catch (err) {
       console.error(err);
       globalContext.setErrorMsg(true);
       globalContext.setMsgContent("Une erreur est survenue");
       setTimeout(() => {
         globalContext.setErrorMsg(false);
-      }, 4000);
+      }, 2000);
     }
   };
 

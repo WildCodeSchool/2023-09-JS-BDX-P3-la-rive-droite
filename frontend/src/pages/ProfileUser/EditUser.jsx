@@ -76,7 +76,7 @@ function EditUser() {
       setMsgContent("Veuillez remplir tous les champs");
       setTimeout(() => {
         setErrorMsg(false);
-      }, 4000);
+      }, 2000);
     } else {
       postEditUser();
       // console.log(user);
@@ -85,12 +85,13 @@ function EditUser() {
       setTimeout(() => {
         setSuccesMsg(false);
         navigate("/dashboard/user");
-      }, 4000);
+      }, 2000);
     }
   };
 
   return (
     <div>
+      <HeaderCourt />
       <div className="page-offer">
         <HeaderCourt />
         <div className="container-page with-rounded-border">
@@ -158,84 +159,94 @@ function EditUser() {
           />
         </div>
       </div>
-      <div className="container-switch">
-        <h2 className="label-champs">Cochez vos compétences *</h2>
-        <CompetenceSwitch
-          textCompetence="HTML"
-          fieldName="html"
-          isChecked={user.competences?.find((c) => c.name === "html")}
-          handleChange={(event) => handleCheckboxChanged(user, "html", event)}
-        />
+      <div className="container-page  with-rounded-border">
+        <div className="container-switch">
+          <h2 className="label-champs">Cochez vos compétences *</h2>
+          <CompetenceSwitch
+            textCompetence="HTML"
+            fieldName="html"
+            isChecked={user.competences?.find((c) => c.name === "html")}
+            handleChange={(event) => handleCheckboxChanged(user, "html", event)}
+          />
 
-        <CompetenceSwitch
-          textCompetence="CSS"
-          isChecked={user.competences?.find((c) => c.name === "css")}
-          fieldName="css"
-          handleChange={(event) => handleCheckboxChanged(setUser, "css", event)}
-        />
-        <CompetenceSwitch
-          textCompetence="JAVASCRIPT"
-          fieldName="javascript"
-          isChecked={user.competences?.find((c) => c.name === "javascript")}
-          handleChange={(event) =>
-            handleCheckboxChanged(user, "javascript", event)
-          }
-        />
-        <CompetenceSwitch
-          textCompetence="ANGULAR"
-          fieldName="angular"
-          isChecked={user.competences?.find((c) => c.name === "angular")}
-          handleChange={(event) =>
-            handleCheckboxChanged(user, "angular", event)
-          }
-        />
-        <CompetenceSwitch
-          textCompetence="REACT.JS"
-          fieldName="react"
-          isChecked={user.competences?.find((c) => c.name === "react")}
-          handleChange={(event) => handleCheckboxChanged(user, "react", event)}
-        />
-        <CompetenceSwitch
-          textCompetence="PHP"
-          fieldName="php"
-          isChecked={user.competences?.find((c) => c.name === "php")}
-          handleChange={(event) => handleCheckboxChanged(user, "php", event)}
-        />
-        <CompetenceSwitch
-          textCompetence="SYMPHONY"
-          fieldName="symphony"
-          isChecked={user.competences?.find((c) => c.name === "symphony")}
-          handleChange={(event) =>
-            handleCheckboxChanged(user, "symphony", event)
-          }
-        />
-        <CompetenceSwitch
-          textCompetence="GIT"
-          fieldName="git"
-          isChecked={user.competences?.find((c) => c.name === "git")}
-          handleChange={(event) => handleCheckboxChanged(user, "git", event)}
-        />
-        <CompetenceSwitch
-          textCompetence="GITHUB"
-          fieldName="github"
-          isChecked={user.competences?.find((c) => c.name === "github")}
-          handleChange={(event) => handleCheckboxChanged(user, "github", event)}
-        />
-        <CompetenceSwitch
-          textCompetence="TRELLO"
-          fieldName="trello"
-          isChecked={user.competences?.find((c) => c.name === "trello")}
-          handleChange={(event) => handleCheckboxChanged(user, "trello", event)}
+          <CompetenceSwitch
+            textCompetence="CSS"
+            isChecked={user.competences?.find((c) => c.name === "css")}
+            fieldName="css"
+            handleChange={(event) =>
+              handleCheckboxChanged(setUser, "css", event)
+            }
+          />
+          <CompetenceSwitch
+            textCompetence="JAVASCRIPT"
+            fieldName="javascript"
+            isChecked={user.competences?.find((c) => c.name === "javascript")}
+            handleChange={(event) =>
+              handleCheckboxChanged(user, "javascript", event)
+            }
+          />
+          <CompetenceSwitch
+            textCompetence="ANGULAR"
+            fieldName="angular"
+            isChecked={user.competences?.find((c) => c.name === "angular")}
+            handleChange={(event) =>
+              handleCheckboxChanged(user, "angular", event)
+            }
+          />
+          <CompetenceSwitch
+            textCompetence="REACT.JS"
+            fieldName="react"
+            isChecked={user.competences?.find((c) => c.name === "react")}
+            handleChange={(event) =>
+              handleCheckboxChanged(user, "react", event)
+            }
+          />
+          <CompetenceSwitch
+            textCompetence="PHP"
+            fieldName="php"
+            isChecked={user.competences?.find((c) => c.name === "php")}
+            handleChange={(event) => handleCheckboxChanged(user, "php", event)}
+          />
+          <CompetenceSwitch
+            textCompetence="SYMPHONY"
+            fieldName="symphony"
+            isChecked={user.competences?.find((c) => c.name === "symphony")}
+            handleChange={(event) =>
+              handleCheckboxChanged(user, "symphony", event)
+            }
+          />
+          <CompetenceSwitch
+            textCompetence="GIT"
+            fieldName="git"
+            isChecked={user.competences?.find((c) => c.name === "git")}
+            handleChange={(event) => handleCheckboxChanged(user, "git", event)}
+          />
+          <CompetenceSwitch
+            textCompetence="GITHUB"
+            fieldName="github"
+            isChecked={user.competences?.find((c) => c.name === "github")}
+            handleChange={(event) =>
+              handleCheckboxChanged(user, "github", event)
+            }
+          />
+          <CompetenceSwitch
+            textCompetence="TRELLO"
+            fieldName="trello"
+            isChecked={user.competences?.find((c) => c.name === "trello")}
+            handleChange={(event) =>
+              handleCheckboxChanged(user, "trello", event)
+            }
+          />
+        </div>
+        <div>
+          {errorMsg && <ErrorMsg message={msgContent} />}
+          {succesMsg && <SuccesMsg message={msgContent} />}
+        </div>
+        <ButtonMaxi
+          textBtn="Modifier l'utilisateur"
+          clickFunc={handleEditUser}
         />
       </div>
-      <div>
-        {errorMsg && <ErrorMsg message={msgContent} />}
-        {succesMsg && <SuccesMsg message={msgContent} />}
-      </div>
-      <ButtonMaxi
-        textBtn="Modifier l'utilisateur."
-        clickFunc={handleEditUser}
-      />
     </div>
   );
 }

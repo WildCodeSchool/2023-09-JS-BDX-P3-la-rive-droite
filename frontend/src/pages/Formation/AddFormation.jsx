@@ -40,21 +40,21 @@ function AddFormation() {
       globalContext.setMsgContent("Veuillez remplir tous les champs");
       setTimeout(() => {
         globalContext.setErrorMsg(false);
-      }, 4000);
+      }, 2000);
     }
     if (addCourse.dateBegin === "" || addCourse.dateEnd === "") {
       globalContext.setErrorMsg(true);
       globalContext.setMsgContent("Veuillez renseigner les dates");
       setTimeout(() => {
         globalContext.setErrorMsg(false);
-      }, 4000);
+      }, 2000);
     }
     if (addCourse.level === "- - -") {
       globalContext.setErrorMsg(true);
       globalContext.setMsgContent("Veuillez sélectionner un niveau valide");
       setTimeout(() => {
         globalContext.setErrorMsg(false);
-      }, 4000);
+      }, 2000);
     } else {
       try {
         const { data } = await globalContext.apiService.get(
@@ -83,7 +83,7 @@ function AddFormation() {
         globalContext.setMsgContent("Formulaire incorrect");
         setTimeout(() => {
           globalContext.setErrorMsg(false);
-        }, 4000);
+        }, 2000);
       }
     }
   };

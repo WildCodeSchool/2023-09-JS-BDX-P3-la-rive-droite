@@ -65,7 +65,7 @@ function EditUserDash() {
       globalContext.setMsgContent("Veuillez remplir tous les champs");
       setTimeout(() => {
         globalContext.setErrorMsg(false);
-      }, 4000);
+      }, 2000);
     } else {
       // console.log(globalContext.isAdmin);
       postEditUser();
@@ -74,7 +74,7 @@ function EditUserDash() {
       globalContext.setSuccesMsg(true);
       setTimeout(() => {
         globalContext.setSuccesMsg(false);
-      }, 4000);
+      }, 2000);
     }
   };
 
@@ -243,7 +243,7 @@ function EditUserDash() {
           }
         />
         <ButtonMaxi
-          textBtn="Modifier l'utilisateur."
+          textBtn="Modifier l'utilisateur"
           clickFunc={handleEditUser}
         />
       </div>

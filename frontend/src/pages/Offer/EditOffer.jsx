@@ -54,7 +54,7 @@ function AddOffer() {
       globalContext.setMsgContent("Veuillez remplir tous les champs");
       setTimeout(() => {
         globalContext.setErrorMsg(false);
-      }, 4000);
+      }, 2000);
     } else {
       const updateOffer = async () => {
         globalContext.apiService.update(
@@ -70,7 +70,7 @@ function AddOffer() {
       setTimeout(() => {
         globalContext.setSuccesMsg(false);
         navigate("/dashboard");
-      }, 4000);
+      }, 2000);
 
       // setAddOffer({
       //   title: "",
@@ -94,6 +94,7 @@ function AddOffer() {
 
   return (
     <div>
+      <HeaderCourt />
       <div className="page-offer">
         <HeaderCourt />
         <div className="container-page with-rounded-border">
