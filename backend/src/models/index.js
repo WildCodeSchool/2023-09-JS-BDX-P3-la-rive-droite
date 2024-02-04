@@ -38,6 +38,7 @@ const CvManager = require("./CvManager");
 const UploadManager = require("./UploadManager");
 const UserCompetenceManager = require("./UserCompetenceManager");
 const OfferCompetenceManager = require("./OfferCompetenceManager");
+const CompetenceManager = require("./CompetenceManager");
 
 models.user = new UserManager();
 models.offer = new OfferManager();
@@ -47,6 +48,7 @@ models.cv = new CvManager();
 models.upload = new UploadManager();
 models.userCompetence = new UserCompetenceManager();
 models.offerCompetence = new OfferCompetenceManager();
+models.competence = new CompetenceManager();
 
 models.user.setDatabase(pool);
 models.offer.setDatabase(pool);
@@ -55,6 +57,7 @@ models.course.setDatabase(pool);
 models.cv.setDatabase(pool);
 models.userCompetence.setDatabase(pool);
 models.offerCompetence.setDatabase(pool);
+models.competence.setDatabase(pool);
 models.upload.setDatabase(pool);
 // bonus: use a proxy to personalize error message,
 // when asking for a non existing model

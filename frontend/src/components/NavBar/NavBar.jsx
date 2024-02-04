@@ -50,7 +50,7 @@ export default function Navbar() {
                   <span className="active navbar-link">Accueil</span>
                 </Link>
                 {user ? (
-                  <Link to="/edit-profile">
+                  <Link to="/profile">
                     <span className="navbar-link">Mon Compte</span>
                   </Link>
                 ) : null}
@@ -58,12 +58,12 @@ export default function Navbar() {
                   <span className="navbar-link">Favoris</span>
                 </Link> */}
                 {user ? (
-                  <Link to="/edit-profile/formation">
+                  <Link to="/profile/add/formation">
                     <span className="navbar-link">Mes Formations</span>
                   </Link>
                 ) : null}
                 {user ? (
-                  <Link to="/edit-profile/experience">
+                  <Link to="/profile/add/experience">
                     <span className="navbar-link">Mes Expériences</span>
                   </Link>
                 ) : null}
@@ -76,13 +76,13 @@ export default function Navbar() {
                   {user ? (
                     <>
                       <Link
-                        to="/"
+                        to="/login"
                         className="navbar-link"
                         onClick={handleLogout}
                       >
                         Se déconnecter
                       </Link>
-                      <Link className="navbar-link profile" to="/edit-profile">
+                      <Link className="navbar-link profile" to="/profile">
                         {" "}
                         {/* <i class="fa-solid fa-user"></i> */}
                         Hello {user.firstname}

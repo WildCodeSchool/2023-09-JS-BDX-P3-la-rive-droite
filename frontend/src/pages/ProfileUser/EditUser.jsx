@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+import PropTypes from "prop-types";
 import HeaderCourt from "../../components/Headers/HeaderCourt";
 import ButtonMaxi from "../../components/Boutons/ButtonMaxi";
 import Select from "../../components/Inputs/Select";
@@ -14,29 +15,90 @@ import SuccesMsg from "../../components/Alertes Messages/SuccesMsg";
 // Import styles.
 import "../Offer/add-offer.css";
 
-function EditUser() {
-  const globalContext = useGlobalContext();
-
+function EditUser({ fromDashboard }) {
+  const navigate = useNavigate();
+  const {
+    user: currentUser,
+    apiService,
+    errorMsg,
+    setErrorMsg,
+    succesMsg,
+    setSuccesMsg,
+    msgContent,
+    setMsgContent,
+    handleChange,
+    isAdmin,
+  } = useGlobalContext();
   const [user, setUser] = useState([]);
+  const [allCompetences, setAllCompetences] = useState([]);
+  const [selectedCompetences, setSelectedCompetences] = useState([]);
+
   const { id } = useParams();
 
-  const fetchUser = async () => {
-    try {
-      const response = await globalContext.apiService.get(
-        `${import.meta.env.VITE_BACKEND_URL}/api/users/${id}`
+  useEffect(() => {
+    if (currentUser.id !== +id) {
+      navigate("/profile");
+    }
+    const getUser = async () => {
+      try {
+        const { data } = await apiService.get(
+          `${import.meta.env.VITE_BACKEND_URL}/api/users/${id}`
+        );
+        if (data) {
+          // console.log(data);
+          setUser(data);
+          setSelectedCompetences(data.competences);
+        } else {
+          console.error("Echec de la récupération des données.");
+          navigate("/profile");
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    const getAllCompetences = async () => {
+      try {
+        const { data } = await apiService.get(
+          `${import.meta.env.VITE_BACKEND_URL}/api/skills`
+        );
+        setAllCompetences(data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    getUser();
+    getAllCompetences();
+  }, []);
+
+  const handleCheckboxSwitch = async (competence) => {
+    const isCompetenceSelected = selectedCompetences.some(
+      (comp) => comp.id === competence.id
+    );
+    if (isCompetenceSelected) {
+      const updatedCompetences = selectedCompetences.filter(
+        (comp) => comp.id !== competence.id
       );
-      setUser(response.data);
-    } catch (err) {
-      console.error(err);
+      setSelectedCompetences(updatedCompetences);
+    } else {
+      setSelectedCompetences((prevCompetences) => [
+        ...prevCompetences,
+        competence,
+      ]);
     }
   };
 
   const postEditUser = async () => {
     try {
-      const infoUser = await globalContext.apiService.update(
-        `${import.meta.env.VITE_BACKEND_URL}/api/admin/edit-users/${id}`,
-        user,
-        id
+      await apiService.post(
+        `${import.meta.env.VITE_BACKEND_URL}/api/users/${user.id}/set/skills`,
+        { competences: selectedCompetences.map((c) => c.id) }
+      );
+
+      const infoUser = await apiService.update(
+        `${import.meta.env.VITE_BACKEND_URL}/api/users/edit/${user.id}`,
+        user
       );
       setUser(infoUser);
     } catch (err) {
@@ -44,71 +106,69 @@ function EditUser() {
     }
   };
 
-  useEffect(() => {
-    fetchUser();
-  }, []);
-
   const handleEditUser = () => {
     if (
-      user.title === "" ||
-      user.company === "" ||
-      user.type === "" ||
-      user.city === "" ||
-      user.mission === "" ||
-      user.search_profile === "" ||
-      user.work_place === "" ||
-      user.salary === "" ||
-      user.info === "" ||
-      user.email === ""
+      user.lastName === "" ||
+      user.firstName === "" ||
+      user.email === "" ||
+      user.phone === "" ||
+      user.address === ""
     ) {
-      globalContext.setErrorMsg(true);
-      globalContext.setMsgContent("Veuillez remplir tous les champs");
+      setErrorMsg(true);
+      setMsgContent("Veuillez remplir tous les champs");
       setTimeout(() => {
-        globalContext.setErrorMsg(false);
-      }, 4000);
+        setErrorMsg(false);
+      }, 2000);
     } else {
-      // console.log(globalContext.isAdmin);
       postEditUser();
-      // console.log(user);
-      globalContext.setMsgContent("L'offre à été ajouté avec");
-      globalContext.setSuccesMsg(true);
+      setMsgContent("Votre profil a été modifié avec ");
+      setSuccesMsg(true);
       setTimeout(() => {
-        globalContext.setSuccesMsg(false);
-      }, 4000);
+        setSuccesMsg(false);
+        if (fromDashboard) {
+          navigate("/dashboard/user");
+        } else {
+          navigate("/profile");
+        }
+      }, 2000);
     }
   };
 
-  useEffect(() => {
-    globalContext.unauthorized();
-    fetchUser();
-  }, []);
-
   return (
     <div>
+      <HeaderCourt />
       <div className="page-offer">
         <HeaderCourt />
         <div className="container-page with-rounded-border">
-          <h1>Modifier cet utilisateur.</h1>
-          <h2>ID User = {id}</h2>
-          <Select
-            titleSelect="Administrateur *"
-            fieldName="is_admin"
-            handleChange={(event) =>
-              globalContext.handleChange(setUser, "is_admin", event)
-            }
-          >
-            <option value={0}>False</option>
-            <option value={1}>True</option>
-          </Select>
+          <h1>Modifier votre profil</h1>
+
+          {isAdmin ? (
+            <div>
+              <h2>ID User = {user.id}</h2>
+              <Select
+                titleSelect="Administrateur *"
+                fieldName="is_admin"
+                handleChange={(event) =>
+                  handleChange(setUser, "is_admin", event)
+                }
+              >
+                <option value={0} selected={user.is_admin === 0}>
+                  False
+                </option>
+                <option value={1} selected={user.is_admin === 1}>
+                  True
+                </option>
+              </Select>
+            </div>
+          ) : null}
+
           <Input
             titleInput="Nom *"
             holderText={user.lastname}
             fieldName="lastname"
             inputType="text"
             valueInput={user}
-            handleChange={(event) =>
-              globalContext.handleChange(setUser, "lastname", event)
-            }
+            handleChange={(event) => handleChange(setUser, "lastname", event)}
           />
           <Input
             titleInput="Prénom *"
@@ -116,9 +176,7 @@ function EditUser() {
             fieldName="firstname"
             inputType="text"
             valueInput={user}
-            handleChange={(event) =>
-              globalContext.handleChange(setUser, "firstname", event)
-            }
+            handleChange={(event) => handleChange(setUser, "firstname", event)}
           />
           <Input
             titleInput="E-mail *"
@@ -126,19 +184,7 @@ function EditUser() {
             fieldName="email"
             inputType="text"
             valueInput={user}
-            handleChange={(event) =>
-              globalContext.handleChange(setUser, "email", event)
-            }
-          />
-          <Input
-            titleInput="Mot de passe *"
-            holderText="*************"
-            fieldName="work_place"
-            inputType="password"
-            valueInput={user.lastname}
-            handleChange={(event) =>
-              globalContext.handleChange(setUser, "password", event)
-            }
+            handleChange={(event) => handleChange(setUser, "email", event)}
           />
           <Input
             titleInput="Numéro de téléphone *"
@@ -146,9 +192,7 @@ function EditUser() {
             fieldName="phone"
             inputType="text"
             valueInput={user}
-            handleChange={(event) =>
-              globalContext.handleChange(setUser, "phone", event)
-            }
+            handleChange={(event) => handleChange(setUser, "phone", event)}
           />
           <Input
             titleInput="Adresse *"
@@ -156,104 +200,35 @@ function EditUser() {
             fieldName="address"
             inputType="text"
             valueInput={user}
-            handleChange={(event) =>
-              globalContext.handleChange(setUser, "address", event)
-            }
+            handleChange={(event) => handleChange(setUser, "address", event)}
           />
-          <div>
-            {globalContext.errorMsg && (
-              <ErrorMsg message={globalContext.msgContent} />
-            )}
-            {globalContext.succesMsg && (
-              <SuccesMsg message={globalContext.msgContent} />
-            )}
-          </div>
         </div>
       </div>
-      <div className="container-switch">
-        <h2 className="label-champs"> Cochez vos compétences *</h2>
-        <CompetenceSwitch
-          textCompetence="HTML"
-          valueInput={user}
-          handleChange={() =>
-            globalContext.handleCheckboxChange(setUser, "html")
-          }
-          fieldName="html"
-        />
-        <CompetenceSwitch
-          textCompetence="CSS"
-          valueInput={user}
-          handleChange={() =>
-            globalContext.handleCheckboxChange(setUser, "css")
-          }
-          fieldName="css"
-        />
-        <CompetenceSwitch
-          textCompetence="JAVASCRIPT"
-          valueInput={user}
-          fieldName="javascript"
-          handleChange={() =>
-            globalContext.handleCheckboxChange(setUser, "javascript")
-          }
-        />
-        <CompetenceSwitch
-          textCompetence="ANGULAR"
-          valueInput={user}
-          fieldName="angular"
-          handleChange={() =>
-            globalContext.handleCheckboxChange(setUser, "angular")
-          }
-        />
-        <CompetenceSwitch
-          textCompetence="REACT.JS"
-          valueInput={user}
-          fieldName="react"
-          handleChange={() =>
-            globalContext.handleCheckboxChange(setUser, "react")
-          }
-        />
-        <CompetenceSwitch
-          textCompetence="PHP"
-          valueInput={user}
-          fieldName="php"
-          handleChange={() =>
-            globalContext.handleCheckboxChange(setUser, "php")
-          }
-        />
-        <CompetenceSwitch
-          textCompetence="SYMPHONY"
-          valueInput={user}
-          fieldName="symphony"
-          handleChange={() =>
-            globalContext.handleCheckboxChange(setUser, "symphony")
-          }
-        />
-        <CompetenceSwitch
-          textCompetence="GIT"
-          valueInput={user}
-          fieldName="git"
-          handleChange={() =>
-            globalContext.handleCheckboxChange(setUser, "git")
-          }
-        />
-        <CompetenceSwitch
-          textCompetence="GITHUB"
-          valueInput={user}
-          fieldName="github"
-          handleChange={() =>
-            globalContext.handleCheckboxChange(setUser, "github")
-          }
-        />
-        <CompetenceSwitch
-          textCompetence="TRELLO"
-          valueInput={user}
-          fieldName="trello"
-          handleChange={() =>
-            globalContext.handleCheckboxChange(setUser, "trello")
-          }
-        />
+      <div className="container-page  with-rounded-border">
+        <div className="container-switch">
+          <h2 className="label-champs">Cochez vos compétences *</h2>
+          {allCompetences.map((competence) => {
+            return (
+              <CompetenceSwitch
+                key={competence.id}
+                textCompetence={competence.name.toUpperCase()}
+                fieldName={competence.name}
+                isChecked={selectedCompetences?.find(
+                  (c) => competence.id === c.id
+                )}
+                handleChange={() => {
+                  handleCheckboxSwitch(competence);
+                }}
+              />
+            );
+          })}
+        </div>
+        <div>
+          {errorMsg && <ErrorMsg message={msgContent} />}
+          {succesMsg && <SuccesMsg message={msgContent} />}
+        </div>
         <ButtonMaxi
-          textBtn="Modifier l'utilisateur."
+          textBtn="Modifier l'utilisateur"
           clickFunc={handleEditUser}
         />
       </div>
@@ -262,3 +237,11 @@ function EditUser() {
 }
 
 export default EditUser;
+
+EditUser.propTypes = {
+  fromDashboard: PropTypes.bool,
+};
+
+EditUser.defaultProps = {
+  fromDashboard: false,
+};

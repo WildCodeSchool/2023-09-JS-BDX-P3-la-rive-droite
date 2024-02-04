@@ -1,11 +1,27 @@
 import React, { useState, useEffect } from "react";
+import {
+  MDBBtn,
+  MDBModal,
+  MDBModalDialog,
+  MDBModalContent,
+  MDBModalHeader,
+  MDBModalTitle,
+  MDBModalBody,
+  MDBModalFooter,
+} from "mdb-react-ui-kit";
 import { useParams } from "react-router-dom";
 import HeaderCourt from "../../components/Headers/HeaderCourt";
-import ButtonMaxi from "../../components/Boutons/ButtonMaxi";
+import "../../components/Boutons/button-maxi.css";
 import "./read-offer.css";
+import { useGlobalContext } from "../../contexts/GlobalContext";
 
 function ReadOffer() {
   const [offer, setOffer] = useState([]);
+  const [skillsOffer, setSkillsOffer] = useState([]);
+  const { apiService } = useGlobalContext();
+  const [basicModal, setBasicModal] = useState(false);
+
+  const toggleOpen = () => setBasicModal(!basicModal);
 
   const { id } = useParams();
 
@@ -26,6 +42,18 @@ function ReadOffer() {
       }
     };
 
+    const getSkillsOffer = async () => {
+      try {
+        const response = await apiService.get(
+          `${import.meta.env.VITE_BACKEND_URL}/api/offers/${id}/skills`
+        );
+
+        setSkillsOffer(response.data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    getSkillsOffer();
     getOffer();
   }, []);
 
@@ -38,16 +66,14 @@ function ReadOffer() {
           <h1 className="title-page">Postuler à l'offre</h1>
         </div>
         <div className="card-container">
-          <div className="card-icons">
-            <div className="icon-view">
-              <i className="fa-regular fa-heart" />
-            </div>
-          </div>
-
           <h3 className="title-offer">{offer.title}</h3>
           <h4 className="company-offer">{offer.company}</h4>
           <p className="type-offer">{offer.type}</p>
-
+          <div className="competence-match-offer">
+            {skillsOffer.map((skill) => (
+              <p className="skill-offer">{skill.name}</p>
+            ))}
+          </div>
           <p className="description-word">Missions</p>
           <p className="p-description">{offer.info}</p>
 
@@ -66,9 +92,36 @@ function ReadOffer() {
           <p className="sub-title">Informations supplémentaires :</p>
           <p className="info-offer">{offer.info}</p>
 
-          <ButtonMaxi textBtn="Postuler" />
+          <MDBBtn className="submit-btn-maxi" onClick={toggleOpen}>
+            POSTULER À L'OFFRE
+          </MDBBtn>
         </div>
       </div>
+      <MDBModal open={basicModal} setOpen={setBasicModal} tabIndex="-1">
+        <MDBModalDialog>
+          <MDBModalContent>
+            <MDBModalHeader>
+              <MDBModalTitle>Félicitations !</MDBModalTitle>
+              <MDBBtn className="btn-close" color="none" onClick={toggleOpen}>
+                {" "}
+              </MDBBtn>
+            </MDBModalHeader>
+            <MDBModalBody>
+              Votre candidature a bien été reçue par notre équipe. Nous vous
+              remercions sincèrement de l'intérêt que vous portez à notre
+              entreprise. Soyez assuré(e) que votre profil sera soigneusement
+              évalué par notre équipe de recrutement. Nous nous efforçons de
+              traiter chaque demande avec la plus grande attention
+            </MDBModalBody>
+
+            <MDBModalFooter>
+              <MDBBtn className="submit-btn-maxi" onClick={toggleOpen}>
+                Ok
+              </MDBBtn>
+            </MDBModalFooter>
+          </MDBModalContent>
+        </MDBModalDialog>
+      </MDBModal>
     </>
   );
 }

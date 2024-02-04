@@ -35,19 +35,19 @@ function SignIn() {
       globalContext.setMsgContent("Champs non remplis");
       setTimeout(() => {
         globalContext.setErrorMsg(false);
-      }, 4000);
+      }, 2000);
     } else if (!globalContext.emailRegex.test(signIn.email)) {
       globalContext.setErrorMsg(true);
       globalContext.setMsgContent("L'adresse mail n'est pas correcte");
       setTimeout(() => {
         globalContext.setErrorMsg(false);
-      }, 4000);
+      }, 2000);
     } else if (signIn.password.length < 8) {
       globalContext.setErrorMsg(true);
       globalContext.setMsgContent("Le mot de passe n'est pas assez long");
       setTimeout(() => {
         globalContext.setErrorMsg(false);
-      }, 4000);
+      }, 2000);
     } else if (!globalContext.passwordRegex.test(signIn.password)) {
       globalContext.setErrorMsg(true);
       globalContext.setMsgContent(
@@ -61,7 +61,7 @@ function SignIn() {
       globalContext.setMsgContent("Les mots de passes ne sont pas identiques");
       setTimeout(() => {
         globalContext.setErrorMsg(false);
-      }, 4000);
+      }, 2000);
     } else if (signIn.cguAgree === false) {
       globalContext.setErrorMsg(true);
       globalContext.setMsgContent(
@@ -69,7 +69,7 @@ function SignIn() {
       );
       setTimeout(() => {
         globalContext.setErrorMsg(false);
-      }, 4000);
+      }, 2000);
     } else {
       globalContext.setSuccesMsg(true);
       globalContext.setMsgContent("Compte créé avec");
@@ -79,22 +79,14 @@ function SignIn() {
       axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/users`, {
         ...signIn,
       });
-      if (signIn.addCvNow === true) {
-        setTimeout(() => {
-          globalContext.navigate("/edit-profile/cv");
-        }, 2000);
-      } else {
-        setTimeout(() => {
-          globalContext.navigate("/login");
-        }, 2000);
-      }
+      globalContext.navigate("/login");
     }
   };
 
   return (
     <>
       <HeaderLongTitle textTitle="Création de votre compte" />
-      <div className="container-page with-rounded-border">
+      <div id="sign" className="container-page with-rounded-border">
         <h1>S'inscrire</h1>
         <div className="champs-form">
           <form>

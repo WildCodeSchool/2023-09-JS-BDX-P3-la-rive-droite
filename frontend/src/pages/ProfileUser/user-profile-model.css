@@ -13,6 +13,21 @@
 .container-switch {
   margin-top: 50px;
 }
+.container-info-profile {
+  color: black;
+  font-size: 20px;
+}
+.competence-user {
+  background-color: var(--main-color);
+  color: white;
+  padding: 8px 10px;
+  font-size: 20px;
+  border: none;
+  font-weight: 500;
+  margin: 5px 5px 5px 0px;
+  text-transform: capitalize;
+  border-radius: 7px;
+}
 
 #user-profile-model .formation-container {
   background-color: var(--main-bg-color);
@@ -49,5 +64,8 @@
 
   #user-profile-model .container-switch .label-champs {
     margin-bottom: 50px;
+  }
+  .container-comptence-user {
+    display: flex;
   }
 }

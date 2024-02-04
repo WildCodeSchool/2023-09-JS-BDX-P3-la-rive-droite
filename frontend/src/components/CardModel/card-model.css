@@ -3,7 +3,7 @@
   padding: 30px;
   border-radius: 6px;
   box-shadow: 5px 5px 15px 8px rgba(217, 217, 217, 0.53);
-  margin: 20px 15px;
+  margin: 20px 0;
   overflow: hidden;
 }
 
@@ -90,6 +90,7 @@
 .competence-match {
   display: flex;
   margin-top: 20px;
+  flex-wrap: wrap;
 }
 .pourcentage {
   background-color: var(--background-input);
@@ -105,6 +106,7 @@
 
 @media (min-width: 1000px) {
   .card-container {
-    margin: 0px 15px 0px 0px;
+    margin: 50px 15px 0px 0px;
+    padding: 30px;
   }
 }

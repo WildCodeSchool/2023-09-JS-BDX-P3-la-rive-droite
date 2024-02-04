@@ -6,8 +6,9 @@ import { useGlobalContext } from "./GlobalContext";
 const UserContext = createContext();
 
 function UserContextProvider({ children }) {
-  const { saveItemInLS, setErrorMsg, setSuccesMsg, setMsgContent } =
-    useGlobalContext();
+  const globalContext = useGlobalContext();
+
+  const [getSkills, setGetSkills] = useState([]);
 
   const [editProfile, setEditProfile] = useState({
     lastName: "",
@@ -32,7 +33,7 @@ function UserContextProvider({ children }) {
   //     setSuccesMsg(true);
   //     setTimeout(() => {
   //       setSuccesMsg(false);
-  //     }, 4000);
+  //     }, 2000);
   //     saveItemInLS("Profile", newData);
   //     return newData;
   //   });
@@ -58,20 +59,20 @@ function UserContextProvider({ children }) {
       addCv.number === "" ||
       addCv.adress === ""
     ) {
-      setErrorMsg(true);
-      setMsgContent("Veuillez remplir tous les champs");
+      globalContext.setErrorMsg(true);
+      globalContext.setMsgContent("Veuillez remplir tous les champs");
       setTimeout(() => {
-        setErrorMsg(false);
-      }, 4000);
+        globalContext.setErrorMsg(false);
+      }, 2000);
     } else {
       event.preventDefault();
       setCvSaved((prevData) => [...prevData, addCv]);
-      setMsgContent("Votre CV a été ajouté avec");
-      setSuccesMsg(true);
+      globalContext.setMsgContent("Votre CV a été ajouté avec");
+      globalContext.setSuccesMsg(true);
       setTimeout(() => {
-        setSuccesMsg(false);
-      }, 4000);
-      saveItemInLS("CV", cvSaved);
+        globalContext.setSuccesMsg(false);
+      }, 2000);
+      globalContext.saveItemInLS("CV", cvSaved);
     }
   };
   useEffect(() => {}, [cvSaved]);
@@ -83,6 +84,20 @@ function UserContextProvider({ children }) {
     setFavorites(newListe);
   };
 
+  const handleCheckboxChanged = async (fieldName) => {
+    const updatedSkills = { ...getSkills, [fieldName]: !getSkills[fieldName] };
+    setGetSkills(updatedSkills);
+
+    try {
+      await globalContext.apiService.post(
+        `${import.meta.env.VITE_BACKEND_URL}/api/user/updateSkills`,
+        updatedSkills
+      );
+    } catch (error) {
+      console.error("Error updating skills:", error);
+    }
+  };
+
   const userContextValues = useMemo(
     () => ({
       editProfile,
@@ -91,8 +106,17 @@ function UserContextProvider({ children }) {
       setAddCv,
       handleAddCv,
       toggleFavorite,
+      handleCheckboxChanged,
     }),
-    [editProfile, setEditProfile, addCv, setAddCv, handleAddCv, toggleFavorite]
+    [
+      editProfile,
+      setEditProfile,
+      addCv,
+      setAddCv,
+      handleAddCv,
+      toggleFavorite,
+      handleCheckboxChanged,
+    ]
   );
 
   return (

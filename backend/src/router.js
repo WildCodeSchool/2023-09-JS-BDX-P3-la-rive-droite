@@ -13,6 +13,7 @@ const offerControllers = require("./controllers/offerControllers");
 const experienceControllers = require("./controllers/experienceControllers");
 const courseControllers = require("./controllers/courseControllers");
 const cvControllers = require("./controllers/cvControllers");
+const competenceControllers = require("./controllers/competenceControllers");
 const {
   authMiddleware,
   authAdminMiddleware,
@@ -27,6 +28,7 @@ router.get(
   userControllers.getUsers
 );
 router.get("/users/:id([0-9]+)/cvs", authMiddleware, cvControllers.getCv);
+router.get("/users/:id([0-9]+)", userControllers.getUserById);
 router.get("/users/me", authMiddleware, userControllers.getProfile);
 router.post("/users", userControllers.postUser);
 router.post(
@@ -34,21 +36,23 @@ router.post(
   authMiddleware,
   userControllers.addSkills
 );
+router.post(
+  "/users/:id([0-9]+)/set/skills",
+  authMiddleware,
+  userControllers.setSkills
+);
 router.get(
   "/users/me/get-matching-offers",
   authMiddleware,
   userControllers.getMatchingOffers
 );
-
-router.put("/users/:id([0-9]+)", authMiddleware, userControllers.updateUser);
-// FOR ADMIN. */
-router.get("/users/:id([0-9]+)", authMiddleware, userControllers.getUserById);
 router.put(
-  "/admin/edit-users/:id([0-9]+)",
+  "/users/edit/:id([0-9]+)",
   authMiddleware,
-  authAdminMiddleware,
-  userControllers.updateUserAsAdmin
+  userControllers.updateUser
 );
+
+// FOR ADMIN. */
 router.delete(
   "/admin/users/:id([0-9]+)",
   authMiddleware,
@@ -58,12 +62,14 @@ router.delete(
 /* SKILLS. */
 router.post("/user/skills", userControllers.postSkills);
 router.get("/user/skills", userControllers.getSkills);
+router.get("/skills", competenceControllers.getSkills);
 // router.post("/user/skills/:id([0-9]+)", userControllers.postSkills);
 router.post("/login", userControllers.postLogin);
 
 /* OFFERS. */
 router.get("/offer", offerControllers.getOffers);
 router.get("/offer/:id([0-9]+)", offerControllers.getOfferById);
+router.get("/offers/:id([0-9]+)/skills", offerControllers.getSkillsByOfferId);
 router.post(
   "/offer",
   authMiddleware,

@@ -67,6 +67,27 @@ function GlobalContextProvider({ children, apiService }) {
     }
   }
 
+  // const handleLog = () => {
+  //   console.log(isAdmin);
+  // };
+
+  // Renvoie sur la lien de l'offre avec le bon "id".
+  // const viewOffer = async (id) => {
+  //   try {
+  //     const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/offer/${id}`);
+  //     if (response.ok) {
+  //       const data = await response.json();
+  //       console.log(data);
+  //       // setOffers(data);
+  //       navigate(`/offer/${id}`);
+  //     } else {
+  //       console.error("Echec de la récupération des données.");
+  //     }
+  //   } catch (err) {
+  //     console.error(err);
+  //   }
+  // };
+
   const values = useMemo(
     () => ({
       getItemInLS,

@@ -1,10 +1,7 @@
-import { Outlet, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 // import PropTypes from "prop-types";
 import "./user-profile-model.css";
-import Input from "../../components/Inputs/Input";
-import HeaderLongUser from "../../components/Headers/HeaderLongUser";
-import CompetenceSwitch from "../../components/Competence Switch/CompetenceSwitch";
+import { useNavigate } from "react-router-dom";
 import ButtonMaxi from "../../components/Boutons/ButtonMaxi";
 import { useGlobalContext } from "../../contexts/GlobalContext";
 import { useUserContext } from "../../contexts/UserContext";
@@ -13,20 +10,56 @@ import SuccesMsg from "../../components/Alertes Messages/SuccesMsg";
 import CardFormation from "../../components/CardModel/CardFormation";
 import CardExperience from "../../components/CardModel/CardExperience";
 import AddDetailsCV from "../../components/Add Something/AddSomething";
+import HeaderCourt from "../../components/Headers/HeaderCourt";
 // import { useSignContext } from "../../contexts/SignContext";
 
 function UserProfileModel() {
+  const navigate = useNavigate();
   const { handleAddCv } = useUserContext();
   const globalContext = useGlobalContext();
-  const navigate = useNavigate();
-  const [getSkills, setGetSkills] = useState([]);
   // const { skills, setSkills } = useSignContext();
   const [getProfile, setGetProfile] = useState({});
   // const [userCompetences, setUserCompetences] = useState({});
-  const { user, apiService } = useGlobalContext();
   const [experiences, setExperiences] = useState([]);
   const [courses, setCourses] = useState([]);
   // const { experiences, courses } = useLoaderData();
+
+  const getUserProfile = async () => {
+    try {
+      const response = await globalContext.apiService.get(
+        `${import.meta.env.VITE_BACKEND_URL}/api/users/me`
+      );
+      setGetProfile(response.data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const fetchCvId = async () => {
+    const cvData = await globalContext.apiService.get(
+      `${import.meta.env.VITE_BACKEND_URL}/api/users/${
+        globalContext.user.id
+      }/cvs`
+    );
+
+    return cvData.data.id;
+  };
+
+  const fetchExperiences = async () => {
+    const cvid = await fetchCvId();
+    const experienceData = await globalContext.apiService.get(
+      `${import.meta.env.VITE_BACKEND_URL}/api/experiences/by-cv-id/${cvid}`
+    );
+    setExperiences(experienceData.data);
+  };
+
+  const fetchCourses = async () => {
+    const cvid = await fetchCvId();
+    const courseData = await globalContext.apiService.get(
+      `${import.meta.env.VITE_BACKEND_URL}/api/courses/by-cv-id/${cvid}`
+    );
+    setCourses(courseData.data);
+  };
 
   const handleExperienceDelete = async (id) => {
     // eslint-disable-next-line no-alert
@@ -39,17 +72,17 @@ function UserProfileModel() {
       );
       globalContext.setSuccesMsg(true);
       globalContext.setMsgContent("Votre expérience a bien été supprimée");
+      fetchExperiences();
       setTimeout(() => {
         globalContext.setSuccesMsg(false);
-      }, 4000);
-      navigate("/edit-profile");
+      }, 2000);
     } catch (err) {
       console.error(err);
       globalContext.setErrorMsg(true);
       globalContext.setMsgContent("Une erreur est survenue");
       setTimeout(() => {
         globalContext.setErrorMsg(false);
-      }, 4000);
+      }, 2000);
     }
   };
 
@@ -64,224 +97,62 @@ function UserProfileModel() {
       );
       globalContext.setSuccesMsg(true);
       globalContext.setMsgContent("Votre formation a bien été supprimée");
+      fetchCourses();
       setTimeout(() => {
         globalContext.setSuccesMsg(false);
-      }, 4000);
-      navigate("/edit-profile");
+      }, 2000);
     } catch (err) {
       console.error(err);
       globalContext.setErrorMsg(true);
       globalContext.setMsgContent("Une erreur est survenue");
       setTimeout(() => {
         globalContext.setErrorMsg(false);
-      }, 4000);
+      }, 2000);
     }
   };
 
   useEffect(() => {
-    let cvId = null;
-
-    const getUserProfile = async () => {
-      try {
-        const response = await globalContext.apiService.get(
-          `${import.meta.env.VITE_BACKEND_URL}/api/users/me`
-        );
-        setGetProfile(response.data);
-      } catch (err) {
-        console.error(err);
-      }
-    };
-
-    const fetchExperiences = async () => {
-      const experienceData = await apiService.get(
-        `${import.meta.env.VITE_BACKEND_URL}/api/experiences/by-cv-id/${cvId}`
-      );
-      setExperiences(experienceData.data);
-    };
-
-    const fetchCourses = async () => {
-      const courseData = await apiService.get(
-        `${import.meta.env.VITE_BACKEND_URL}/api/courses/by-cv-id/${cvId}`
-      );
-      setCourses(courseData.data);
-    };
-
-    const fetchCvId = async () => {
-      const cvData = await apiService.get(
-        `${import.meta.env.VITE_BACKEND_URL}/api/users/${user.id}/cvs`
-      );
-
-      cvId = cvData.data.id;
-
-      fetchExperiences();
-      fetchCourses();
-    };
+    fetchExperiences();
+    fetchCourses();
     getUserProfile();
     fetchCvId();
   }, []);
 
-  const handleCheckboxChanged = async (fieldName) => {
-    const updatedSkills = { ...getSkills, [fieldName]: !getSkills[fieldName] };
-    setGetSkills(updatedSkills);
-
-    try {
-      await globalContext.apiService.post(
-        `${import.meta.env.VITE_BACKEND_URL}/api/user/updateSkills`,
-        updatedSkills
-      );
-    } catch (error) {
-      console.error("Error updating skills:", error);
-    }
-  };
-  return window.location.pathname === "/edit-profile" ||
-    window.location.pathname === "/edit-profile" ? (
+  return (
     <div id="user-profile-model">
-      <HeaderLongUser
-        textTitle={getProfile.firstname}
-        textTitle2={getProfile.lastname}
-      />
-      <div className="container-page">
-        <h2 className="label-champs">Vos coordonnées</h2>
-        <Input
-          titleInput="Nom *"
-          holderText={getProfile.lastname}
-          fieldName="lastname"
-          valueInput={getProfile}
-          handleChange={(event) =>
-            globalContext.handleChange(getProfile, "lastname", event)
-          }
-        />
-        <Input
-          titleInput="Prénom *"
-          holderText={getProfile.firstname}
-          fieldName="firstname"
-          valueInput={getProfile}
-          handleChange={(event) =>
-            globalContext.handleChange(getProfile, "firstname", event)
-          }
-        />
-        <Input
-          titleInput="Email *"
-          holderText={getProfile.email}
-          fieldName="email"
-          valueInput={getProfile}
-          handleChange={(event) =>
-            globalContext.handleChange(getProfile, "email", event)
-          }
-        />
-        <Input
-          titleInput="Téléphone *"
-          holderText={getProfile.phone}
-          fieldName="phone"
-          typeInput="tel"
-          valueInput={getProfile}
-          handleChange={(event) =>
-            globalContext.handleChange(getProfile, "phone", event)
-          }
-        />
-        <Input
-          titleInput="Addresse *"
-          holderText={getProfile.address}
-          fieldName="address"
-          inputType="text"
-          valueInput={getProfile}
-          handleChange={(event) =>
-            globalContext.handleChange(getProfile, "address", event)
-          }
-        />
-        <div className="container-switch">
-          <h2 className="label-champs">Cochez vos compétences *</h2>
-          <CompetenceSwitch
-            textCompetence="HTML"
-            fieldName="html"
-            isChecked={getProfile.competences?.find((c) => c.name === "html")}
-            handleChange={(event) =>
-              handleCheckboxChanged(getProfile, "html", event)
-            }
-          />
+      <HeaderCourt />
 
-          <CompetenceSwitch
-            textCompetence="CSS"
-            isChecked={getProfile.competences?.find((c) => c.name === "css")}
-            fieldName="css"
-            handleChange={(event) =>
-              handleCheckboxChanged(getProfile, "css", event)
-            }
-          />
-          <CompetenceSwitch
-            textCompetence="JAVASCRIPT"
-            fieldName="javascript"
-            isChecked={getProfile.competences?.find(
-              (c) => c.name === "javascript"
-            )}
-            handleChange={(event) =>
-              handleCheckboxChanged(getProfile, "javascript", event)
-            }
-          />
-          <CompetenceSwitch
-            textCompetence="ANGULAR"
-            fieldName="angular"
-            isChecked={getProfile.competences?.find(
-              (c) => c.name === "angular"
-            )}
-            handleChange={(event) =>
-              handleCheckboxChanged(getProfile, "angular", event)
-            }
-          />
-          <CompetenceSwitch
-            textCompetence="REACT.JS"
-            fieldName="react"
-            isChecked={getProfile.competences?.find((c) => c.name === "react")}
-            handleChange={(event) =>
-              handleCheckboxChanged(getProfile, "react", event)
-            }
-          />
-          <CompetenceSwitch
-            textCompetence="PHP"
-            fieldName="php"
-            isChecked={getProfile.competences?.find((c) => c.name === "php")}
-            handleChange={(event) =>
-              handleCheckboxChanged(getProfile, "php", event)
-            }
-          />
-          <CompetenceSwitch
-            textCompetence="SYMPHONY"
-            fieldName="symphony"
-            isChecked={getProfile.competences?.find(
-              (c) => c.name === "symphony"
-            )}
-            handleChange={(event) =>
-              handleCheckboxChanged(getProfile, "symphony", event)
-            }
-          />
-          <CompetenceSwitch
-            textCompetence="GIT"
-            fieldName="git"
-            isChecked={getProfile.competences?.find((c) => c.name === "git")}
-            handleChange={(event) =>
-              handleCheckboxChanged(getProfile, "git", event)
-            }
-          />
-          <CompetenceSwitch
-            textCompetence="GITHUB"
-            fieldName="github"
-            isChecked={getProfile.competences?.find((c) => c.name === "github")}
-            handleChange={(event) =>
-              handleCheckboxChanged(getProfile, "github", event)
-            }
-          />
-          <CompetenceSwitch
-            textCompetence="TRELLO"
-            fieldName="trello"
-            isChecked={getProfile.competences?.find((c) => c.name === "trello")}
-            handleChange={(event) =>
-              handleCheckboxChanged(getProfile, "trello", event)
-            }
-          />
+      <div className="container-page with-rounded-border">
+        <h1>
+          {getProfile.firstname} {getProfile.lastname}
+        </h1>
+        <div className="container-info-profile">
+          <h2 className="label-champs">Vos coordonnées</h2>
+
+          <p>Nom : {getProfile.lastname}</p>
+          <p>Prénom : {getProfile.firstname}</p>
+          <p>Email : {getProfile.email}</p>
+          <p>Téléphone : {getProfile.phone}</p>
+          <p>Adresse : {getProfile.address}</p>
         </div>
+        <h2 className="label-champs">Vos compétences</h2>
+        <div className="competence-match">
+          {getProfile.competences?.map((competence) => {
+            return (
+              <span className="competence is-matching" key={competence.id}>
+                {competence.name}
+              </span>
+            );
+          })}
+        </div>
+        <ButtonMaxi
+          textBtn="Modifier votre profil"
+          onClick={() => navigate(`/profile/edit/${getProfile.id}`)}
+        />
+
         <AddDetailsCV
           addDetail="Expériences professionnelles"
-          url="/edit-profile/experience"
+          url="/profile/add/experience"
         />
         <div className="experience-container">
           {experiences &&
@@ -294,13 +165,14 @@ function UserProfileModel() {
                 type={experience.type}
                 city={experience.city}
                 dateBegin={experience.date_begin}
+                isWorking={!!experience.is_working}
                 dateEnd={experience.date_end}
                 description={experience.description}
                 handleExperienceDelete={handleExperienceDelete}
               />
             ))}
         </div>
-        <AddDetailsCV addDetail="Formations" url="/edit-profile/formation" />
+        <AddDetailsCV addDetail="Formations" url="/profile/add/formation" />
         <div className="formation-container">
           {courses &&
             courses.map((course) => (
@@ -327,10 +199,6 @@ function UserProfileModel() {
         </div>
         <ButtonMaxi textBtn="Enregistrer" clickFunc={handleAddCv} />
       </div>
-    </div>
-  ) : (
-    <div>
-      <Outlet />
     </div>
   );
 }

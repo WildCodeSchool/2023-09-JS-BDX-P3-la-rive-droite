@@ -6,7 +6,6 @@
 
 .title-offer {
   color: var(--texte-default);
-  margin-top: -20px;
 }
 
 .company-offer {
@@ -39,4 +38,21 @@
   font-weight: 500;
   width: 55px;
   margin-top: 5px;
+}
+
+.competence-match-offer {
+  display: flex;
+}
+
+.competence-match-offer {
+  display: flex;
+  margin-top: 20px;
+}
+
+.skill-offer {
+  background-color: var(--main-color);
+  color: white;
+  padding: 8px 10px;
+  margin: 0 5px 5px 0;
+  border-radius: 7px;
 }
