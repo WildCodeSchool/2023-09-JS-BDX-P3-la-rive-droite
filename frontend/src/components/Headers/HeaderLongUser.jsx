@@ -7,6 +7,7 @@ import { useGlobalContext } from "../../contexts/GlobalContext";
 function HeaderLongUser({ textTitle, textTitle2 }) {
   const [file, setFile] = useState();
   const { apiService, setUser, user } = useGlobalContext();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.info("Selected file:", file);
@@ -21,10 +22,10 @@ function HeaderLongUser({ textTitle, textTitle2 }) {
 
     try {
       const result = await apiService.post(
-        `http://localhost:3310/api/uploads/${user.id}`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/uploads/${user.id}`,
         formData
       );
-      setUser({ ...user, avatar: { url: result.url } });
+      setUser({ ...user, upload_url: result.avatar.url });
       setFile(null);
     } catch (error) {
       console.error("Upload error:", error);
@@ -35,7 +36,14 @@ function HeaderLongUser({ textTitle, textTitle2 }) {
     <header className="header with-round-bottom">
       <div className="header-content user">
         <div className="profile-img-container">
-          <img src={Unknow} alt="" />
+          <img
+            src={
+              user.upload_url
+                ? `${import.meta.env.VITE_BACKEND_URL}/${user.upload_url}`
+                : Unknow
+            }
+            alt=""
+          />
         </div>
         <form onSubmit={handleSubmit}>
           <input
@@ -44,15 +52,6 @@ function HeaderLongUser({ textTitle, textTitle2 }) {
             onChange={(e) => setFile(e.target.files[0])}
           />
           <button type="submit">Modifier</button>
-          {user?.avatar?.url &&
-            (<img src="http://localhost/user.avatar" alt="avatar" />)(
-              <img
-                key={new Date().getTime()}
-                src={`http://localhost:3310/${user.avatar.url}`}
-                alt="avatar"
-                style={{ width: "100px", height: "100px" }}
-              />
-            )}
         </form>
         <h1>
           {textTitle} {textTitle2}

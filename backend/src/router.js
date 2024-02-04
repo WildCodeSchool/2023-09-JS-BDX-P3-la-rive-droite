@@ -1,8 +1,6 @@
 const express = require("express");
 const multer = require("multer");
 
-const multerMiddleware = require("./middlewares/multerMiddleware");
-
 const upload = multer({ dest: "public/uploads/" });
 
 const router = express.Router();
@@ -178,10 +176,9 @@ router.get("/upload/:id", authMiddleware, uploadController.getUploadById);
 router.get("/uploads", uploadController.getAllUploads);
 
 router.post(
-  "/uploads",
+  "/uploads/:id",
   authMiddleware,
   upload.single("avatar"),
-  multerMiddleware.renameFile,
   uploadController.createUpload
 );
 

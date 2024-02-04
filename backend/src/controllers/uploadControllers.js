@@ -28,25 +28,16 @@ const getAllUploads = async (req, res) => {
 
 const createUpload = async (req, res) => {
   try {
+    const { id } = req.params;
     const result = await models.upload.create(req.file);
-    await models.user.addAvatar(req.user.id, result.id);
-    return res.status(201).send({ ...req.user, avatar: result });
+    await models.user.updateUser(id, {
+      upload_url: result.url,
+    });
+    return res.status(201).send({ avatar: result });
   } catch (err) {
     return res.status(400).send({ message: err.message });
   }
 };
-
-async function updateUpload(req, res) {
-  try {
-    const { id } = req.params;
-    const result = await models.user.updateUser(id, {
-      upload_url: req.newPath,
-    });
-    res.send(result);
-  } catch (error) {
-    console.warn(error.message);
-  }
-}
 
 // const updateUpload = async (req, res) => {
 //   try {
@@ -57,4 +48,4 @@ async function updateUpload(req, res) {
 //   }
 // };
 
-module.exports = { getUploadById, getAllUploads, updateUpload, createUpload };
+module.exports = { getUploadById, getAllUploads, createUpload };

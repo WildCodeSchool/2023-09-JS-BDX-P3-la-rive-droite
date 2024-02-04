@@ -85,7 +85,7 @@ class UserManager extends AbstractManager {
   //   }
   // }
 
-  static async updateUser(id, structure) {
+  async updateUser(id, structure) {
     let sql = "UPDATE user set";
     const sqlValues = [];
     for (const [key, value] of Object.entries(structure)) {
