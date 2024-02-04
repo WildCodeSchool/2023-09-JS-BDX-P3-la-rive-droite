@@ -13,7 +13,10 @@
 .container-switch {
   margin-top: 50px;
 }
-
+.container-info-profile {
+  color: black;
+  font-size: 20px;
+}
 .competence-user {
   background-color: var(--main-color);
   color: white;
