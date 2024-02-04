@@ -147,7 +147,7 @@ function UserProfileModel() {
         </div>
         <ButtonMaxi
           textBtn="Modifier votre profil"
-          onClick={() => navigate(`/profile/edit/${getProfile.id}`)}
+          clickFunc={() => navigate(`/profile/edit/${getProfile.id}`)}
         />
 
         <AddDetailsCV
