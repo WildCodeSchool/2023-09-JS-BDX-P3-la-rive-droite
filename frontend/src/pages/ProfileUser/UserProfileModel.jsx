@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 // import PropTypes from "prop-types";
 import "./user-profile-model.css";
-import HeaderLongUser from "../../components/Headers/HeaderLongUser";
 import ButtonMaxi from "../../components/Boutons/ButtonMaxi";
 import { useGlobalContext } from "../../contexts/GlobalContext";
 import { useUserContext } from "../../contexts/UserContext";
@@ -10,6 +9,7 @@ import SuccesMsg from "../../components/Alertes Messages/SuccesMsg";
 import CardFormation from "../../components/CardModel/CardFormation";
 import CardExperience from "../../components/CardModel/CardExperience";
 import AddDetailsCV from "../../components/Add Something/AddSomething";
+import HeaderCourt from "../../components/Headers/HeaderCourt";
 // import { useSignContext } from "../../contexts/SignContext";
 
 function UserProfileModel() {
@@ -118,30 +118,30 @@ function UserProfileModel() {
 
   return (
     <div id="user-profile-model">
-      <HeaderLongUser
-        textTitle={getProfile.firstname}
-        textTitle2={getProfile.lastname}
-      />
-      <div className="container-page">
-        <h2 className="label-champs">Vos coordonnées</h2>
+      <HeaderCourt />
 
-        <p>Nom : {getProfile.lastname}</p>
-        <p>Prénom : {getProfile.firstname}</p>
-        <p>Email : {getProfile.email}</p>
-        <p>Téléphone : {getProfile.phone}</p>
-        <p>Adresse : {getProfile.address}</p>
+      <div className="container-page with-rounded-border">
+        <h1>
+          {getProfile.firstname} {getProfile.lastname}
+        </h1>
+        <div className="container-info-profile">
+          <h2 className="label-champs">Vos coordonnées</h2>
 
-        <div className="container-switch">
-          <h2 className="label-champs">Vos compétences</h2>
-          <div className="competence-match">
-            {getProfile.competences?.map((competence) => {
-              return (
-                <span className="competence is-matching" key={competence.id}>
-                  {competence.name}
-                </span>
-              );
-            })}
-          </div>
+          <p>Nom : {getProfile.lastname}</p>
+          <p>Prénom : {getProfile.firstname}</p>
+          <p>Email : {getProfile.email}</p>
+          <p>Téléphone : {getProfile.phone}</p>
+          <p>Adresse : {getProfile.address}</p>
+        </div>
+        <h2 className="label-champs">Vos compétences</h2>
+        <div className="competence-match">
+          {getProfile.competences?.map((competence) => {
+            return (
+              <span className="competence is-matching" key={competence.id}>
+                {competence.name}
+              </span>
+            );
+          })}
         </div>
 
         <AddDetailsCV
