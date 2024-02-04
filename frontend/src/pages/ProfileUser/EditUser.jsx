@@ -50,6 +50,7 @@ function EditUser({ fromDashboard }) {
           setSelectedCompetences(data.competences);
         } else {
           console.error("Echec de la récupération des données.");
+          navigate("/profile");
         }
       } catch (err) {
         console.error(err);
