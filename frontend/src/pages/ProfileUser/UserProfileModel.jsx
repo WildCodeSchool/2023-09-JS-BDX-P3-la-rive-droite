@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 // import PropTypes from "prop-types";
 import "./user-profile-model.css";
-import Input from "../../components/Inputs/Input";
 import HeaderLongUser from "../../components/Headers/HeaderLongUser";
 import ButtonMaxi from "../../components/Boutons/ButtonMaxi";
 import { useGlobalContext } from "../../contexts/GlobalContext";
@@ -126,53 +125,12 @@ function UserProfileModel() {
       <div className="container-page">
         <h2 className="label-champs">Vos coordonnées</h2>
 
-        <Input
-          titleInput="Nom *"
-          holderText={getProfile.lastname}
-          fieldName="lastname"
-          valueInput={getProfile}
-          handleChange={(event) =>
-            globalContext.handleChange(getProfile, "lastname", event)
-          }
-        />
-        <Input
-          titleInput="Prénom *"
-          holderText={getProfile.firstname}
-          fieldName="firstname"
-          valueInput={getProfile}
-          handleChange={(event) =>
-            globalContext.handleChange(getProfile, "firstname", event)
-          }
-        />
-        <Input
-          titleInput="Email *"
-          holderText={getProfile.email}
-          fieldName="email"
-          valueInput={getProfile}
-          handleChange={(event) =>
-            globalContext.handleChange(getProfile, "email", event)
-          }
-        />
-        <Input
-          titleInput="Téléphone *"
-          holderText={getProfile.phone}
-          fieldName="phone"
-          typeInput="tel"
-          valueInput={getProfile}
-          handleChange={(event) =>
-            globalContext.handleChange(getProfile, "phone", event)
-          }
-        />
-        <Input
-          titleInput="Addresse *"
-          holderText={getProfile.address}
-          fieldName="address"
-          inputType="text"
-          valueInput={getProfile}
-          handleChange={(event) =>
-            globalContext.handleChange(getProfile, "address", event)
-          }
-        />
+        <p>Nom : {getProfile.lastname}</p>
+        <p>Prénom : {getProfile.firstname}</p>
+        <p>Email : {getProfile.email}</p>
+        <p>Téléphone : {getProfile.phone}</p>
+        <p>Adresse : {getProfile.address}</p>
+
         <div className="container-switch">
           <h2 className="label-champs">Vos compétences</h2>
           <div className="competence-match">

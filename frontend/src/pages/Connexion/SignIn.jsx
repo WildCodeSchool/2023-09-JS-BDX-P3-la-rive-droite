@@ -86,7 +86,7 @@ function SignIn() {
   return (
     <>
       <HeaderLongTitle textTitle="Création de votre compte" />
-      <div className="container-page with-rounded-border">
+      <div id="sign" className="container-page with-rounded-border">
         <h1>S'inscrire</h1>
         <div className="champs-form">
           <form>
