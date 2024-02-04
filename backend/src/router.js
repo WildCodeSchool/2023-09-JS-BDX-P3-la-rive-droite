@@ -169,13 +169,14 @@ router.delete(
   authMiddleware,
   courseControllers.deleteCourseById
 );
+
 // UPLOADS
 router.get("/upload/:id", authMiddleware, uploadController.getUploadById);
 
 router.get("/uploads", uploadController.getAllUploads);
 
 router.post(
-  "/uploads/:id",
+  "/uploads",
   authMiddleware,
   upload.single("avatar"),
   multerMiddleware.renameFile,

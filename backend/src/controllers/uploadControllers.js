@@ -1,5 +1,4 @@
 const models = require("../models");
-const userManager = require("../models/UserManager");
 
 const getUploadById = async (req, res) => {
   try {
@@ -29,16 +28,9 @@ const getAllUploads = async (req, res) => {
 
 const createUpload = async (req, res) => {
   try {
-    if (!req.file) {
-      return res
-        .status(400)
-        .send({ message: "Aucun fichier n'a été téléchargé." });
-    }
-    // const { id } = req.params.id;
-    const newUser = await models.upload.create({
-      upload_url: req.file.path,
-    });
-    return res.status(201).send(newUser);
+    const result = await models.upload.create(req.file);
+    await models.user.addAvatar(req.user.id, result.id);
+    return res.status(201).send({ ...req.user, avatar: result });
   } catch (err) {
     return res.status(400).send({ message: err.message });
   }
@@ -47,7 +39,7 @@ const createUpload = async (req, res) => {
 async function updateUpload(req, res) {
   try {
     const { id } = req.params;
-    const result = await userManager.updateUser(id, {
+    const result = await models.user.updateUser(id, {
       upload_url: req.newPath,
     });
     res.send(result);
