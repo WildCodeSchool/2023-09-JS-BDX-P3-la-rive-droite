@@ -20,7 +20,7 @@ function Dashboard1() {
       <div className="title-btn">
         <h4 className="tab">Tableau de bord</h4>
         <ButtonMini textBtn="Ajouter une offre" onClick={handleAddOffer} />
-        <ButtonMini textBtn="Tableau d'Utilisateurs." onClick={handleUsers} />
+        <ButtonMini textBtn="Tableau d'Utilisateurs" onClick={handleUsers} />
       </div>
       <TitleDashboard
         labelDash="ID Offres"

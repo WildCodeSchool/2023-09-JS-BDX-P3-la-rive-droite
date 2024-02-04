@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { v4 as uuid } from "uuid";
+import { useNavigate } from "react-router-dom";
+
 import Date from "../../components/Inputs/Date";
 import Input from "../../components/Inputs/Input";
 import Select from "../../components/Inputs/Select";
@@ -13,6 +15,7 @@ import SuccesMsg from "../../components/Alertes Messages/SuccesMsg";
 
 function AddFormation() {
   const globalContext = useGlobalContext();
+  const navigate = useNavigate();
 
   const [addCourse, setAddCourse] = useState({
     id: uuid(),
@@ -37,21 +40,21 @@ function AddFormation() {
       globalContext.setMsgContent("Veuillez remplir tous les champs");
       setTimeout(() => {
         globalContext.setErrorMsg(false);
-      }, 4000);
+      }, 2000);
     }
     if (addCourse.dateBegin === "" || addCourse.dateEnd === "") {
       globalContext.setErrorMsg(true);
       globalContext.setMsgContent("Veuillez renseigner les dates");
       setTimeout(() => {
         globalContext.setErrorMsg(false);
-      }, 4000);
+      }, 2000);
     }
     if (addCourse.level === "- - -") {
       globalContext.setErrorMsg(true);
       globalContext.setMsgContent("Veuillez sélectionner un niveau valide");
       setTimeout(() => {
         globalContext.setErrorMsg(false);
-      }, 4000);
+      }, 2000);
     } else {
       try {
         const { data } = await globalContext.apiService.get(
@@ -71,7 +74,7 @@ function AddFormation() {
         globalContext.setMsgContent("La formation a été ajoutée avec succès");
         globalContext.setSuccesMsg(true);
         setTimeout(() => {
-          globalContext.navigate("/profile");
+          navigate("/profile");
           globalContext.setSuccesMsg(false);
         }, 3000);
       } catch (err) {
@@ -80,7 +83,7 @@ function AddFormation() {
         globalContext.setMsgContent("Formulaire incorrect");
         setTimeout(() => {
           globalContext.setErrorMsg(false);
-        }, 4000);
+        }, 2000);
       }
     }
   };

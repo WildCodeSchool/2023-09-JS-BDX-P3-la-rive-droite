@@ -1,6 +1,6 @@
 // Import Composant React.
 import React from "react";
-import ReactDOM from "react-dom";
+import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 // Import composants.
 import App from "./App";
@@ -23,7 +23,6 @@ import LogContextProvider from "./contexts/LogContext";
 import GlobalContextProvider from "./contexts/GlobalContext";
 import UserContextProvider from "./contexts/UserContext";
 // Import de loaders.
-import currentRequestsUserProfile from "./loaders/current-requests-profil.loader";
 import currentUserProfileLoader from "./loaders/current-user-profil.loader";
 import currentAdmin from "./loaders/current-admin.loader";
 // Import de classe.
@@ -73,26 +72,23 @@ const router = createBrowserRouter([
       },
       {
         path: "/profile",
-        loader: async () => currentRequestsUserProfile(apiService),
         element: (
           <SignContextProvider>
             <UserProfileModel />
           </SignContextProvider>
         ),
-        children: [
-          {
-            path: "/profile/edit/:id",
-            element: <EditUser />,
-          },
-          {
-            path: "/profile/add/experience",
-            element: <AddExperience />,
-          },
-          {
-            path: "/profile/add/formation",
-            element: <AddFormation />,
-          },
-        ],
+      },
+      {
+        path: "/profile/edit/:id",
+        element: <EditUser />,
+      },
+      {
+        path: "/profile/add/experience",
+        element: <AddExperience />,
+      },
+      {
+        path: "/profile/add/formation",
+        element: <AddFormation />,
       },
       {
         path: "/dashboard",

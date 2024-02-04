@@ -1,4 +1,3 @@
-import { Outlet, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 // import PropTypes from "prop-types";
 import "./user-profile-model.css";
@@ -12,19 +11,54 @@ import SuccesMsg from "../../components/Alertes Messages/SuccesMsg";
 import CardFormation from "../../components/CardModel/CardFormation";
 import CardExperience from "../../components/CardModel/CardExperience";
 import AddDetailsCV from "../../components/Add Something/AddSomething";
-import CompetenceSwitch from "../../components/Competence Switch/CompetenceSwitch";
 // import { useSignContext } from "../../contexts/SignContext";
 
 function UserProfileModel() {
   const { handleAddCv } = useUserContext();
   const globalContext = useGlobalContext();
-  const navigate = useNavigate();
   // const { skills, setSkills } = useSignContext();
   const [getProfile, setGetProfile] = useState({});
   // const [userCompetences, setUserCompetences] = useState({});
   const [experiences, setExperiences] = useState([]);
   const [courses, setCourses] = useState([]);
   // const { experiences, courses } = useLoaderData();
+
+  const getUserProfile = async () => {
+    try {
+      const response = await globalContext.apiService.get(
+        `${import.meta.env.VITE_BACKEND_URL}/api/users/me`
+      );
+      setGetProfile(response.data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const fetchCvId = async () => {
+    const cvData = await globalContext.apiService.get(
+      `${import.meta.env.VITE_BACKEND_URL}/api/users/${
+        globalContext.user.id
+      }/cvs`
+    );
+
+    return cvData.data.id;
+  };
+
+  const fetchExperiences = async () => {
+    const cvid = await fetchCvId();
+    const experienceData = await globalContext.apiService.get(
+      `${import.meta.env.VITE_BACKEND_URL}/api/experiences/by-cv-id/${cvid}`
+    );
+    setExperiences(experienceData.data);
+  };
+
+  const fetchCourses = async () => {
+    const cvid = await fetchCvId();
+    const courseData = await globalContext.apiService.get(
+      `${import.meta.env.VITE_BACKEND_URL}/api/courses/by-cv-id/${cvid}`
+    );
+    setCourses(courseData.data);
+  };
 
   const handleExperienceDelete = async (id) => {
     // eslint-disable-next-line no-alert
@@ -37,17 +71,17 @@ function UserProfileModel() {
       );
       globalContext.setSuccesMsg(true);
       globalContext.setMsgContent("Votre expérience a bien été supprimée");
+      fetchExperiences();
       setTimeout(() => {
         globalContext.setSuccesMsg(false);
-      }, 4000);
-      navigate("/profile");
+      }, 2000);
     } catch (err) {
       console.error(err);
       globalContext.setErrorMsg(true);
       globalContext.setMsgContent("Une erreur est survenue");
       setTimeout(() => {
         globalContext.setErrorMsg(false);
-      }, 4000);
+      }, 2000);
     }
   };
 
@@ -62,64 +96,28 @@ function UserProfileModel() {
       );
       globalContext.setSuccesMsg(true);
       globalContext.setMsgContent("Votre formation a bien été supprimée");
+      fetchCourses();
       setTimeout(() => {
         globalContext.setSuccesMsg(false);
-      }, 4000);
-      navigate("/profile");
+      }, 2000);
     } catch (err) {
       console.error(err);
       globalContext.setErrorMsg(true);
       globalContext.setMsgContent("Une erreur est survenue");
       setTimeout(() => {
         globalContext.setErrorMsg(false);
-      }, 4000);
+      }, 2000);
     }
   };
 
   useEffect(() => {
-    let cvId = null;
-
-    const getUserProfile = async () => {
-      try {
-        const response = await globalContext.apiService.get(
-          `${import.meta.env.VITE_BACKEND_URL}/api/users/me`
-        );
-        setGetProfile(response.data);
-      } catch (err) {
-        console.error(err);
-      }
-    };
-
-    const fetchExperiences = async () => {
-      const experienceData = await globalContext.apiService.get(
-        `${import.meta.env.VITE_BACKEND_URL}/api/experiences/by-cv-id/${cvId}`
-      );
-      setExperiences(experienceData.data);
-    };
-
-    const fetchCourses = async () => {
-      const courseData = await globalContext.apiService.get(
-        `${import.meta.env.VITE_BACKEND_URL}/api/courses/by-cv-id/${cvId}`
-      );
-      setCourses(courseData.data);
-    };
-
-    const fetchCvId = async () => {
-      const cvData = await globalContext.apiService.get(
-        `${import.meta.env.VITE_BACKEND_URL}/api/users/1/cvs`
-      ); // TODO FRED: remplacer le 1 par le vrai id du user
-
-      cvId = cvData.data.id;
-
-      fetchExperiences();
-      fetchCourses();
-    };
+    fetchExperiences();
+    fetchCourses();
     getUserProfile();
     fetchCvId();
   }, []);
 
-  return window.location.pathname === "/profile" ||
-    window.location.pathname === "/profile" ? (
+  return (
     <div id="user-profile-model">
       <HeaderLongUser
         textTitle={getProfile.firstname}
@@ -176,98 +174,16 @@ function UserProfileModel() {
           }
         />
         <div className="container-switch">
-          <h2 className="label-champs">Cochez vos compétences *</h2>
-          <CompetenceSwitch
-            textCompetence="HTML"
-            fieldName="html"
-            isChecked={getProfile.competences?.find((c) => c.name === "html")}
-            handleChange={(event) =>
-              globalContext.handleCheckboxChanged(getProfile, "html", event)
-            }
-          />
-
-          <CompetenceSwitch
-            textCompetence="CSS"
-            isChecked={getProfile.competences?.find((c) => c.name === "css")}
-            fieldName="css"
-            handleChange={(event) =>
-              globalContext.handleCheckboxChanged(getProfile, "css", event)
-            }
-          />
-          <CompetenceSwitch
-            textCompetence="JAVASCRIPT"
-            fieldName="javascript"
-            isChecked={getProfile.competences?.find(
-              (c) => c.name === "javascript"
-            )}
-            handleChange={(event) =>
-              globalContext.handleCheckboxChanged(
-                getProfile,
-                "javascript",
-                event
-              )
-            }
-          />
-          <CompetenceSwitch
-            textCompetence="ANGULAR"
-            fieldName="angular"
-            isChecked={getProfile.competences?.find(
-              (c) => c.name === "angular"
-            )}
-            handleChange={(event) =>
-              globalContext.handleCheckboxChanged(getProfile, "angular", event)
-            }
-          />
-          <CompetenceSwitch
-            textCompetence="REACT.JS"
-            fieldName="react"
-            isChecked={getProfile.competences?.find((c) => c.name === "react")}
-            handleChange={(event) =>
-              globalContext.handleCheckboxChanged(getProfile, "react", event)
-            }
-          />
-          <CompetenceSwitch
-            textCompetence="PHP"
-            fieldName="php"
-            isChecked={getProfile.competences?.find((c) => c.name === "php")}
-            handleChange={(event) =>
-              globalContext.handleCheckboxChanged(getProfile, "php", event)
-            }
-          />
-          <CompetenceSwitch
-            textCompetence="SYMPHONY"
-            fieldName="symphony"
-            isChecked={getProfile.competences?.find(
-              (c) => c.name === "symphony"
-            )}
-            handleChange={(event) =>
-              globalContext.handleCheckboxChanged(getProfile, "symphony", event)
-            }
-          />
-          <CompetenceSwitch
-            textCompetence="GIT"
-            fieldName="git"
-            isChecked={getProfile.competences?.find((c) => c.name === "git")}
-            handleChange={(event) =>
-              globalContext.handleCheckboxChanged(getProfile, "git", event)
-            }
-          />
-          <CompetenceSwitch
-            textCompetence="GITHUB"
-            fieldName="github"
-            isChecked={getProfile.competences?.find((c) => c.name === "github")}
-            handleChange={(event) =>
-              globalContext.handleCheckboxChanged(getProfile, "github", event)
-            }
-          />
-          <CompetenceSwitch
-            textCompetence="TRELLO"
-            fieldName="trello"
-            isChecked={getProfile.competences?.find((c) => c.name === "trello")}
-            handleChange={(event) =>
-              globalContext.handleCheckboxChanged(getProfile, "trello", event)
-            }
-          />
+          <h2 className="label-champs">Vos compétences</h2>
+          <div className="competence-match">
+            {getProfile.competences?.map((competence) => {
+              return (
+                <span className="competence is-matching" key={competence.id}>
+                  {competence.name}
+                </span>
+              );
+            })}
+          </div>
         </div>
 
         <AddDetailsCV
@@ -285,6 +201,7 @@ function UserProfileModel() {
                 type={experience.type}
                 city={experience.city}
                 dateBegin={experience.date_begin}
+                isWorking={!!experience.is_working}
                 dateEnd={experience.date_end}
                 description={experience.description}
                 handleExperienceDelete={handleExperienceDelete}
@@ -318,10 +235,6 @@ function UserProfileModel() {
         </div>
         <ButtonMaxi textBtn="Enregistrer" clickFunc={handleAddCv} />
       </div>
-    </div>
-  ) : (
-    <div>
-      <Outlet />
     </div>
   );
 }

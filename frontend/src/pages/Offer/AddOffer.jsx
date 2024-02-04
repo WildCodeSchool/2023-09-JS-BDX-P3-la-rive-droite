@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import ButtonMaxi from "../../components/Boutons/ButtonMaxi";
 import Input from "../../components/Inputs/Input";
 import Select from "../../components/Inputs/Select";
@@ -16,6 +18,7 @@ import "./add-offer.css";
 import CompetenceSwitch from "../../components/Competence Switch/CompetenceSwitch";
 
 function AddOffer() {
+  const navigate = useNavigate();
   const { addOffer, setAddOffer } = useAdminContext();
   const globalContext = useGlobalContext();
   const [skills, setSkills] = useState([]);
@@ -45,7 +48,7 @@ function AddOffer() {
       globalContext.setMsgContent("Veuillez remplir tous les champs");
       setTimeout(() => {
         globalContext.setErrorMsg(false);
-      }, 4000);
+      }, 2000);
     } else {
       const postOffer = async () => {
         const resOffer = await globalContext.apiService.post(
@@ -70,11 +73,12 @@ function AddOffer() {
 
       postOffer();
 
-      globalContext.setMsgContent("L'offre à été ajouté avec");
+      globalContext.setMsgContent("L'offre a été ajouté avec");
       globalContext.setSuccesMsg(true);
       setTimeout(() => {
         globalContext.setSuccesMsg(false);
-      }, 4000);
+        navigate("/dashboard");
+      }, 2000);
 
       setAddOffer({
         title: "",
@@ -140,9 +144,10 @@ function AddOffer() {
               globalContext.handleChange(setAddOffer, "type", event)
             }
           >
+            <option value="stage">Stage</option>
+            <option value="alternance">Alternance</option>
             <option value="CDD">CDD</option>
             <option value="CDI">CDI</option>
-            <option value="autre">Autre</option>
           </Select>
           <Input
             titleInput="Ville"

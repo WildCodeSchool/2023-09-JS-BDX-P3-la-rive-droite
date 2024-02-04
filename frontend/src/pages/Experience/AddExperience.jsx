@@ -43,7 +43,7 @@ function AddExperience() {
       globalContext.setMsgContent("Veuillez remplir tous les champs");
       setTimeout(() => {
         globalContext.setErrorMsg(false);
-      }, 4000);
+      }, 2000);
     } else if (addXp.isWorking === false && addXp.dateBegin === "") {
       addXp.dateBegin = "1970-01-01";
 
@@ -51,13 +51,13 @@ function AddExperience() {
       globalContext.setMsgContent("Veuillez renseigner les dates");
       setTimeout(() => {
         globalContext.setErrorMsg(false);
-      }, 4000);
+      }, 2000);
     } else if (addXp.isWorking === true && addXp.dateBegin === "") {
       globalContext.setErrorMsg(true);
       globalContext.setMsgContent("Veuillez renseigner les dates");
       setTimeout(() => {
         globalContext.setErrorMsg(false);
-      }, 4000);
+      }, 2000);
     } else {
       try {
         // ici on récupère l'id du cv, et le back fait en sorte
@@ -90,7 +90,7 @@ function AddExperience() {
         globalContext.setMsgContent("Formulaire incorrect");
         setTimeout(() => {
           globalContext.setErrorMsg(false);
-        }, 4000);
+        }, 2000);
       }
     }
   };
