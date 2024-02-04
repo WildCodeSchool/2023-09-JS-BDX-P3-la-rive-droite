@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 // import PropTypes from "prop-types";
 import "./user-profile-model.css";
+import { useNavigate } from "react-router-dom";
 import ButtonMaxi from "../../components/Boutons/ButtonMaxi";
 import { useGlobalContext } from "../../contexts/GlobalContext";
 import { useUserContext } from "../../contexts/UserContext";
@@ -13,6 +14,7 @@ import HeaderCourt from "../../components/Headers/HeaderCourt";
 // import { useSignContext } from "../../contexts/SignContext";
 
 function UserProfileModel() {
+  const navigate = useNavigate();
   const { handleAddCv } = useUserContext();
   const globalContext = useGlobalContext();
   // const { skills, setSkills } = useSignContext();
@@ -143,6 +145,10 @@ function UserProfileModel() {
             );
           })}
         </div>
+        <ButtonMaxi
+          textBtn="Modifier votre profil"
+          onClick={() => navigate(`/profile/edit/${getProfile.id}`)}
+        />
 
         <AddDetailsCV
           addDetail="Expériences professionnelles"

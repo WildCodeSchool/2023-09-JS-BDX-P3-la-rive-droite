@@ -82,7 +82,7 @@ function AddExperience() {
         setTimeout(() => {
           globalContext.setSuccesMsg(false);
           globalContext.navigate("/profile");
-        }, 3000);
+        }, 2000);
         // saveItemInLS("Experience", xpSaved);
       } catch (err) {
         console.error(err);
