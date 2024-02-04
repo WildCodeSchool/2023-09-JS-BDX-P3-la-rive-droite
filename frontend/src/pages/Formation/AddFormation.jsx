@@ -76,7 +76,7 @@ function AddFormation() {
         setTimeout(() => {
           navigate("/profile");
           globalContext.setSuccesMsg(false);
-        }, 3000);
+        }, 2000);
       } catch (err) {
         console.error(err);
         globalContext.setErrorMsg(true);
