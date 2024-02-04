@@ -62,7 +62,7 @@ function Home() {
         textTitle2="Nos offres d'emploi"
       />
       <div className="container-page">
-        <h2>Les offres qui matchent !</h2>
+        <h1>Les offres qui matchent !</h1>
         <div className="offer-container">
           {matchingOffers.map((offer) => (
             <CardOffre

@@ -1,7 +1,17 @@
 import React, { useState, useEffect } from "react";
+import {
+  MDBBtn,
+  MDBModal,
+  MDBModalDialog,
+  MDBModalContent,
+  MDBModalHeader,
+  MDBModalTitle,
+  MDBModalBody,
+  MDBModalFooter,
+} from "mdb-react-ui-kit";
 import { useParams } from "react-router-dom";
 import HeaderCourt from "../../components/Headers/HeaderCourt";
-import ButtonMaxi from "../../components/Boutons/ButtonMaxi";
+import "../../components/Boutons/button-maxi.css";
 import "./read-offer.css";
 import { useGlobalContext } from "../../contexts/GlobalContext";
 
@@ -9,6 +19,9 @@ function ReadOffer() {
   const [offer, setOffer] = useState([]);
   const [skillsOffer, setSkillsOffer] = useState([]);
   const { apiService } = useGlobalContext();
+  const [basicModal, setBasicModal] = useState(false);
+
+  const toggleOpen = () => setBasicModal(!basicModal);
 
   const { id } = useParams();
 
@@ -79,9 +92,36 @@ function ReadOffer() {
           <p className="sub-title">Informations supplémentaires :</p>
           <p className="info-offer">{offer.info}</p>
 
-          <ButtonMaxi textBtn="Postuler" />
+          <MDBBtn className="submit-btn-maxi" onClick={toggleOpen}>
+            POSTULER À L'OFFRE
+          </MDBBtn>
         </div>
       </div>
+      <MDBModal open={basicModal} setOpen={setBasicModal} tabIndex="-1">
+        <MDBModalDialog>
+          <MDBModalContent>
+            <MDBModalHeader>
+              <MDBModalTitle>Félicitations !</MDBModalTitle>
+              <MDBBtn className="btn-close" color="none" onClick={toggleOpen}>
+                {" "}
+              </MDBBtn>
+            </MDBModalHeader>
+            <MDBModalBody>
+              Votre candidature a bien été reçue par notre équipe. Nous vous
+              remercions sincèrement de l'intérêt que vous portez à notre
+              entreprise. Soyez assuré(e) que votre profil sera soigneusement
+              évalué par notre équipe de recrutement. Nous nous efforçons de
+              traiter chaque demande avec la plus grande attention
+            </MDBModalBody>
+
+            <MDBModalFooter>
+              <MDBBtn className="submit-btn-maxi" onClick={toggleOpen}>
+                Ok
+              </MDBBtn>
+            </MDBModalFooter>
+          </MDBModalContent>
+        </MDBModalDialog>
+      </MDBModal>
     </>
   );
 }
