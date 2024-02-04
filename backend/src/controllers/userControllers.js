@@ -45,9 +45,9 @@ const getUserById = async (req, res) => {
 
 const postUser = async (req, res) => {
   try {
-    const rows = await models.user.create(req.body);
+    const { rows } = await models.user.create(req.body);
     res.send({
-      id: rows.insertId,
+      insertId: rows.insertId,
       firstname: req.body.firstname,
       lastname: req.body.lastname,
       phone: req.body.phone,
@@ -127,6 +127,23 @@ const postLogin = async (req, res) => {
     res.status(500).send({ error: err.message });
   }
 };
+
+// const updateUser = async (req, res) => {
+//   try {
+//     const id = parseInt(req.params.id, 10);
+//     if (!id) {
+//       res.sendStatus(500);
+//     }
+//     const result = await models.user.updateUser(id, req.body);
+//     if (result.affectedRows.length === 0) {
+//       res.sendStatus(500);
+//     }
+//     res.sendStatus(200);
+//   } catch (error) {
+//     console.error(error);
+//     res.status(422).send({ error: error.message });
+//   }
+// };
 
 const getProfile = async (req, res) => {
   delete req.user.password;

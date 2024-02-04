@@ -1,6 +1,8 @@
 const express = require("express");
 const multer = require("multer");
 
+const multerMiddleware = require("./middlewares/multerMiddleware");
+
 const upload = multer({ dest: "public/uploads/" });
 
 const router = express.Router();
@@ -34,11 +36,7 @@ router.post(
   authMiddleware,
   userControllers.addSkills
 );
-router.post(
-  "/users/:id([0-9]+)/set/skills",
-  authMiddleware,
-  userControllers.setSkills
-);
+router.post("/users/:id([0-9]+)/set/skills", userControllers.setSkills);
 router.get(
   "/users/me/get-matching-offers",
   authMiddleware,
@@ -173,15 +171,22 @@ router.delete(
   authMiddleware,
   courseControllers.deleteCourseById
 );
+
 // UPLOADS
-router.get("/uploads", authMiddleware, uploadController.getList);
+router.get("/upload/:id", authMiddleware, uploadController.getUploadById);
+
+router.get("/uploads", uploadController.getAllUploads);
 
 router.post(
   "/uploads",
   authMiddleware,
   upload.single("avatar"),
-  uploadController.create
+  multerMiddleware.renameFile,
+  uploadController.createUpload
 );
+
+// router.put("/uploads", authMiddleware, uploadController.updateUpload);
+
 /* CV. */
 router.post("/cvs", authMiddleware, cvControllers.postCv);
 

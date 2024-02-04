@@ -1,5 +1,4 @@
 const fs = require("fs");
-
 const AbstractManager = require("./AbstractManager");
 
 class UploadManager extends AbstractManager {
@@ -7,11 +6,21 @@ class UploadManager extends AbstractManager {
     super({ table: "upload" });
   }
 
+  // async getUpload(uploadId) {
+  //   const [upload] = await this.database.query(
+  //     `SELECT * FROM ${this.table} WHERE id = ?`,
+  //     [uploadId]
+  //   );
+  //   return upload;
+  // }
+
   create(data) {
-    const filename = `${data.path}.${data.originalname.split(".").slice(-1)}`;
+    let filename = data.destination.replace("public/", "");
+    filename += `${data.filename}.`;
+    filename += data.originalname.split(".").slice(-1);
 
     return new Promise((resolve, reject) => {
-      fs.rename(`${data.path}`, filename, async (err) => {
+      fs.rename(`${data.path}`, `public/${filename}`, async (err) => {
         if (err) {
           reject(err);
         }

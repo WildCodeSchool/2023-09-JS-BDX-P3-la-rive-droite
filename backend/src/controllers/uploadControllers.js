@@ -1,18 +1,34 @@
 const models = require("../models");
 
-const getList = async (req, res) => {
+const getUploadById = async (req, res) => {
   try {
-    const [result] = await models.upload.findAll();
-    return res.send(result);
+    const [item] = await models.upload.findId(req.params.id);
+    if (item[0] != null) {
+      res.json(item[0]);
+    } else {
+      res.sendStatus(404);
+    }
   } catch (err) {
-    return res.status(400).send({ message: err.message });
+    res.status(500).send({ message: err.message });
   }
 };
 
-const create = async (req, res) => {
+const getAllUploads = async (req, res) => {
+  try {
+    const [item] = await models.upload.findAll(req.body);
+    if (item) {
+      res.json(item);
+    } else {
+      res.sendStatus(404);
+    }
+  } catch (err) {
+    res.status(500).send({ message: err.message });
+  }
+};
+
+const createUpload = async (req, res) => {
   try {
     const result = await models.upload.create(req.file);
-
     await models.user.addAvatar(req.user.id, result.id);
     return res.status(201).send({ ...req.user, avatar: result });
   } catch (err) {
@@ -20,4 +36,25 @@ const create = async (req, res) => {
   }
 };
 
-module.exports = { getList, create };
+async function updateUpload(req, res) {
+  try {
+    const { id } = req.params;
+    const result = await models.user.updateUser(id, {
+      upload_url: req.newPath,
+    });
+    res.send(result);
+  } catch (error) {
+    console.warn(error.message);
+  }
+}
+
+// const updateUpload = async (req, res) => {
+//   try {
+//     const [result] = await models.user.findAll();
+//     return res.send(result);
+//   } catch (err) {
+//     return res.status(400).send({ message: err.message });
+//   }
+// };
+
+module.exports = { getUploadById, getAllUploads, updateUpload, createUpload };

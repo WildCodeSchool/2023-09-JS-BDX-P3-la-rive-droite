@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import Input from "../../components/Inputs/Input";
@@ -17,10 +17,44 @@ import "../../components/Inputs/checkbox-conditions.css";
 
 function SignIn() {
   const globalContext = useGlobalContext();
-  const [getProfile, setGetProfile] = useState();
   const { signIn, setSignIn } = useSignContext();
+  const [allCompetences, setAllCompetences] = useState([]);
+  const [selectedCompetences, setSelectedCompetences] = useState([]);
 
-  const handleSubmitSignIn = (event) => {
+  const { apiService } = useGlobalContext();
+
+  useEffect(() => {
+    const getAllCompetences = async () => {
+      try {
+        const { data } = await apiService.get(
+          `${import.meta.env.VITE_BACKEND_URL}/api/skills`
+        );
+        setAllCompetences(data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    getAllCompetences();
+  }, []);
+
+  const handleCheckboxSwitch = async (competence) => {
+    const isCompetenceSelected = selectedCompetences.some(
+      (comp) => comp.id === competence.id
+    );
+    if (isCompetenceSelected) {
+      const updatedCompetences = selectedCompetences.filter(
+        (comp) => comp.id !== competence.id
+      );
+      setSelectedCompetences(updatedCompetences);
+    } else {
+      setSelectedCompetences((prevCompetences) => [
+        ...prevCompetences,
+        competence,
+      ]);
+    }
+  };
+
+  const handleSubmitSignIn = async (event) => {
     event.preventDefault();
     if (
       signIn.email === "" ||
@@ -76,9 +110,20 @@ function SignIn() {
       setTimeout(() => {
         globalContext.setSuccesMsg(false);
       }, 2000);
-      axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/users`, {
-        ...signIn,
-      });
+      const response = await axios.post(
+        `${import.meta.env.VITE_BACKEND_URL}/api/users`,
+        {
+          ...signIn,
+        }
+      );
+
+      await axios.post(
+        `${import.meta.env.VITE_BACKEND_URL}/api/users/${
+          response.data.insertId
+        }/set/skills`,
+        { competences: selectedCompetences.map((c) => c.id) }
+      );
+
       globalContext.navigate("/login");
     }
   };
@@ -162,92 +207,21 @@ function SignIn() {
               />
               <div className="container-switch">
                 <h2 className="label-champs"> Cochez vos compétences *</h2>
-                <CompetenceSwitch
-                  textCompetence="HTML"
-                  valueInput={getProfile}
-                  fieldName="html"
-                  handleChange={() =>
-                    globalContext.handleCheckboxChange(setGetProfile, "html")
-                  }
-                />
-                <CompetenceSwitch
-                  textCompetence="CSS"
-                  valueInput={getProfile}
-                  fieldName="css"
-                  handleChange={() =>
-                    globalContext.handleCheckboxChange(setGetProfile, "css")
-                  }
-                />
-                <CompetenceSwitch
-                  textCompetence="JAVASCRIPT"
-                  valueInput={getProfile}
-                  fieldName="javascript"
-                  handleChange={() =>
-                    globalContext.handleCheckboxChange(
-                      setGetProfile,
-                      "javascript"
-                    )
-                  }
-                />
-                <CompetenceSwitch
-                  textCompetence="ANGULAR"
-                  valueInput={getProfile}
-                  fieldName="angular"
-                  handleChange={() =>
-                    globalContext.handleCheckboxChange(setGetProfile, "angular")
-                  }
-                />
-                <CompetenceSwitch
-                  textCompetence="REACT.JS"
-                  valueInput={getProfile}
-                  fieldName="react"
-                  handleChange={() =>
-                    globalContext.handleCheckboxChange(setGetProfile, "react")
-                  }
-                />
-                <CompetenceSwitch
-                  textCompetence="PHP"
-                  valueInput={getProfile}
-                  fieldName="php"
-                  handleChange={() =>
-                    globalContext.handleCheckboxChange(setGetProfile, "php")
-                  }
-                />
-                <CompetenceSwitch
-                  textCompetence="SYMPHONY"
-                  valueInput={getProfile}
-                  fieldName="symphony"
-                  handleChange={() =>
-                    globalContext.handleCheckboxChange(
-                      setGetProfile,
-                      "symphony"
-                    )
-                  }
-                />
-                <CompetenceSwitch
-                  textCompetence="GIT"
-                  valueInput={getProfile}
-                  fieldName="git"
-                  handleChange={() =>
-                    globalContext.handleCheckboxChange(setGetProfile, "git")
-                  }
-                />
-                <CompetenceSwitch
-                  textCompetence="GITHUB"
-                  valueInput={getProfile}
-                  fieldName="github"
-                  handleChange={() =>
-                    globalContext.handleCheckboxChange(setGetProfile, "github")
-                  }
-                />
-                <CompetenceSwitch
-                  textCompetence="TRELLO"
-                  valueInput={getProfile}
-                  fieldName="trello"
-                  handleChange={() =>
-                    globalContext.handleCheckboxChange(setGetProfile, "trello")
-                  }
-                />
+                {allCompetences.map((competence) => {
+                  return (
+                    <CompetenceSwitch
+                      key={competence.id}
+                      textCompetence={competence.name.toUpperCase()}
+                      fieldName={competence.name}
+                      isChecked={selectedCompetences?.find(
+                        (c) => competence.id === c.id
+                      )}
+                      handleChange={() => {
+                        handleCheckboxSwitch(competence);
+                      }}
+                    />
+                  );
+                })}
               </div>
             </div>
             <CheckboxCondition

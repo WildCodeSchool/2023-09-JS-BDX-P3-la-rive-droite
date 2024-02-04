@@ -111,9 +111,16 @@ CREATE TABLE if not exists `cv` (
 /*!40101 SET character_set_client = @saved_cs_client */
 ;
 
---
--- Dumping data for table `cv`
---
+CREATE TABLE upload (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, url VARCHAR(255) NOT NULL
+);
+
+INSERT INTO
+    upload
+VALUES ("1", "test.png")
+    --
+    -- Dumping data for table `cv`
+    --
 
 LOCK TABLES `cv` WRITE;
 /*!40000 ALTER TABLE `cv` DISABLE KEYS */
@@ -261,12 +268,6 @@ UNLOCK TABLES;
 /*!50503 SET character_set_client = utf8mb4 */
 ;
 
-CREATE TABLE if not exists `upload` (
-    `id` int NOT NULL AUTO_INCREMENT, `url` varchar(255) NOT NULL, `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP, PRIMARY KEY (`id`), UNIQUE KEY `url` (`url`)
-) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */
-;
-
 --
 -- Dumping data for table `upload`
 --
@@ -289,7 +290,7 @@ UNLOCK TABLES;
 ;
 
 CREATE TABLE if not exists `user` (
-    `id` int NOT NULL AUTO_INCREMENT, `firstname` varchar(100) NOT NULL, `lastname` varchar(100) NOT NULL, `phone` varchar(100) NOT NULL, `email` varchar(100) NOT NULL, `address` varchar(155) NOT NULL, `password` varchar(100) NOT NULL, `is_admin` tinyint(1) NOT NULL, PRIMARY KEY (`id`), UNIQUE KEY `email` (`email`)
+    `id` int NOT NULL AUTO_INCREMENT, `picture` VARCHAR(255) NOT NULL DEFAULT 'https://placehold.co/600x400/EEE/31343C', `firstname` varchar(100) NOT NULL, `lastname` varchar(100) NOT NULL, `phone` varchar(100) NOT NULL, `email` varchar(100) NOT NULL, `address` varchar(155) NOT NULL, `password` varchar(100) NOT NULL, `is_admin` tinyint(1) NOT NULL, PRIMARY KEY (`id`), UNIQUE KEY `email` (`email`)
 ) ENGINE = InnoDB AUTO_INCREMENT = 2 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */
 ;
