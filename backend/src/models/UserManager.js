@@ -18,7 +18,7 @@ class UserManager extends AbstractManager {
           user.email,
           hash,
           0,
-          user.upload_url,
+          user.upload_url ?? "",
         ]
       );
       // const userId = rows.insertId;

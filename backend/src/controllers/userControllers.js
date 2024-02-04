@@ -45,9 +45,9 @@ const getUserById = async (req, res) => {
 
 const postUser = async (req, res) => {
   try {
-    const rows = await models.user.create(req.body);
+    const { rows } = await models.user.create(req.body);
     res.send({
-      id: rows.insertId,
+      insertId: rows.insertId,
       firstname: req.body.firstname,
       lastname: req.body.lastname,
       phone: req.body.phone,
