@@ -15,6 +15,18 @@ const getUsers = async (_, res) => {
   }
 };
 
+const setSkills = async (req, res) => {
+  const id = +req.params.id;
+
+  try {
+    await models.userCompetence.setUserCompetencesList(id, req.body);
+    res.status(201).send({});
+  } catch (err) {
+    console.error(err);
+    res.status(500).send({ error: err.message });
+  }
+};
+
 const getUserById = async (req, res) => {
   const id = +req.params.id;
   try {
@@ -24,6 +36,7 @@ const getUserById = async (req, res) => {
     }
     const user = result[0];
     delete user.password;
+    user.competences = await models.userCompetence.getUserCompetences(user.id);
     return res.send(user);
   } catch (error) {
     return res.status(422).send({ error: error.message });
@@ -231,5 +244,6 @@ module.exports = {
   postSkills,
   getSkills,
   addSkills,
+  setSkills,
   getMatchingOffers,
 };
