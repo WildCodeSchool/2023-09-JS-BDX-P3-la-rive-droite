@@ -93,6 +93,8 @@ const router = require("./router");
 // Mount the API routes under the "/api" endpoint
 app.use("/api", router);
 
+app.use(express.static("public"));
+
 /* ************************************************************************* */
 
 // Production-ready setup: What is it for, and when should I enable it?
