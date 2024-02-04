@@ -18,6 +18,7 @@ import "../Offer/add-offer.css";
 function EditUser({ fromDashboard }) {
   const navigate = useNavigate();
   const {
+    user: currentUser,
     apiService,
     errorMsg,
     setErrorMsg,
@@ -35,6 +36,9 @@ function EditUser({ fromDashboard }) {
   const { id } = useParams();
 
   useEffect(() => {
+    if (currentUser.id !== +id) {
+      navigate("/profile");
+    }
     const getUser = async () => {
       try {
         const { data } = await apiService.get(
@@ -46,6 +50,7 @@ function EditUser({ fromDashboard }) {
           setSelectedCompetences(data.competences);
         } else {
           console.error("Echec de la récupération des données.");
+          navigate("/profile");
         }
       } catch (err) {
         console.error(err);
