@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import HeaderLongUser from "../../components/Headers/HeaderLongUser";
-import HeaderCourt from "../../components/Headers/HeaderCourt";
 import ButtonMaxi from "../../components/Boutons/ButtonMaxi";
 import Select from "../../components/Inputs/Select";
 import Input from "../../components/Inputs/Input";
@@ -137,12 +136,9 @@ function EditUser({ fromDashboard }) {
 
   return (
     <div>
-      <div className="page-offer">
-        <HeaderCourt />
+      <div>
+        <HeaderLongUser />
         <div className="container-page with-rounded-border">
-          <h1>Modifier votre profil</h1>
-          <HeaderLongUser />
-
           {isAdmin ? (
             <div>
               <h2>ID User = {user.id}</h2>
