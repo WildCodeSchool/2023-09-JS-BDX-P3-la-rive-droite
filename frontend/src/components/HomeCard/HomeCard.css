@@ -1,0 +1,50 @@
+.big-homeCard-container {
+  padding: 60px 0;
+}
+.big-homeCard-container span {
+  color: var(--second-color);
+  font-weight: 600;
+  font-style: italic;
+}
+
+.big-homeCard-container h1 {
+  padding-bottom: 20px;
+}
+
+.homeCard-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  color: black;
+}
+
+.card-one,
+.card-two,
+.card-three {
+  padding: 30px 15px;
+  margin: 20px 0;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(85, 85, 85, 0.2);
+  background-color: var(--background-input);
+}
+
+.homeCard-container i {
+  font-size: 30px;
+  padding-bottom: 15px;
+  color: var(--main-color);
+}
+
+@media screen and (min-width: 768px) {
+  .homeCard-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    gap: 50px;
+  }
+  .card-one,
+  .card-two,
+  .card-three {
+    margin: 30px 0;
+    width: 30%;
+  }
+}
