@@ -4,6 +4,7 @@ import { useGlobalContext } from "../../contexts/GlobalContext";
 import "./Home.css";
 import CardOffre from "../../components/CardModel/CardOffre";
 import { useUserContext } from "../../contexts/UserContext";
+import HomeCard from "../../components/HomeCard/HomeCard";
 
 function Home() {
   const { goToOffer, apiService } = useGlobalContext();
@@ -62,7 +63,10 @@ function Home() {
         textTitle2="Nos offres d'emploi"
       />
       <div className="container-page">
-        <h1>Les offres qui matchent !</h1>
+        <HomeCard />
+        <h1>
+          Les offres qui <span>matchent !</span>
+        </h1>
         <div className="offer-container">
           {matchingOffers.map((offer) => (
             <CardOffre

@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import "./RowDash.css";
 import { useGlobalContext } from "../../contexts/GlobalContext";
-import { useAdminContext } from "../../contexts/AdminContext";
+// import { useAdminContext } from "../../contexts/AdminContext";
 
 function RowDash2() {
   const { apiService } = useGlobalContext();
-  const { goToEditUser } = useAdminContext();
+  // const { goToEditUser } = useAdminContext();
   const [users, setUsers] = useState([]);
 
   const fetchUsers = async () => {
@@ -48,14 +48,14 @@ function RowDash2() {
           <p className="bigArray-box">{user.email}</p>
           <p>{user.is_admin}</p>
           <div className="icon-dash">
-            <button
+            {/* <button
               type="button"
               aria-label="editeuser"
               onClick={() => goToEditUser(user.id)}
               className="invisible-button"
             >
               <i className="fa-solid fa-pen" />
-            </button>
+            </button> */}
             <button
               type="button"
               aria-label="deleteuser"

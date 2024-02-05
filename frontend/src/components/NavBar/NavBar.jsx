@@ -74,20 +74,13 @@ export default function Navbar() {
                 ) : null}
                 <div className="btn-nav">
                   {user ? (
-                    <>
-                      <Link
-                        to="/login"
-                        className="navbar-link"
-                        onClick={handleLogout}
-                      >
-                        Se déconnecter
-                      </Link>
-                      <Link className="navbar-link profile" to="/profile">
-                        {" "}
-                        {/* <i class="fa-solid fa-user"></i> */}
-                        Hello {user.firstname}
-                      </Link>
-                    </>
+                    <Link
+                      to="/login"
+                      className="navbar-link"
+                      onClick={handleLogout}
+                    >
+                      Se déconnecter
+                    </Link>
                   ) : (
                     <>
                       <Link to="/login">

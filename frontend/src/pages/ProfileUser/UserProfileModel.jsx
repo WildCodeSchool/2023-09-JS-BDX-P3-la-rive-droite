@@ -4,7 +4,6 @@ import "./user-profile-model.css";
 import { useNavigate } from "react-router-dom";
 import ButtonMaxi from "../../components/Boutons/ButtonMaxi";
 import { useGlobalContext } from "../../contexts/GlobalContext";
-import { useUserContext } from "../../contexts/UserContext";
 import ErrorMsg from "../../components/Alertes Messages/ErrorMsg";
 import SuccesMsg from "../../components/Alertes Messages/SuccesMsg";
 import CardFormation from "../../components/CardModel/CardFormation";
@@ -15,7 +14,6 @@ import HeaderCourt from "../../components/Headers/HeaderCourt";
 
 function UserProfileModel() {
   const navigate = useNavigate();
-  const { handleAddCv } = useUserContext();
   const globalContext = useGlobalContext();
   // const { skills, setSkills } = useSignContext();
   const [getProfile, setGetProfile] = useState({});
@@ -197,7 +195,6 @@ function UserProfileModel() {
             <SuccesMsg message={globalContext.msgContent} />
           )}
         </div>
-        <ButtonMaxi textBtn="Enregistrer" clickFunc={handleAddCv} />
       </div>
     </div>
   );
