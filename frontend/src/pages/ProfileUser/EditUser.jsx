@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+import PropTypes from "prop-types";
+import HeaderLongUser from "../../components/Headers/HeaderLongUser";
 import HeaderCourt from "../../components/Headers/HeaderCourt";
 import ButtonMaxi from "../../components/Boutons/ButtonMaxi";
 import Select from "../../components/Inputs/Select";
@@ -14,8 +16,10 @@ import SuccesMsg from "../../components/Alertes Messages/SuccesMsg";
 // Import styles.
 import "../Offer/add-offer.css";
 
-function EditUser() {
+function EditUser({ fromDashboard }) {
+  const navigate = useNavigate();
   const {
+    user: currentUser,
     apiService,
     errorMsg,
     setErrorMsg,
@@ -24,35 +28,75 @@ function EditUser() {
     msgContent,
     setMsgContent,
     handleChange,
-    handleCheckboxChanged,
     isAdmin,
   } = useGlobalContext();
   const [user, setUser] = useState([]);
+  const [allCompetences, setAllCompetences] = useState([]);
+  const [selectedCompetences, setSelectedCompetences] = useState([]);
 
   const { id } = useParams();
 
   useEffect(() => {
+    if (currentUser.id !== +id) {
+      navigate("/profile");
+    }
     const getUser = async () => {
       try {
-        const response = await fetch(
+        const { data } = await apiService.get(
           `${import.meta.env.VITE_BACKEND_URL}/api/users/${id}`
         );
-        if (response.ok) {
-          const data = await response.json();
+        if (data) {
+          // console.log(data);
           setUser(data);
+          setSelectedCompetences(data.competences);
         } else {
           console.error("Echec de la récupération des données.");
+          navigate("/profile");
         }
       } catch (err) {
         console.error(err);
       }
     };
 
+    const getAllCompetences = async () => {
+      try {
+        const { data } = await apiService.get(
+          `${import.meta.env.VITE_BACKEND_URL}/api/skills`
+        );
+        setAllCompetences(data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
     getUser();
+    getAllCompetences();
   }, []);
+
+  const handleCheckboxSwitch = async (competence) => {
+    const isCompetenceSelected = selectedCompetences.some(
+      (comp) => comp.id === competence.id
+    );
+    if (isCompetenceSelected) {
+      const updatedCompetences = selectedCompetences.filter(
+        (comp) => comp.id !== competence.id
+      );
+      setSelectedCompetences(updatedCompetences);
+    } else {
+      setSelectedCompetences((prevCompetences) => [
+        ...prevCompetences,
+        competence,
+      ]);
+    }
+  };
 
   const postEditUser = async () => {
     try {
+      await apiService.post(
+        `${import.meta.env.VITE_BACKEND_URL}/api/users/${user.id}/set/skills`,
+        { competences: selectedCompetences.map((c) => c.id) }
+      );
+
       const infoUser = await apiService.update(
         `${import.meta.env.VITE_BACKEND_URL}/api/users/edit/${user.id}`,
         user
@@ -75,15 +119,19 @@ function EditUser() {
       setMsgContent("Veuillez remplir tous les champs");
       setTimeout(() => {
         setErrorMsg(false);
-      }, 4000);
+      }, 2000);
     } else {
       postEditUser();
-      // console.log(user);
       setMsgContent("Votre profil a été modifié avec ");
       setSuccesMsg(true);
       setTimeout(() => {
         setSuccesMsg(false);
-      }, 4000);
+        if (fromDashboard) {
+          navigate("/dashboard/user");
+        } else {
+          navigate("/profile");
+        }
+      }, 2000);
     }
   };
 
@@ -93,6 +141,7 @@ function EditUser() {
         <HeaderCourt />
         <div className="container-page with-rounded-border">
           <h1>Modifier votre profil</h1>
+          <HeaderLongUser />
 
           {isAdmin ? (
             <div>
@@ -104,8 +153,12 @@ function EditUser() {
                   handleChange(setUser, "is_admin", event)
                 }
               >
-                <option value={0}>False</option>
-                <option value={1}>True</option>
+                <option value={0} selected={user.is_admin === 0}>
+                  False
+                </option>
+                <option value={1} selected={user.is_admin === 1}>
+                  True
+                </option>
               </Select>
             </div>
           ) : null}
@@ -115,7 +168,7 @@ function EditUser() {
             holderText={user.lastname}
             fieldName="lastname"
             inputType="text"
-            valueInput={user.lastname}
+            valueInput={user}
             handleChange={(event) => handleChange(setUser, "lastname", event)}
           />
           <Input
@@ -123,7 +176,7 @@ function EditUser() {
             holderText={user.firstname}
             fieldName="firstname"
             inputType="text"
-            valueInput={user.firstname}
+            valueInput={user}
             handleChange={(event) => handleChange(setUser, "firstname", event)}
           />
           <Input
@@ -131,7 +184,7 @@ function EditUser() {
             holderText={user.email}
             fieldName="email"
             inputType="text"
-            valueInput={user.email}
+            valueInput={user}
             handleChange={(event) => handleChange(setUser, "email", event)}
           />
           <Input
@@ -139,7 +192,7 @@ function EditUser() {
             holderText={user.phone}
             fieldName="phone"
             inputType="text"
-            valueInput={user.phone}
+            valueInput={user}
             handleChange={(event) => handleChange(setUser, "phone", event)}
           />
           <Input
@@ -147,91 +200,49 @@ function EditUser() {
             holderText={user.address}
             fieldName="address"
             inputType="text"
-            valueInput={user.address}
+            valueInput={user}
             handleChange={(event) => handleChange(setUser, "address", event)}
           />
         </div>
       </div>
-      <div className="container-switch">
-        <h2 className="label-champs">Cochez vos compétences *</h2>
-        <CompetenceSwitch
-          textCompetence="HTML"
-          fieldName="html"
-          isChecked={user.competences?.find((c) => c.name === "html")}
-          handleChange={(event) => handleCheckboxChanged(user, "html", event)}
-        />
-
-        <CompetenceSwitch
-          textCompetence="CSS"
-          isChecked={user.competences?.find((c) => c.name === "css")}
-          fieldName="css"
-          handleChange={(event) => handleCheckboxChanged(setUser, "css", event)}
-        />
-        <CompetenceSwitch
-          textCompetence="JAVASCRIPT"
-          fieldName="javascript"
-          isChecked={user.competences?.find((c) => c.name === "javascript")}
-          handleChange={(event) =>
-            handleCheckboxChanged(user, "javascript", event)
-          }
-        />
-        <CompetenceSwitch
-          textCompetence="ANGULAR"
-          fieldName="angular"
-          isChecked={user.competences?.find((c) => c.name === "angular")}
-          handleChange={(event) =>
-            handleCheckboxChanged(user, "angular", event)
-          }
-        />
-        <CompetenceSwitch
-          textCompetence="REACT.JS"
-          fieldName="react"
-          isChecked={user.competences?.find((c) => c.name === "react")}
-          handleChange={(event) => handleCheckboxChanged(user, "react", event)}
-        />
-        <CompetenceSwitch
-          textCompetence="PHP"
-          fieldName="php"
-          isChecked={user.competences?.find((c) => c.name === "php")}
-          handleChange={(event) => handleCheckboxChanged(user, "php", event)}
-        />
-        <CompetenceSwitch
-          textCompetence="SYMPHONY"
-          fieldName="symphony"
-          isChecked={user.competences?.find((c) => c.name === "symphony")}
-          handleChange={(event) =>
-            handleCheckboxChanged(user, "symphony", event)
-          }
-        />
-        <CompetenceSwitch
-          textCompetence="GIT"
-          fieldName="git"
-          isChecked={user.competences?.find((c) => c.name === "git")}
-          handleChange={(event) => handleCheckboxChanged(user, "git", event)}
-        />
-        <CompetenceSwitch
-          textCompetence="GITHUB"
-          fieldName="github"
-          isChecked={user.competences?.find((c) => c.name === "github")}
-          handleChange={(event) => handleCheckboxChanged(user, "github", event)}
-        />
-        <CompetenceSwitch
-          textCompetence="TRELLO"
-          fieldName="trello"
-          isChecked={user.competences?.find((c) => c.name === "trello")}
-          handleChange={(event) => handleCheckboxChanged(user, "trello", event)}
+      <div className="container-page  with-rounded-border">
+        <div className="container-switch">
+          <h2 className="label-champs">Cochez vos compétences *</h2>
+          {allCompetences.map((competence) => {
+            return (
+              <CompetenceSwitch
+                key={competence.id}
+                textCompetence={competence.name.toUpperCase()}
+                fieldName={competence.name}
+                isChecked={selectedCompetences?.find(
+                  (c) => competence.id === c.id
+                )}
+                handleChange={() => {
+                  handleCheckboxSwitch(competence);
+                }}
+              />
+            );
+          })}
+        </div>
+        <div>
+          {errorMsg && <ErrorMsg message={msgContent} />}
+          {succesMsg && <SuccesMsg message={msgContent} />}
+        </div>
+        <ButtonMaxi
+          textBtn="Modifier l'utilisateur"
+          clickFunc={handleEditUser}
         />
       </div>
-      <div>
-        {errorMsg && <ErrorMsg message={msgContent} />}
-        {succesMsg && <SuccesMsg message={msgContent} />}
-      </div>
-      <ButtonMaxi
-        textBtn="Modifier l'utilisateur."
-        clickFunc={handleEditUser}
-      />
     </div>
   );
 }
 
 export default EditUser;
+
+EditUser.propTypes = {
+  fromDashboard: PropTypes.bool,
+};
+
+EditUser.defaultProps = {
+  fromDashboard: false,
+};

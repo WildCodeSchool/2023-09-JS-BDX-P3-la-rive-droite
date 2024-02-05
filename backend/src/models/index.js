@@ -55,10 +55,10 @@ models.offer.setDatabase(pool);
 models.experience.setDatabase(pool);
 models.course.setDatabase(pool);
 models.cv.setDatabase(pool);
-models.upload.setDatabase(pool);
 models.userCompetence.setDatabase(pool);
 models.offerCompetence.setDatabase(pool);
 models.competence.setDatabase(pool);
+models.upload.setDatabase(pool);
 // bonus: use a proxy to personalize error message,
 // when asking for a non existing model
 const handler = {

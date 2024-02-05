@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import ButtonMaxi from "../../components/Boutons/ButtonMaxi";
 import Input from "../../components/Inputs/Input";
 import Select from "../../components/Inputs/Select";
@@ -15,8 +15,7 @@ import SuccesMsg from "../../components/Alertes Messages/SuccesMsg";
 import "./add-offer.css";
 
 function AddOffer() {
-  // const { addOffer, setAddOffer } = useAdminContext();
-
+  const navigate = useNavigate();
   const globalContext = useGlobalContext();
 
   const [offer, setOffer] = useState([]);
@@ -55,7 +54,7 @@ function AddOffer() {
       globalContext.setMsgContent("Veuillez remplir tous les champs");
       setTimeout(() => {
         globalContext.setErrorMsg(false);
-      }, 4000);
+      }, 2000);
     } else {
       const updateOffer = async () => {
         globalContext.apiService.update(
@@ -66,11 +65,12 @@ function AddOffer() {
       };
 
       updateOffer();
-      globalContext.setMsgContent("L'offre à été ajouté avec");
+      globalContext.setMsgContent("L'offre a été modifiée avec");
       globalContext.setSuccesMsg(true);
       setTimeout(() => {
         globalContext.setSuccesMsg(false);
-      }, 4000);
+        navigate("/dashboard");
+      }, 2000);
 
       // setAddOffer({
       //   title: "",
@@ -94,10 +94,11 @@ function AddOffer() {
 
   return (
     <div>
+      <HeaderCourt />
       <div className="page-offer">
         <HeaderCourt />
         <div className="container-page with-rounded-border">
-          <h1>Ajouter une offre</h1>
+          <h1>Modifier une offre</h1>
           <h2>ID Offre = {id}</h2>
           <Input
             titleInput="Titre de l'offre"
@@ -126,9 +127,18 @@ function AddOffer() {
               globalContext.handleChange(setOffer, "type", event)
             }
           >
-            <option value="CDD">CDD</option>
-            <option value="CDI">CDI</option>
-            <option value="autre">Autre</option>
+            <option value="stage" selected={offer.type === "stage"}>
+              Stage
+            </option>
+            <option value="alternance" selected={offer.type === "alternance"}>
+              Alternance
+            </option>
+            <option value="CDD" selected={offer.type === "CDD"}>
+              CDD
+            </option>
+            <option value="CDI" selected={offer.type === "CDI"}>
+              CDI
+            </option>
           </Select>
           <Input
             titleInput="Ville"
@@ -206,7 +216,7 @@ function AddOffer() {
               <SuccesMsg message={globalContext.msgContent} />
             )}
           </div>
-          <ButtonMaxi textBtn="Ajouter l'offre" clickFunc={handleAddOffer} />
+          <ButtonMaxi textBtn="Modifier l'offre" clickFunc={handleAddOffer} />
         </div>
       </div>
     </div>

@@ -17,7 +17,7 @@ function Dashboard3() {
     <div>
       <div className="title-btn">
         <h2 className="tab">Tableau de bord</h2>
-        <ButtonMini textBtn="Tableau d'Offres." onClick={handleOffers} />
+        <ButtonMini textBtn="Tableau d'Offres" onClick={handleOffers} />
       </div>
       <h4>Utilisateurs.</h4>
       <div>

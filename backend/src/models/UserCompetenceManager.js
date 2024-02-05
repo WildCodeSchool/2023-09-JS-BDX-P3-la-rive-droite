@@ -5,6 +5,30 @@ class UserCompetenceManager extends AbstractManager {
     super({ table: "user_competence" });
   }
 
+  async setUserCompetencesList(userId, body) {
+    try {
+      await this.database.query(
+        `DELETE FROM ${this.table} WHERE user_id = ${userId}`
+      );
+
+      const competences = body.competences ?? [];
+
+      let sql = `INSERT INTO ${this.table} (user_id, competence_id) VALUES`;
+
+      const sqlValues = [];
+      competences.forEach((competenceId) => {
+        sql += `${sqlValues.length > 0 ? "," : ""} (?,?)`;
+        sqlValues.push(userId);
+        sqlValues.push(competenceId);
+      });
+      const [result] = await this.database.query(sql, sqlValues);
+      return result;
+    } catch (e) {
+      console.error(e);
+      return null;
+    }
+  }
+
   async addUserCompetences(userId, body) {
     const uniqValues = new Set(body.competences ?? []);
     const [userCompetences] = await this.database.query(

@@ -33,7 +33,7 @@ function UserContextProvider({ children }) {
   //     setSuccesMsg(true);
   //     setTimeout(() => {
   //       setSuccesMsg(false);
-  //     }, 4000);
+  //     }, 2000);
   //     saveItemInLS("Profile", newData);
   //     return newData;
   //   });
@@ -63,7 +63,7 @@ function UserContextProvider({ children }) {
       globalContext.setMsgContent("Veuillez remplir tous les champs");
       setTimeout(() => {
         globalContext.setErrorMsg(false);
-      }, 4000);
+      }, 2000);
     } else {
       event.preventDefault();
       setCvSaved((prevData) => [...prevData, addCv]);
@@ -71,7 +71,7 @@ function UserContextProvider({ children }) {
       globalContext.setSuccesMsg(true);
       setTimeout(() => {
         globalContext.setSuccesMsg(false);
-      }, 4000);
+      }, 2000);
       globalContext.saveItemInLS("CV", cvSaved);
     }
   };

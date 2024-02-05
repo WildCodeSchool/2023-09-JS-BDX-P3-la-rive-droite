@@ -33,12 +33,11 @@ CompetenceSwitch.propTypes = {
   textCompetence: PropTypes.string,
   fieldName: PropTypes.string.isRequired,
   handleChange: PropTypes.func.isRequired,
-  isChecked: PropTypes.oneOfType([PropTypes.object]),
+  isChecked: PropTypes.bool.isRequired,
 };
 
 CompetenceSwitch.defaultProps = {
   textCompetence: "La valeur n'est pas définie.",
-  isChecked: {},
 };
 
 export default CompetenceSwitch;

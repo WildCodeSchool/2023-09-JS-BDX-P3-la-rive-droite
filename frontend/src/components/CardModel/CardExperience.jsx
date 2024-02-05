@@ -9,6 +9,7 @@ function CardExperience({
   company,
   type,
   city,
+  isWorking,
   dateBegin,
   dateEnd,
   description,
@@ -43,7 +44,9 @@ function CardExperience({
         </div>
       </div>
       <h4 className="date-poste">
-        {formattedDateBegin} au {formattedDateEnd}
+        {isWorking
+          ? `Depuis le ${formattedDateBegin}`
+          : `Du ${formattedDateBegin} au ${formattedDateEnd}`}
       </h4>
       <h3 className="label-offre">{title}</h3>
       <h4 className="entreprise-champs experience">
@@ -56,16 +59,22 @@ function CardExperience({
     </div>
   );
 }
+
 CardExperience.propTypes = {
   id: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
   company: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   city: PropTypes.string.isRequired,
+  isWorking: PropTypes.bool.isRequired,
   dateBegin: PropTypes.string.isRequired,
-  dateEnd: PropTypes.string.isRequired,
+  dateEnd: PropTypes.string,
   description: PropTypes.string.isRequired,
   handleExperienceDelete: PropTypes.func.isRequired,
+};
+
+CardExperience.defaultProps = {
+  dateEnd: null,
 };
 
 export default CardExperience;

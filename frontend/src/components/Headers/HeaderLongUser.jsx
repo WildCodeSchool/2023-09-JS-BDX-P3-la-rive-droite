@@ -1,23 +1,49 @@
 import "./header.css";
 import { useState } from "react";
-// import axios from "axios";
 import PropTypes from "prop-types";
 import Unknow from "../../assets/no-profile.jpg";
+import { useGlobalContext } from "../../contexts/GlobalContext";
 
 function HeaderLongUser({ textTitle, textTitle2 }) {
   const [file, setFile] = useState();
+  const { apiService, setUser, user } = useGlobalContext();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.info(file);
+    console.info("Selected file:", file);
+
+    if (!file) {
+      console.error("No file selected");
+      return;
+    }
+
     const formData = new FormData();
     formData.append("avatar", file);
-    // const result = await axios.post("/uploads", formData);
+
+    try {
+      const result = await apiService.post(
+        `${import.meta.env.VITE_BACKEND_URL}/api/uploads/${user.id}`,
+        formData
+      );
+      setUser({ ...user, upload_url: result.avatar.url });
+      setFile(null);
+    } catch (error) {
+      console.error("Upload error:", error);
+    }
   };
+
   return (
     <header className="header with-round-bottom">
       <div className="header-content user">
         <div className="profile-img-container">
-          <img src={Unknow} alt="" />
+          <img
+            src={
+              user.upload_url
+                ? `${import.meta.env.VITE_BACKEND_URL}/${user.upload_url}`
+                : Unknow
+            }
+            alt=""
+          />
         </div>
         <form onSubmit={handleSubmit}>
           <input

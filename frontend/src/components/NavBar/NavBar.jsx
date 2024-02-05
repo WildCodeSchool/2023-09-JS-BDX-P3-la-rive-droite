@@ -76,7 +76,7 @@ export default function Navbar() {
                   {user ? (
                     <>
                       <Link
-                        to="/"
+                        to="/login"
                         className="navbar-link"
                         onClick={handleLogout}
                       >
