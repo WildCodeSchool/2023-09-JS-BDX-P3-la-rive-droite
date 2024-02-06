@@ -47,6 +47,10 @@ body {
   height: auto;
 }
 
+.btn {
+  background-color: var(--second-color) !important;
+}
+
 /* Style des boutons */
 .submit-btn {
   background-color: var(--second-color);

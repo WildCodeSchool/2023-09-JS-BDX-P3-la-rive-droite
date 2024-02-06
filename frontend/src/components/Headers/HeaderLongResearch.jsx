@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 function HeaderLongResearch({ textTitle, textTitle2 }) {
   return (
     <header className="header with-round-bottom">
-      <div className="container-header-content">
+      <div className="container-header-content container">
         <h1>{textTitle}</h1>
         <h2 className="text-title-2">{textTitle2}</h2>
       </div>
