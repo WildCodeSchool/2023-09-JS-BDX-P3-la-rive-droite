@@ -40,13 +40,13 @@ function RowDash2() {
   return (
     <div className="rowDash-container">
       {users.map((user) => (
-        <div key={user.id} className="offerDash-item">
-          <p className="array-box">{user.id}</p>
-          <p className="array-box">{user.lastname}</p>
-          <p className="array-box">{user.firstname}</p>
-          <p className="array-box">{user.phone}</p>
-          <p className="bigArray-box">{user.email}</p>
-          <p>{user.is_admin}</p>
+        <div key={user.id} className="userDash-item">
+          <p className="field-nbr">{user.id}</p>
+          <p className="field-string">{user.lastname}</p>
+          <p className="field-string">{user.firstname}</p>
+          <p className="field-string">{user.phone}</p>
+          <p className="field-long-string">{user.email}</p>
+          <p className="field-bool">{user.is_admin}</p>
           <div className="icon-dash">
             <button
               type="button"
