@@ -4,9 +4,11 @@ import { useGlobalContext } from "../../contexts/GlobalContext";
 import "./Home.css";
 import CardOffre from "../../components/CardModel/CardOffre";
 import { useUserContext } from "../../contexts/UserContext";
+import HomeCard from "../../components/HomeCard/HomeCard";
+import CardOffer from "../../components/CardModel/CardOffer";
 
 function Home() {
-  const { goToOffer, apiService } = useGlobalContext();
+  const { goToOffer, apiService, user } = useGlobalContext();
   const { toggleFavorite } = useUserContext();
   const [matchingOffers, setMatchingOffers] = useState([]);
 
@@ -57,21 +59,34 @@ function Home() {
   return (
     <div id="home">
       <HeaderLongResearch
-        textTitle="Cabinet de recrutement informatique
-"
-        textTitle2="Nos offres d'emploi"
+        textTitle="Cabinet de recrutement informatique"
+        textTitle2="Nos offres d'emplois"
       />
       <div className="container-page">
-        <h1>Les offres qui matchent !</h1>
+        <HomeCard />
+        {user ? (
+          <h1>
+            Les offres qui <span>matchent !</span>
+          </h1>
+        ) : null}
         <div className="offer-container">
-          {matchingOffers.map((offer) => (
-            <CardOffre
-              key={offer.id}
-              offer={offer}
-              toggleFavorite={toggleFavorite}
-              goToOffer={goToOffer}
-            />
-          ))}
+          {user ? (
+            matchingOffers.map((offer) => (
+              <CardOffre
+                key={offer.id}
+                offer={offer}
+                toggleFavorite={toggleFavorite}
+                goToOffer={goToOffer}
+              />
+            ))
+          ) : (
+            <>
+              <CardOffer />
+              <CardOffer />
+              <CardOffer />
+              <CardOffer />
+            </>
+          )}
         </div>
       </div>
     </div>

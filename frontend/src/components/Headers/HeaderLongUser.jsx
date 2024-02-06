@@ -1,10 +1,9 @@
 import "./header.css";
 import { useState } from "react";
-import PropTypes from "prop-types";
 import Unknow from "../../assets/no-profile.jpg";
 import { useGlobalContext } from "../../contexts/GlobalContext";
 
-function HeaderLongUser({ textTitle, textTitle2 }) {
+function HeaderLongUser() {
   const [file, setFile] = useState();
   const { apiService, setUser, user } = useGlobalContext();
 
@@ -45,28 +44,26 @@ function HeaderLongUser({ textTitle, textTitle2 }) {
             alt=""
           />
         </div>
-        <form onSubmit={handleSubmit}>
-          <input
-            type="file"
-            accept="image/*"
-            onChange={(e) => setFile(e.target.files[0])}
-          />
-          <button type="submit">Modifier</button>
-        </form>
-        <h1>
-          {textTitle} {textTitle2}
-        </h1>
+        <div className="form-img">
+          <form className="yooo" onSubmit={handleSubmit}>
+            <label htmlFor="file" className="label-file">
+              {" "}
+              Choisir une image
+            </label>
+            <input
+              id="file"
+              className="input-img"
+              type="file"
+              accept="image/*"
+              onChange={(e) => setFile(e.target.files[0])}
+            />
+            <button type="submit">Modifier</button>
+          </form>
+        </div>
+        <h1>Modifier votre profil</h1>
       </div>
     </header>
   );
 }
 
-HeaderLongUser.propTypes = {
-  textTitle: PropTypes.string,
-  textTitle2: PropTypes.string,
-};
-HeaderLongUser.defaultProps = {
-  textTitle: "Titre par défaut",
-  textTitle2: "Titre 2 par défaut",
-};
 export default HeaderLongUser;

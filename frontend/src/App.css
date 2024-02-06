@@ -121,8 +121,9 @@ body {
 .container-page.with-rounded-border {
   border-top-left-radius: 50px;
   border-top-right-radius: 50px;
-  padding-top: 70px;
+  padding-top: 10px;
   margin-top: -170px;
+  margin-bottom: 100px;
 }
 
 #sign.container-page.with-rounded-border,
