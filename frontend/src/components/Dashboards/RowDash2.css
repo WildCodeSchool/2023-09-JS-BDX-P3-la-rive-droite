@@ -27,7 +27,6 @@
 
   .field-nbr {
     max-width: 25px;
-    background-color: red;
   }
 
   .field-string {
@@ -47,7 +46,6 @@
     flex-direction: row;
     max-width: 65px;
     margin-left: 50px;
-    background-color: red;
   }
 
   .icon-dash > button > i {
