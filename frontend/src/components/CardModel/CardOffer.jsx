@@ -24,22 +24,47 @@ function CardOffer() {
   return (
     <div>
       {offers.map((offer) => (
-        <div className="card-container">
+        <div className="card-container" key={offer.id}>
           <h3 className="label-offre">{offer.title}</h3>
-          <div className="competence">
-            <h3>HTML, CSS, JAVASCRIPT, REACT</h3>
-          </div>
           <h5 className="poste-champs">
             {offer.type} - {offer.city}
           </h5>
           <h4 className="entreprise-champs">{offer.company}</h4>
-          <p className="p-description ">{offer.description}</p>
+          <p className="p-description ">{offer.mission}</p>
           <ButtonMini textBtn="Postuler" />
         </div>
       ))}
     </div>
   );
 }
+
+//   return (
+//     <div>
+//       {offers.map((offer) => (
+//         <div className="card-container" key={offer.id}>
+//           {" "}
+//           {/* Ajoutez une clé unique pour chaque élément de la liste */}
+//           <h3 className="label-offre">{offer.title}</h3>{" "}
+//           {/* Utilisez la propriété 'title' pour afficher le titre de l'offre */}
+//           <div className="competence">
+//             {/* Affichez les compétences de l'offre si nécessaire */}
+//             {offer.competences.map((competence) => (
+//               <h3 key={competence.id}>{competence.name}</h3>
+//             ))}
+//           </div>
+//           <h5 className="poste-champs">
+//             {offer.type} - {offer.city}
+//           </h5>
+//           <h4 className="entreprise-champs">{offer.company}</h4>{" "}
+//           {/* Utilisez la propriété 'company' pour afficher le nom de l'entreprise */}
+//           <p className="p-description">{offer.description}</p>{" "}
+//           {/* Utilisez la propriété 'description' pour afficher la description de l'offre */}
+//           <ButtonMini textBtn="Postuler" />
+//         </div>
+//       ))}
+//     </div>
+//   );
+// }
 
 CardOffer.propTypes = {
   offer: PropTypes.shape({
