@@ -80,12 +80,9 @@ function Home() {
               />
             ))
           ) : (
-            <>
+            <div className="offer-container-offer">
               <CardOffer />
-              <CardOffer />
-              <CardOffer />
-              <CardOffer />
-            </>
+            </div>
           )}
         </div>
       </div>
