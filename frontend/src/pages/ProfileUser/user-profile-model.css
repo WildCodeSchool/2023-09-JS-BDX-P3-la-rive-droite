@@ -38,6 +38,8 @@
   height: 130px;
   border-radius: 200px;
   margin-bottom: 20px;
+  margin-top: 40px;
+  justify-content: center;
 }
 
 @media all and (min-width: 1000px) {
