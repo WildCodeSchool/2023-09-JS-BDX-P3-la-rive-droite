@@ -420,7 +420,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'johny','demo','06 87 27 48 94','john.doe@externatic.com','45 rue des cocotiers, Perpignan, 66100','$2b$05$qmUzhYqnfbiQyfY0NZXaueKkDbInhO4pzZGuLnTT5JAUq5BJgdbeK',0,'loremipsul-mdolor'
+INSERT INTO `user` VALUES (1,'johny','demo','0687274894','john.doe@externatic.com','45 rue des cocotiers, Perpignan, 66100','$2b$05$qmUzhYqnfbiQyfY0NZXaueKkDbInhO4pzZGuLnTT5JAUq5BJgdbeK',0,'loremipsul-mdolor'
 ),(
   28,'erftgyhuj','rfghj','rftgyhuj','adrien.russo@gmail.com','dcfvgbh','$2b$05$8K8lbcHYqN5jZqO8mFzLW.YC8n4yVcIjk8fyz18Ud/vgkMVmfhR/i',0,''
   ),(

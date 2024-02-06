@@ -27,8 +27,8 @@ function Dashboard3() {
           labelDash3="Prénoms"
           labelDash4="Tel"
           labelDash5="Email"
-          labelDash6="Administrateur"
-          labelDash7=" "
+          labelDash6="Admin"
+          labelDash7="Action"
         />
       </div>
       <RowDash2 />
