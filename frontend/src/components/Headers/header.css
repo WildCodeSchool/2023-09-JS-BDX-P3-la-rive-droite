@@ -48,6 +48,13 @@
   margin-right: 30px;
   margin-top: -10px;
 }
+.container-header-content {
+  padding-left: 30px;
+}
+
+.text-title-2 {
+  padding-top: 30px;
+}
 
 .header .header-content.user {
   display: flex;
