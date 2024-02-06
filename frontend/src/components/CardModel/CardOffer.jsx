@@ -5,6 +5,12 @@ import "./card-model.css";
 import { useGlobalContext } from "../../contexts/GlobalContext";
 
 function CardOffer() {
+  const trimText = (chaine, limite) => {
+    if (chaine.length <= limite) {
+      return chaine;
+    }
+    return `${chaine.slice(0, limite)}...`;
+  };
   const globalContext = useGlobalContext();
   const [offers, setOffers] = useState([]);
   useEffect(() => {
@@ -30,7 +36,7 @@ function CardOffer() {
             {offer.type} - {offer.city}
           </h5>
           <h4 className="entreprise-champs">{offer.company}</h4>
-          <p className="p-description ">{offer.mission}</p>
+          <p className="p-description ">{trimText(offer.mission, 250)}</p>
           <ButtonMini textBtn="Postuler" />
         </div>
       ))}
