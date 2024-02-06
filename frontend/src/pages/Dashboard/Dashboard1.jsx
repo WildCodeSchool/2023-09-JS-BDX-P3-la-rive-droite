@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { Outlet } from "react-router-dom";
-import RowDash from "../../components/Dashboards/RowDash";
 import TitleDashboard from "../../components/Dashboards/TitleDashboard";
 import ButtonMini from "../../components/Boutons/ButtonMini";
+import RowDash from "../../components/Dashboards/RowDash";
 import { useGlobalContext } from "../../contexts/GlobalContext";
 import { useAdminContext } from "../../contexts/AdminContext";
 
@@ -23,12 +23,12 @@ function Dashboard1() {
         <ButtonMini textBtn="Tableau d'Utilisateurs" onClick={handleUsers} />
       </div>
       <TitleDashboard
-        labelDash="ID Offres"
+        labelDash="ID"
         labelDash2="Entreprises"
-        labelDash3="Candidats"
-        labelDash4="Statut Offre"
-        labelDash5="Référent"
-        labelDash6="Actions"
+        labelDash3=" "
+        labelDash4="Référent"
+        labelDash5=" "
+        labelDash6=" "
       />
       <RowDash />
     </div>

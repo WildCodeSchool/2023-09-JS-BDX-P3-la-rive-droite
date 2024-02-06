@@ -14,7 +14,7 @@ function Dashboard3() {
   }, []);
 
   return (
-    <div>
+    <div className="container">
       <div className="title-btn">
         <h2 className="tab">Tableau de bord</h2>
         <ButtonMini textBtn="Tableau d'Offres" onClick={handleOffers} />
@@ -28,6 +28,7 @@ function Dashboard3() {
           labelDash4="Tel"
           labelDash5="Email"
           labelDash6="Administrateur"
+          labelDash7=" "
         />
       </div>
       <RowDash2 />
