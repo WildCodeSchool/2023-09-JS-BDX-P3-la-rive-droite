@@ -55,7 +55,6 @@ function RowDash() {
           <p className="array-box">{offer.id}</p>
           <p className="array-box">{offer.company}</p>
           <p className="array-box">{offer.NbrCandidats}</p>
-          <p className="array-box">En ligne</p>
           <p className="bigArray-box">{offer.email}</p>
           <div className="icon-dash">
             <button

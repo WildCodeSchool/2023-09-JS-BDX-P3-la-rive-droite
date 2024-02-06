@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import "./RowDash.css";
 import { useGlobalContext } from "../../contexts/GlobalContext";
 import { useAdminContext } from "../../contexts/AdminContext";
+import "./RowDash2.css";
 
 function RowDash2() {
   const { apiService } = useGlobalContext();
