@@ -8,7 +8,7 @@ export default function Footer() {
         className="text-center p-3"
         style={{ backgroundColor: "#c91f61", color: "white" }}
       >
-        &copy; {new Date().getFullYear()} Copyright:{" "}
+        &copy; {new Date().getFullYear()} Copyright :{" "}
         <a className="text-light" href="https://mdbootstrap.com/">
           Externatic.com
         </a>
