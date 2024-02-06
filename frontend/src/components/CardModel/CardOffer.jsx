@@ -1,10 +1,13 @@
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import ButtonMini from "../Boutons/ButtonMini";
 import "./card-model.css";
 import { useGlobalContext } from "../../contexts/GlobalContext";
 
 function CardOffer() {
+  const navigate = useNavigate();
+  const handleClickPostuler = () => navigate("/login");
   const trimText = (chaine, limite) => {
     if (chaine.length <= limite) {
       return chaine;
@@ -37,40 +40,12 @@ function CardOffer() {
           </h5>
           <h4 className="entreprise-champs">{offer.company}</h4>
           <p className="p-description ">{trimText(offer.mission, 250)}</p>
-          <ButtonMini textBtn="Postuler" />
+          <ButtonMini onClick={handleClickPostuler} textBtn="Postuler" />
         </div>
       ))}
     </div>
   );
 }
-
-//   return (
-//     <div>
-//       {offers.map((offer) => (
-//         <div className="card-container" key={offer.id}>
-//           {" "}
-//           {/* Ajoutez une clé unique pour chaque élément de la liste */}
-//           <h3 className="label-offre">{offer.title}</h3>{" "}
-//           {/* Utilisez la propriété 'title' pour afficher le titre de l'offre */}
-//           <div className="competence">
-//             {/* Affichez les compétences de l'offre si nécessaire */}
-//             {offer.competences.map((competence) => (
-//               <h3 key={competence.id}>{competence.name}</h3>
-//             ))}
-//           </div>
-//           <h5 className="poste-champs">
-//             {offer.type} - {offer.city}
-//           </h5>
-//           <h4 className="entreprise-champs">{offer.company}</h4>{" "}
-//           {/* Utilisez la propriété 'company' pour afficher le nom de l'entreprise */}
-//           <p className="p-description">{offer.description}</p>{" "}
-//           {/* Utilisez la propriété 'description' pour afficher la description de l'offre */}
-//           <ButtonMini textBtn="Postuler" />
-//         </div>
-//       ))}
-//     </div>
-//   );
-// }
 
 CardOffer.propTypes = {
   offer: PropTypes.shape({
