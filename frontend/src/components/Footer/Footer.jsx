@@ -9,7 +9,12 @@ export default function Footer() {
         style={{ backgroundColor: "#c91f61", color: "white" }}
       >
         &copy; {new Date().getFullYear()} Copyright :{" "}
-        <a className="text-light" href="https://mdbootstrap.com/">
+        <a
+          className="text-light"
+          href="https://www.externatic.fr/"
+          target="_blank"
+          rel="noreferrer"
+        >
           Externatic.com
         </a>
       </div>
