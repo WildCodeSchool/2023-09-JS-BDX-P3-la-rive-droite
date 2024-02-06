@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 // import PropTypes from "prop-types";
 import "./user-profile-model.css";
 import { useNavigate } from "react-router-dom";
+import Unknow from "../../assets/no-profile.jpg";
 import ButtonMaxi from "../../components/Boutons/ButtonMaxi";
 import { useGlobalContext } from "../../contexts/GlobalContext";
-import { useUserContext } from "../../contexts/UserContext";
 import ErrorMsg from "../../components/Alertes Messages/ErrorMsg";
 import SuccesMsg from "../../components/Alertes Messages/SuccesMsg";
 import CardFormation from "../../components/CardModel/CardFormation";
@@ -15,7 +15,6 @@ import HeaderCourt from "../../components/Headers/HeaderCourt";
 
 function UserProfileModel() {
   const navigate = useNavigate();
-  const { handleAddCv } = useUserContext();
   const globalContext = useGlobalContext();
   // const { skills, setSkills } = useSignContext();
   const [getProfile, setGetProfile] = useState({});
@@ -123,6 +122,19 @@ function UserProfileModel() {
       <HeaderCourt />
 
       <div className="container-page with-rounded-border">
+        <div className="img-profil">
+          <img
+            className="img-fluid"
+            src={
+              globalContext.user.upload_url
+                ? `${import.meta.env.VITE_BACKEND_URL}/${
+                    globalContext.user.upload_url
+                  }`
+                : Unknow
+            }
+            alt=""
+          />
+        </div>
         <h1>
           {getProfile.firstname} {getProfile.lastname}
         </h1>
@@ -197,7 +209,6 @@ function UserProfileModel() {
             <SuccesMsg message={globalContext.msgContent} />
           )}
         </div>
-        <ButtonMaxi textBtn="Enregistrer" clickFunc={handleAddCv} />
       </div>
     </div>
   );

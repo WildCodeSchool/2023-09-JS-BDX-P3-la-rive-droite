@@ -1,6 +1,9 @@
+.container-page h1 {
+  margin-bottom: 50px;
+}
+
 @media all and (min-width: 1000px) {
   #home .offer-container {
-    margin-top: 30px;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -12,5 +15,10 @@
   #home .card-container {
     width: 30%;
     margin-bottom: 20px;
+  }
+  .container-page span {
+    color: var(--second-color);
+    font-weight: 600;
+    font-style: italic;
   }
 }

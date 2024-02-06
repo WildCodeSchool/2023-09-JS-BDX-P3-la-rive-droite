@@ -33,6 +33,15 @@
   background-color: var(--main-bg-color);
 }
 
+.img-profil img {
+  width: 130px;
+  height: 130px;
+  border-radius: 200px;
+  margin-bottom: 20px;
+  margin-top: 40px;
+  justify-content: center;
+}
+
 @media all and (min-width: 1000px) {
   #user-profile-model .formation-container,
   #user-profile-model .experience-container {

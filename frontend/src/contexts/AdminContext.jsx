@@ -37,9 +37,9 @@ function AdminContextProvider({ children }) {
     navigate(`/dashboard/edit-offer/${id}`);
   };
 
-  const goToEditUser = (id) => {
-    navigate(`/dashboard/edit-user/${id}`);
-  };
+  // const goToEditUser = (id) => {
+  //   navigate(`/dashboard/edit-user/${id}`);
+  // };
 
   const contextValues = useMemo(
     () => ({
@@ -51,7 +51,7 @@ function AdminContextProvider({ children }) {
       handleOffers,
       handleUsers,
       goToEditOffer,
-      goToEditUser,
+      // goToEditUser,
     }),
     [
       isAdmin,
@@ -62,7 +62,7 @@ function AdminContextProvider({ children }) {
       handleAddOffer,
       handleOffers,
       goToEditOffer,
-      goToEditUser,
+      // goToEditUser,
     ]
   );
 
