@@ -28,12 +28,7 @@ router.get(
 router.get("/users/:id([0-9]+)/cvs", authMiddleware, cvControllers.getCv);
 router.get("/users/:id([0-9]+)", authMiddleware, userControllers.getUserById);
 router.get("/users/me", authMiddleware, userControllers.getProfile);
-router.post(
-  "/users",
-  authMiddleware,
-  authAdminMiddleware,
-  userControllers.postUser
-);
+router.post("/users", userControllers.postUser);
 router.post(
   "/users/:id([0-9]+)/add/skills",
   authMiddleware,
