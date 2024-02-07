@@ -29,13 +29,12 @@
 -- Table structure for table `competence`
 --
 
-DROP TABLE IF EXISTS `competence`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */
 ;
 /*!50503 SET character_set_client = utf8mb4 */
 ;
 
-CREATE TABLE `competence` (
+CREATE TABLE if not exists `competence` (
     `id` int NOT NULL AUTO_INCREMENT, `name` varchar(100) DEFAULT NULL, PRIMARY KEY (`id`)
 ) ENGINE = InnoDB AUTO_INCREMENT = 11 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */
@@ -49,7 +48,7 @@ LOCK TABLES `competence` WRITE;
 /*!40000 ALTER TABLE `competence` DISABLE KEYS */
 ;
 
-INSERT INTO
+INSERT ignore INTO
     `competence`
 VALUES (1, 'html'),
     (2, 'css'),
@@ -70,13 +69,12 @@ UNLOCK TABLES;
 -- Table structure for table `course`
 --
 
-DROP TABLE IF EXISTS `course`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */
 ;
 /*!50503 SET character_set_client = utf8mb4 */
 ;
 
-CREATE TABLE `course` (
+CREATE TABLE if not exists `course` (
     `id` int NOT NULL AUTO_INCREMENT, `level` varchar(100) NOT NULL, `domaine` varchar(100) NOT NULL, `name` varchar(100) NOT NULL, `date_begin` date NOT NULL, `date_end` date NOT NULL, `description` text, `cv_id` int DEFAULT NULL, PRIMARY KEY (`id`), KEY `cv_id` (`cv_id`), CONSTRAINT `course_ibfk_1` FOREIGN KEY (`cv_id`) REFERENCES `cv` (`id`)
 ) ENGINE = InnoDB AUTO_INCREMENT = 2 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */
@@ -90,26 +88,26 @@ LOCK TABLES `course` WRITE;
 /*!40000 ALTER TABLE `course` DISABLE KEYS */
 ;
 
-INSERT INTO
+INSERT ignore INTO
     `course`
 VALUES (
         1, 'Master 2', 'oçuzefoizj', 'oizjef', '2023-09-06', '2024-02-23', 'ziejfoizejpoizfje', 4
     );
 /*!40000 ALTER TABLE `course` ENABLE KEYS */
 ;
+
 UNLOCK TABLES;
 
 --
 -- Table structure for table `cv`
 --
 
-DROP TABLE IF EXISTS `cv`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */
 ;
 /*!50503 SET character_set_client = utf8mb4 */
 ;
 
-CREATE TABLE `cv` (
+CREATE TABLE if not exists `cv` (
     `id` int NOT NULL AUTO_INCREMENT, `user_id` int DEFAULT NULL, PRIMARY KEY (`id`), KEY `user_id` (`user_id`), CONSTRAINT `cv_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
 ) ENGINE = InnoDB AUTO_INCREMENT = 5 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */
@@ -123,7 +121,7 @@ LOCK TABLES `cv` WRITE;
 /*!40000 ALTER TABLE `cv` DISABLE KEYS */
 ;
 
-INSERT INTO `cv` VALUES (3, 28), (4, 29);
+INSERT ignore INTO `cv` VALUES (3, 28), (4, 29);
 /*!40000 ALTER TABLE `cv` ENABLE KEYS */
 ;
 
@@ -133,13 +131,12 @@ UNLOCK TABLES;
 -- Table structure for table `experience`
 --
 
-DROP TABLE IF EXISTS `experience`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */
 ;
 /*!50503 SET character_set_client = utf8mb4 */
 ;
 
-CREATE TABLE `experience` (
+CREATE TABLE if not exists `experience` (
     `id` int NOT NULL AUTO_INCREMENT, `title` varchar(100) NOT NULL, `company` varchar(100) NOT NULL, `city` varchar(100) NOT NULL, `type` varchar(100) NOT NULL, `is_working` tinyint(1) DEFAULT NULL, `date_begin` date NOT NULL, `date_end` date DEFAULT NULL, `description` text, `cv_id` int NOT NULL, PRIMARY KEY (`id`), KEY `cv_id` (`cv_id`), CONSTRAINT `experience_ibfk_1` FOREIGN KEY (`cv_id`) REFERENCES `cv` (`id`)
 ) ENGINE = InnoDB AUTO_INCREMENT = 2 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */
@@ -153,7 +150,7 @@ LOCK TABLES `experience` WRITE;
 /*!40000 ALTER TABLE `experience` DISABLE KEYS */
 ;
 
-INSERT INTO
+INSERT ignore INTO
     `experience`
 VALUES (
         1, 'azrg', 'iegusrh', 'ouzgrh', 'alternance', 0, '2023-06-14', '2023-12-20', 'qmoirzjomrzigj', 4
@@ -167,13 +164,12 @@ UNLOCK TABLES;
 -- Table structure for table `offer`
 --
 
-DROP TABLE IF EXISTS `offer`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */
 ;
 /*!50503 SET character_set_client = utf8mb4 */
 ;
 
-CREATE TABLE `offer` (
+CREATE TABLE if not exists `offer` (
     `id` int NOT NULL AUTO_INCREMENT, `title` varchar(100) NOT NULL, `company` varchar(100) NOT NULL, `type` varchar(100) NOT NULL, `city` varchar(100) NOT NULL, `mission` text NOT NULL, `search_profile` varchar(100) NOT NULL, `work_place` varchar(100) NOT NULL, `salary` varchar(100) NOT NULL, `info` text NOT NULL, `email` varchar(100) NOT NULL, PRIMARY KEY (`id`)
 ) ENGINE = InnoDB AUTO_INCREMENT = 6 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */
@@ -187,7 +183,7 @@ LOCK TABLES `offer` WRITE;
 /*!40000 ALTER TABLE `offer` DISABLE KEYS */
 ;
 
-INSERT INTO
+INSERT ignore INTO
     `offer`
 VALUES (
         1, 'Developpeur Web Front End', 'Inov\'Tech', 'CDD', 'Bordeaux', 'Tous les 2 ou 3 mois, de nouveaux projets en mode Agile sur les dernières stacks technologiques, toujours effectuées depuis notre plateau Factory pour progresser et développer vos compétences. 15% du temps consacré à des journées de partage technique, exploration, hack time rythmées par nos tribus Web, Mobile, Cloud... Journée de la Factory tous les mois : se retrouver physiquement en sortant des missions pour profiter et explorer ensemble ! Conférences privées organisées par Apple France, Microsoft Des participations à des conférences locales, nationales, internationales (WWDC, AWS Summit) Notre équipe de Chiefs Happiness Officiers bienveillants et surmotivés (animations, défis d\'équipe) : Jeux de sociétés tous les midis, dans les locaux, events d\'équipe mensuels, vrai bon café gratuit et illimité, baby-foot, mario-kart sur switch Construire un avenir positif en mettant le digital au service de l\'humain La possibilité de développer votre expertise Web ou bien de monter en compétences aussi sur Android, sur iOS ou sur la xR (Unity / Unreal Engine) avec les experts de l\'équipe Évoluer dans une entreprise qui encourage l\'audace, la curiosité et l\'envie d\'entreprendre', 'Junior', 'Présent', '35k €/an', 'Ce que nous vous proposons : Un accord télétravail pour télétravailler jusqu\'à 2 jours par semaine selon vos missions. Un package avantages intéressant : une mutuelle, un CSE, des titres restaurants, un accord d\'intéressement, des primes vacances et cooptation. Un accompagnement individualisé avec un mentor.', 'marie@externatic.fr'
@@ -203,29 +199,37 @@ VALUES (
     ),
     (
         5, 'Développeur informatique', 'Armée de Terre', 'CDI', 'Bordeaux', 'Vos qualités : très méthodique, goût prononcé pour la technologie, réactif\n    À partir du bac\n    Homme ou femme, de 18 à 29 ans\n    Nationalité française, en règle avec les obligations du service national JDC et jouissant de ses droits civiques.', 'Junior', 'Présent', '25k €/an', 'Votre spécialité consiste à développer des logiciels au profit du ministère des Armées au sein d\'un centre de développement. Sous la conduite d\'un chef de projet, vous assurez la maintenance d\'applications existantes et vous concevez de nouveaux logiciels liés aux besoins des armées. Vous soutenez les forces déployées depuis le territoire national et vous pouvez éventuellement être projetés sur des postes en dehors de votre compétence principale de développeur. Au bout de 4 à 6 ans, vous pouvez évoluer vers les métiers de la cybersécurité.', 'marie@externatic.fr'
-    );
+    ),
+    (
+        10, 'Développeur Web React', 'ReactInnovate Solutions', 'CDI', 'Toulouse', 'ReactInnovate Solutions, société axée sur le développement React, cherche un Développeur Web React pour rejoindre notre équipe à Toulouse en CDI. En tant que Développeur Web React, vous serez responsable de la conception et du développement d\'interfaces utilisateur modernes et réactives.Vous travaillerez sur des projets innovants et collaborerez avec d\'autres développeurs pour créer des applications web performantes.', 'Expérimenté', 'Présent', '45k €/an', 'Ce que nous vous proposons : Un environnement de travail dynamique, des projets variés, des opportunités d\'évolution, et la chance de contribuer à la création d\'applications web innovantes.', 'recrutement@reactinnovate.com'
+    )
+on duplicate key update
+    id = values(id),
+    title = values(title),
+    company = values(company),
+    type = values(type),
+    city = values(city),
+    mission = values(mission),
+    search_profile = values(search_profile),
+    work_place = values(work_place),
+    salary = values(salary),
+    info = values(info),
+    email = values(email);
 /*!40000 ALTER TABLE `offer` ENABLE KEYS */
 ;
 
 UNLOCK TABLES;
 
-INSERT INTO
-    `offer`
-VALUES (
-        10, 'Développeur Web React', 'ReactInnovate Solutions', 'CDI', 'Toulouse', 'ReactInnovate Solutions, société axée sur le développement React, cherche un Développeur Web React pour rejoindre notre équipe à Toulouse en CDI. En tant que Développeur Web React, vous serez responsable de la conception et du développement d\'interfaces utilisateur modernes et réactives.Vous travaillerez sur des projets innovants et collaborerez avec d\'autres développeurs pour créer des applications web performantes.', 'Expérimenté', 'Présent', '45k €/an', 'Ce que nous vous proposons : Un environnement de travail dynamique, des projets variés, des opportunités d\'évolution, et la chance de contribuer à la création d\'applications web innovantes.', 'recrutement@reactinnovate.com'
-    );
-
 --
 -- Table structure for table `offer_competence`
 --
 
-DROP TABLE IF EXISTS `offer_competence`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */
 ;
 /*!50503 SET character_set_client = utf8mb4 */
 ;
 
-CREATE TABLE `offer_competence` (
+CREATE TABLE if not exists `offer_competence` (
     `id` int NOT NULL AUTO_INCREMENT, `offer_id` int NOT NULL, `competence_id` int NOT NULL, PRIMARY KEY (`id`), KEY `offer_id` (`offer_id`), KEY `competence_id` (`competence_id`), CONSTRAINT `offer_competence_ibfk_1` FOREIGN KEY (`offer_id`) REFERENCES `offer` (`id`), CONSTRAINT `offer_competence_ibfk_2` FOREIGN KEY (`competence_id`) REFERENCES `competence` (`id`)
 ) ENGINE = InnoDB AUTO_INCREMENT = 6 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */
@@ -239,7 +243,7 @@ LOCK TABLES `offer_competence` WRITE;
 /*!40000 ALTER TABLE `offer_competence` DISABLE KEYS */
 ;
 
-INSERT INTO
+INSERT ignore INTO
     `offer_competence`
 VALUES (6, 2, 1),
     (7, 2, 2),
@@ -304,13 +308,12 @@ UNLOCK TABLES;
 -- Table structure for table `upload`
 --
 
-DROP TABLE IF EXISTS `upload`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */
 ;
 /*!50503 SET character_set_client = utf8mb4 */
 ;
 
-CREATE TABLE `upload` (
+CREATE TABLE if not exists `upload` (
     `id` int NOT NULL AUTO_INCREMENT, `url` varchar(255) NOT NULL, PRIMARY KEY (`id`)
 ) ENGINE = InnoDB AUTO_INCREMENT = 37 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */
@@ -324,7 +327,7 @@ LOCK TABLES `upload` WRITE;
 /*!40000 ALTER TABLE `upload` DISABLE KEYS */
 ;
 
-INSERT INTO
+INSERT ignore INTO
     `upload`
 VALUES (1, 'test.png'),
     (
@@ -402,13 +405,12 @@ UNLOCK TABLES;
 -- Table structure for table `user`
 --
 
-DROP TABLE IF EXISTS `user`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */
 ;
 /*!50503 SET character_set_client = utf8mb4 */
 ;
 
-CREATE TABLE `user` (
+CREATE TABLE if not exists `user` (
     `id` int NOT NULL AUTO_INCREMENT, `firstname` varchar(100) NOT NULL, `lastname` varchar(100) NOT NULL, `phone` varchar(100) NOT NULL, `email` varchar(100) NOT NULL, `address` varchar(155) NOT NULL, `password` varchar(100) NOT NULL, `is_admin` tinyint(1) NOT NULL, `upload_url` varchar(255) NOT NULL, PRIMARY KEY (`id`), UNIQUE KEY `email` (`email`)
 ) ENGINE = InnoDB AUTO_INCREMENT = 30 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */
@@ -419,29 +421,38 @@ CREATE TABLE `user` (
 --
 
 LOCK TABLES `user` WRITE;
-/*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'johny','demo','0687274894','john.doe@externatic.com','45 rue des cocotiers, Perpignan, 66100','$2b$05$qmUzhYqnfbiQyfY0NZXaueKkDbInhO4pzZGuLnTT5JAUq5BJgdbeK',0,'loremipsul-mdolor'
-),(
-  28,'erftgyhuj','rfghj','rftgyhuj','adrien.russo@gmail.com','dcfvgbh','$2b$05$8K8lbcHYqN5jZqO8mFzLW.YC8n4yVcIjk8fyz18Ud/vgkMVmfhR/i',0,''
-  ),(
-    29,'cass','cassiergegr','098320498','cass@gmail.com','ç!\"\'(è rye àéç\"!àçé','$2b$05$AnyuQBLohvbHr79KdBOj9OWmJfpu8ulSY2G2LQgqz/whDlSy1qKbq',0,'uploads/05d0d336a101ed3b078b4153b7378bf8.avif'
-    ),(
-      44, "John", "Doe", "0606060606", "john.doe@externatic.fr", "06 Ure", "$2b$05$P3w2mRO1X1DPbrVsQocyfupP20xBlgEZGrNfimpoAFCzf4f.mTqTS", 1, 'uploads/05d0d336a101ed3b078b4153b7378bf8.avif'
+/*!40000 ALTER TABLE `user` DISABLE KEYS */
+;
+
+INSERT ignore INTO
+    `user`
+VALUES (
+        1, 'johny', 'demo', '0687274894', 'john.doe@externatic.com', '45 rue des cocotiers, Perpignan, 66100', '$2b$05$qmUzhYqnfbiQyfY0NZXaueKkDbInhO4pzZGuLnTT5JAUq5BJgdbeK', 0, 'loremipsul-mdolor'
+    ),
+    (
+        28, 'erftgyhuj', 'rfghj', 'rftgyhuj', 'adrien.russo@gmail.com', 'dcfvgbh', '$2b$05$8K8lbcHYqN5jZqO8mFzLW.YC8n4yVcIjk8fyz18Ud/vgkMVmfhR/i', 0, ''
+    ),
+    (
+        29, 'cass', 'cassiergegr', '098320498', 'cass@gmail.com', 'ç!\"\'(è rye àéç\"!àçé', '$2b$05$AnyuQBLohvbHr79KdBOj9OWmJfpu8ulSY2G2LQgqz/whDlSy1qKbq', 0, 'uploads/05d0d336a101ed3b078b4153b7378bf8.avif'
+    ),
+    (
+        44, "John", "Doe", "0606060606", "john.doe@externatic.fr", "06 Ure", "$2b$05$P3w2mRO1X1DPbrVsQocyfupP20xBlgEZGrNfimpoAFCzf4f.mTqTS", 1, 'uploads/05d0d336a101ed3b078b4153b7378bf8.avif'
     );
-/*!40000 ALTER TABLE `user` ENABLE KEYS */;
+/*!40000 ALTER TABLE `user` ENABLE KEYS */
+;
+
 UNLOCK TABLES;
 
 --
 -- Table structure for table `user_competence`
 --
 
-DROP TABLE IF EXISTS `user_competence`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */
 ;
 /*!50503 SET character_set_client = utf8mb4 */
 ;
 
-CREATE TABLE `user_competence` (
+CREATE TABLE if not exists `user_competence` (
     `id` int NOT NULL AUTO_INCREMENT, `user_id` int NOT NULL, `competence_id` int NOT NULL, PRIMARY KEY (`id`), KEY `user_id` (`user_id`), KEY `competence_id` (`competence_id`), CONSTRAINT `user_competence_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`), CONSTRAINT `user_competence_ibfk_2` FOREIGN KEY (`competence_id`) REFERENCES `competence` (`id`)
 ) ENGINE = InnoDB AUTO_INCREMENT = 26 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */
@@ -455,7 +466,7 @@ LOCK TABLES `user_competence` WRITE;
 /*!40000 ALTER TABLE `user_competence` DISABLE KEYS */
 ;
 
-INSERT INTO
+INSERT ignore INTO
     `user_competence`
 VALUES (2, 28, 1),
     (3, 28, 2),
