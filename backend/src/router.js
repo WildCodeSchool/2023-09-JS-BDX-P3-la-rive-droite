@@ -34,11 +34,7 @@ router.post(
   authMiddleware,
   userControllers.addSkills
 );
-router.post(
-  "/users/:id([0-9]+)/set/skills",
-  authMiddleware,
-  userControllers.setSkills
-);
+router.post("/users/:id([0-9]+)/set/skills", userControllers.setSkills);
 router.get(
   "/users/me/get-matching-offers",
   authMiddleware,

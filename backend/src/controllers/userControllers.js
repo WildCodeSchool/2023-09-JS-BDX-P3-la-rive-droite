@@ -18,10 +18,6 @@ const getUsers = async (_, res) => {
 const setSkills = async (req, res) => {
   const id = +req.params.id;
 
-  if (req.user.id !== id && !req.user.is_admin) {
-    return res.status(403).send({ error: "You do not have permission" });
-  }
-
   try {
     await models.userCompetence.setUserCompetencesList(id, req.body);
     return res.status(201).send({});
