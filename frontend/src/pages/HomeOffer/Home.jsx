@@ -4,6 +4,7 @@ import { useGlobalContext } from "../../contexts/GlobalContext";
 import "./Home.css";
 import CardOffre from "../../components/CardModel/CardOffre";
 import { useUserContext } from "../../contexts/UserContext";
+
 import HomeCard from "../../components/HomeCard/HomeCard";
 import CardOffer from "../../components/CardModel/CardOffer";
 
@@ -13,22 +14,6 @@ function Home() {
   const [matchingOffers, setMatchingOffers] = useState([]);
 
   useEffect(() => {
-    // const getOffer = async () => {
-    //   try {
-    //     const response = await fetch(
-    //       `${import.meta.env.VITE_BACKEND_URL}/api/offer`
-    //     );
-    //     if (response.ok) {
-    //       const data = await response.json();
-    //       setOffers(data);
-    //     } else {
-    //       console.error("Echec de la récupération des données.");
-    //     }
-    //   } catch (err) {
-    //     console.error(err);
-    //   }
-    // };
-
     const getOfferMatch = async () => {
       try {
         const response = await apiService.get(
@@ -41,19 +26,6 @@ function Home() {
     };
 
     getOfferMatch();
-    // getOffer();
-
-    //     const getOffer = async () => {
-    //       try {
-    //         const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/offer`);
-    //         console.log(response.data);
-    //         setOffers(response.data);
-    //   } catch (err) {
-    //     console.error(err);
-    //   };
-    // }
-
-    // getOffer();
   }, []);
 
   return (
@@ -80,12 +52,9 @@ function Home() {
               />
             ))
           ) : (
-            <>
+            <div className="offer-container-offer">
               <CardOffer />
-              <CardOffer />
-              <CardOffer />
-              <CardOffer />
-            </>
+            </div>
           )}
         </div>
       </div>
