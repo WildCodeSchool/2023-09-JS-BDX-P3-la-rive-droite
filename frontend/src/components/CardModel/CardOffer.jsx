@@ -31,7 +31,7 @@ function CardOffer() {
   }, []);
 
   return (
-    <div>
+    <>
       {offers.map((offer) => (
         <div className="card-container" key={offer.id}>
           <h3 className="label-offre">{offer.title}</h3>
@@ -43,7 +43,7 @@ function CardOffer() {
           <ButtonMini onClick={handleClickPostuler} textBtn="Postuler" />
         </div>
       ))}
-    </div>
+    </>
   );
 }
 
