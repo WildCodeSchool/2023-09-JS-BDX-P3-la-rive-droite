@@ -16,6 +16,9 @@ function Home() {
   useEffect(() => {
     const getOfferMatch = async () => {
       try {
+        if (!localStorage.getItem("token")) {
+          return;
+        }
         const response = await apiService.get(
           `${import.meta.env.VITE_BACKEND_URL}/api/users/me/get-matching-offers`
         );
