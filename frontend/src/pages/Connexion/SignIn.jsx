@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
 import Input from "../../components/Inputs/Input";
 import CheckboxCondition from "../../components/Inputs/CheckboxCondition";
 import CompetenceSwitch from "../../components/Competence Switch/CompetenceSwitch";
@@ -110,16 +109,16 @@ function SignIn() {
       setTimeout(() => {
         globalContext.setSuccesMsg(false);
       }, 2000);
-      const response = await axios.post(
+      const response = await apiService.post(
         `${import.meta.env.VITE_BACKEND_URL}/api/users`,
         {
           ...signIn,
         }
       );
 
-      await axios.post(
+      await apiService.post(
         `${import.meta.env.VITE_BACKEND_URL}/api/users/${
-          response.data.insertId
+          response.insertId
         }/set/skills`,
         { competences: selectedCompetences.map((c) => c.id) }
       );
