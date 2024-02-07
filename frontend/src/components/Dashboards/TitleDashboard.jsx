@@ -1,5 +1,5 @@
-import "./title-dashboard.css";
 import PropTypes from "prop-types";
+import "./title-dashboard.css";
 
 function TitleDashboard({
   labelDash,
@@ -8,6 +8,7 @@ function TitleDashboard({
   labelDash4,
   labelDash5,
   labelDash6,
+  labelDash7,
 }) {
   return (
     <div className="title-container">
@@ -16,7 +17,8 @@ function TitleDashboard({
       <h4 className="title-dash">{labelDash3}</h4>
       <h4 className="title-dash">{labelDash4}</h4>
       <h4 className="title-dash">{labelDash5}</h4>
-      <h4 className="title-dash-action">{labelDash6}</h4>
+      <h4 className="title-dash">{labelDash6}</h4>
+      <h4 className="title-dash">{labelDash7}</h4>
     </div>
   );
 }
@@ -27,6 +29,7 @@ TitleDashboard.propTypes = {
   labelDash4: PropTypes.string.isRequired,
   labelDash5: PropTypes.string.isRequired,
   labelDash6: PropTypes.string.isRequired,
+  labelDash7: PropTypes.string.isRequired,
 };
 
 export default TitleDashboard;

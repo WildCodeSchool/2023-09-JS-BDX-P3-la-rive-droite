@@ -17,7 +17,7 @@ function HomeCard() {
       <div className="homeCard-container">
         <div className="card-one">
           <i className="fa-regular fa-address-book" />
-          <h2>Inscrivez-vous!</h2>
+          <h2>Inscrivez-vous !</h2>
           <p>
             En vous inscrivant, initiez votre retour à l'emploi avec notre
             plateforme ! Explorez des opportunités, acquérez des compétences,

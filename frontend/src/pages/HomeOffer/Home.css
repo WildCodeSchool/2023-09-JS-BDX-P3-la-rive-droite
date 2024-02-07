@@ -22,3 +22,7 @@
     font-style: italic;
   }
 }
+.offer-container-offer {
+  display: flex;
+  flex-wrap: wrap;
+}

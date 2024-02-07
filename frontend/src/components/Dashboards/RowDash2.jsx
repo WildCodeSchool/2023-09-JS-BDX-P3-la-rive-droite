@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import "./RowDash.css";
 import { useGlobalContext } from "../../contexts/GlobalContext";
-// import { useAdminContext } from "../../contexts/AdminContext";
+import { useAdminContext } from "../../contexts/AdminContext";
+import "./RowDash2.css";
 
 function RowDash2() {
   const { apiService } = useGlobalContext();
-  // const { goToEditUser } = useAdminContext();
+  const { goToEditUser } = useAdminContext();
   const [users, setUsers] = useState([]);
 
   const fetchUsers = async () => {
@@ -40,22 +40,22 @@ function RowDash2() {
   return (
     <div className="rowDash-container">
       {users.map((user) => (
-        <div key={user.id} className="offerDash-item">
-          <p className="array-box">{user.id}</p>
-          <p className="array-box">{user.lastname}</p>
-          <p className="array-box">{user.firstname}</p>
-          <p className="array-box">{user.phone}</p>
-          <p className="bigArray-box">{user.email}</p>
-          <p>{user.is_admin}</p>
+        <div key={user.id} className="userDash-item">
+          <p className="field-nbr">{user.id}</p>
+          <p className="field-string">{user.lastname}</p>
+          <p className="field-string">{user.firstname}</p>
+          <p className="field-string">{user.phone}</p>
+          <p className="field-long-string">{user.email}</p>
+          <p className="field-bool">{user.is_admin}</p>
           <div className="icon-dash">
-            {/* <button
+            <button
               type="button"
               aria-label="editeuser"
               onClick={() => goToEditUser(user.id)}
               className="invisible-button"
             >
               <i className="fa-solid fa-pen" />
-            </button> */}
+            </button>
             <button
               type="button"
               aria-label="deleteuser"

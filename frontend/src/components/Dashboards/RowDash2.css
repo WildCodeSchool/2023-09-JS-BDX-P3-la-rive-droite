@@ -1,6 +1,6 @@
-.offerDash-item {
+.userDash-item {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(7, 1fr);
   margin-block: 10px;
   padding: 5px 10px;
   align-items: center;
@@ -8,9 +8,9 @@
   border-radius: 10px;
 }
 
-.offerDash-item > p {
+.userDash-item > p {
   font-size: 14px;
-  width: 25%;
+  width: 14.2%;
 }
 
 .icon-dash {
@@ -19,18 +19,33 @@
 }
 
 @media screen and (min-width: 1200px) {
-  .offerDash-item > p {
+  .userDash-item > p {
     font-size: 20px;
     margin-block: 10px;
+    width: 14.2%;
   }
 
-  .offerDash-item > p:nth-child(2) {
-    white-space: initial;
-    max-width: 100px;
+  .field-nbr {
+    max-width: 25px;
+  }
+
+  .field-string {
+    max-width: 155px;
+  }
+
+  .field-long-string {
+    min-width: 210px;
+  }
+
+  .field-bool {
+    max-width: 25px;
+    margin-left: 75px;
   }
 
   .icon-dash {
     flex-direction: row;
+    max-width: 65px;
+    margin-left: 50px;
   }
 
   .icon-dash > button > i {
