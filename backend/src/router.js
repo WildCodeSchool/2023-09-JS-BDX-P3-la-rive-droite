@@ -26,15 +26,24 @@ router.get(
   userControllers.getUsers
 );
 router.get("/users/:id([0-9]+)/cvs", authMiddleware, cvControllers.getCv);
-router.get("/users/:id([0-9]+)", userControllers.getUserById);
+router.get("/users/:id([0-9]+)", authMiddleware, userControllers.getUserById);
 router.get("/users/me", authMiddleware, userControllers.getProfile);
-router.post("/users", userControllers.postUser);
+router.post(
+  "/users",
+  authMiddleware,
+  authAdminMiddleware,
+  userControllers.postUser
+);
 router.post(
   "/users/:id([0-9]+)/add/skills",
   authMiddleware,
   userControllers.addSkills
 );
-router.post("/users/:id([0-9]+)/set/skills", userControllers.setSkills);
+router.post(
+  "/users/:id([0-9]+)/set/skills",
+  authMiddleware,
+  userControllers.setSkills
+);
 router.get(
   "/users/me/get-matching-offers",
   authMiddleware,
@@ -54,6 +63,7 @@ router.delete(
   userControllers.deleteUser
 );
 /* SKILLS. */
+// TODO: A revoir pb security
 router.post("/user/skills", userControllers.postSkills);
 router.get("/user/skills", userControllers.getSkills);
 router.get("/skills", competenceControllers.getSkills);
