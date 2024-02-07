@@ -42,6 +42,7 @@
 
 .competence-match-offer {
   display: flex;
+  flex-wrap: wrap;
 }
 
 .competence-match-offer {
