@@ -20,15 +20,20 @@ const setSkills = async (req, res) => {
 
   try {
     await models.userCompetence.setUserCompetencesList(id, req.body);
-    res.status(201).send({});
+    return res.status(201).send({});
   } catch (err) {
     console.error(err);
-    res.status(500).send({ error: err.message });
+    return res.status(400).send({ error: err.message });
   }
 };
 
 const getUserById = async (req, res) => {
   const id = +req.params.id;
+
+  if (req.user.id !== id && !req.user.is_admin) {
+    return res.status(403).send({ error: "You do not have permission" });
+  }
+
   try {
     const [result] = await models.user.findId(id);
     if (!result.length) {
@@ -65,6 +70,11 @@ const postUser = async (req, res) => {
 const updateUser = async (req, res) => {
   try {
     const id = +req.params.id;
+
+    if (req.user.id !== id && !req.user.is_admin) {
+      return res.status(403).send({ error: "You do not have permission" });
+    }
+
     let result = await models.user.update(id, req.body);
     if (result.affectedRows.length === 0) {
       return res.status(404);

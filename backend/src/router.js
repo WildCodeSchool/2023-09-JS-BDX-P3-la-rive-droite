@@ -26,7 +26,7 @@ router.get(
   userControllers.getUsers
 );
 router.get("/users/:id([0-9]+)/cvs", authMiddleware, cvControllers.getCv);
-router.get("/users/:id([0-9]+)", userControllers.getUserById);
+router.get("/users/:id([0-9]+)", authMiddleware, userControllers.getUserById);
 router.get("/users/me", authMiddleware, userControllers.getProfile);
 router.post("/users", userControllers.postUser);
 router.post(
@@ -54,6 +54,7 @@ router.delete(
   userControllers.deleteUser
 );
 /* SKILLS. */
+// TODO: A revoir pb security
 router.post("/user/skills", userControllers.postSkills);
 router.get("/user/skills", userControllers.getSkills);
 router.get("/skills", competenceControllers.getSkills);

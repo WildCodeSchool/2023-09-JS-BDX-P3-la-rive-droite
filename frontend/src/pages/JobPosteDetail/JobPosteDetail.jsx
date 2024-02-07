@@ -28,7 +28,6 @@ function JobPosteDetail() {
             </div>
             <h3 className="detail-title-offre"> Missions</h3>
             <p>
-              {" "}
               Lorem ipsum dolor sit amet consectetur, adipisicing elit. Tenetur
               necessitatibus obcaecati praesentium nihil minima ut numquam
               molestiae nostrum, accusantium, repellat doloribus amet autem

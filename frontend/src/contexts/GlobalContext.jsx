@@ -44,7 +44,7 @@ function GlobalContextProvider({ children, apiService }) {
   };
 
   const handleLogout = () => {
-    localStorage.setItem("token", null);
+    localStorage.clear();
     apiService.setToken(null);
     setUser(null);
     setIsAdmin(null);

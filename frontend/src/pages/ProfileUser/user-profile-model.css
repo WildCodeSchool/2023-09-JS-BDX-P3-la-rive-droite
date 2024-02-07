@@ -63,8 +63,8 @@
   #user-profile-model h2.label-champs {
     font-size: 20px;
   }
-  #user-profile-model h2.label-champs,
-  #user-profile-model a {
+  #user-profile-model h2.label-champs/* ,
+  #user-profile-model a */ {
     margin-top: 100px;
   }
   #user-profile-model .container-page {

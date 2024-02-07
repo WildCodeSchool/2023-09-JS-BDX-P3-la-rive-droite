@@ -36,7 +36,7 @@ function EditUser({ fromDashboard }) {
   const { id } = useParams();
 
   useEffect(() => {
-    if (currentUser.id !== +id) {
+    if (currentUser.id !== +id && !currentUser.is_admin) {
       navigate("/profile");
     }
     const getUser = async () => {
