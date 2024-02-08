@@ -49,14 +49,16 @@ function RowDash() {
   }, []);
 
   return (
-    <div className="rowDash-container">
+    <>
+      {/* // <tbody className="rowDash-container"> */}
       {offers.map((offer) => (
-        <div key={offer.id} className="offerDash-item">
-          <p className="array-box">{offer.id}</p>
-          <p className="array-box">{offer.company}</p>
-          <p className="array-box">{offer.NbrCandidats}</p>
-          <p className="bigArray-box">{offer.email}</p>
-          <div className="icon-dash">
+        <tr key={offer.id} className="offerDash-item">
+          <th scope="row" className="array-box">
+            {offer.id}
+          </th>
+          <td className="array-box">{offer.company}</td>
+          <td className="bigArray-box">{offer.email}</td>
+          <td className="icon-dash">
             <button
               type="button"
               aria-label="editoffer"
@@ -81,10 +83,11 @@ function RowDash() {
             >
               <i className="fa-solid fa-trash" />
             </button>
-          </div>
-        </div>
+          </td>
+        </tr>
       ))}
-    </div>
+    </>
+    // </tbody>
   );
 }
 
