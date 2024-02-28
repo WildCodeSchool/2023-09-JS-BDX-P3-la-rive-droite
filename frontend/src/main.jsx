@@ -31,6 +31,7 @@ import ApiService from "./services/api.service";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "mdb-react-ui-kit/dist/css/mdb.min.css";
 import EditUser from "./pages/ProfileUser/EditUser";
+import EditExperience from "./pages/Experience/EditExperience";
 
 const apiService = new ApiService();
 
@@ -85,6 +86,10 @@ const router = createBrowserRouter([
       {
         path: "/profile/add/experience",
         element: <AddExperience />,
+      },
+      {
+        path: "/profile/experience/edit/:id",
+        element: <EditExperience />,
       },
       {
         path: "/profile/add/formation",

@@ -52,23 +52,23 @@ const postExperience = async (req, res) => {
   }
 };
 
-// const updateExperience = async (req, res) => {
-//   try {
-//     const id = parseInt(req.params.id, 10);
-//     if (!id) {
-//       res.sendStatus(500);
-//     }
+const updateExperience = async (req, res) => {
+  try {
+    const id = parseInt(req.params.id, 10);
+    if (!id) {
+      res.sendStatus(500);
+    }
 
-//     const result = await models.experience.update(id, req.body);
-//     if (result.affectedRows === 0) {
-//       res.sendStatus(500);
-//     }
-//     res.sendStatus(200);
-//   } catch (error) {
-//     console.error(error);
-//     res.status(422).send({ error: error.message });
-//   }
-// };
+    const result = await models.experience.update(id, req.body);
+    if (result.affectedRows === 0) {
+      res.sendStatus(500);
+    }
+    res.sendStatus(200);
+  } catch (error) {
+    console.error(error);
+    res.status(422).send({ error: error.message });
+  }
+};
 
 const deleteExperienceById = async (req, res) => {
   try {
@@ -86,7 +86,7 @@ module.exports = {
   getExperiences,
   getExperienceById,
   postExperience,
-  // updateExperience,
+  updateExperience,
   deleteExperienceById,
   getExperiencesByCvId,
 };

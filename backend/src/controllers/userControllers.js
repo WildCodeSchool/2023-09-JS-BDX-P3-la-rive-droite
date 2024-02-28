@@ -51,7 +51,7 @@ const getUserById = async (req, res) => {
 const postUser = async (req, res) => {
   try {
     const { rows } = await models.user.create(req.body);
-    res.send({
+    res.status(201).send({
       insertId: rows.insertId,
       firstname: req.body.firstname,
       lastname: req.body.lastname,

@@ -136,11 +136,11 @@ router.post(
   authMiddleware,
   experienceControllers.postExperience
 );
-// router.put(
-//   "/experience/:id([0-9]+)",
-//   authMiddleware,
-//   experienceControllers.updateExperience
-// );
+router.put(
+  "/experience/:id([0-9]+)",
+  authMiddleware,
+  experienceControllers.updateExperience
+);
 router.delete(
   "/experience/:id([0-9]+)",
   authMiddleware,
