@@ -73,9 +73,8 @@ function EditExperience() {
         const cvId = data.id;
 
         addXp.cvId = cvId;
-
-        await globalContext.apiService.post(
-          `${import.meta.env.VITE_BACKEND_URL}/api/experience/`,
+        await globalContext.apiService.update(
+          `${import.meta.env.VITE_BACKEND_URL}/api/experience/${id}`,
           addXp
         );
 
@@ -110,8 +109,8 @@ function EditExperience() {
         const formattedDateBegin = format(dateBeginObject, "yyyy-MM-dd");
         const formattedDateEnd = format(dateEndObject, "yyyy-MM-dd");
 
-        experience.date_begin = formattedDateBegin;
-        experience.date_end = formattedDateEnd;
+        experience.dateBegin = formattedDateBegin;
+        experience.dateEnd = formattedDateEnd;
 
         setAddXp(experience);
       } catch (err) {
@@ -197,7 +196,7 @@ function EditExperience() {
               handleChange={(event) =>
                 globalContext.handleChange(setAddXp, "dateBegin", event)
               }
-              value={addXp.date_begin}
+              value={addXp.dateBegin}
             />
             <DateComponent
               titleCalendar="Jusqu'au :"
@@ -205,7 +204,7 @@ function EditExperience() {
               handleChange={(event) =>
                 globalContext.handleChange(setAddXp, "dateEnd", event)
               }
-              value={addXp.date_end}
+              value={addXp.dateEnd}
             />
             <TextArea
               titleInput="Description du poste *"
