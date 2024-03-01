@@ -60,8 +60,6 @@ function AddExperience() {
       }, 2000);
     } else {
       try {
-        // ici on récupère l'id du cv, et le back fait en sorte
-        // que si l'utilisateur n'a pas de cv, il en crée un
         const { data } = await globalContext.apiService.get(
           `${import.meta.env.VITE_BACKEND_URL}/api/users/${
             globalContext.user.id
@@ -83,7 +81,6 @@ function AddExperience() {
           globalContext.setSuccesMsg(false);
           globalContext.navigate("/profile");
         }, 2000);
-        // saveItemInLS("Experience", xpSaved);
       } catch (err) {
         console.error(err);
         globalContext.setErrorMsg(true);
