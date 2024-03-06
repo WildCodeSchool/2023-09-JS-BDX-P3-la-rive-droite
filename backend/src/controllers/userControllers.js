@@ -231,6 +231,7 @@ const getMatchingOffers = async (req, res) => {
     });
 
     // inclure le pourcentage de match, arrondi à l'entier
+
     offersWithMatchingCompetences = offersWithMatchingCompetences.map(
       (offer) => {
         const modifiedOffer = { ...offer };
@@ -244,6 +245,7 @@ const getMatchingOffers = async (req, res) => {
     );
 
     // trier les offres par pourcentage de match décroissant
+
     offersWithMatchingCompetences.sort((a, b) => {
       if (a.matchingCompetencesRatio > b.matchingCompetencesRatio) {
         return -1;

@@ -84,7 +84,7 @@ function SignIn() {
     } else if (!globalContext.passwordRegex.test(signIn.password)) {
       globalContext.setErrorMsg(true);
       globalContext.setMsgContent(
-        "Le mot de passe doit contenir au moins : 1 majuscule, 1 minuscule, 1 chiffre, 1 caractère spéciale(@$!%*?&)"
+        "Le mot de passe doit contenir au moins : 1 majuscule, 1 minuscule, 1 chiffre, 1 caractère spécial (@$!%*?&)"
       );
       setTimeout(() => {
         globalContext.setErrorMsg(false);

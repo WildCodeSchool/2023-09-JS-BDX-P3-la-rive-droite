@@ -33,7 +33,7 @@ function EditExperience() {
     cvId: null,
   });
 
-  const handleAddXp = async (event) => {
+  const handleUpdateXp = async (event) => {
     event.preventDefault();
     if (
       addXp.title === "" ||
@@ -78,7 +78,7 @@ function EditExperience() {
           addXp
         );
 
-        globalContext.setMsgContent("L'expérience a été ajoutée avec");
+        globalContext.setMsgContent("L'expérience a été modifiée avec");
         globalContext.setSuccesMsg(true);
         setTimeout(() => {
           globalContext.setSuccesMsg(false);
@@ -124,7 +124,7 @@ function EditExperience() {
       <HeaderCourt />
       <div className="container-page with-rounded-border">
         <h1>Modifier votre expérience</h1>
-        <form onSubmit={handleAddXp}>
+        <form onSubmit={handleUpdateXp}>
           <div className="container-input">
             <Input
               titleInput="Intitulé du poste *"

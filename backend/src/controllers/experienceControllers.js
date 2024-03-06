@@ -75,10 +75,10 @@ const deleteExperienceById = async (req, res) => {
     const id = parseInt(req.params.id, 10);
 
     const [result] = await models.experience.deleteId(id);
-    res.status(201).send({ message: result });
+    res.status(200).send({ message: result });
   } catch (err) {
     console.error(err);
-    res.status(422).send({ message: "Experience not found." });
+    res.status(404).send({ message: "Experience not found." });
   }
 };
 
