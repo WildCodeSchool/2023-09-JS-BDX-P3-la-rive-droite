@@ -49,20 +49,18 @@ function AddExperience() {
       return;
     }
 
-    if (!newExperience.isWorking && newExperience.dateBegin === "") {
-      newExperience.dateBegin = "1970-01-01";
-
+    if (newExperience.dateBegin === "") {
       globalContext.setErrorMsg(true);
-      globalContext.setMsgContent("Veuillez renseigner les dates");
+      globalContext.setMsgContent("Veuillez renseigner la date de début");
       setTimeout(() => {
         globalContext.setErrorMsg(false);
       }, 2000);
       return;
     }
 
-    if (newExperience.isWorking && newExperience.dateBegin === "") {
+    if (!newExperience.isWorking && newExperience.dateEnd === "") {
       globalContext.setErrorMsg(true);
-      globalContext.setMsgContent("Veuillez renseigner les dates");
+      globalContext.setMsgContent("Veuillez renseigner la date de fin");
       setTimeout(() => {
         globalContext.setErrorMsg(false);
       }, 2000);
@@ -70,6 +68,9 @@ function AddExperience() {
     }
 
     try {
+      if (newExperience.isWorking) {
+        newExperience.dateEnd = "1970-01-01";
+      }
       // On va chercher l'id du cv de l'utilisateur
       const { data } = await globalContext.apiService.get(
         `${import.meta.env.VITE_BACKEND_URL}/api/users/${
@@ -154,7 +155,16 @@ function AddExperience() {
               <CheckboxCondition
                 textCondition="J'occupe ce poste actuellement"
                 fieldName="isWorking"
-                handleChange={handleFormChange}
+                handleChange={() => {
+                  setNewExperience((prevData) => {
+                    const newValue = !prevData.isWorking;
+                    return {
+                      ...prevData,
+                      isWorking: newValue,
+                    };
+                  });
+                }}
+                checked={newExperience.isWorking}
               />
             </div>
             <Date
@@ -162,11 +172,14 @@ function AddExperience() {
               fieldName="dateBegin"
               handleChange={handleFormChange}
             />
-            <Date
-              titleCalendar="Jusqu'au :"
-              fieldName="dateEnd"
-              handleChange={handleFormChange}
-            />
+            {!newExperience.isWorking && (
+              <Date
+                titleCalendar="Jusqu'au :"
+                fieldName="dateEnd"
+                handleChange={handleFormChange}
+              />
+            )}
+
             <TextArea
               titleInput="Description du poste *"
               holderText="Lorem ipsum dolor si amet"

@@ -49,6 +49,8 @@ function EditExperience() {
         data.dateBegin = formattedDateBegin;
         data.dateEnd = formattedDateEnd;
 
+        data.isWorking = data.is_working;
+
         setExperience(data);
       } catch (err) {
         console.error(err);
@@ -56,10 +58,17 @@ function EditExperience() {
       }
     };
     getExperience();
-  }, [id]);
+  }, []);
+
+  useEffect(() => {
+    if (experience.isWorking) {
+      experience.dateEnd = "";
+    }
+  }, [experience]);
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
+
     if (
       experience.title === "" ||
       experience.company === "" ||
@@ -75,26 +84,28 @@ function EditExperience() {
       return;
     }
 
-    if (!experience.isWorking && experience.dateBegin === "") {
-      experience.dateBegin = "1970-01-01";
-
+    if (experience.dateBegin === "") {
       globalContext.setErrorMsg(true);
-      globalContext.setMsgContent("Veuillez renseigner les dates");
+      globalContext.setMsgContent("Veuillez renseigner la date de début");
       setTimeout(() => {
         globalContext.setErrorMsg(false);
       }, 2000);
       return;
     }
 
-    if (experience.isWorking && experience.dateBegin === "") {
+    if (!experience.isWorking && experience.dateEnd === "") {
       globalContext.setErrorMsg(true);
-      globalContext.setMsgContent("Veuillez renseigner les dates");
+      globalContext.setMsgContent("Veuillez renseigner la date de fin");
       setTimeout(() => {
         globalContext.setErrorMsg(false);
       }, 2000);
       return;
     }
+
     try {
+      if (experience.isWorking) {
+        experience.dateEnd = "1970-01-01";
+      }
       // ici on récupère l'id du cv, et le back fait en sorte
       // que si l'utilisateur n'a pas de cv, il en crée un
       const { data } = await globalContext.apiService.get(
@@ -190,7 +201,16 @@ function EditExperience() {
               <CheckboxCondition
                 textCondition="J'occupe ce poste actuellement"
                 fieldName="isWorking"
-                handleChange={handleFormChange}
+                handleChange={() => {
+                  setExperience((prevData) => {
+                    const newValue = !prevData.isWorking;
+                    return {
+                      ...prevData,
+                      isWorking: newValue,
+                    };
+                  });
+                }}
+                checked={!!experience.isWorking}
               />
             </div>
             <DateComponent
@@ -199,12 +219,15 @@ function EditExperience() {
               handleChange={handleFormChange}
               value={experience.dateBegin}
             />
-            <DateComponent
-              titleCalendar="Jusqu'au :"
-              fieldName="dateEnd"
-              handleChange={handleFormChange}
-              value={experience.dateEnd}
-            />
+            {!experience.isWorking && (
+              <DateComponent
+                titleCalendar="Jusqu'au :"
+                fieldName="dateEnd"
+                handleChange={handleFormChange}
+                value={experience.dateEnd}
+              />
+            )}
+
             <TextArea
               titleInput="Description du poste *"
               holderText="Lorem ipsum dolor si amet"
