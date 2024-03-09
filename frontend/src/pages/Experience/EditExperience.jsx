@@ -30,7 +30,7 @@ function EditExperience() {
     isWorking: false,
     dateBegin: "",
     dateEnd: "",
-    description: null,
+    description: "",
     cvId: null,
   });
 

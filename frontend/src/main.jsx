@@ -100,7 +100,7 @@ const router = createBrowserRouter([
           },
           {
             path: "/dashboard/edit-user/:id",
-            element: <EditUser fromDashboard="true" />,
+            element: <EditUser fromDashboard />,
           },
         ],
       },

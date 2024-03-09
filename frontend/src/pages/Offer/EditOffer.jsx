@@ -18,7 +18,7 @@ function AddOffer() {
   const navigate = useNavigate();
   const globalContext = useGlobalContext();
 
-  const [offer, setOffer] = useState([]);
+  const [offer, setOffer] = useState({});
   const { id } = useParams();
 
   const fetchOffer = async () => {

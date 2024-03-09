@@ -10,26 +10,24 @@ function TextArea({
 }) {
   return (
     <div className="container-input">
-      <form>
-        <div className="champs-form">
-          <div>
-            <label className="label-champs" htmlFor="name">
-              {titleInput ?? "Nom de l'input"}
-            </label>
-          </div>
-          <div>
-            <textarea
-              className="background-input"
-              type="text"
-              id={fieldName}
-              name={fieldName}
-              placeholder={holderText ?? "Texte du placeholder"}
-              value={valueInput[fieldName]}
-              onChange={handleChange}
-            />
-          </div>
+      <div className="champs-form">
+        <div>
+          <label className="label-champs" htmlFor="name">
+            {titleInput ?? "Nom de l'input"}
+          </label>
         </div>
-      </form>
+        <div>
+          <textarea
+            className="background-input"
+            type="text"
+            id={fieldName}
+            name={fieldName}
+            placeholder={holderText ?? "Texte du placeholder"}
+            value={valueInput[fieldName]}
+            onChange={handleChange}
+          />
+        </div>
+      </div>
     </div>
   );
 }

@@ -235,6 +235,7 @@ function AddOffer() {
                 switchClicked(skill.name);
               }}
               isChecked={checkedSkills.includes(skill.name)}
+              fieldName={skill.name}
             />
           ))}
 

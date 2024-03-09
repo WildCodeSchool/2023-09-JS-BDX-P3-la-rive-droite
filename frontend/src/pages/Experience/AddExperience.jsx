@@ -27,7 +27,7 @@ function AddExperience() {
     isWorking: false,
     dateBegin: "",
     dateEnd: null,
-    description: null,
+    description: "",
     cvId: null,
   });
 

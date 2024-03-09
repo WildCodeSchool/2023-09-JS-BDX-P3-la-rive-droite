@@ -24,7 +24,11 @@ Date.propTypes = {
   titleCalendar: PropTypes.string.isRequired,
   handleChange: PropTypes.func.isRequired,
   fieldName: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired,
+  value: PropTypes.string,
+};
+
+Date.defaultProps = {
+  value: undefined,
 };
 
 export default Date;

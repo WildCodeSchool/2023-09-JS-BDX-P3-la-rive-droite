@@ -29,7 +29,7 @@ function EditUser({ fromDashboard }) {
     handleChange,
     isAdmin,
   } = useGlobalContext();
-  const [user, setUser] = useState([]);
+  const [user, setUser] = useState({});
   const [allCompetences, setAllCompetences] = useState([]);
   const [selectedCompetences, setSelectedCompetences] = useState([]);
 
@@ -210,7 +210,7 @@ function EditUser({ fromDashboard }) {
                 key={competence.id}
                 textCompetence={competence.name.toUpperCase()}
                 fieldName={competence.name}
-                isChecked={selectedCompetences?.find(
+                isChecked={selectedCompetences?.some(
                   (c) => competence.id === c.id
                 )}
                 handleChange={() => {
