@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 import ButtonMini from "../../components/Boutons/ButtonMini";
 import { useGlobalContext } from "../../contexts/GlobalContext";
 
-function Dashboard3() {
-  const { unauthorized, apiService } = useGlobalContext();
+function UserDashboard() {
+  const { apiService } = useGlobalContext();
   const navigate = useNavigate();
 
   const [users, setUsers] = useState([]);
@@ -40,7 +40,6 @@ function Dashboard3() {
 
   useEffect(() => {
     fetchUsers();
-    unauthorized();
   }, []);
 
   return (
@@ -49,7 +48,7 @@ function Dashboard3() {
         <h2 className="tab">Tableau de bord</h2>
         <ButtonMini
           textBtn="Tableau d'Offres"
-          onClick={() => navigate("/dashboard")}
+          onClick={() => navigate("/dashboard/offer")}
         />
       </div>
       <h4>Utilisateurs</h4>
@@ -98,4 +97,4 @@ function Dashboard3() {
   );
 }
 
-export default Dashboard3;
+export default UserDashboard;

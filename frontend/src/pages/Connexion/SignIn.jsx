@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { v4 as uuid } from "uuid";
 import Input from "../../components/Inputs/Input";
 import CheckboxCondition from "../../components/Inputs/CheckboxCondition";
@@ -18,6 +18,7 @@ function SignIn() {
   const globalContext = useGlobalContext();
   const [allCompetences, setAllCompetences] = useState([]);
   const [selectedCompetences, setSelectedCompetences] = useState([]);
+  const navigate = useNavigate();
 
   const { apiService } = useGlobalContext();
 
@@ -139,7 +140,7 @@ function SignIn() {
         { competences: selectedCompetences.map((c) => c.id) }
       );
 
-      globalContext.navigate("/login");
+      navigate("/login");
     }
   };
 

@@ -41,7 +41,7 @@ function Login() {
       setTimeout(() => {
         globalContext.setSuccesMsg(false);
         if (result.data.is_admin === 1) {
-          navigate("/dashboard");
+          navigate("/dashboard/offer");
         } else {
           navigate("/");
         }

@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { v4 as uuid } from "uuid";
 import "./add-experience.css";
 import Input from "../../components/Inputs/Input";
@@ -15,6 +16,7 @@ import SuccesMsg from "../../components/Alertes Messages/SuccesMsg";
 
 function AddExperience() {
   const globalContext = useGlobalContext();
+  const navigate = useNavigate();
 
   const [addXp, setAddXp] = useState({
     id: uuid(),
@@ -79,7 +81,7 @@ function AddExperience() {
         globalContext.setSuccesMsg(true);
         setTimeout(() => {
           globalContext.setSuccesMsg(false);
-          globalContext.navigate("/profile");
+          navigate("/profile");
         }, 2000);
       } catch (err) {
         console.error(err);

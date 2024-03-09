@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { v4 as uuid } from "uuid";
 import "./add-experience.css";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { format } from "date-fns";
 
 import Input from "../../components/Inputs/Input";
@@ -19,6 +19,7 @@ import SuccesMsg from "../../components/Alertes Messages/SuccesMsg";
 function EditExperience() {
   const globalContext = useGlobalContext();
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const [addXp, setAddXp] = useState({
     id: uuid(),
@@ -82,7 +83,7 @@ function EditExperience() {
         globalContext.setSuccesMsg(true);
         setTimeout(() => {
           globalContext.setSuccesMsg(false);
-          globalContext.navigate("/profile");
+          navigate("/profile");
         }, 2000);
       } catch (err) {
         console.error(err);

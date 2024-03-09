@@ -11,8 +11,8 @@ import LogIn from "./pages/Connexion/LogIn";
 import UserProfileModel from "./pages/ProfileUser/UserProfileModel";
 import AddExperience from "./pages/Experience/AddExperience";
 import AddFormation from "./pages/Formation/AddFormation";
-import Dashboard1 from "./pages/Dashboard/Dashboard1";
-import Dashboard3 from "./pages/Dashboard/Dashboard3";
+import OfferDashboard from "./pages/Dashboard/OfferDashboard";
+import UserDashboard from "./pages/Dashboard/UserDashboard";
 import AddOffer from "./pages/Offer/AddOffer";
 import EditOffer from "./pages/Offer/EditOffer";
 // Import Contexts.
@@ -27,6 +27,7 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import "mdb-react-ui-kit/dist/css/mdb.min.css";
 import EditUser from "./pages/ProfileUser/EditUser";
 import EditExperience from "./pages/Experience/EditExperience";
+import DashboardGuard from "./pages/Dashboard/DashboardGuard";
 
 const apiService = new ApiService();
 
@@ -78,15 +79,19 @@ const router = createBrowserRouter([
       },
       {
         path: "/dashboard",
-        element: <Dashboard1 />,
+        element: <DashboardGuard />,
         loader: async () => currentAdmin(apiService),
         children: [
           {
-            path: "/dashboard/user",
-            element: <Dashboard3 />,
+            path: "/dashboard/offer",
+            element: <OfferDashboard />,
           },
           {
-            path: "/dashboard/offer",
+            path: "/dashboard/user",
+            element: <UserDashboard />,
+          },
+          {
+            path: "/dashboard/offer/add",
             element: <AddOffer />,
           },
           {

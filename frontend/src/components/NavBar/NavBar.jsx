@@ -79,7 +79,7 @@ export default function Navbar() {
                   </Link>
                 ) : null}
                 {isAdmin ? (
-                  <Link to="/dashboard">
+                  <Link to="/dashboard/offer">
                     <span className="navbar-link">Espace admin</span>
                   </Link>
                 ) : null}

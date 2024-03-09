@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { Outlet, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import ButtonMini from "../../components/Boutons/ButtonMini";
 import { useGlobalContext } from "../../contexts/GlobalContext";
 
-function Dashboard1() {
-  const { unauthorized, apiService } = useGlobalContext();
+function OfferDashboard() {
+  const { apiService } = useGlobalContext();
   const navigate = useNavigate();
   const [offers, setOffers] = useState([]);
 
   const handleAddOffer = () => {
-    navigate("/dashboard/offer");
+    navigate("/dashboard/offer/add");
   };
 
   const deleteOffer = async (id) => {
@@ -23,9 +23,6 @@ function Dashboard1() {
         `${import.meta.env.VITE_BACKEND_URL}/api/offer/${id}`
       );
 
-      // Methode 01.
-      // window.location.reload();
-      // Methode 02.
       setOffers((previousOffer) =>
         previousOffer.filter((offer) => offer.id !== id)
       );
@@ -51,12 +48,10 @@ function Dashboard1() {
   };
 
   useEffect(() => {
-    unauthorized();
     fetchOffers();
   }, []);
 
-  return window.location.pathname === "/dashboard" ||
-    window.location.pathname === "/dashboard/" ? (
+  return (
     <div className="container">
       <div className="d-flex justify-content-between align-items-center mb-5">
         <h4 className="tab">Tableau de bord</h4>
@@ -120,11 +115,7 @@ function Dashboard1() {
         </tbody>
       </table>
     </div>
-  ) : (
-    <div>
-      <Outlet />
-    </div>
   );
 }
 
-export default Dashboard1;
+export default OfferDashboard;

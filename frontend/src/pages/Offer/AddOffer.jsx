@@ -87,7 +87,7 @@ function AddOffer() {
       globalContext.setSuccesMsg(true);
       setTimeout(() => {
         globalContext.setSuccesMsg(false);
-        navigate("/dashboard");
+        navigate("/dashboard/offer");
       }, 2000);
 
       setAddOffer({

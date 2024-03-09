@@ -71,7 +71,9 @@ function ReadOffer() {
           <p className="type-offer">{offer.type}</p>
           <div className="competence-match-offer">
             {skillsOffer.map((skill) => (
-              <p className="skill-offer">{skill.name}</p>
+              <p className="skill-offer" key={skill.id}>
+                {skill.name}
+              </p>
             ))}
           </div>
           <p className="description-word">Missions</p>
