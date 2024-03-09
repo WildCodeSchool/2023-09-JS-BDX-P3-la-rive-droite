@@ -57,6 +57,12 @@ function Login() {
     return null;
   };
 
+  const handleFormChange = (event) => {
+    setLogIn((prevData) => ({
+      ...prevData,
+      [event.target.name]: event.target.value,
+    }));
+  };
   return (
     <>
       <HeaderLongTitle textTitle="Connexion" />
@@ -70,9 +76,7 @@ function Login() {
                 holderText="john.doe@externatic.fr"
                 fieldName="email"
                 valueInput={logIn}
-                handleChange={(event) =>
-                  globalContext.handleChange(setLogIn, "email", event)
-                }
+                handleChange={handleFormChange}
               />
               <Input
                 titleInput="Mot de passe *"
@@ -80,9 +84,7 @@ function Login() {
                 fieldName="password"
                 typeInput="password"
                 valueInput={logIn}
-                handleChange={(event) =>
-                  globalContext.handleChange(setLogIn, "password", event)
-                }
+                handleChange={handleFormChange}
               />
               <div>
                 {globalContext.errorMsg && (

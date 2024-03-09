@@ -26,7 +26,6 @@ function EditUser({ fromDashboard }) {
     setSuccesMsg,
     msgContent,
     setMsgContent,
-    handleChange,
     isAdmin,
   } = useGlobalContext();
   const [user, setUser] = useState({});
@@ -134,6 +133,13 @@ function EditUser({ fromDashboard }) {
     }
   };
 
+  const handleFormChange = (event) => {
+    setUser((prevData) => ({
+      ...prevData,
+      [event.target.name]: event.target.value,
+    }));
+  };
+
   return (
     <div>
       <div>
@@ -145,9 +151,7 @@ function EditUser({ fromDashboard }) {
               <Select
                 titleSelect="Administrateur *"
                 fieldName="is_admin"
-                handleChange={(event) =>
-                  handleChange(setUser, "is_admin", event)
-                }
+                handleChange={handleFormChange}
               >
                 <option value={0} selected={user.is_admin === 0}>
                   False
@@ -165,7 +169,7 @@ function EditUser({ fromDashboard }) {
             fieldName="lastname"
             inputType="text"
             valueInput={user}
-            handleChange={(event) => handleChange(setUser, "lastname", event)}
+            handleChange={handleFormChange}
           />
           <Input
             titleInput="Prénom *"
@@ -173,7 +177,7 @@ function EditUser({ fromDashboard }) {
             fieldName="firstname"
             inputType="text"
             valueInput={user}
-            handleChange={(event) => handleChange(setUser, "firstname", event)}
+            handleChange={handleFormChange}
           />
           <Input
             titleInput="E-mail *"
@@ -181,7 +185,7 @@ function EditUser({ fromDashboard }) {
             fieldName="email"
             inputType="text"
             valueInput={user}
-            handleChange={(event) => handleChange(setUser, "email", event)}
+            handleChange={handleFormChange}
           />
           <Input
             titleInput="Numéro de téléphone *"
@@ -189,7 +193,7 @@ function EditUser({ fromDashboard }) {
             fieldName="phone"
             inputType="text"
             valueInput={user}
-            handleChange={(event) => handleChange(setUser, "phone", event)}
+            handleChange={handleFormChange}
           />
           <Input
             titleInput="Adresse *"
@@ -197,7 +201,7 @@ function EditUser({ fromDashboard }) {
             fieldName="address"
             inputType="text"
             valueInput={user}
-            handleChange={(event) => handleChange(setUser, "address", event)}
+            handleChange={handleFormChange}
           />
         </div>
       </div>

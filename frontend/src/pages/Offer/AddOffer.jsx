@@ -119,6 +119,13 @@ function AddOffer() {
 
     getSkills();
   }, []);
+
+  const handleFormChange = (event) => {
+    setAddOffer((prevData) => ({
+      ...prevData,
+      [event.target.name]: event.target.value,
+    }));
+  };
   return (
     <div>
       <HeaderCourt />
@@ -133,9 +140,7 @@ function AddOffer() {
             fieldName="title"
             inputType="text"
             valueInput={addOffer}
-            handleChange={(event) =>
-              globalContext.handleChange(setAddOffer, "title", event)
-            }
+            handleChange={handleFormChange}
           />
           <Input
             titleInput="Société"
@@ -143,16 +148,12 @@ function AddOffer() {
             fieldName="company"
             inputType="text"
             valueInput={addOffer}
-            handleChange={(event) =>
-              globalContext.handleChange(setAddOffer, "company", event)
-            }
+            handleChange={handleFormChange}
           />
           <Select
             titleSelect="Type de contrat"
             fieldName="type"
-            handleChange={(event) =>
-              globalContext.handleChange(setAddOffer, "type", event)
-            }
+            handleChange={handleFormChange}
           >
             <option value="stage">Stage</option>
             <option value="alternance">Alternance</option>
@@ -165,18 +166,14 @@ function AddOffer() {
             inputType="text"
             fieldName="city"
             valueInput={addOffer}
-            handleChange={(event) =>
-              globalContext.handleChange(setAddOffer, "city", event)
-            }
+            handleChange={handleFormChange}
           />
           <TextArea
             titleInput="Missions"
             holderText="Pour cette mission, vous allez devoir réaliser ..."
             fieldName="mission"
             valueInput={addOffer}
-            handleChange={(event) =>
-              globalContext.handleChange(setAddOffer, "mission", event)
-            }
+            handleChange={handleFormChange}
           />
           <Input
             titleInput="Profil recherché"
@@ -184,9 +181,7 @@ function AddOffer() {
             fieldName="search_profile"
             inputType="text"
             valueInput={addOffer}
-            handleChange={(event) =>
-              globalContext.handleChange(setAddOffer, "search_profile", event)
-            }
+            handleChange={handleFormChange}
           />
           <Input
             titleInput="Lieux de travail"
@@ -194,9 +189,7 @@ function AddOffer() {
             fieldName="work_place"
             inputType="text"
             valueInput={addOffer}
-            handleChange={(event) =>
-              globalContext.handleChange(setAddOffer, "work_place", event)
-            }
+            handleChange={handleFormChange}
           />
           <Input
             titleInput="Salaire"
@@ -204,18 +197,14 @@ function AddOffer() {
             fieldName="salary"
             inputType="text"
             valueInput={addOffer}
-            handleChange={(event) =>
-              globalContext.handleChange(setAddOffer, "salary", event)
-            }
+            handleChange={handleFormChange}
           />
           <TextArea
             titleInput="Infos complémentaires"
             holderText="Le travail est cool"
             fieldName="info"
             valueInput={addOffer}
-            handleChange={(event) =>
-              globalContext.handleChange(setAddOffer, "info", event)
-            }
+            handleChange={handleFormChange}
           />
           <Input
             titleInput="Email du client lié à l'offre"
@@ -223,9 +212,7 @@ function AddOffer() {
             fieldName="email"
             inputType="email"
             valueInput={addOffer}
-            handleChange={(event) =>
-              globalContext.handleChange(setAddOffer, "email", event)
-            }
+            handleChange={handleFormChange}
           />
           {skills.map((skill) => (
             <CompetenceSwitch

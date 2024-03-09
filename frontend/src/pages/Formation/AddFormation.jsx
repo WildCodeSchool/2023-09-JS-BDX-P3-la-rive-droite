@@ -89,6 +89,12 @@ function AddFormation() {
   };
   useEffect(() => {}, [courseSaved]);
 
+  const handleFormChange = (event) => {
+    setAddCourse((prevData) => ({
+      ...prevData,
+      [event.target.name]: event.target.value,
+    }));
+  };
   return (
     <div>
       <HeaderCourt />
@@ -96,9 +102,7 @@ function AddFormation() {
         <h1>Ajouter une formation</h1>
         <form onSubmit={handleAddCourse}>
           <Select
-            handleChange={(event) =>
-              globalContext.handleChange(setAddCourse, "level", event)
-            }
+            handleChange={handleFormChange}
             fieldName="level"
             titleSelect="Niveau d'étude *"
           >
@@ -113,9 +117,7 @@ function AddFormation() {
             fieldName="domaine"
             inputType="text"
             valueInput={addCourse}
-            handleChange={(event) =>
-              globalContext.handleChange(setAddCourse, "domaine", event)
-            }
+            handleChange={handleFormChange}
           />
           <Input
             titleInput="Nom de l'établissement *"
@@ -123,22 +125,16 @@ function AddFormation() {
             fieldName="name"
             inputType="text"
             valueInput={addCourse}
-            handleChange={(event) =>
-              globalContext.handleChange(setAddCourse, "name", event)
-            }
+            handleChange={handleFormChange}
           />
           <Date
             fieldName="dateBegin"
-            handleChange={(event) =>
-              globalContext.handleChange(setAddCourse, "dateBegin", event)
-            }
+            handleChange={handleFormChange}
             titleCalendar="Date de début *"
           />
           <Date
             fieldName="dateEnd"
-            handleChange={(event) =>
-              globalContext.handleChange(setAddCourse, "dateEnd", event)
-            }
+            handleChange={handleFormChange}
             titleCalendar="Date de fin *"
           />
           <TextArea
@@ -147,9 +143,7 @@ function AddFormation() {
             fieldName="description"
             inputType="text"
             valueInput={addCourse}
-            handleChange={(event) =>
-              globalContext.handleChange(setAddCourse, "description", event)
-            }
+            handleChange={handleFormChange}
           />
           <div>
             {globalContext.errorMsg && (

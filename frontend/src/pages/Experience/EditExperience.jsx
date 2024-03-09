@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { v4 as uuid } from "uuid";
 import "./add-experience.css";
 import { useNavigate, useParams } from "react-router-dom";
 import { format } from "date-fns";
@@ -21,8 +20,7 @@ function EditExperience() {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const [addXp, setAddXp] = useState({
-    id: uuid(),
+  const [experience, setExperience] = useState({
     title: "",
     company: "",
     city: "",
@@ -34,187 +32,186 @@ function EditExperience() {
     cvId: null,
   });
 
-  const handleUpdateXp = async (event) => {
+  useEffect(() => {
+    const getExperience = async () => {
+      try {
+        const { data } = await globalContext.apiService.get(
+          `http://localhost:3310/api/experience/${id}`
+        );
+
+        // on reçoit les dates au format dd-MM-yyyy, on veut yyyy-MM-dd
+        const dateBeginObject = new Date(data.date_begin);
+        const dateEndObject = new Date(data.date_end);
+
+        const formattedDateBegin = format(dateBeginObject, "yyyy-MM-dd");
+        const formattedDateEnd = format(dateEndObject, "yyyy-MM-dd");
+
+        data.dateBegin = formattedDateBegin;
+        data.dateEnd = formattedDateEnd;
+
+        setExperience(data);
+      } catch (err) {
+        console.error(err);
+        navigate("/profile");
+      }
+    };
+    getExperience();
+  }, [id]);
+
+  const handleFormSubmit = async (event) => {
     event.preventDefault();
     if (
-      addXp.title === "" ||
-      addXp.company === "" ||
-      addXp.type === "" ||
-      addXp.city === "" ||
-      addXp.description === ""
+      experience.title === "" ||
+      experience.company === "" ||
+      experience.type === "" ||
+      experience.city === "" ||
+      experience.description === ""
     ) {
       globalContext.setErrorMsg(true);
       globalContext.setMsgContent("Veuillez remplir tous les champs");
       setTimeout(() => {
         globalContext.setErrorMsg(false);
       }, 2000);
-    } else if (addXp.isWorking === false && addXp.dateBegin === "") {
-      addXp.dateBegin = "1970-01-01";
+      return;
+    }
+
+    if (!experience.isWorking && experience.dateBegin === "") {
+      experience.dateBegin = "1970-01-01";
 
       globalContext.setErrorMsg(true);
       globalContext.setMsgContent("Veuillez renseigner les dates");
       setTimeout(() => {
         globalContext.setErrorMsg(false);
       }, 2000);
-    } else if (addXp.isWorking === true && addXp.dateBegin === "") {
+      return;
+    }
+
+    if (experience.isWorking && experience.dateBegin === "") {
       globalContext.setErrorMsg(true);
       globalContext.setMsgContent("Veuillez renseigner les dates");
       setTimeout(() => {
         globalContext.setErrorMsg(false);
       }, 2000);
-    } else {
-      try {
-        // ici on récupère l'id du cv, et le back fait en sorte
-        // que si l'utilisateur n'a pas de cv, il en crée un
-        const { data } = await globalContext.apiService.get(
-          `${import.meta.env.VITE_BACKEND_URL}/api/users/${
-            globalContext.user.id
-          }/cvs`
-        );
-        const cvId = data.id;
+      return;
+    }
+    try {
+      // ici on récupère l'id du cv, et le back fait en sorte
+      // que si l'utilisateur n'a pas de cv, il en crée un
+      const { data } = await globalContext.apiService.get(
+        `${import.meta.env.VITE_BACKEND_URL}/api/users/${
+          globalContext.user.id
+        }/cvs`
+      );
+      const cvId = data.id;
 
-        addXp.cvId = cvId;
-        await globalContext.apiService.update(
-          `${import.meta.env.VITE_BACKEND_URL}/api/experience/${id}`,
-          addXp
-        );
+      experience.cvId = cvId;
+      await globalContext.apiService.update(
+        `${import.meta.env.VITE_BACKEND_URL}/api/experience/${id}`,
+        experience
+      );
 
-        globalContext.setMsgContent("L'expérience a été modifiée avec");
-        globalContext.setSuccesMsg(true);
-        setTimeout(() => {
-          globalContext.setSuccesMsg(false);
-          navigate("/profile");
-        }, 2000);
-      } catch (err) {
-        console.error(err);
-        globalContext.setErrorMsg(true);
-        globalContext.setMsgContent("Formulaire incorrect");
-        setTimeout(() => {
-          globalContext.setErrorMsg(false);
-        }, 2000);
-      }
+      globalContext.setMsgContent("L'expérience a été modifiée avec");
+      globalContext.setSuccesMsg(true);
+      setTimeout(() => {
+        globalContext.setSuccesMsg(false);
+        navigate("/profile");
+      }, 2000);
+    } catch (err) {
+      console.error(err);
+      globalContext.setErrorMsg(true);
+      globalContext.setMsgContent("Formulaire incorrect");
+      setTimeout(() => {
+        globalContext.setErrorMsg(false);
+      }, 2000);
     }
   };
-  useEffect(() => {
-    const getExperience = async () => {
-      try {
-        const response = await globalContext.apiService.get(
-          `http://localhost:3310/api/experience/${id}`
-        );
-        const experience = response.data;
 
-        const dateBeginObject = new Date(experience.date_begin);
-        const dateEndObject = new Date(experience.date_end);
+  const handleFormChange = (event) => {
+    setExperience((prevData) => ({
+      ...prevData,
+      [event.target.name]: event.target.value,
+    }));
+  };
 
-        const formattedDateBegin = format(dateBeginObject, "yyyy-MM-dd");
-        const formattedDateEnd = format(dateEndObject, "yyyy-MM-dd");
-
-        experience.dateBegin = formattedDateBegin;
-        experience.dateEnd = formattedDateEnd;
-
-        setAddXp(experience);
-      } catch (err) {
-        console.error(err);
-      }
-    };
-    getExperience();
-  }, [id]);
   return (
     <>
       <HeaderCourt />
       <div className="container-page with-rounded-border">
         <h1>Modifier votre expérience</h1>
-        <form onSubmit={handleUpdateXp}>
+        <form onSubmit={handleFormSubmit}>
           <div className="container-input">
             <Input
               titleInput="Intitulé du poste *"
               holderText="Chef de projet"
               fieldName="title"
               inputType="text"
-              valueInput={addXp}
-              handleChange={(event) =>
-                globalContext.handleChange(setAddXp, "title", event)
-              }
+              valueInput={experience}
+              handleChange={handleFormChange}
             />
             <Input
               titleInput="Entreprise *"
               holderText="Inoxia"
               fieldName="company"
               inputType="text"
-              valueInput={addXp}
-              handleChange={(event) =>
-                globalContext.handleChange(setAddXp, "company", event)
-              }
+              valueInput={experience}
+              handleChange={handleFormChange}
             />
             <Input
               titleInput="Ville *"
               holderText="Bordeaux"
               fieldName="city"
               inputType="text"
-              valueInput={addXp}
-              handleChange={(event) =>
-                globalContext.handleChange(setAddXp, "city", event)
-              }
+              valueInput={experience}
+              handleChange={handleFormChange}
             />
             <Select
               titleSelect="Type de contrat *"
               valueSelect="CDI"
               fieldName="type"
-              handleChange={(event) =>
-                globalContext.handleChange(setAddXp, "type", event)
-              }
+              handleChange={handleFormChange}
             >
-              <option value="stage" selected={addXp.type === "stage"}>
+              <option value="stage" selected={experience.type === "stage"}>
                 Stage
               </option>
-              <option value="alternance" selected={addXp.type === "alternance"}>
+              <option
+                value="alternance"
+                selected={experience.type === "alternance"}
+              >
                 Alternance
               </option>
-              <option value="CDD" selected={addXp.type === "CDD"}>
+              <option value="CDD" selected={experience.type === "CDD"}>
                 CDD
               </option>
-              <option value="CDI" selected={addXp.type === "CDI"}>
+              <option value="CDI" selected={experience.type === "CDI"}>
                 CDI
               </option>
             </Select>
             <div className="container-checkbox-experience">
               <CheckboxCondition
                 textCondition="J'occupe ce poste actuellement"
-                fieldName="condition-poste"
-                handleChange={(event) =>
-                  globalContext.handleCheckboxChange(
-                    setAddXp,
-                    "isWorking",
-                    event
-                  )
-                }
+                fieldName="isWorking"
+                handleChange={handleFormChange}
               />
             </div>
             <DateComponent
               titleCalendar="De :"
               fieldName="dateBegin"
-              handleChange={(event) =>
-                globalContext.handleChange(setAddXp, "dateBegin", event)
-              }
-              value={addXp.dateBegin}
+              handleChange={handleFormChange}
+              value={experience.dateBegin}
             />
             <DateComponent
               titleCalendar="Jusqu'au :"
               fieldName="dateEnd"
-              handleChange={(event) =>
-                globalContext.handleChange(setAddXp, "dateEnd", event)
-              }
-              value={addXp.dateEnd}
+              handleChange={handleFormChange}
+              value={experience.dateEnd}
             />
             <TextArea
               titleInput="Description du poste *"
               holderText="Lorem ipsum dolor si amet"
               fieldName="description"
               inputType="text"
-              valueInput={addXp}
-              handleChange={(event) =>
-                globalContext.handleChange(setAddXp, "description", event)
-              }
+              valueInput={experience}
+              handleChange={handleFormChange}
             />
             <div>
               {globalContext.errorMsg && (

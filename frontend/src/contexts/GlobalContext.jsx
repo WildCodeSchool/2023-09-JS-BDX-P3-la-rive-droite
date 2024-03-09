@@ -6,34 +6,13 @@ import ApiService from "../services/api.service";
 const GlobalContext = createContext();
 
 function GlobalContextProvider({ children, apiService }) {
-  // Messages d'alertes.
+  const navigate = useNavigate();
+
   const givenData = useLoaderData();
+  const [user, setUser] = useState(givenData?.preloadUser?.data);
   const [isAdmin, setIsAdmin] = useState(
     givenData?.preloadUser?.data?.is_admin
   );
-  const [user, setUser] = useState(givenData?.preloadUser?.data);
-  const [errorMsg, setErrorMsg] = useState(false);
-  const [succesMsg, setSuccesMsg] = useState(false);
-  const [msgContent, setMsgContent] = useState("");
-
-  const navigate = useNavigate();
-
-  const handleChange = (callback, fieldName, event) => {
-    callback((previousData) => ({
-      ...previousData,
-      [fieldName]: event.target.value,
-    }));
-  };
-
-  const handleCheckboxChange = (callback, fieldName) => {
-    callback((prevData) => {
-      const newValue = !prevData[fieldName];
-      return {
-        ...prevData,
-        [fieldName]: newValue,
-      };
-    });
-  };
 
   function unauthorized() {
     if (!isAdmin) {
@@ -41,31 +20,13 @@ function GlobalContextProvider({ children, apiService }) {
     }
   }
 
-  // const handleLog = () => {
-  //   console.log(isAdmin);
-  // };
-
-  // Renvoie sur la lien de l'offre avec le bon "id".
-  // const viewOffer = async (id) => {
-  //   try {
-  //     const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/offer/${id}`);
-  //     if (response.ok) {
-  //       const data = await response.json();
-  //       console.log(data);
-  //       // setOffers(data);
-  //       navigate(`/offer/${id}`);
-  //     } else {
-  //       console.error("Echec de la récupération des données.");
-  //     }
-  //   } catch (err) {
-  //     console.error(err);
-  //   }
-  // };
+  // Messages d'alertes.
+  const [errorMsg, setErrorMsg] = useState(false);
+  const [succesMsg, setSuccesMsg] = useState(false);
+  const [msgContent, setMsgContent] = useState("");
 
   const values = useMemo(
     () => ({
-      handleChange,
-      handleCheckboxChange,
       errorMsg,
       setErrorMsg,
       succesMsg,
@@ -80,8 +41,6 @@ function GlobalContextProvider({ children, apiService }) {
       unauthorized,
     }),
     [
-      handleChange,
-      handleCheckboxChange,
       errorMsg,
       setErrorMsg,
       succesMsg,

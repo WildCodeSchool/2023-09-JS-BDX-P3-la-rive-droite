@@ -86,33 +86,48 @@ function SignIn() {
       setTimeout(() => {
         globalContext.setErrorMsg(false);
       }, 2000);
-    } else if (!emailRegex.test(signIn.email)) {
+      return;
+    }
+
+    if (!emailRegex.test(signIn.email)) {
       globalContext.setErrorMsg(true);
       globalContext.setMsgContent("L'adresse mail n'est pas correcte");
       setTimeout(() => {
         globalContext.setErrorMsg(false);
       }, 2000);
-    } else if (signIn.password.length < 8) {
+      return;
+    }
+
+    if (signIn.password.length < 8) {
       globalContext.setErrorMsg(true);
       globalContext.setMsgContent("Le mot de passe n'est pas assez long");
       setTimeout(() => {
         globalContext.setErrorMsg(false);
       }, 2000);
-    } else if (!passwordRegex.test(signIn.password)) {
+      return;
+    }
+
+    if (!passwordRegex.test(signIn.password)) {
       globalContext.setErrorMsg(true);
       globalContext.setMsgContent(
         "Le mot de passe doit contenir au moins : 1 majuscule, 1 minuscule, 1 chiffre, 1 caractère spécial (@$!%*?&)"
       );
       setTimeout(() => {
         globalContext.setErrorMsg(false);
-      }, 6000);
-    } else if (signIn.password !== signIn.password2) {
+      }, 4000);
+      return;
+    }
+
+    if (signIn.password !== signIn.password2) {
       globalContext.setErrorMsg(true);
       globalContext.setMsgContent("Les mots de passes ne sont pas identiques");
       setTimeout(() => {
         globalContext.setErrorMsg(false);
       }, 2000);
-    } else if (signIn.cguAgree === false) {
+      return;
+    }
+
+    if (!signIn.cguAgree) {
       globalContext.setErrorMsg(true);
       globalContext.setMsgContent(
         "Vous n'avez pas validé les conditions générales"
@@ -120,30 +135,36 @@ function SignIn() {
       setTimeout(() => {
         globalContext.setErrorMsg(false);
       }, 2000);
-    } else {
-      globalContext.setSuccesMsg(true);
-      globalContext.setMsgContent("Compte créé avec");
-      setTimeout(() => {
-        globalContext.setSuccesMsg(false);
-      }, 2000);
-      const response = await apiService.post(
-        `${import.meta.env.VITE_BACKEND_URL}/api/users`,
-        {
-          ...signIn,
-        }
-      );
-
-      await apiService.post(
-        `${import.meta.env.VITE_BACKEND_URL}/api/users/${
-          response.insertId
-        }/set/skills`,
-        { competences: selectedCompetences.map((c) => c.id) }
-      );
-
-      navigate("/login");
+      return;
     }
+    globalContext.setSuccesMsg(true);
+    globalContext.setMsgContent("Compte créé avec");
+    setTimeout(() => {
+      globalContext.setSuccesMsg(false);
+    }, 2000);
+    const response = await apiService.post(
+      `${import.meta.env.VITE_BACKEND_URL}/api/users`,
+      {
+        ...signIn,
+      }
+    );
+
+    await apiService.post(
+      `${import.meta.env.VITE_BACKEND_URL}/api/users/${
+        response.insertId
+      }/set/skills`,
+      { competences: selectedCompetences.map((c) => c.id) }
+    );
+
+    navigate("/login");
   };
 
+  const handleFormChange = (event) => {
+    setSignIn((prevData) => ({
+      ...prevData,
+      [event.target.name]: event.target.value,
+    }));
+  };
   return (
     <>
       <HeaderLongTitle textTitle="Création de votre compte" />
@@ -157,9 +178,7 @@ function SignIn() {
               fieldName="email"
               typeInput="email"
               valueInput={signIn}
-              handleChange={(event) =>
-                globalContext.handleChange(setSignIn, "email", event)
-              }
+              handleChange={handleFormChange}
             />
             <Input
               titleInput="Mot de passe *"
@@ -167,9 +186,7 @@ function SignIn() {
               fieldName="password"
               typeInput="password"
               valueInput={signIn}
-              handleChange={(event) =>
-                globalContext.handleChange(setSignIn, "password", event)
-              }
+              handleChange={handleFormChange}
             />
             <Input
               titleInput="Confirmer le mot de passe *"
@@ -177,9 +194,7 @@ function SignIn() {
               fieldName="password2"
               typeInput="password"
               valueInput={signIn}
-              handleChange={(event) =>
-                globalContext.handleChange(setSignIn, "password2", event)
-              }
+              handleChange={handleFormChange}
             />
             <div className="container-coordonnees">
               <Title titleText="Vos coordonnées" />
@@ -188,18 +203,14 @@ function SignIn() {
                 holderText="Votre nom"
                 fieldName="lastname"
                 valueInput={signIn}
-                handleChange={(event) =>
-                  globalContext.handleChange(setSignIn, "lastname", event)
-                }
+                handleChange={handleFormChange}
               />
               <Input
                 titleInput="Prénom *"
                 holderText="Votre prénom"
                 fieldName="firstname"
                 valueInput={signIn}
-                handleChange={(event) =>
-                  globalContext.handleChange(setSignIn, "firstname", event)
-                }
+                handleChange={handleFormChange}
               />
               <Input
                 titleInput="Téléphone *"
@@ -207,9 +218,7 @@ function SignIn() {
                 fieldName="phone"
                 typeInput="tel"
                 valueInput={signIn}
-                handleChange={(event) =>
-                  globalContext.handleChange(setSignIn, "phone", event)
-                }
+                handleChange={handleFormChange}
               />
               <Input
                 titleInput="Addresse *"
@@ -217,9 +226,7 @@ function SignIn() {
                 fieldName="address"
                 inputType="text"
                 valueInput={signIn}
-                handleChange={(event) =>
-                  globalContext.handleChange(setSignIn, "address", event)
-                }
+                handleChange={handleFormChange}
               />
               <div className="container-switch">
                 <h2 className="label-champs"> Cochez vos compétences *</h2>
@@ -244,9 +251,7 @@ function SignIn() {
               textCondition="J'accepte les conditions générales d'Externatic"
               valueInput={signIn}
               fieldName="cguAgree"
-              handleChange={() =>
-                globalContext.handleCheckboxChange(setSignIn, "cguAgree")
-              }
+              handleChange={handleFormChange}
             />
 
             <div>

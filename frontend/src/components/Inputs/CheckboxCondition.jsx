@@ -2,10 +2,6 @@ import PropTypes from "prop-types";
 import "./checkbox-conditions.css";
 
 function CheckboxCondition({ textCondition, fieldName, handleChange }) {
-  // const handleChange = () => {
-  //   handleCheckboxChange(fieldName);
-  // };
-
   return (
     <div>
       <div className="container-checkbox">

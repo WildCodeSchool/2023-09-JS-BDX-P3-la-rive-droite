@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-// import PropTypes from "prop-types";
 import "./user-profile-model.css";
 import { useNavigate } from "react-router-dom";
 import Unknow from "../../assets/no-profile.jpg";
@@ -15,18 +14,17 @@ import HeaderCourt from "../../components/Headers/HeaderCourt";
 function UserProfileModel() {
   const navigate = useNavigate();
   const globalContext = useGlobalContext();
-  const [getProfile, setGetProfile] = useState({});
-  // const [userCompetences, setUserCompetences] = useState({});
+  const [profile, setProfile] = useState({});
+
   const [experiences, setExperiences] = useState([]);
   const [courses, setCourses] = useState([]);
-  // const { experiences, courses } = useLoaderData();
 
   const getUserProfile = async () => {
     try {
       const response = await globalContext.apiService.get(
         `${import.meta.env.VITE_BACKEND_URL}/api/users/me`
       );
-      setGetProfile(response.data);
+      setProfile(response.data);
     } catch (err) {
       console.error(err);
     }
@@ -112,7 +110,6 @@ function UserProfileModel() {
     fetchExperiences();
     fetchCourses();
     getUserProfile();
-    fetchCvId();
   }, []);
 
   return (
@@ -134,20 +131,20 @@ function UserProfileModel() {
           />
         </div>
         <h1>
-          {getProfile.firstname} {getProfile.lastname}
+          {profile.firstname} {profile.lastname}
         </h1>
         <div className="container-info-profile">
           <h2 className="label-champs">Vos coordonnées</h2>
 
-          <p>Nom : {getProfile.lastname}</p>
-          <p>Prénom : {getProfile.firstname}</p>
-          <p>Email : {getProfile.email}</p>
-          <p>Téléphone : {getProfile.phone}</p>
-          <p>Adresse : {getProfile.address}</p>
+          <p>Nom : {profile.lastname}</p>
+          <p>Prénom : {profile.firstname}</p>
+          <p>Email : {profile.email}</p>
+          <p>Téléphone : {profile.phone}</p>
+          <p>Adresse : {profile.address}</p>
         </div>
         <h2 className="label-champs">Vos compétences</h2>
         <div className="competence-match">
-          {getProfile.competences?.map((competence) => {
+          {profile.competences?.map((competence) => {
             return (
               <span className="competence is-matching" key={competence.id}>
                 {competence.name}
@@ -157,7 +154,7 @@ function UserProfileModel() {
         </div>
         <ButtonMaxi
           textBtn="Modifier votre profil"
-          clickFunc={() => navigate(`/profile/edit/${getProfile.id}`)}
+          clickFunc={() => navigate(`/profile/edit/${profile.id}`)}
         />
 
         <AddDetailsCV
@@ -211,36 +208,5 @@ function UserProfileModel() {
     </div>
   );
 }
-
-// UserProfileModel.propTypes = {
-//   experiences: PropTypes.arrayOf(
-//     PropTypes.shape({
-//       id: PropTypes.number.isRequired,
-//       company: PropTypes.string.isRequired,
-//       title: PropTypes.string.isRequired,
-//       type: PropTypes.string.isRequired,
-//       city: PropTypes.string.isRequired,
-//       date_begin: PropTypes.string.isRequired,
-//       date_end: PropTypes.string.isRequired,
-//       description: PropTypes.string.isRequired,
-//     })
-//   ),
-//   courses: PropTypes.arrayOf(
-//     PropTypes.shape({
-//       id: PropTypes.number.isRequired,
-//       level: PropTypes.string.isRequired,
-//       domaine: PropTypes.string.isRequired,
-//       date_begin: PropTypes.string.isRequired,
-//       date_end: PropTypes.string.isRequired,
-//       name: PropTypes.string.isRequired,
-//       description: PropTypes.string.isRequired,
-//     })
-//   ),
-// };
-
-// UserProfileModel.defaultProps = {
-//   experiences: [],
-//   courses: [],
-// };
 
 export default UserProfileModel;
