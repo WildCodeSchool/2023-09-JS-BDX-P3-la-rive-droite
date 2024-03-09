@@ -25,17 +25,4 @@ const getCv = async (req, res) => {
   }
 };
 
-const postCv = async (req, res) => {
-  try {
-    const rows = await models.cv.create(req.body);
-    res.send({
-      id: rows.insertId,
-      userId: rows.user_id,
-    });
-  } catch (err) {
-    console.error(err);
-    res.status(422).send({ error: err.message });
-  }
-};
-
-module.exports = { postCv, getCv };
+module.exports = { getCv };

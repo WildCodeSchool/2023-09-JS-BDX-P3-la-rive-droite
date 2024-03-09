@@ -40,14 +40,41 @@ const UserCompetenceManager = require("./UserCompetenceManager");
 const OfferCompetenceManager = require("./OfferCompetenceManager");
 const CompetenceManager = require("./CompetenceManager");
 
+/**
+ * @type {UserManager}
+ */
 models.user = new UserManager();
+/**
+ * @type {OfferManager}
+ */
 models.offer = new OfferManager();
+/**
+ * @type {ExperienceManager}
+ */
 models.experience = new ExperienceManager();
+/**
+ * @type {CourseManager}
+ */
 models.course = new CourseManager();
+/**
+ * @type {CvManager}
+ */
 models.cv = new CvManager();
+/**
+ * @type {UploadManager}
+ */
 models.upload = new UploadManager();
+/**
+ * @type {UserCompetenceManager}
+ */
 models.userCompetence = new UserCompetenceManager();
+/**
+ * @type {OfferCompetenceManager}
+ */
 models.offerCompetence = new OfferCompetenceManager();
+/**
+ * @type {CompetenceManager}
+ */
 models.competence = new CompetenceManager();
 
 models.user.setDatabase(pool);

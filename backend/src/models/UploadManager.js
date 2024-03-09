@@ -6,14 +6,6 @@ class UploadManager extends AbstractManager {
     super({ table: "upload" });
   }
 
-  // async getUpload(uploadId) {
-  //   const [upload] = await this.database.query(
-  //     `SELECT * FROM ${this.table} WHERE id = ?`,
-  //     [uploadId]
-  //   );
-  //   return upload;
-  // }
-
   create(data) {
     let filename = data.destination.replace("public/", "");
     filename += `${data.filename}.`;

@@ -1,19 +1,4 @@
-// const jwt = require("jsonwebtoken");
 const models = require("../models/index");
-
-// function generateAccessToken(data) {
-//   return jwt.sign(data, process.env.APP_SECRET);
-// }
-
-const getExperiences = async (_, res) => {
-  try {
-    const rows = await models.experience.findAll();
-    res.send(rows);
-  } catch (err) {
-    console.error(err);
-    res.sendStatus(500);
-  }
-};
 
 const getExperiencesByCvId = async (req, res) => {
   try {
@@ -83,7 +68,6 @@ const deleteExperienceById = async (req, res) => {
 };
 
 module.exports = {
-  getExperiences,
   getExperienceById,
   postExperience,
   updateExperience,

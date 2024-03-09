@@ -29,36 +29,6 @@ class UserCompetenceManager extends AbstractManager {
     }
   }
 
-  async addUserCompetences(userId, body) {
-    const uniqValues = new Set(body.competences ?? []);
-    const [userCompetences] = await this.database.query(
-      `SELECT competence_id from ${this.table} where user_id = ?`,
-      [userId]
-    );
-
-    userCompetences.forEach((userCompetence) => {
-      if (uniqValues.has(userCompetence.competence_id)) {
-        uniqValues.delete(userCompetence.competence_id);
-      }
-    });
-
-    if (!uniqValues.size) {
-      return [];
-    }
-
-    const sqlValues = [];
-    let sql = `insert into ${this.table} (user_id, competence_id) VALUES`;
-
-    [...uniqValues.values()].forEach((competenceId) => {
-      sql += `${sqlValues.length > 0 ? "," : ""} (?,?)`;
-      sqlValues.push(userId);
-      sqlValues.push(competenceId);
-    });
-
-    const [result] = await this.database.query(sql, sqlValues);
-    return result;
-  }
-
   async getUserCompetences(userId) {
     // Je sélécionne toutes les colonnes de la table compétences
     // Je fais une jointure avec la table user_competence
