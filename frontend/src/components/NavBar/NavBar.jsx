@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   MDBNavbar,
   MDBContainer,
@@ -9,11 +9,22 @@ import {
   MDBNavbarBrand,
   MDBCollapse,
 } from "mdb-react-ui-kit";
-import { useGlobalContext } from "../../contexts/GlobalContext";
+import globalContext, { useGlobalContext } from "../../contexts/GlobalContext";
 import "./navBar.css";
 
 export default function Navbar() {
-  const { user, handleLogout, isAdmin } = useGlobalContext();
+  const { user, isAdmin } = useGlobalContext();
+
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    localStorage.clear();
+    globalContext.apiService.setToken(null);
+    globalContext.setUser(null);
+    globalContext.setIsAdmin(null);
+    // eslint-disable-next-line no-alert
+    alert(`Déconnexion réussie`);
+    return navigate("/");
+  };
 
   const [openNavColor, setOpenNavColor] = useState(false);
   useEffect(() => {

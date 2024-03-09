@@ -1,18 +1,61 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import Input from "../../components/Inputs/Input";
 import ButtonMaxi from "../../components/Boutons/ButtonMaxi";
 import HeaderLongTitle from "../../components/Headers/HeaderLongTitle";
-import { useGlobalContext } from "../../contexts/GlobalContext";
-import { useLogContext } from "../../contexts/LogContext";
 import ErrorMsg from "../../components/Alertes Messages/ErrorMsg";
 import SuccesMsg from "../../components/Alertes Messages/SuccesMsg";
 import "./login-signin.css";
 import "../../components/Inputs/input.css";
 import "../../components/Boutons/button-maxi.css";
+import { useGlobalContext } from "../../contexts/GlobalContext";
 
 function Login() {
-  const { errorMsg, succesMsg, msgContent, handleChange } = useGlobalContext();
-  const { logIn, setLogIn, handleSubmitLogIn } = useLogContext();
+  const navigate = useNavigate();
+  const globalContext = useGlobalContext();
+  const [logIn, setLogIn] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleSubmitLogIn = async () => {
+    try {
+      const data = await globalContext.apiService.post(
+        `${import.meta.env.VITE_BACKEND_URL}/api/login`,
+        logIn
+      );
+      localStorage.setItem("token", data.token);
+
+      globalContext.apiService.setToken(data.token);
+
+      const result = await globalContext.apiService.get(
+        `${import.meta.env.VITE_BACKEND_URL}/api/users/me`
+      );
+
+      globalContext.setUser(result.data);
+      globalContext.setIsAdmin(result.data.is_admin);
+      globalContext.setMsgContent(
+        `Content de vous revoir ${result.data.firstname} ${result.data.lastname}! Connexion effectuée avec`
+      );
+      globalContext.setSuccesMsg(true);
+      setTimeout(() => {
+        globalContext.setSuccesMsg(false);
+        if (result.data.is_admin === 1) {
+          navigate("/dashboard");
+        } else {
+          navigate("/");
+        }
+      }, 2000);
+    } catch (err) {
+      console.error(err);
+      globalContext.setMsgContent(`Mot de passe ou identifiant incorrect`);
+      globalContext.setErrorMsg(true);
+      setTimeout(() => {
+        globalContext.setErrorMsg(false);
+      }, 2000);
+    }
+    return null;
+  };
 
   return (
     <>
@@ -27,7 +70,9 @@ function Login() {
                 holderText="john.doe@externatic.fr"
                 fieldName="email"
                 valueInput={logIn}
-                handleChange={(event) => handleChange(setLogIn, "email", event)}
+                handleChange={(event) =>
+                  globalContext.handleChange(setLogIn, "email", event)
+                }
               />
               <Input
                 titleInput="Mot de passe *"
@@ -36,12 +81,16 @@ function Login() {
                 typeInput="password"
                 valueInput={logIn}
                 handleChange={(event) =>
-                  handleChange(setLogIn, "password", event)
+                  globalContext.handleChange(setLogIn, "password", event)
                 }
               />
               <div>
-                {errorMsg && <ErrorMsg message={msgContent} />}
-                {succesMsg && <SuccesMsg message={msgContent} />}
+                {globalContext.errorMsg && (
+                  <ErrorMsg message={globalContext.msgContent} />
+                )}
+                {globalContext.succesMsg && (
+                  <SuccesMsg message={globalContext.msgContent} />
+                )}
               </div>
               <ButtonMaxi
                 textBtn="Se connecter"

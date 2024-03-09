@@ -71,19 +71,6 @@ function AddOffer() {
         globalContext.setSuccesMsg(false);
         navigate("/dashboard");
       }, 2000);
-
-      // setAddOffer({
-      //   title: "",
-      //   company: "",
-      //   type: "",
-      //   city: "",
-      //   mission: "",
-      //   search_profile: "",
-      //   work_place: "",
-      //   salary: "",
-      //   info: "",
-      //   email: "",
-      // });
     }
   };
 

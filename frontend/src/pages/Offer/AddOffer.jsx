@@ -7,7 +7,6 @@ import Select from "../../components/Inputs/Select";
 import TextArea from "../../components/Inputs/TextArea";
 import HeaderCourt from "../../components/Headers/HeaderCourt";
 // Import de Context.
-import { useAdminContext } from "../../contexts/AdminContext";
 import { useGlobalContext } from "../../contexts/GlobalContext";
 
 // Import messages d'erreurs.
@@ -19,7 +18,18 @@ import CompetenceSwitch from "../../components/Competence Switch/CompetenceSwitc
 
 function AddOffer() {
   const navigate = useNavigate();
-  const { addOffer, setAddOffer } = useAdminContext();
+  const [addOffer, setAddOffer] = useState({
+    title: "",
+    company: "",
+    type: "",
+    city: "",
+    mission: "",
+    search_profile: "",
+    work_place: "",
+    salary: "",
+    info: "",
+    email: "",
+  });
   const globalContext = useGlobalContext();
   const [skills, setSkills] = useState([]);
   const [checkedSkills, setCheckedSkills] = useState([]);

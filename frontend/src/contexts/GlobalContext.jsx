@@ -18,14 +18,6 @@ function GlobalContextProvider({ children, apiService }) {
 
   const navigate = useNavigate();
 
-  const getItemInLS = (key) => {
-    return JSON.parse(localStorage.getItem(key));
-  };
-
-  const saveItemInLS = (key, data) => {
-    localStorage.setItem(key, JSON.stringify(data));
-  };
-
   const handleChange = (callback, fieldName, event) => {
     callback((previousData) => ({
       ...previousData,
@@ -41,24 +33,6 @@ function GlobalContextProvider({ children, apiService }) {
         [fieldName]: newValue,
       };
     });
-  };
-
-  const handleLogout = () => {
-    localStorage.clear();
-    apiService.setToken(null);
-    setUser(null);
-    setIsAdmin(null);
-    // eslint-disable-next-line no-alert
-    alert(`Déconnexion réussie`);
-    return navigate("/");
-  };
-
-  const emailRegex = /[a-z0-9._]+@[a-z0-9-]+\.[a-z]{2,3}/;
-  const passwordRegex =
-    /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-
-  const goToOffer = (id) => {
-    navigate(`/offer/${id}`);
   };
 
   function unauthorized() {
@@ -90,8 +64,6 @@ function GlobalContextProvider({ children, apiService }) {
 
   const values = useMemo(
     () => ({
-      getItemInLS,
-      saveItemInLS,
       handleChange,
       handleCheckboxChange,
       errorMsg,
@@ -100,22 +72,14 @@ function GlobalContextProvider({ children, apiService }) {
       setSuccesMsg,
       msgContent,
       setMsgContent,
-      navigate,
-      emailRegex,
-      passwordRegex,
       isAdmin,
       setIsAdmin,
       user,
       setUser,
       apiService,
-      handleLogout,
-      goToOffer,
       unauthorized,
-      // handleLog,
     }),
     [
-      getItemInLS,
-      saveItemInLS,
       handleChange,
       handleCheckboxChange,
       errorMsg,
@@ -124,18 +88,12 @@ function GlobalContextProvider({ children, apiService }) {
       setSuccesMsg,
       msgContent,
       setMsgContent,
-      navigate,
-      emailRegex,
-      passwordRegex,
       isAdmin,
       setIsAdmin,
       user,
       setUser,
       apiService,
-      handleLogout,
-      goToOffer,
       unauthorized,
-      // handleLog,
     ]
   );
 

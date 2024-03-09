@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import ButtonMini from "../../components/Boutons/ButtonMini";
 import { useGlobalContext } from "../../contexts/GlobalContext";
-import { useAdminContext } from "../../contexts/AdminContext";
 
 function Dashboard3() {
   const { unauthorized, apiService } = useGlobalContext();
-  const { goToEditUser } = useAdminContext();
-
-  const { handleOffers } = useAdminContext();
+  const navigate = useNavigate();
 
   const [users, setUsers] = useState([]);
 
@@ -49,7 +47,10 @@ function Dashboard3() {
     <div className="container">
       <div className="d-flex justify-content-between align-items-center mb-5">
         <h2 className="tab">Tableau de bord</h2>
-        <ButtonMini textBtn="Tableau d'Offres" onClick={handleOffers} />
+        <ButtonMini
+          textBtn="Tableau d'Offres"
+          onClick={() => navigate("/dashboard")}
+        />
       </div>
       <h4>Utilisateurs</h4>
       <table className="table mb-5">
@@ -75,7 +76,7 @@ function Dashboard3() {
                 <button
                   type="button"
                   aria-label="editeuser"
-                  onClick={() => goToEditUser(user.id)}
+                  onClick={() => navigate(`/dashboard/edit-user/${user.id}`)}
                   className="invisible-button mx-2"
                 >
                   <i className="fa-solid fa-pen" />

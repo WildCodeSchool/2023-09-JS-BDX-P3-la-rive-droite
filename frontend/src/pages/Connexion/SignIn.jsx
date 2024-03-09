@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { v4 as uuid } from "uuid";
 import Input from "../../components/Inputs/Input";
 import CheckboxCondition from "../../components/Inputs/CheckboxCondition";
 import CompetenceSwitch from "../../components/Competence Switch/CompetenceSwitch";
@@ -8,7 +9,6 @@ import ErrorMsg from "../../components/Alertes Messages/ErrorMsg";
 import Title from "../../components/Titles/Title";
 import SuccesMsg from "../../components/Alertes Messages/SuccesMsg";
 import { useGlobalContext } from "../../contexts/GlobalContext";
-import { useSignContext } from "../../contexts/SignContext";
 import "./login-signin.css";
 import "../../components/Inputs/input.css";
 import "../../components/Boutons/button-maxi.css";
@@ -16,11 +16,27 @@ import "../../components/Inputs/checkbox-conditions.css";
 
 function SignIn() {
   const globalContext = useGlobalContext();
-  const { signIn, setSignIn } = useSignContext();
   const [allCompetences, setAllCompetences] = useState([]);
   const [selectedCompetences, setSelectedCompetences] = useState([]);
 
   const { apiService } = useGlobalContext();
+
+  const emailRegex = /[a-z0-9._]+@[a-z0-9-]+\.[a-z]{2,3}/;
+  const passwordRegex =
+    /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+  const [signIn, setSignIn] = useState({
+    id: uuid(),
+    email: "",
+    password: "",
+    password2: "",
+    lastname: "",
+    firstname: "",
+    phone: "",
+    address: "",
+    cguAgree: false,
+    addCvNow: false,
+  });
 
   useEffect(() => {
     const getAllCompetences = async () => {
@@ -69,7 +85,7 @@ function SignIn() {
       setTimeout(() => {
         globalContext.setErrorMsg(false);
       }, 2000);
-    } else if (!globalContext.emailRegex.test(signIn.email)) {
+    } else if (!emailRegex.test(signIn.email)) {
       globalContext.setErrorMsg(true);
       globalContext.setMsgContent("L'adresse mail n'est pas correcte");
       setTimeout(() => {
@@ -81,7 +97,7 @@ function SignIn() {
       setTimeout(() => {
         globalContext.setErrorMsg(false);
       }, 2000);
-    } else if (!globalContext.passwordRegex.test(signIn.password)) {
+    } else if (!passwordRegex.test(signIn.password)) {
       globalContext.setErrorMsg(true);
       globalContext.setMsgContent(
         "Le mot de passe doit contenir au moins : 1 majuscule, 1 minuscule, 1 chiffre, 1 caractère spécial (@$!%*?&)"

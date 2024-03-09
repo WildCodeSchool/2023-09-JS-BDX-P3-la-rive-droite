@@ -1,8 +1,10 @@
+import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import ButtonMini from "../Boutons/ButtonMini";
 import "./card-model.css";
 
-function CardOffre({ offer, goToOffer }) {
+function CardOffre({ offer }) {
+  const navigate = useNavigate();
   const trimText = (chaine, limite) => {
     if (chaine.length <= limite) {
       return chaine;
@@ -41,12 +43,14 @@ function CardOffre({ offer, goToOffer }) {
         {offer.type} - {offer.city}
       </h5>
       <p className="p-description ">{trimText(offer.info, 250)}</p>
-      <ButtonMini textBtn="Postuler" onClick={() => goToOffer(offer.id)} />
+      <ButtonMini
+        textBtn="Postuler"
+        onClick={() => navigate(`/offer/${offer.id}`)}
+      />
     </div>
   );
 }
 CardOffre.propTypes = {
-  goToOffer: PropTypes.func.isRequired,
   offer: PropTypes.shape({
     id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,

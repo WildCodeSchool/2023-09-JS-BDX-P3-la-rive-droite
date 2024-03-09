@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from "react";
+
 import HeaderLongResearch from "../../components/Headers/HeaderLongResearch";
 import { useGlobalContext } from "../../contexts/GlobalContext";
 import "./Home.css";
 import CardOffre from "../../components/CardModel/CardOffre";
-import { useUserContext } from "../../contexts/UserContext";
 
 import HomeCard from "../../components/HomeCard/HomeCard";
 import CardOffer from "../../components/CardModel/CardOffer";
 
 function Home() {
-  const { goToOffer, apiService, user } = useGlobalContext();
-  const { toggleFavorite } = useUserContext();
+  const { apiService, user } = useGlobalContext();
   const [matchingOffers, setMatchingOffers] = useState([]);
 
   useEffect(() => {
@@ -47,12 +46,7 @@ function Home() {
         <div className="offer-container">
           {user ? (
             matchingOffers.map((offer) => (
-              <CardOffre
-                key={offer.id}
-                offer={offer}
-                toggleFavorite={toggleFavorite}
-                goToOffer={goToOffer}
-              />
+              <CardOffre key={offer.id} offer={offer} />
             ))
           ) : (
             <div className="offer-container-offer">

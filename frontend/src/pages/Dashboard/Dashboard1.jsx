@@ -1,15 +1,16 @@
-import React, { useState, useEffect } from "react";
-import { Outlet } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Outlet, useNavigate } from "react-router-dom";
 import ButtonMini from "../../components/Boutons/ButtonMini";
 import { useGlobalContext } from "../../contexts/GlobalContext";
-import { useAdminContext } from "../../contexts/AdminContext";
 
 function Dashboard1() {
-  const { unauthorized, goToOffer, apiService } = useGlobalContext();
-  const { goToEditOffer } = useAdminContext();
-
-  const { handleAddOffer, handleUsers } = useAdminContext();
+  const { unauthorized, apiService } = useGlobalContext();
+  const navigate = useNavigate();
   const [offers, setOffers] = useState([]);
+
+  const handleAddOffer = () => {
+    navigate("/dashboard/offer");
+  };
 
   const deleteOffer = async (id) => {
     // eslint-disable-next-line no-alert
@@ -68,7 +69,7 @@ function Dashboard1() {
           <ButtonMini
             className="mx-3"
             textBtn="Tableau d'Utilisateurs"
-            onClick={handleUsers}
+            onClick={() => navigate("/dashboard/user")}
           />
         </div>
       </div>
@@ -92,7 +93,7 @@ function Dashboard1() {
                 <button
                   type="button"
                   aria-label="editoffer"
-                  onClick={() => goToEditOffer(offer.id)}
+                  onClick={() => navigate(`/dashboard/edit-offer/${offer.id}`)}
                   className="invisible-button mx-2"
                 >
                   <i className="fa-solid fa-pen" />
@@ -100,7 +101,7 @@ function Dashboard1() {
                 <button
                   type="button"
                   aria-label="getoffer"
-                  onClick={() => goToOffer(offer.id)}
+                  onClick={() => navigate(`/offer/${offer.id}`)}
                   className="invisible-button mx-2"
                 >
                   <i className="fa-solid fa-eye" />
