@@ -84,7 +84,6 @@ function EditExperience() {
           globalContext.setSuccesMsg(false);
           globalContext.navigate("/profile");
         }, 2000);
-        // saveItemInLS("Experience", xpSaved);
       } catch (err) {
         console.error(err);
         globalContext.setErrorMsg(true);

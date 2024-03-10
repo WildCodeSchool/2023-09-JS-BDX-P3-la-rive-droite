@@ -3,10 +3,10 @@ const { faker } = require("@faker-js/faker");
 const server = require("../index");
 
 const newUser = {
-  firstname: "Marie",
-  lastname: "Delaire",
-  phone: "0612345678",
-  address: "Cenon",
+  firstname: "Frederique",
+  lastname: "Druet",
+  phone: "06111475498",
+  address: "Bordeaux",
   email: faker.internet.email(),
   password: "Mdp2024*",
   upload_url: "",
